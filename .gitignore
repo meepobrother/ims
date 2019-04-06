@@ -1,0 +1,14 @@
+node_modules/
+yarn.lock
+yarn-error.log
+lerna-debug.log
+.temp/
+.rn_temp/
+.DS_Store
+.TemporaryItems
+.DocumentRevisions-V100
+.Spotlight-V100/
+template/
+data/
+.Trashes/
+.fseventsd/

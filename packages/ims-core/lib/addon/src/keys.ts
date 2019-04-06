@@ -1,0 +1,20 @@
+export const AddonMetadataKey = 'AddonMetadataKey'
+export const ControllerMetadataKey = 'ControllerMetadataKey'
+export const RoleMetadataKey = 'RoleMetadataKey';
+export const RouterMetadataKey = 'RouterMetadataKey';
+export const TemplateMetadataKey = 'TemplateMetadataKey';
+export const TypeormMetadataKey = 'TypeormMetadataKey';
+export const CliMetadataKey = 'CliMetadataKey'
+export const CommandMetadataKey = 'CommandMetadataKey'
+export const VersionMetadataKey = 'VersionMetadataKey'
+
+export const BodyMetadataKey = 'BodyMetadataKey';
+export const NextMetadataKey = 'NextMetadataKey';
+export const QueryMetadataKey = 'QueryMetadataKey';
+export const RedirectMetadataKey = 'RedirectMetadataKey';
+export const ReqMetadataKey = 'ReqMetadataKey';
+export const ResMetadataKey = 'ResMetadataKey';
+export const SessionMetadataKey = 'SessionMetadataKey';
+export const UploadMetadataKey = 'UploadMetadataKey';
+export const UploadsMetadataKey = 'UploadsMetadataKey';
+export const RenderMetadataKey = 'RenderMetadataKey';

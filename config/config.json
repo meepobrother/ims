@@ -1,0 +1,14 @@
+{
+  "system": "ims_system",
+  "addons": "ims_addons",
+  "port": 8080,
+  "admin": [
+    1
+  ],
+  "db": {
+    "username": "root",
+    "host": "localhost",
+    "port": "3306",
+    "password": "123456"
+  }
+}

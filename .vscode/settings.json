@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/.fseventsd": true,
+        "**/.MobileBackups": true,
+        "**/.PKInstallSandboxManager": true,
+        "**/.Spotlight-V100": true,
+        "**/.Trashes": true
+    },
+    "editor.fontSize": 16
+}

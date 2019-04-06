@@ -1,0 +1,182 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "allowJs": false,
+    "checkJs": false,
+    "jsx": "preserve",
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./types",
+    "rootDir": ".",
+    "removeComments": false,
+    "noEmit": false,
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "isolatedModules": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": false,
+    "strictPropertyInitialization": false,
+    "noImplicitThis": false,
+    "alwaysStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": false,
+    "suppressImplicitAnyIndexErrors": false,
+    "paths": {
+      "ims-adminer": [
+        "packages/ims-adminer/lib/index.ts"
+      ],
+      "ims-cloud": [
+        "packages/ims-cloud/lib/index.ts"
+      ],
+      "ims-adminer/*": [
+        "packages/ims-adminer/*"
+      ],
+      "ims-protons": [
+        "packages/ims-protons/lib/index.ts"
+      ],
+      "ims-util": [
+        "packages/ims-util/lib/index.ts"
+      ],
+      "ims-model": [
+        "packages/ims-model/lib/index.ts"
+      ],
+      "ims-install": [
+        "packages/ims-install/lib/index.ts"
+      ],
+      "ims-compiler": [
+        "packages/ims-compiler/lib/index.ts"
+      ],
+      "ims-utils": [
+        "packages/ims-utils/lib/index.ts"
+      ],
+      "ims-compiler-admin": [
+        "packages/ims-compiler-admin/lib/index.ts"
+      ],
+      "ims-compiler-mobile": [
+        "packages/ims-compiler-mobile/lib/index.ts"
+      ],
+      "ims-compiler-dll": [
+        "packages/ims-compiler-dll/lib/index.ts"
+      ],
+      "ims-proxy": [
+        "packages/ims-proxy/lib/index.ts"
+      ],
+      "ims-decorator": [
+        "packages/ims-decorator/lib/index.ts"
+      ],
+      "ims-common": [
+        "packages/ims-common/lib/index.ts"
+      ],
+      "ims-layout-admin": [
+        "packages/ims-layout-admin/lib/index.ts"
+      ],
+      "ims-layout-mobile": [
+        "packages/ims-layout-mobile/lib/index.ts"
+      ],
+      "ims-cli": [
+        "packages/ims-cli/lib/index.ts"
+      ],
+      "ims-orm": [
+        "packages/ims-orm/lib/index.ts"
+      ],
+      "ims-dom": [
+        "packages/ims-dom/lib/index.ts"
+      ],
+      "ims-core": [
+        "packages/ims-core/lib/index.ts"
+      ],
+      "ims-platform": [
+        "packages/ims-platform/lib/index.ts"
+      ],
+      "ims-platform-express": [
+        "packages/ims-platform-express/lib/index.ts"
+      ],
+      "ims-platform-router": [
+        "packages/ims-platform-express/lib/router/index.ts"
+      ],
+      "ims-platform-cli": [
+        "packages/ims-platform-cli/lib/index.ts"
+      ],
+      "ims-platform-typeorm": [
+        "packages/ims-platform-typeorm/lib/index.ts"
+      ],
+      "ims-platform-browser": [
+        "packages/ims-platform-browser/lib/index.ts"
+      ],
+      "ims-webpack": [
+        "packages/ims-webpack/lib/index.ts"
+      ],
+      "ims-website": [
+        "packages/ims-website/lib/index.ts"
+      ],
+      "ims-webpack-admin": [
+        "packages/ims-webpack-admin/lib/index.ts"
+      ],
+      "ims-webpack-mobile": [
+        "packages/ims-webpack-mobile/lib/index.ts"
+      ],
+      "ims-sdk": [
+        "packages/ims-sdk/lib/index.ts"
+      ],
+      "ims-components": [
+        "packages/ims-components/lib/index.ts"
+      ],
+      "@babel/core": [
+        "@types/babel__core"
+      ],
+      "@babel/template": [
+        "@types/babel__template"
+      ],
+      "@babel/traverse": [
+        "@types/babel__traverse"
+      ],
+      "@babel/generator": [
+        "@types/babel__generator"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types": [
+      "node"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "preserveSymlinks": true,
+    "noErrorTruncation": true,
+    "sourceRoot": ".",
+    "mapRoot": ".",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "src",
+    "packages",
+    "tools",
+    "addons",
+    "config",
+    "data",
+    "framework",
+    "packages/ims-types/lib/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "types"
+  ]
+}
