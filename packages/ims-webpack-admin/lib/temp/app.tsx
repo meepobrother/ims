@@ -7,7 +7,7 @@ path:"/adminer",
 roles:[],
 routes:[{
 path:"/adminer/manager",
-component:React.lazy(()=>import(/* webpackChunkName: "adminer-manager" */"../../../ims-adminer/addon/template/admin/manager/layouts")),
+component:React.lazy(()=>import(/* webpackChunkName: "adminer-manager" */"../../../ims-adminer/addon/template/admin/layout")),
 roles:[],
 routes:[{
 path:"/adminer/manager/system",
