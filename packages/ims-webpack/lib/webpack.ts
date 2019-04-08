@@ -83,38 +83,11 @@ export abstract class ImsWebpack {
                             configFile: false,
                             presets: ['@babel/preset-env', '@babel/preset-react'],
                             plugins: [
-                                "@babel/plugin-transform-modules-umd",
-                                'babel-plugin-macros',
-                                ['@babel/plugin-transform-destructuring', {
-                                    loose: false,
-                                    selectiveLoose: [
-                                        'useState',
-                                        'useEffect',
-                                        'useContext',
-                                        'useReducer',
-                                        'useCallback',
-                                        'useMemo',
-                                        'useRef',
-                                        'useImperativeHandle',
-                                        'useLayoutEffect',
-                                        'useDebugValue',
-                                    ],
-                                }],
-                                ['@babel/plugin-proposal-class-properties', { loose: true }],
-                                ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
-                                ['@babel/plugin-transform-runtime', {
-                                    corejs: false,
-                                    helpers: true,
-                                    regenerator: true,
-                                    useESModules: true,
-                                }],
-                                '@babel/plugin-syntax-dynamic-import',
                                 [AntdPlugin, {
                                     "libraryName": "antd",
                                     "libraryDirectory": "es",
                                     "style": true // `style: true` 会加载 less 文件
-                                }],
-                                [DemoPlugin]
+                                }]
                             ]
                         }
                     },{
