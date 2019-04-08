@@ -1,9 +1,15 @@
 "use strict";
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const ims_core_1 = require("ims-core");
 const path_1 = require("path");
-const fs = tslib_1.__importStar(require("fs-extra"));
+const fs = __importStar(require("fs-extra"));
 const lodash_1 = require("lodash");
 function createAdmin(context) {
     const appAst = context.getClass(ims_core_1.AppMetadataKey);

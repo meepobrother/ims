@@ -16,7 +16,7 @@
     "rootDir": ".",
     "removeComments": false,
     "noEmit": false,
-    "importHelpers": true,
+    "importHelpers": false,
     "downlevelIteration": true,
     "isolatedModules": false,
     "strict": false,
