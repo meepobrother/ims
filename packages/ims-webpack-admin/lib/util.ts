@@ -48,7 +48,7 @@ function createRouter(route: IRouter, tempDir: string) {
         let val: any = route[key];
         if (key === 'component') {
             if (val || typeof val === 'undefined' || val === 'undefined') {
-                val = `React.lazy(()=>import("${relative(tempDir, val)}"))`;
+                val = `React.lazy(()=>import(/* webpackChunkName: ${route.path} */"${relative(tempDir, val)}"))`;
                 res += `${key}:${val},\n`;
             }
         } else if (key === 'routes') {
