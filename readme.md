@@ -122,4 +122,6 @@ createClient('服务端ip', '本地端口', '绑定域名');
 * [webpack](https://github.com/webpack/webpack)
 * [pm2](https://github.com/Unitech/pm2) 
 
+<h2 align="center">QQ交流群</h2>
+
 <p align="center"><a href="https://meepo.com.cn" target="_blank" rel="noopener noreferrer"><img width="200" src="./assets/IMS群二维码.png" alt="Ims logo"></a></p>
