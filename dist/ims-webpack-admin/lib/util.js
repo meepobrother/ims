@@ -38,7 +38,7 @@ exports.createMobile = createMobile;
 const template = (routes, tempDir) => `import { bootstrap } from './bootstrap';
 import "./app.css";
 import "antd/dist/antd.css";
-import React from 'react';
+import React = require('react');
 let routes = [${routes.map(route => createRouter(route, tempDir)).join(',')}];
 bootstrap(routes);
 `;

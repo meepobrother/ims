@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
+  },
+  "dependencies": {
+    "protons": "^1.0.1"
   }
 }
