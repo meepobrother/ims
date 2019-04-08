@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ims_common_1 = require("ims-common");
-class HttpMethodContext extends ims_common_1.MethodContext {
+const ims_decorator_1 = require("ims-decorator");
+class HttpMethodContext extends ims_decorator_1.MethodContext {
     constructor(ast, context) {
         super(ast, context);
         const def = ast.metadataDef;

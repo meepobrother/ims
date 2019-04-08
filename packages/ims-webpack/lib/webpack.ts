@@ -30,7 +30,6 @@ export abstract class ImsWebpack {
     sassReg = /\.(s[ac]ss)\b/;
 
     constructor(public dist: string) {
-        this.config.mode('production');
         this.config.plugin('html').use(HtmlWebpackPlugin, [{
             template: this.getHtmlTemplate(),
             filename: 'index.html',
@@ -82,8 +81,9 @@ export abstract class ImsWebpack {
                         options: {
                             babelrc: false,
                             configFile: false,
-                            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
                             plugins: [
+                                "@babel/plugin-transform-modules-umd",
                                 'babel-plugin-macros',
                                 ['@babel/plugin-transform-destructuring', {
                                     loose: false,
@@ -100,7 +100,6 @@ export abstract class ImsWebpack {
                                         'useDebugValue',
                                     ],
                                 }],
-                                ['@babel/plugin-proposal-decorators', { decoratorsBeforeExport: true }],
                                 ['@babel/plugin-proposal-class-properties', { loose: true }],
                                 ['@babel/plugin-proposal-object-rest-spread', { useBuiltIns: true }],
                                 ['@babel/plugin-transform-runtime', {
@@ -117,6 +116,11 @@ export abstract class ImsWebpack {
                                 }],
                                 [DemoPlugin]
                             ]
+                        }
+                    },{
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
                         }
                     }]
                 }, {

@@ -7,7 +7,7 @@ export declare const Entity: (metadataDef?: Entity & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isEntityClassAst(val: ClassAst): val is ClassAst<Entity>;
 export declare class EntityAst extends ClassContext<Entity> {
 }

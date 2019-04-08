@@ -11,13 +11,13 @@ export declare class ImsAddonsLocal {
     clear(): Promise<{
         code: string;
     }>;
-    list(): Promise<[ImsAddonEntity[], number]>;
+    list(): Promise<any>;
     /**
      * 安装应用
      */
     install(body: {
         sourceRoot: string;
-    }): Promise<ImsAddonEntity>;
+    }): Promise<any>;
     /**
      * 卸载应用
      */

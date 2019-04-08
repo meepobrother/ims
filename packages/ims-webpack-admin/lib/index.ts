@@ -23,8 +23,8 @@ export class ImsWebpackAdmin extends ImsWebpack {
     isRunning: boolean;
     constructor(public context: TypeContext, dev: boolean = true) {
         super('admin');
-        this.onInit();
         this.dev = !!dev;
+        this.onInit();
     }
 
     getHtmlTemplate() {

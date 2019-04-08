@@ -5,7 +5,7 @@ export declare const Server: (metadataDef?: string & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isServerPropertyAst(val: PropertyAst): val is PropertyAst<ServerOptions>;
 export declare class ServerAst extends PropertyContext<ServerOptions> {
     constructor(ast: PropertyAst<ServerOptions>, context: ParserAstContext);

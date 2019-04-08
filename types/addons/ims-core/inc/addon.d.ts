@@ -1,5 +1,5 @@
 import { EntityRepository, Session } from 'ims-core';
-import { ImsAddonEntity } from '../typeorm';
+import { ImsAddonEntity } from 'ims-model';
 export declare class ImsCoreAddon {
     addonRepository: EntityRepository<ImsAddonEntity>;
     /**

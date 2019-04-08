@@ -1,3 +1,3 @@
 export * from './typeorm';
-export default class ImsModel {
+export declare class ImsModel {
 }

@@ -9,6 +9,7 @@ export class AddonAst extends ClassContext<T.AddonOptions> {
     incs: TypeContext[] = [];
     typeorm: TypeContext;
     template: TypeContext;
+    name: string;
     constructor(ast: ClassAst<T.AddonOptions>, context: ParserAstContext) {
         super(ast, context);
         const def = this.ast.metadataDef;
@@ -26,6 +27,7 @@ export class AddonAst extends ClassContext<T.AddonOptions> {
         } else {
             this.path = `/${kebabCase(this.ast.target.name)}`;
         }
+        this.name = kebabCase(this.ast.target.name);
         if (!this.sourceRoot) throw new Error(`${kebabCase(ast.target.name)} addon need set sourceRoot`)
     }
 
@@ -146,6 +148,13 @@ export class RouterAst extends ClassContext<T.RouterOptions> {
         if (icon) route.icon = icon;
         if (redirect) route.redirect = redirect;
         route.exact = !!this.def.exact;
+        const store = this.def.store || {};
+        const addonAst = this.getAddonAst();
+        route.store = {};
+        Object.keys(store).map(key => {
+            const val = store[key];
+            route.store[`${addonAst.name}-${key}`] = `${addonAst.sourceRoot}/template/${val}`
+        });
         return route;
     }
     getRoutes(): T.IRouter[] {

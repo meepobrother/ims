@@ -8,6 +8,9 @@ export interface IRouter {
     hideChildrenInMenu?: boolean;
     routes?: IRouter[];
     redirect?: string;
+    store?: {
+        [key: string]: any;
+    };
     exact?: boolean;
 }
 export interface AddonOptions {
@@ -47,6 +50,8 @@ export interface AddonOptions {
      * 详情
      */
     detail?: string;
+    /** 类型 */
+    type?: 'system' | 'addon';
     /**
      * api
      */
@@ -110,6 +115,16 @@ export interface RouterOptions {
      * 子菜单
      */
     routes?: Type<any>[];
+    /**
+     * 精确匹配
+     */
+    exact?: boolean;
+    /**
+     * store
+     */
+    store?: {
+        [key: string]: string;
+    };
 }
 export interface TemplateOptions {
     mobiles?: any[] | object;

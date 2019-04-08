@@ -1,4 +1,4 @@
-import { TypeContext } from 'ims-common';
+import { TypeContext } from 'ims-decorator';
 export interface PlatformHandler {
     (context: TypeContext): any;
 }

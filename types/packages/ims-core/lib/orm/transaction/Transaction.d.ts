@@ -6,7 +6,7 @@ export declare const Transaction: (metadataDef?: Transaction & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isTransactionMethodAst(val: MethodAst): val is MethodAst<Transaction>;
 export declare class TransactionAst extends MethodContext<Transaction> {
 }

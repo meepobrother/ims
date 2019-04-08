@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { IRouter } from './router';
+import { IRouter } from 'ims-core';
 export declare class ImsRoutes extends Component<{
     route: IRouter;
     fallback?: any;

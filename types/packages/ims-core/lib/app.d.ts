@@ -1,4 +1,4 @@
-import { ClassAst, ClassContext, ParserAstContext, TypeContext } from 'ims-common';
+import { ClassAst, ClassContext, ParserAstContext, TypeContext } from 'ims-decorator';
 export declare const AppMetadataKey = "AppMetadataKey";
 export interface App {
     name?: string;
@@ -12,7 +12,7 @@ export declare const App: (metadataDef?: App & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isAppClassAst(val: ClassAst): val is ClassAst<App>;
 export declare class AppAst extends ClassContext<App> {
     name: string;

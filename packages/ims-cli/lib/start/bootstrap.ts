@@ -1,12 +1,12 @@
 import { getConnection } from 'typeorm';
-import express from 'express';
+import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { ImsInstall } from 'ims-install'
 import { visitor, IConfig, setConfig } from 'ims-common';
 import { App } from 'ims-core';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { join } from 'path';
-import fs from 'fs-extra';
+import fs = require('fs-extra');
 import { parseRouter } from './parseRouter'
 import { parseTemplate } from './parseTemplate'
 import { createServer } from 'http'

@@ -1,10 +1,10 @@
 import { Session, EntityRepository } from 'ims-core';
-import { ImsUser } from '../typeorm';
+import { ImsUserEntity } from 'ims-model';
 export declare class ImsCoreUser {
-    user: EntityRepository<ImsUser>;
+    user: EntityRepository<ImsUserEntity>;
     /**
      * 我的信息
      * @param sesion
      */
-    userInfo(sesion: Session): Promise<ImsUser>;
+    userInfo(sesion: Session): Promise<ImsUserEntity>;
 }

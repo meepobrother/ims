@@ -20,7 +20,7 @@ export enum AstTypes {
     parameter,
     method
 }
-export abstract class Ast<T=any> {
+export abstract class Ast<T = any> {
     constructor(
         public type: AstTypes,
         public target: any,
@@ -31,7 +31,7 @@ export abstract class Ast<T=any> {
     abstract visit(visitor: AstVisitor, context?: any): any;
 }
 
-export class ClassAst<T=any> extends Ast<T> {
+export class ClassAst<T = any> extends Ast<T> {
     constructor(
         target: any,
         metadataKey: string,
@@ -115,7 +115,7 @@ export class ClassContext<T> {
 export function isClassAst<T>(val: Ast): val is ClassAst<T> {
     return val.type === AstTypes.class;
 }
-export class PropertyAst<T=any> extends Ast<T> {
+export class PropertyAst<T = any> extends Ast<T> {
     constructor(
         target: any,
         metadataKey: string,
@@ -136,7 +136,7 @@ export class PropertyContext<T>{
 export function isPropertyAst<T>(val: Ast): val is PropertyAst<T> {
     return val.type === AstTypes.property;
 }
-export class MethodAst<T=any> extends Ast<T> {
+export class MethodAst<T = any> extends Ast<T> {
     parameters: ParameterAst[] = [];
     constructor(
         target: any,
@@ -164,7 +164,7 @@ export class MethodContext<T> {
 export function isMethodAst<T>(val: Ast): val is MethodAst<T> {
     return val.type === AstTypes.method;
 }
-export class ParameterAst<T=any> extends Ast<T> {
+export class ParameterAst<T = any> extends Ast<T> {
     constructor(
         target: any,
         metadataKey: string,
@@ -186,7 +186,7 @@ export class ParameterContext<T> {
 export function isParameterAst<T>(val: Ast): val is ParameterAst<T> {
     return val.type === AstTypes.parameter;
 }
-export class ConstructorAst<T=any> extends Ast<T> {
+export class ConstructorAst<T = any> extends Ast<T> {
     constructor(
         target: any,
         metadataKey: string,
@@ -243,7 +243,7 @@ export class TypeContext {
         parent.children.push(this);
     }
 
-    get<T=any>(key: any): T {
+    get<T = any>(key: any): T {
         for (let cls of this.classes) {
             if (cls) {
                 let item = cls.inject(key);
@@ -318,7 +318,6 @@ export class NullAstVisitor implements AstVisitor {
         if (context) {
             return new TypeContext(type, this);
         } else {
-            debugger;
             throw new Error(`visitType:${type.name} get context error`)
         }
     }
@@ -609,6 +608,7 @@ export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultO
                 });
                 const ast = new ClassAst(target, metadataKey, metadataDef, sourceRoot);
                 visitor.visitClass(ast, context);
+                return target;
             }
         }
     }

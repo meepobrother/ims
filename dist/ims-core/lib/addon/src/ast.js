@@ -5,7 +5,7 @@ const ims_decorator_1 = require("ims-decorator");
 const K = tslib_1.__importStar(require("./keys"));
 const lodash_1 = require("lodash");
 const orm_1 = require("../../orm");
-const ims_common_1 = require("ims-common");
+const methods_1 = require("../../methods");
 class AddonAst extends ims_decorator_1.ClassContext {
     constructor(ast, context) {
         super(ast, context);
@@ -20,7 +20,13 @@ class AddonAst extends ims_decorator_1.ClassContext {
         if (def.incs) {
             this.incs = Object.keys(def.incs).map(key => context.visitType(def.incs[key]));
         }
-        this.path = `/${lodash_1.kebabCase(this.ast.target.name)}`;
+        if (def.type === 'system') {
+            this.path = '';
+        }
+        else {
+            this.path = `/${lodash_1.kebabCase(this.ast.target.name)}`;
+        }
+        this.name = lodash_1.kebabCase(this.ast.target.name);
         if (!this.sourceRoot)
             throw new Error(`${lodash_1.kebabCase(ast.target.name)} addon need set sourceRoot`);
     }
@@ -41,7 +47,7 @@ class AddonAst extends ims_decorator_1.ClassContext {
         return typeormAst && typeormAst.getConfig();
     }
     getTypeormAst() {
-        return this.template.getClass(K.TypeormMetadataKey);
+        return this.typeorm.getClass(K.TypeormMetadataKey);
     }
     /**
      * 获取template配置
@@ -64,25 +70,25 @@ class ControllerAst extends ims_decorator_1.ClassContext {
         }
     }
     deletesAst() {
-        return this.context.getMethod(ims_common_1.DeleteMetadataKey);
+        return this.context.getMethod(methods_1.DeleteMetadataKey);
     }
     getsAst() {
-        return this.context.getMethod(ims_common_1.GetMetadataKey);
+        return this.context.getMethod(methods_1.GetMetadataKey);
     }
     heads() {
-        return this.context.getMethod(ims_common_1.HeadMetadataKey);
+        return this.context.getMethod(methods_1.HeadMetadataKey);
     }
     posts() {
-        return this.context.getMethod(ims_common_1.PostMetadataKey);
+        return this.context.getMethod(methods_1.PostMetadataKey);
     }
     options() {
-        return this.context.getMethod(ims_common_1.OptionMetadataKey);
+        return this.context.getMethod(methods_1.OptionMetadataKey);
     }
     patchs() {
-        return this.context.getMethod(ims_common_1.PatchMetadataKey);
+        return this.context.getMethod(methods_1.PatchMetadataKey);
     }
     puts() {
-        return this.context.getMethod(ims_common_1.PutMetadataKey);
+        return this.context.getMethod(methods_1.PutMetadataKey);
     }
 }
 exports.ControllerAst = ControllerAst;
@@ -122,7 +128,6 @@ class RouterAst extends ims_decorator_1.ClassContext {
         const roles = this.getRoles();
         const icon = this.getIcon();
         const redirect = this.getRedirect();
-        const exact = routes.length > 0 ? true : false;
         const route = {
             hideChildrenInMenu: !!this.def.hideChildrenInMenu
         };
@@ -139,8 +144,15 @@ class RouterAst extends ims_decorator_1.ClassContext {
         if (icon)
             route.icon = icon;
         if (redirect)
-            route.icon = redirect;
-        route.exact = exact;
+            route.redirect = redirect;
+        route.exact = !!this.def.exact;
+        const store = this.def.store || {};
+        const addonAst = this.getAddonAst();
+        route.store = {};
+        Object.keys(store).map(key => {
+            const val = store[key];
+            route.store[`${addonAst.name}-${key}`] = `${addonAst.sourceRoot}/template/${val}`;
+        });
         return route;
     }
     getRoutes() {

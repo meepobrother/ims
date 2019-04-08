@@ -4,12 +4,11 @@ import { ImsHttp } from './http';
 import { ImsRouter } from './router';
 import { IRouter } from 'ims-core';
 export declare class ImsUtil {
-    storage: ImsStorage;
-    ws: ImsWs;
-    http: ImsHttp;
-    router: ImsRouter;
-    onInit(routes: IRouter[]): Promise<void>;
-    static instance: ImsUtil;
-    static create(routes: IRouter[]): Promise<ImsUtil>;
+    static storage: ImsStorage;
+    static ws: ImsWs;
+    static http: ImsHttp;
+    static router: ImsRouter;
+    static cloud: ImsHttp;
+    static onInit(routes: IRouter[]): Promise<void>;
 }
-export default function getUtil(): ImsUtil;
+export default ImsUtil;

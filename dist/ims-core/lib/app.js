@@ -1,13 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ims_common_1 = require("ims-common");
+const ims_decorator_1 = require("ims-decorator");
 exports.AppMetadataKey = 'AppMetadataKey';
-exports.App = ims_common_1.makeDecorator(exports.AppMetadataKey);
+exports.App = ims_decorator_1.makeDecorator(exports.AppMetadataKey);
 function isAppClassAst(val) {
     return val.metadataKey === exports.AppMetadataKey;
 }
 exports.isAppClassAst = isAppClassAst;
-class AppAst extends ims_common_1.ClassContext {
+class AppAst extends ims_decorator_1.ClassContext {
     constructor(ast, context) {
         super(ast, context);
         this.addons = [];

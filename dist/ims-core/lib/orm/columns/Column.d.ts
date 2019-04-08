@@ -6,7 +6,7 @@ export declare const Column: (metadataDef?: ColumnOptions & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isColumnPropertyAst(val: PropertyAst): val is PropertyAst<Column>;
 export declare class ColumnAst extends PropertyContext<Column> {
 }

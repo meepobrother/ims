@@ -1,4 +1,4 @@
-import { MethodContext, MethodAst, ParserAstContext } from 'ims-common';
+import { MethodContext, MethodAst, ParserAstContext } from 'ims-decorator';
 export interface IHttpMethod {
     path?: string;
 }

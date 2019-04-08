@@ -8,6 +8,7 @@ export interface IRouter {
     hideChildrenInMenu?: boolean;
     routes?: IRouter[];
     redirect?: string;
+    store?: { [key: string]: any };
     exact?: boolean;
 }
 export interface AddonOptions {
@@ -119,6 +120,10 @@ export interface RouterOptions {
      * 精确匹配
      */
     exact?: boolean;
+    /**
+     * store
+     */
+    store?: { [key: string]: string };
 }
 export interface TemplateOptions {
     mobiles?: any[] | object,

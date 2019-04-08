@@ -1,5 +1,5 @@
 import { ImsWebpack } from 'ims-webpack';
-import { TypeContext } from 'ims-common';
+import { TypeContext } from 'ims-decorator';
 import { createMobile } from './util';
 import { BehaviorSubject } from 'rxjs';
 export { createMobile };
@@ -14,7 +14,7 @@ export declare class ImsWebpackMobile extends ImsWebpack {
     dev: boolean;
     $change: BehaviorSubject<any>;
     isRunning: boolean;
-    constructor(context: TypeContext);
+    constructor(context: TypeContext, dev?: boolean);
     getHtmlTemplate(): string;
     watchFile(): void;
 }

@@ -17,7 +17,7 @@ export declare const Tree: (metadataDef?: ("adjacency-list" & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-})) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+})) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isTreeClassAst(val: ClassAst): val is ClassAst<TreeOptions>;
 export declare class TreeAst extends ClassContext<TreeOptions> {
 }

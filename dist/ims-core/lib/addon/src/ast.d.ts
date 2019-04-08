@@ -6,6 +6,7 @@ export declare class AddonAst extends ClassContext<T.AddonOptions> {
     incs: TypeContext[];
     typeorm: TypeContext;
     template: TypeContext;
+    name: string;
     constructor(ast: ClassAst<T.AddonOptions>, context: ParserAstContext);
     getPath(): string;
     getIncs(): ControllerAst[];

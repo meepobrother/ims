@@ -224,7 +224,7 @@ export declare function makeDecorator<T>(metadataKey: string, getDefault?: (opt:
     sourceRoot?: string;
     imports?: any[];
     providers?: Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export interface Abstract<T> extends Function {
     prototype: T;
 }

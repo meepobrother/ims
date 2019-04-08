@@ -1,29 +1,35 @@
-import React, { Suspense } from 'react'
+import { Suspense, Component } from 'react'
+import React = require('react');
 import { render } from 'react-dom';
 import { ImsUtil } from 'ims-util';
 import { ImsRoutes, Exception404 } from 'ims-adminer';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import 'ant-design-pro/dist/ant-design-pro.css';
-export interface IRouter {
-    path?: string;
-    component?: any;
-    name?: string;
-    roles?: string[];
-    icon?: string;
-    hideChildrenInMenu?: boolean;
-    routes?: IRouter[];
-    redirect?: string;
-    extra?: boolean;
+import { IRouter } from 'ims-core';
+import { Provider } from 'mobx-react'
+export function createStore(routes: IRouter[]) {
+    const ObjectStore = {};
+    routes.map(route => {
+        const { store } = route
+        Object.keys(store).map(key => {
+            ObjectStore[key] = store[key](routes);
+        });
+    });
+    return ObjectStore;
 }
+import { Loading } from 'ims-adminer'
+console.log(React)
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes)
+    const store = createStore(routes);
+    console.log(store)
     render(
-        <Router keyLength={12}>
-            <Suspense fallback={fallback()} >
-                <Switch>
+        <Provider store={store}>
+            <Router>
+                <Suspense fallback={<Loading></Loading>} >
                     {routes.map((route, key) => {
-                        const { component: Component, path, extra } = route;
-                        return <Route key={key} path={path} extra={extra} render={() => {
+                        const { component: Component, path, exact } = route;
+                        return <Route key={key} path={path} exact={exact} render={() => {
                             if (Component) {
                                 return <Component route={route} />
                             } else {
@@ -31,14 +37,10 @@ export async function bootstrap(routes: IRouter[]) {
                             }
                         }} />
                     })}
-                    <Route render={() => <Exception404 />} />
-                </Switch>
-            </Suspense>
-        </Router>
+                </Suspense>
+            </Router>
+        </Provider>
         ,
         document.getElementById('root')
     )
-}
-function fallback() {
-    return <div></div>
 }

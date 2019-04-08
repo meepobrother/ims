@@ -1,6 +1,5 @@
-import { NullAstVisitor, OnAst, MethodAst, ParserAstContext, ClassAst, SocketAst } from 'ims-common';
-import { ParameterAst, PropertyAst } from 'ims-decorator';
-import { ServerAst } from 'ims-core';
+import { ParameterAst, PropertyAst, NullAstVisitor, MethodAst, ParserAstContext, ClassAst } from 'ims-decorator';
+import { OnAst, ServerAst, SocketAst } from 'ims-core';
 export declare class SocketVisitor extends NullAstVisitor {
     visitClass(ast: ClassAst, context: ParserAstContext): void;
     visitMethod(ast: MethodAst, context: ParserAstContext): OnAst;

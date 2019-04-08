@@ -1,4 +1,4 @@
-import assert from 'assert';
+import assert = require('assert');
 import Plugin from './plugin';
 import { NodePath, Node } from '@babel/traverse'
 export default function ({ types }) {

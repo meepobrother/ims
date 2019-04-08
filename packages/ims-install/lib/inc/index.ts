@@ -1,5 +1,5 @@
 import { Controller, Post, Body, On } from 'ims-core';
-import fs from 'fs-extra'
+import fs = require('fs-extra')
 import { join } from 'path';
 import { createConnection, getConnection, getConnectionManager } from 'typeorm';
 const root = process.cwd();
@@ -97,7 +97,7 @@ export class ImsIndex {
      * 安装应用
      */
     @On('install')
-    install() { 
-        
+    install() {
+
     }
 }

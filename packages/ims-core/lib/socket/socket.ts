@@ -10,5 +10,5 @@ export class SocketAst extends ParameterContext<SocketOptions> {
         super(ast, context);
     }
 }
-import WebSocket from 'ws';
+import WebSocket = require('ws');
 export type Socket = WebSocket;

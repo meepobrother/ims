@@ -6,7 +6,7 @@ export declare const BeforeRemove: (metadataDef?: BeforeRemove & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare class BeforeRemoveAst extends PropertyContext<BeforeRemove> {
 }
 export declare function isBeforeRemovePropertyAst(val: PropertyAst): val is PropertyAst<BeforeRemove>;

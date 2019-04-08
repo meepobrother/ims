@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const ims_common_1 = require("ims-common");
+const ims_decorator_1 = require("ims-decorator");
 exports.OnReadyMetadateKey = 'OnReadyMetadateKey';
-exports.OnReady = ims_common_1.makeDecorator(exports.OnReadyMetadateKey);
-class OnReadyAst extends ims_common_1.MethodContext {
+exports.OnReady = ims_decorator_1.makeDecorator(exports.OnReadyMetadateKey);
+class OnReadyAst extends ims_decorator_1.MethodContext {
 }
 exports.OnReadyAst = OnReadyAst;

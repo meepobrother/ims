@@ -7,7 +7,7 @@ export declare const RelationCount: (metadataDef?: RelationCount & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isRelationCountPropertyAst(val: PropertyAst): val is PropertyAst<RelationCount>;
 export declare class RelationCountAst extends PropertyContext<RelationCount> {
 }

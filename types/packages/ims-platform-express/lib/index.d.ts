@@ -1,2 +1,1 @@
-import { TypeContext } from 'ims-common';
-export default function (): Promise<TypeContext>;
+export default function (): Promise<import("../../ims-decorator/lib").TypeContext>;

@@ -6,7 +6,7 @@ export declare const PrimaryGeneratedColumn: (metadataDef?: PrimaryGeneratedColu
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isPrimaryGeneratedColumnPropertyAst(val: PropertyAst): val is PropertyAst<PrimaryGeneratedColumn>;
 export declare class PrimaryGeneratedColumnAst extends PropertyContext<PrimaryGeneratedColumn> {
 }

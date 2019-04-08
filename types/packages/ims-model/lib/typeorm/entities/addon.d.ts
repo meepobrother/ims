@@ -30,6 +30,8 @@ export declare class ImsAddonEntity {
     * 简介
     */
     desc: string;
+    /** 是否可用 */
+    enable: boolean;
     /**
      * 版本号
      */

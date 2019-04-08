@@ -7,7 +7,7 @@ export declare const TreeChildren: (metadataDef?: TreeChildren & {
     sourceRoot?: string;
     imports?: any[];
     providers?: import("../../../../ims-decorator/lib").Provider<any>[];
-}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => void;
+}) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function isTreeChildrenPropertyAst(val: PropertyAst): val is PropertyAst<TreeChildren>;
 export declare class TreeChildrenAst extends PropertyContext<TreeChildren> {
 }
