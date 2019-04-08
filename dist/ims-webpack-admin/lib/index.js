@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ims_webpack_1 = require("ims-webpack");
 const chokidar_1 = require("chokidar");
-const ims_common_1 = require("ims-common");
+const ims_core_1 = require("ims-core");
 const util_1 = require("./util");
 exports.createAdmin = util_1.createAdmin;
 const sources = new Set();
@@ -14,25 +14,26 @@ const root = process.cwd();
  * 打包后台页面
  */
 class ImsWebpackAdmin extends ims_webpack_1.ImsWebpack {
-    constructor(context) {
+    constructor(context, dev = true) {
         super('admin');
         this.context = context;
         this.$change = new rxjs_1.BehaviorSubject(0);
+        this.dev = !!dev;
         this.onInit();
     }
     getHtmlTemplate() {
         return path_1.join(__dirname, 'index.html');
     }
     onInit() {
-        const appAst = this.context.getClass(ims_common_1.AppMetadataKey);
+        const appAst = this.context.getClass(ims_core_1.AppMetadataKey);
         appAst.addons.map(addon => {
-            const addonAst = addon.getClass(ims_common_1.AddonMetadataKey);
+            const addonAst = addon.getClass(ims_core_1.AddonMetadataKey);
             if (addonAst.ast.sourceRoot) {
                 const template = addonAst.template;
                 if (template) {
-                    const tmpAst = template.getClass(ims_common_1.TemplateMetadataKey);
+                    const tmpAst = template.getClass(ims_core_1.TemplateMetadataKey);
                     tmpAst.admins.map(admin => {
-                        const routerAst = admin.getClass(ims_common_1.RouterMetadataKey);
+                        const routerAst = admin.getClass(ims_core_1.RouterMetadataKey);
                         const def = routerAst.ast.metadataDef;
                         if (def && def.sourceRoot)
                             sources.add(def.sourceRoot);
@@ -40,7 +41,6 @@ class ImsWebpackAdmin extends ims_webpack_1.ImsWebpack {
                 }
             }
         });
-        this.dev = appAst.dev;
         if (this.dev) {
             this.config.devtool('source-map');
             this.config.mode('development');

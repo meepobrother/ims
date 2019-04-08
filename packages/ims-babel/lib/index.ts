@@ -87,9 +87,8 @@ class NodePath<T extends ts.Node = ts.Node>{
         return ts.isBundle(this.node)
     }
 }
-const sourceFile = ts.createSourceFile('1.ts', `const item:number = 1`, ts.ScriptTarget.ESNext, true, ts.ScriptKind.Unknown);
-const nodePath = traverse(sourceFile);
-if (nodePath.isAccessor()) {
-    nodePath.node.parent
-}
-debugger;
+// const sourceFile = ts.createSourceFile('1.ts', `const item:number = 1`, ts.ScriptTarget.ESNext, true, ts.ScriptKind.Unknown);
+// const nodePath = traverse(sourceFile);
+// if (nodePath.isAccessor()) {
+//     nodePath.node.parent
+// }

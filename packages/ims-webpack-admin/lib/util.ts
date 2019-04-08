@@ -36,6 +36,7 @@ export function createMobile(context: TypeContext) {
 const template = (routes: IRouter[], tempDir: string) =>
     `import { bootstrap } from './bootstrap';
 import "./app.css";
+import "antd/dist/antd.css";
 import React from 'react';
 let routes = [${routes.map(route => createRouter(route, tempDir)).join(',')}];
 bootstrap(routes);

@@ -1,5 +1,5 @@
 import { ImsWebpack } from 'ims-webpack';
-import { TypeContext } from 'ims-common';
+import { TypeContext } from 'ims-decorator';
 import { createAdmin } from './util';
 import { BehaviorSubject } from 'rxjs';
 export { createAdmin };
@@ -14,7 +14,7 @@ export declare class ImsWebpackAdmin extends ImsWebpack {
     dev: boolean;
     $change: BehaviorSubject<any>;
     isRunning: boolean;
-    constructor(context: TypeContext);
+    constructor(context: TypeContext, dev?: boolean);
     getHtmlTemplate(): string;
     onInit(): void;
     watchFile(): void;
