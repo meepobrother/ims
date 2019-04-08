@@ -1,5 +1,4 @@
-import { Suspense, Component } from 'react'
-import React = require('react');
+import React, { Suspense, Component } from 'react'
 import { render } from 'react-dom';
 import { ImsUtil } from 'ims-util';
 import { ImsRoutes, Exception404 } from 'ims-adminer';
@@ -12,19 +11,17 @@ export function createStore(routes: IRouter[]) {
     routes.map(route => {
         const { store } = route
         Object.keys(store).map(key => {
-            ObjectStore[key] = store[key](routes);
+            ObjectStore[key] = new store[key](routes);
         });
     });
     return ObjectStore;
 }
 import { Loading } from 'ims-adminer'
-console.log(React)
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes)
     const store = createStore(routes);
-    console.log(store)
     render(
-        <Provider store={store}>
+        <Provider {...store}>
             <Router>
                 <Suspense fallback={<Loading></Loading>} >
                     {routes.map((route, key) => {

@@ -1,5 +1,4 @@
-import { Component, Suspense } from 'react';
-import React = require('react');
+import React, { Component, Suspense } from 'react';
 import { Route } from 'react-router-dom';
 import { IRouter } from 'ims-core';
 export class ImsRoutes extends Component<{ route: IRouter, fallback?: any }, any> {

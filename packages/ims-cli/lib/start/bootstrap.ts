@@ -1,7 +1,7 @@
 import { getConnection } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
-import { ImsInstall } from 'ims-install'
+import { ImsInstall } from 'ims-install';
 import { visitor, IConfig, setConfig } from 'ims-common';
 import { App } from 'ims-core';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
@@ -21,6 +21,8 @@ import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
 import { ImsAdminer } from 'ims-adminer/addon';
 import { ImsCloud } from 'ims-cloud';
+import { ImsWebsite } from 'ims-website';
+
 const file = multer();
 export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
@@ -48,61 +50,57 @@ export async function bootstrap(root: string, dev: boolean) {
             maxAge: 1000 * 60 * 3
         }
     }));
-    try {
-        const addons = [];
-        const configPath = join(root, 'config/config.json');
-        let port = 8080;
-        if (fs.existsSync(configPath)) {
-            const model = visitor.visitType(ImsModel);
-            const config: IConfig = require(join(root, 'config/config.json'));
-            setConfig(config);
-            try {
-                await parseSystem(model, config);
-                const connection = getConnection(config.system)
-                const addonRepository = connection.getRepository(ImsAddonEntity);
-                const allAddon = await addonRepository.find({
-                    enable: true
-                });
-                allAddon.map(addon => {
-                    addons.push(require(addon.entry).default)
-                });
-                addons.push(ImsAdminer);
-                addons.push(ImsCloud);
-                await parseAddons(addons, config);
-            } catch (e) { }
-            port = config.port;
-        } else {
-            addons.push(ImsInstall);
-            app.get('/', (req, res, next) => {
-                res.redirect('/ims-install')
+    const addons = [];
+    const configPath = join(root, 'config/config.json');
+    let port = 8080;
+    if (fs.existsSync(configPath)) {
+        const model = visitor.visitType(ImsModel);
+        const config: IConfig = require(join(root, 'config/config.json'));
+        setConfig(config);
+        try {
+            await parseSystem(model, config);
+            const connection = getConnection(config.system)
+            const addonRepository = connection.getRepository(ImsAddonEntity);
+            const allAddon = await addonRepository.find({
+                enable: true
             });
-        }
-        // 解析router
-        parseRouter(addons, app, root);
-        // 解析template
-        parseTemplate(addons, app, root);
-        /** 安装 */
-        App({
-            addons: addons,
-            dev: dev
-        })(ImsStartApp);
-        const appContext = visitor.visitType(ImsStartApp);
-        createAdmin(appContext);
-        createMobile(appContext);
-        const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
-        pack.run();
-        const server = createServer(app);
-        const ws = new Server({ server });
-        ws.on('connection', (socket) => {
-            parseWebSocket(appContext, socket, ws)
-        });
-        return new Promise((resolve, reject) => {
-            server.listen(port, () => {
-                resolve();
+            allAddon.map(addon => {
+                addons.push(require(addon.entry).default)
             });
+            addons.push(ImsAdminer);
+            addons.push(ImsCloud);
+            addons.push(ImsWebsite);
+            await parseAddons(addons, config);
+        } catch (e) { }
+        port = config.port;
+    } else {
+        addons.push(ImsInstall);
+        app.get('/', (req, res, next) => {
+            res.redirect('/ims-install')
         });
-    } catch (e) {
-        console.log(`bootstrap:${e.message}`)
-        debugger;
     }
+    // 解析router
+    parseRouter(addons, app, root);
+    // 解析template
+    parseTemplate(addons, app, root);
+    /** 安装 */
+    App({
+        addons: addons,
+        dev: dev
+    })(ImsStartApp);
+    const appContext = visitor.visitType(ImsStartApp);
+    createAdmin(appContext);
+    createMobile(appContext);
+    const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
+    pack.run();
+    const server = createServer(app);
+    const ws = new Server({ server });
+    ws.on('connection', (socket) => {
+        parseWebSocket(appContext, socket, ws)
+    });
+    return new Promise((resolve, reject) => {
+        server.listen(port, () => {
+            resolve();
+        });
+    });
 }

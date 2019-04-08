@@ -16,7 +16,7 @@ let routes = [{
         roles: [],
         routes: [{
                 path: "/adminer/manager",
-                component: React.lazy(() => Promise.resolve().then(() => __importStar(require(/* webpackChunkName: /adminer/manager */ "../../../ims-adminer/addon/template/admin/manager/layouts")))),
+                component: React.lazy(() => Promise.resolve().then(() => import(/* webpackChunkName: /adminer/manager */ "../../../ims-adminer/addon/template/admin/manager/layouts"))),
                 roles: [],
                 routes: [{
                         path: "/adminer/manager/system",

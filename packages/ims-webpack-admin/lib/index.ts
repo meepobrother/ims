@@ -9,7 +9,7 @@ const sources = new Set();
 import { BehaviorSubject } from 'rxjs';
 import { join } from 'path';
 export { createAdmin };
-import { DllReferencePlugin } from 'webpack';
+import { DllReferencePlugin, IgnorePlugin } from 'webpack';
 const root = process.cwd();
 /**
  * 打包后台页面
@@ -24,6 +24,9 @@ export class ImsWebpackAdmin extends ImsWebpack {
     constructor(public context: TypeContext, dev: boolean = true) {
         super('admin');
         this.dev = !!dev;
+        this.options.plugins.push(
+            new IgnorePlugin(/^\.\/locale$/, /moment$/)
+        );
         this.onInit();
     }
 

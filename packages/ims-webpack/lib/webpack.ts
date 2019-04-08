@@ -60,11 +60,20 @@ export abstract class ImsWebpack {
     initStyle() {
         const root = process.cwd();
         this.options = {
+            plugins: [],
             output: {
                 path: join(this.root, 'template', this.dist),
                 publicPath: `/${this.dist}/`,
                 filename: '[name]_[hash].bound.js',
                 chunkFilename: '[name]_[hash].chunk.js'
+            },
+            externals: {
+                moment: {
+                    root: 'moment',
+                    commonjs2: 'moment',
+                    commonjs: 'moment',
+                    amd: 'moment',
+                }
             },
             resolve: {
                 extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -83,6 +92,7 @@ export abstract class ImsWebpack {
                             configFile: false,
                             presets: ['@babel/preset-env', '@babel/preset-react'],
                             plugins: [
+                                ['@babel/plugin-syntax-dynamic-import'],
                                 [AntdPlugin, {
                                     "libraryName": "antd",
                                     "libraryDirectory": "es",
@@ -90,10 +100,11 @@ export abstract class ImsWebpack {
                                 }]
                             ]
                         }
-                    },{
+                    }, {
                         loader: 'ts-loader',
                         options: {
-                            transpileOnly: true
+                            transpileOnly: true,
+                            configFile: 'tsconfig.react.json'
                         }
                     }]
                 }, {

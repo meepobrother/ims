@@ -7,7 +7,9 @@ import { ImsWebsiteTypeorm } from './typeorm'
  */
 @Addon({
     sourceRoot: __dirname,
+    incs: [],
     template: ImsWebsiteTemplate,
-    typeorm: ImsWebsiteTypeorm
+    typeorm: ImsWebsiteTypeorm,
+    type: 'system'
 })
-export default class ImsWebsite { }
+export class ImsWebsite { }
