@@ -3,7 +3,7 @@ import { ImsDevelementTypeorm } from './typeorm';
 import { ImsDevelementTemplate } from './template';
 
 @Addon({
-    name: '控制台',
+    name: '开发者中心',
     incs: [],
     template: ImsDevelementTemplate,
     typeorm: ImsDevelementTypeorm,
