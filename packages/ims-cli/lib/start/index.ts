@@ -8,9 +8,8 @@ import fs from 'fs-extra'
 async function execSync(command: string) {
     return new Promise((resolve, reject) => {
         exec(command, { cwd: process.cwd() }, (code, out, err) => {
-            if(err) reject(err);
             resolve(out)
-        })
+        });
     })
 }
 @Command({
