@@ -16,6 +16,7 @@ export class ImsStart extends ImsCommand {
         exec(`pm2 kill`, {
             cwd: process.cwd()
         }, async () => {
+            console.log(`pm2 kill`)
             const templatePm2 = new ImsCommandPm2();
             templatePm2.script = join(__dirname, 'bin/build.js');
             templatePm2.name = 'template';
