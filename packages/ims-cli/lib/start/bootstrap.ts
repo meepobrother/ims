@@ -11,13 +11,10 @@ import { parseTemplate } from './parseTemplate'
 import { createServer } from 'http'
 import { Server } from 'ws'
 import { parseWebSocket } from './parseWebSocket';
-import { ImsWebpacks } from './webpack';
 import multer = require('multer');
 import bodyparser = require('body-parser');
 import cookieParser = require('cookie-parser');
 import session = require('express-session');
-import { createAdmin } from 'ims-webpack-admin';
-import { createMobile } from 'ims-webpack-mobile';
 
 import { ImsAdminer } from 'ims-adminer/addon';
 import { ImsCloud } from 'ims-cloud';
@@ -34,18 +31,15 @@ export async function bootstrap(root: string, dev: boolean) {
     app.use(file.any());
     app.use(express.static(join(root, 'template')))
     app.use(express.static(join(root, 'attachment')))
-
     const jsonParser: any = bodyparser.json();
     const textParser: any = bodyparser.text();
     const rawParser: any = bodyparser.raw();
     const urlencodedParser: any = bodyparser.urlencoded({ extended: true });
-
     app.use(jsonParser);
     app.use(urlencodedParser);
     app.use(textParser);
     app.use(rawParser);
     app.use(cookieParser());
-
     app.use(session({
         secret: 'secret',
         resave: true,
@@ -96,10 +90,6 @@ export async function bootstrap(root: string, dev: boolean) {
         dev: dev
     })(ImsStartApp);
     const appContext = visitor.visitType(ImsStartApp);
-    // createAdmin(appContext);
-    // createMobile(appContext);
-    // const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
-    // pack.run();
     const server = createServer(app);
     const ws = new Server({ server });
     ws.on('connection', (socket) => {

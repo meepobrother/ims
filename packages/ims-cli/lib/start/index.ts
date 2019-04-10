@@ -2,22 +2,30 @@ import { Command, Input } from 'ims-core';
 import { ImsCommand } from '../command';
 import { bootstrap } from './bootstrap'
 import { join } from 'path';
+import { ImsCommandPm2 } from '../pm2'
 @Command({
     name: 'start'
 })
 export class ImsStart extends ImsCommand {
     @Input({
-        alis: 's'
+        alis: 't'
     })
-    source: string = '';
+    type: 'dev' | 'prod' = 'dev';
 
-    @Input({
-        alis: 'd'
-    })
-    dev: boolean = false;
-
-    run() {
-        // 安装器
-        bootstrap(join(this.root, this.source), this.dev);
+    async run() {
+        const pm2 = new ImsCommandPm2();
+        pm2.script = join(__dirname, 'bin/build.js');
+        pm2.name = 'template';
+        pm2.run();
+        if (this.type === 'dev') {
+            pm2.script = join(__dirname, 'bin/dev.js');
+            pm2.name = 'dev';
+            await pm2.run();
+        }
+        if (this.type === 'prod') {
+            pm2.script = join(__dirname, 'bin/prod.js');
+            pm2.name = 'prod';
+            await pm2.run();
+        }
     }
 }
