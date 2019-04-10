@@ -1,5 +1,6 @@
 
 ## Gentos 环境配置
+
 ```sh
 # docker安装
 yum update
