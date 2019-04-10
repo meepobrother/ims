@@ -10,3 +10,25 @@ import { Addon } from 'ims-core';
 @Addon()
 export default class ImsDemo{}
 ```
+#### Controller 定义Api借口
+```ts
+import { Controller, Get, Post } from 'ims-core';
+@Controller({
+    path: '/'
+})
+export class ImsDemoUser{
+
+    @Get()
+    getName(){
+        const name = 'ims';
+        return {
+            data: name
+        }
+    }
+
+    @Post()
+    updateName(@Body('name') name: string){
+        
+    }
+}
+```
