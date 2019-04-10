@@ -20,9 +20,9 @@ export class ImsWebpacks {
     dev: boolean = false;
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     constructor(public context: TypeContext, dev: boolean) {
-        this.admin = new ImsWebpackAdmin(context, !!dev);
-        this.mobile = new ImsWebpackMobile(context, !!dev);
-        this.dev = !!dev;
+        this.dev = dev;
+        this.admin = new ImsWebpackAdmin(context, this.dev);
+        this.mobile = new ImsWebpackMobile(context, this.dev);
     }
     work: ChildProcess;
     change(file: string) {
@@ -58,11 +58,11 @@ export class ImsWebpacks {
         const compiler = webpack(this.getConfig());
         compiler.run((err, stats) => {
             if (err) console.error(err);
+            console.log(`build template!`)
             const res = formatWebpackMessages(stats.toJson());
             res.errors.map(err => console.error(err));
             res.warnings.map(err => console.warn(err));
             this.logSuccess(stats.toJson());
-            process.emit('message', {}, 1)
         });
     }
 
