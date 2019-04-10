@@ -62,6 +62,7 @@ export class ImsWebpacks {
             res.errors.map(err => console.error(err));
             res.warnings.map(err => console.warn(err));
             this.logSuccess(stats.toJson())
+            process.exit();
         });
     }
 
