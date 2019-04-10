@@ -192,7 +192,7 @@
   },
   "scripts": {
     "ts": "ts-node -r tsconfig-paths/register",
-    "cli": "yarn ts packages/ims-cli/lib/bin.ts",
+    "cli": "pm2 kill && node node_modules/ims-cli/lib/bin.js",
     "start:build": "pm2 start npm --name startBuild -i 1 -- run ts packages/ims-cli/lib/start/build.ts",
     "start:bin": "pm2 start npm --name startBin -i 3 -- run ts packages/ims-cli/lib/start/bin.ts",
     "start": "yarn start:build && yarn start:bin",

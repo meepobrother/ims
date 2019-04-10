@@ -1,6 +1,5 @@
 import { Command, Input } from 'ims-core';
 import { ImsCommand } from '../command';
-import { bootstrap } from './bootstrap'
 import { join } from 'path';
 import { ImsCommandPm2 } from '../pm2'
 @Command({
