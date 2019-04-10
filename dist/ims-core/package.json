@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "3ac71c7d12f2f5dcebe858b5996e1fd3f3a79c16",
+  "gitHead": "eb359146e8031264e9bd0a391afd8fe00e3e65c7",
   "dependencies": {
     "ims-decorator": "^1.0.35"
   }
