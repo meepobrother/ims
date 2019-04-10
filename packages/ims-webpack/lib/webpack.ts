@@ -59,6 +59,8 @@ export abstract class ImsWebpack {
     initStyle() {
         const root = process.cwd();
         this.options = {
+            mode: 'production',
+            devtool: 'source-map',
             plugins: [],
             output: {
                 path: join(this.root, 'template', this.dist),
