@@ -48,8 +48,8 @@ export class ImsCommandBuild {
                 cwd: root
             });
         } else {
-            await _rimraf(join(root, 'dist', this.name));
-            await packProject(this.name);
+            await _rimraf(join(root, this.output, this.name));
+            await packProject(this.name, this.output);
             console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
             exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
                 cwd: root
