@@ -8,7 +8,7 @@ import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, setConfig } from 'ims-common';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
-import ImsEditor from '../../../../../addons/core/editor'
+import ImsEditor from 'ims-core-editor';
 
 const root = process.cwd();
 export class ImsStartApp { }

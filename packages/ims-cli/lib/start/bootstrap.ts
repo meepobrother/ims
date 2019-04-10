@@ -20,7 +20,7 @@ import session = require('express-session');
 // import { ImsCloud } from 'ims-cloud';
 // import { ImsWebsite } from 'ims-website';
 import { ImsInstall } from 'ims-install';
-import ImsEditor from '../../../../addons/core/editor'
+import ImsEditor from 'ims-core-editor';
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import { parseP2p } from './parseP2p';
