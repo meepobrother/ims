@@ -92,4 +92,3 @@ function packProject(name: string) {
         createTask(otherTask).then(() => console.log(chalk.yellow(`${name}:copy finish`)))
     ])
 }
-

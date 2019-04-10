@@ -17,29 +17,62 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var ImsCommandVersion_1;
 const ims_core_1 = require("ims-core");
-let ImsCommandVersion = ImsCommandVersion_1 = class ImsCommandVersion {
+const pm2_1 = require("pm2");
+const path_1 = require("path");
+const root = process.cwd();
+const config = require(path_1.join(root, 'tsconfig.json'));
+const shelljs_1 = require("shelljs");
+function tsc(script) {
+    return new Promise((resolve, reject) => {
+        shelljs_1.exec(`tsc ${script}`, {
+            cwd: root
+        }, () => {
+            resolve();
+        });
+    });
+}
+let ImsCommandPm2 = class ImsCommandPm2 {
     run() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(`${this.version}`);
+            if (this.script.endsWith('.ts')) {
+                yield tsc(this.script);
+                debugger;
+            }
+            this.error = path_1.join(root, 'config/logs', `${this.name}_error.log`);
+            this.output = path_1.join(root, 'config/logs', `${this.name}.log`);
+            pm2_1.start({
+                script: this.script,
+                name: this.name,
+                cwd: root,
+                output: this.output,
+                error: this.error,
+                watch: this.watch
+            }, () => {
+                process.exit();
+            });
         });
-    }
-    static create() {
-        if (this.instance)
-            return this.instance;
-        this.instance = new ImsCommandVersion_1();
-        return this.instance;
     }
 };
 __decorate([
-    ims_core_1.Version(),
+    ims_core_1.Input({
+        alis: 'n'
+    }),
     __metadata("design:type", String)
-], ImsCommandVersion.prototype, "version", void 0);
-ImsCommandVersion = ImsCommandVersion_1 = __decorate([
-    ims_core_1.Command({
-        name: 'version',
-        alis: 'v'
-    })
-], ImsCommandVersion);
-exports.ImsCommandVersion = ImsCommandVersion;
+], ImsCommandPm2.prototype, "name", void 0);
+__decorate([
+    ims_core_1.Input({
+        alis: 's'
+    }),
+    __metadata("design:type", String)
+], ImsCommandPm2.prototype, "script", void 0);
+__decorate([
+    ims_core_1.Input({
+        alis: 'w'
+    }),
+    __metadata("design:type", Array)
+], ImsCommandPm2.prototype, "watch", void 0);
+ImsCommandPm2 = __decorate([
+    ims_core_1.Command()
+], ImsCommandPm2);
+exports.ImsCommandPm2 = ImsCommandPm2;

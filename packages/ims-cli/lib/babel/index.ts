@@ -1,4 +1,4 @@
-import { Command, Input } from 'ims-common';
+import { Command, Input } from 'ims-core';
 @Command({
     name: 'babel'
 })

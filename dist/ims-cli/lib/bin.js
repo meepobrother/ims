@@ -1,18 +1,30 @@
 #!/usr/bin/env node
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const bootstrap_1 = tslib_1.__importDefault(require("./core/bootstrap"));
+const bootstrap_1 = __importDefault(require("./core/bootstrap"));
 const ims_common_1 = require("ims-common");
+const ims_core_1 = require("ims-core");
 const index_1 = require("./index");
+const init_1 = require("./init");
+const start_1 = require("./start");
 let ImsCli = class ImsCli {
 };
-ImsCli = tslib_1.__decorate([
-    ims_common_1.App({
+ImsCli = __decorate([
+    ims_core_1.App({
         name: 'ims',
         version: '1.0.0',
         commands: [
-            index_1.ImsCommandBuild, index_1.ImsCommandCreate, index_1.ImsCommandVersion
+            index_1.ImsCommandBuild, index_1.ImsCommandCreate, index_1.ImsCommandVersion,
+            init_1.ImsInit, start_1.ImsStart
         ]
     })
 ], ImsCli);

@@ -1,8 +1,24 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 var ImsCommandCreate_1;
-const ims_common_1 = require("ims-common");
+const ims_core_1 = require("ims-core");
 const root = process.cwd();
 const template_1 = require("./template");
 const fs_1 = require("fs");
@@ -47,36 +63,38 @@ let ImsCommandCreate = ImsCommandCreate_1 = class ImsCommandCreate {
             }
         };
     }
-    async run() {
-        const cfg = {
-            name: `${this.name}`,
-            admins: {
-                [`admin.inc`]: 'Home'
-            },
-            mobiles: {
-                [`mobile.inc`]: 'Home'
+    run() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cfg = {
+                name: `${this.name}`,
+                admins: {
+                    [`admin.inc`]: 'Home'
+                },
+                mobiles: {
+                    [`mobile.inc`]: 'Home'
+                }
+            };
+            const files = this.createFiles(cfg);
+            let root = path_1.join(this.root, 'addons', this.name);
+            try {
+                fs_1.mkdirSync(root);
+                function makeFile(files, root) {
+                    Object.keys(files).map(key => {
+                        const val = files[key];
+                        const path = path_1.join(root, key);
+                        if (typeof val === 'string') {
+                            fs_1.writeFileSync(path, val);
+                        }
+                        else {
+                            fs_1.mkdirSync(path);
+                            makeFile(val, path);
+                        }
+                    });
+                }
+                makeFile(files, root);
             }
-        };
-        const files = this.createFiles(cfg);
-        let root = path_1.join(this.root, 'addons', this.name);
-        try {
-            fs_1.mkdirSync(root);
-            function makeFile(files, root) {
-                Object.keys(files).map(key => {
-                    const val = files[key];
-                    const path = path_1.join(root, key);
-                    if (typeof val === 'string') {
-                        fs_1.writeFileSync(path, val);
-                    }
-                    else {
-                        fs_1.mkdirSync(path);
-                        makeFile(val, path);
-                    }
-                });
-            }
-            makeFile(files, root);
-        }
-        catch (e) { }
+            catch (e) { }
+        });
     }
     static create() {
         if (this.instance)
@@ -85,20 +103,20 @@ let ImsCommandCreate = ImsCommandCreate_1 = class ImsCommandCreate {
         return this.instance;
     }
 };
-tslib_1.__decorate([
-    ims_common_1.Input({
+__decorate([
+    ims_core_1.Input({
         alis: 't'
     }),
-    tslib_1.__metadata("design:type", String)
+    __metadata("design:type", String)
 ], ImsCommandCreate.prototype, "type", void 0);
-tslib_1.__decorate([
-    ims_common_1.Input({
+__decorate([
+    ims_core_1.Input({
         alis: 'n'
     }),
-    tslib_1.__metadata("design:type", String)
+    __metadata("design:type", String)
 ], ImsCommandCreate.prototype, "name", void 0);
-ImsCommandCreate = ImsCommandCreate_1 = tslib_1.__decorate([
-    ims_common_1.Command({
+ImsCommandCreate = ImsCommandCreate_1 = __decorate([
+    ims_core_1.Command({
         name: 'create',
         alis: 'c'
     })

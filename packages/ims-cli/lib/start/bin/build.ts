@@ -1,16 +1,15 @@
 import { App } from 'ims-core'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
-import { ImsWebpacks } from './webpack'
+import { ImsWebpacks } from '../webpack';
 import { join } from 'path';
-import multiaddr from 'multiaddr';
 import fs from 'fs-extra';
 import { ImsAdminer } from 'ims-adminer/addon';
 import { ImsCloud } from 'ims-cloud';
 import { ImsWebsite } from 'ims-website';
 import { ImsInstall } from 'ims-install';
 import { ImsAddonEntity, ImsModel } from 'ims-model'
-import { visitor, IConfig, setConfig } from 'ims-common';
+import { visitor, setConfig } from 'ims-common';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
 const root = process.cwd();
@@ -18,14 +17,10 @@ export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {
     const addons = [];
     const configPath = join(root, 'config/config.json');
-    const addr = multiaddr('/ip4/0.0.0.0/tcp/4200')
-    let addressOptions = addr.toOptions();
     if (fs.existsSync(configPath)) {
         const model = visitor.visitType(ImsModel);
-        const config: IConfig = require(join(root, 'config/config.json'));
+        const config = require(join(root, 'config/config.json'));
         setConfig(config);
-        const addr = multiaddr(config.api)
-        addressOptions = addr.toOptions();
         try {
             await parseSystem(model, config);
             const connection = getConnection(config.system)

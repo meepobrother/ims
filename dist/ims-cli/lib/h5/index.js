@@ -1,4 +1,12 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const rimraf = require("rimraf");
 const path = require("path");
@@ -11,14 +19,16 @@ class ImsH5 {
     constructor() {
         this.REG_SCRIPTS = /\.[tj]sx?$/i;
     }
-    async clean() {
-        try {
-            await pRimraf(this.tempPath);
-            await pRimraf(this.outputPath);
-        }
-        catch (e) {
-            console.log(e);
-        }
+    clean() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield pRimraf(this.tempPath);
+                yield pRimraf(this.outputPath);
+            }
+            catch (e) {
+                console.log(e);
+            }
+        });
     }
     copyFileSync(from, to, options) {
         const filename = path.basename(from);
@@ -116,10 +126,12 @@ class ImsH5 {
             });
         });
     }
-    async build() {
-        await this.clean();
-        this.copyFiles();
-        await this.buildTemp();
+    build() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.clean();
+            this.copyFiles();
+            yield this.buildTemp();
+        });
     }
 }
 exports.ImsH5 = ImsH5;
