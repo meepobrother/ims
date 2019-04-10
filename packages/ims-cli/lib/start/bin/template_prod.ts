@@ -42,13 +42,12 @@ export async function bootstrap(dev: boolean) {
         addons.push(ImsInstall);
     }
     App({
-        addons: addons,
-        dev: dev
+        addons: addons
     })(ImsStartApp);
     const appContext = visitor.visitType(ImsStartApp);
     createAdmin(appContext);
     createMobile(appContext);
     const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
-    pack.run();
+    return await pack.run();
 }
 bootstrap(false);

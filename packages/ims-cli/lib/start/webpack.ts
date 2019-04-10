@@ -48,22 +48,26 @@ export class ImsWebpacks {
 
     run() {
         if (this.dev) {
-            this.watch();
+            return this.watch();
         } else {
-            this.build();
+            return this.build();
         }
     }
 
     build() {
-        const compiler = webpack(this.getConfig());
-        compiler.run((err, stats) => {
-            if (err) console.error(err);
-            console.log(`build template!`)
-            const res = formatWebpackMessages(stats.toJson());
-            res.errors.map(err => console.error(err));
-            res.warnings.map(err => console.warn(err));
-            this.logSuccess(stats.toJson());
-        });
+        return new Promise((resolve, reject) => {
+            const compiler = webpack(this.getConfig());
+            compiler.run((err, stats) => {
+                if (err) reject(err);
+                console.log(`build template!`)
+                const res = formatWebpackMessages(stats.toJson());
+                res.errors.map(err => console.error(err));
+                res.warnings.map(err => console.warn(err));
+                this.logSuccess(stats.toJson());
+                resolve();
+            });
+        })
+
     }
 
     watch() {

@@ -1,11 +1,5 @@
 [
   {
-    "name": "template_prod",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/template_prod.js",
-    "output": "/Volumes/work/data/logs/template_prod.log",
-    "error": "/Volumes/work/data/logs/template_prod-error.log"
-  },
-  {
     "name": "prod",
     "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/prod.js",
     "output": "/Volumes/work/data/logs/prod.log",
