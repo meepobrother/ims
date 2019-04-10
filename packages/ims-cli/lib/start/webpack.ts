@@ -61,8 +61,8 @@ export class ImsWebpacks {
             const res = formatWebpackMessages(stats.toJson());
             res.errors.map(err => console.error(err));
             res.warnings.map(err => console.warn(err));
-            this.logSuccess(stats.toJson())
-            process.exit();
+            this.logSuccess(stats.toJson());
+            process.emit('message', {}, 1)
         });
     }
 

@@ -56,6 +56,11 @@ export class ImsStart extends ImsCommand {
             error: join(root, 'data/logs/prod-error.log')
         });
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
+        process.on('message', (data, handle) => {
+            console.log({
+                data, handle
+            });
+        });
         if (this.dev) {
             await execSync(`pm2 start ${join(root, 'config/pm2/dev.json')}`)
         } else {
