@@ -10,6 +10,7 @@
     ],
     "allowJs": false,
     "checkJs": false,
+    "emitBOM": false,
     "jsx": "preserve",
     "declaration": true,
     "sourceMap": true,

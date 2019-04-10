@@ -1,6 +1,7 @@
 import Exception from 'ant-design-pro/lib/Exception';
-import { Button } from 'antd'
+import { Button as AntButton } from 'antd'
 import React from 'react';
+const Button: any = AntButton;
 export function Exception404() {
     return <Exception
         type="404"

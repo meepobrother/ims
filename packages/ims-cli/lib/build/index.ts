@@ -6,6 +6,7 @@ import ts = require('gulp-typescript');
 import { join } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
+const babel = require('gulp-babel');
 @Command({
     name: 'build',
     alis: 'b'
@@ -24,7 +25,7 @@ export class ImsCommandBuild {
     tag: string = 'build';
 
     @Input()
-    target: string;
+    output: string = 'dist';
 
     async run() {
         if (this.name === 'all') {
@@ -38,7 +39,7 @@ export class ImsCommandBuild {
             ]
             for (let pk of packages) {
                 await _rimraf(join(root, 'dist', pk));
-                await packProject(pk);
+                await packProject(pk, this.output);
                 console.log(`${chalk.cyan(pk)}: ${chalk.yellow(`构建完成!`)}`);
             }
             exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
@@ -76,8 +77,8 @@ function createTask(task: any) {
     });
 }
 
-function packProject(name: string) {
-    const destPath = join(root, 'dist', name);
+function packProject(name: string, output: string = 'dist') {
+    const destPath = join(root, output, name);
     const srcPath = join(root, 'packages', name);
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
     const tscTask = gulp.src(`${srcPath}/**/*.{ts,tsx}`)

@@ -1,7 +1,6 @@
 import Config = require('webpack-chain');
 import { join } from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
-import DemoPlugin from './plugins/demoPlugin';
 import AntdPlugin from './plugins/antd'
 import autoprefixer = require('autoprefixer');
 // import pxtransform = require('postcss-pxtransform');
