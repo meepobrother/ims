@@ -1,7 +1,9 @@
 export interface IConfig {
     system: string,
     addons: string,
-    port: number,
+    p2p: string;
+    api: string;
+    list: string[];
     admin: number[];
     db: {
         host: string,

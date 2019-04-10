@@ -1,7 +1,6 @@
 import { getConnection } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
-import { ImsInstall } from 'ims-install';
 import { visitor, IConfig, setConfig } from 'ims-common';
 import { App } from 'ims-core';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
@@ -19,10 +18,15 @@ import cookieParser = require('cookie-parser');
 import session = require('express-session');
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
+
 import { ImsAdminer } from 'ims-adminer/addon';
 import { ImsCloud } from 'ims-cloud';
 import { ImsWebsite } from 'ims-website';
+import { ImsInstall } from 'ims-install';
 
+import { bootstrap as p2pBotstrap } from 'ims-p2p'
+import { parseP2p } from './parseP2p';
+import multiaddr, { Options } from 'multiaddr'
 const file = multer();
 export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
@@ -52,11 +56,14 @@ export async function bootstrap(root: string, dev: boolean) {
     }));
     const addons = [];
     const configPath = join(root, 'config/config.json');
-    let port = 8080;
+    const addr = multiaddr('/ip4/0.0.0.0/tcp/4200')
+    let addressOptions = addr.toOptions();
     if (fs.existsSync(configPath)) {
         const model = visitor.visitType(ImsModel);
         const config: IConfig = require(join(root, 'config/config.json'));
         setConfig(config);
+        const addr = multiaddr(config.api)
+        addressOptions = addr.toOptions();
         try {
             await parseSystem(model, config);
             const connection = getConnection(config.system)
@@ -72,15 +79,15 @@ export async function bootstrap(root: string, dev: boolean) {
             addons.push(ImsWebsite);
             await parseAddons(addons, config);
         } catch (e) { }
-        port = config.port;
     } else {
         addons.push(ImsInstall);
         app.get('/', (req, res, next) => {
             res.redirect('/ims-install')
         });
     }
+    const node = await p2pBotstrap();
     // 解析router
-    parseRouter(addons, app, root);
+    parseRouter(addons, app, node);
     // 解析template
     parseTemplate(addons, app, root);
     /** 安装 */
@@ -89,17 +96,19 @@ export async function bootstrap(root: string, dev: boolean) {
         dev: dev
     })(ImsStartApp);
     const appContext = visitor.visitType(ImsStartApp);
-    createAdmin(appContext);
-    createMobile(appContext);
-    const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
-    pack.run();
+    // createAdmin(appContext);
+    // createMobile(appContext);
+    // const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
+    // pack.run();
     const server = createServer(app);
     const ws = new Server({ server });
     ws.on('connection', (socket) => {
         parseWebSocket(appContext, socket, ws)
     });
+    parseP2p(appContext, node);
     return new Promise((resolve, reject) => {
-        server.listen(port, () => {
+        server.listen(addressOptions.port, addressOptions.host, () => {
+            console.log(`api start at http://${addressOptions.host}:${addressOptions.port}`)
             resolve();
         });
     });

@@ -1,4 +1,2 @@
-declare module 'libp2p-bootstrap' {
-    class Bootstrap { }
-    export default Bootstrap;
-}
+declare class Bootstrap { }
+export default Bootstrap;

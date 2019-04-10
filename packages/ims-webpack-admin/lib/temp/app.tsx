@@ -233,17 +233,17 @@ store:{},
 redirect:"/adminer/ucenter",
 store:{imsAdminerRouter: require('../../../ims-adminer/addon/template/store/router').default,},
 },{
-path:"/editor",
-component:React.lazy(()=>import(/* webpackChunkName: "editor" */"../../../ims-website/lib/template/editor/layout")),
+path:"/ims-website/editor",
+component:React.lazy(()=>import(/* webpackChunkName: "ims-website-editor" */"../../../ims-website/lib/template/editor/layout")),
 roles:[],
 routes:[{
-path:"/editor/index",
-component:React.lazy(()=>import(/* webpackChunkName: "editor-index" */"../../../ims-website/lib/template/editor/index/index")),
+path:"/ims-website/editor/index",
+component:React.lazy(()=>import(/* webpackChunkName: "ims-website-editor-index" */"../../../ims-website/lib/template/editor/index/index")),
 roles:[],
 routes:[],
 store:{},
 }],
-redirect:"/editor/index",
+redirect:"/ims-website/editor/index",
 store:{},
 }];
 bootstrap(routes);

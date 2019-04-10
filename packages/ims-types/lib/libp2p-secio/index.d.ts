@@ -1,4 +1,2 @@
-declare module 'libp2p-secio' {
-    class Secio { }
-    export default Secio;
-}
+declare class Secio { }
+export default Secio;

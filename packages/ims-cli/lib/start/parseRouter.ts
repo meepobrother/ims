@@ -4,41 +4,60 @@ import { getConnection, Connection } from 'typeorm'
 import { getConfig } from 'ims-common';
 import * as core from 'ims-core';
 import { Type, TypeContext } from 'ims-decorator';
-export function parseRouter(addons: Type<any>[], app: Express, root: string) {
-    app.use('/', createAddonsRouter(addons))
+import Libp2p from 'libp2p';
+export function parseRouter(addons: Type<any>[], app: Express, node: Libp2p) {
+    const router = createAddonsRouter(addons, node);
+    console.log(JSON.stringify(router.routes, null, 2))
+    app.use('/', router.router)
 }
-function createAddonsRouter(addons: Type<any>[]) {
+function createAddonsRouter(addons: Type<any>[], node: Libp2p) {
     try {
         const router = Router();
+        const routes = [];
         addons.map(addon => {
             const context = common.visitor.visitType(addon);
-            const addonRouter = createAddonRouter(context);
+            const addonRouter = createAddonRouter(context, node);
+            routes.push({
+                path: addonRouter.path,
+                routes: addonRouter.routes
+            })
             if (addonRouter) router.use(addonRouter.path, addonRouter.router);
         });
-        return router;
+        return { router, routes };
     } catch (e) {
         console.log(`createAddonsRouter:${e.message}`)
     }
 }
 
-function createAddonRouter(addon: TypeContext) {
+function createAddonRouter(addon: TypeContext, node: Libp2p) {
     try {
+        const routes = [];
         const addonRouter = Router();
         const addonAst = addon.getClass(core.AddonMetadataKey) as core.AddonAst;
         addonAst.incs.map(inc => {
-            const incRouter = createAddonIncRouter(inc);
+            const incRouter = createAddonIncRouter(inc, node);
+            routes.push({
+                path: incRouter.path,
+                routes: incRouter.routes
+            })
             if (incRouter) addonRouter.use(incRouter.path, incRouter.router)
         });
+        const path = addonAst.path.startsWith('/') ? addonAst.path : `/${addonAst.path}`;
         return {
-            path: addonAst.path.startsWith('/') ? addonAst.path : `/${addonAst.path}`,
-            router: addonRouter
+            path: path,
+            router: addonRouter,
+            routes: {
+                path,
+                routes
+            }
         };
     } catch (e) {
         console.log(`createAddonRouter:${e.message}`)
     }
 }
 
-function createAddonIncRouter(inc: TypeContext) {
+function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
+    const routes = [];
     const incRouter = Router();
     const incAst = inc.getClass(core.ControllerMetadataKey) as core.ControllerAst;
     function handlerMethod(methods: core.HttpMethodContext<any>[], method: 'put' | 'head' | 'patch' | 'delete' | 'get' | 'post' | 'options') {
@@ -101,6 +120,9 @@ function createAddonIncRouter(inc: TypeContext) {
                     else if (par instanceof core.RenderAst) {
                         params[par.ast.parameterIndex] = res.render;
                     }
+                    else if (par instanceof core.P2pParameterAst) {
+                        params[par.ast.parameterIndex] = node;
+                    }
                     else {
                         throw new Error(`不支持${par.ast.metadataKey}`)
                     }
@@ -135,6 +157,7 @@ function createAddonIncRouter(inc: TypeContext) {
             const handlerNotFound = (req: Request, res, next) => {
                 res.end(`${method} ${req.baseUrl}`)
             }
+            routes.push(`${method}:${mth.path}`)
             switch (method) {
                 case 'get':
                     incRouter.get(mth.path, handlerResult, handlerNotFound);
@@ -195,7 +218,8 @@ function createAddonIncRouter(inc: TypeContext) {
         handlerMethod(getMethodContext(core.HeadMetadataKey), 'head');
         return {
             path: incAst.path.startsWith('/') ? incAst.path : `/${incAst.path}`,
-            router: incRouter
+            router: incRouter,
+            routes: routes
         }
     }
 }

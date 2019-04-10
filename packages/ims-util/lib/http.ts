@@ -6,7 +6,8 @@ export class ImsHttp {
 
     get(url: string) {
         return (params: any = {}) => {
-            return fetch(`${this.baseUrl}${url}?${params.join('&')}`, {
+            const args = Object.keys(params).map(key => `${key}=${params[key]}`)
+            return fetch(`${this.baseUrl}${url}?${args.join('&')}`, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

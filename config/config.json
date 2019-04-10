@@ -1,7 +1,9 @@
 {
   "system": "ims_system",
   "addons": "ims_addons",
-  "port": 8080,
+  "p2p": "/ip4/0.0.0.0/tcp/4200",
+  "api": "/ip4/0.0.0.0/tcp/8081",
+  "list": [],
   "admin": [
     1
   ],

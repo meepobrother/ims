@@ -1,6 +1,6 @@
 <p align="center"><a href="https://meepo.com.cn" target="_blank" rel="noopener noreferrer"><img width="100" src="./assets/logo.png" alt="Ims logo"></a></p>
 
-<h2 align="center">IMS应用框架</h2>
+<h2 align="center">IMS区块链应用框架</h2>
 
 将一系列前端及后端的技术集成使其具有更加简单、快捷及畅快的开发体验。前端```react/react-router/mobx```等。后端```express/typeorm```等，基与```typescript```装饰器实现跨平台。前台后台同构(同一结构、同一框架)开发，系统启动时```webpack```自动打包，```pm2```为系统稳定运行保驾护航。集成一个完整项目所用到的绝大部分技术形成一个企业级、可插拔、颗粒化变成的应用框架，内置应用商店!
 
@@ -101,7 +101,7 @@ createClient('服务端ip', '本地端口', '绑定域名');
 
 * [使用文档](https://doc.meepo.com.cn/)
 
-* [开发文档](https://dev.meepo.com.cn/)
+* [开发文档](./helps/dev/readme.md)
 
 * [开发运营社区](https://bbs.meepo.com.cn/)
 

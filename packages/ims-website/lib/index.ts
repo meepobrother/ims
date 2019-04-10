@@ -9,7 +9,6 @@ import { ImsWebsiteTypeorm } from './typeorm'
     sourceRoot: __dirname,
     incs: [],
     template: ImsWebsiteTemplate,
-    typeorm: ImsWebsiteTypeorm,
-    type: 'system'
+    typeorm: ImsWebsiteTypeorm
 })
 export class ImsWebsite { }

@@ -32,7 +32,6 @@
     "noUnusedParameters": false,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": false,
-    "moduleResolution": "node",
     "baseUrl": ".",
     "resolveJsonModule": true,
     "emitDeclarationOnly": false,
@@ -49,6 +48,9 @@
       ],
       "ims-protons": [
         "packages/ims-protons/lib/index.ts"
+      ],
+      "ims-p2p": [
+        "packages/ims-p2p/lib/index.ts"
       ],
       "ims-util": [
         "packages/ims-util/lib/index.ts"
@@ -148,6 +150,33 @@
       ],
       "@babel/generator": [
         "@types/babel__generator"
+      ],
+      "libp2p": [
+        "packages/ims-types/lib/libp2p"
+      ],
+      "multiaddr": [
+        "packages/ims-types/lib/multiaddr"
+      ],
+      "libp2p-bootstrap": [
+        "packages/ims-types/lib/libp2p-bootstrap"
+      ],
+      "peer-info": [
+        "packages/ims-types/lib/peer-info"
+      ],
+      "peer-book": [
+        "packages/ims-types/lib/peer-book"
+      ],
+      "libp2p-tcp": [
+        "packages/ims-types/lib/libp2p-tcp"
+      ],
+      "@nodeutils/*": [
+        "packages/ims-types/lib/nodeutils/*"
+      ],
+      "libp2p-mplex": [
+        "packages/ims-types/lib/libp2p-mplex"
+      ],
+      "libp2p-secio": [
+        "packages/ims-types/lib/libp2p-secio"
       ]
     },
     "typeRoots": [
@@ -172,8 +201,7 @@
     "addons",
     "config",
     "data",
-    "framework",
-    "packages/ims-types/lib/**/*.d.ts"
+    "framework"
   ],
   "exclude": [
     "node_modules",
