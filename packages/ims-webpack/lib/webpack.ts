@@ -28,7 +28,7 @@ export abstract class ImsWebpack {
     lessReg = /\.less\b/;
     sassReg = /\.(s[ac]ss)\b/;
 
-    constructor(public dist: string) {
+    constructor(public dist: string, public dev: boolean) {
         this.config.plugin('html').use(HtmlWebpackPlugin, [{
             template: this.getHtmlTemplate(),
             filename: 'index.html',
@@ -59,8 +59,8 @@ export abstract class ImsWebpack {
     initStyle() {
         const root = process.cwd();
         this.options = {
-            mode: 'production',
-            devtool: 'source-map',
+            mode: this.dev ? 'development' : 'production',
+            devtool: this.dev ? 'source-map' : false,
             plugins: [],
             output: {
                 path: join(this.root, 'template', this.dist),

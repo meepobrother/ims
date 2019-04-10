@@ -18,7 +18,7 @@ export class ImsWebpackMobile extends ImsWebpack {
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
     constructor(public context: TypeContext, dev: boolean = true) {
-        super('mobile');
+        super('mobile', dev);
         this.dev == !!dev;
         this.entity.add(createMobile(this.context));
         const appAst = this.context.getClass(AppMetadataKey) as AppAst;

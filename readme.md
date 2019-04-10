@@ -10,11 +10,11 @@
 
 <h2 align="center">生态系统</h2>
 
-| 项目        | 状态                                       | 介绍   |
-|-----------|------------------------------------------|------|
-| ims-core  | [![ims-core-status]][ims-core-package]   | 核心   |
-| ims-util  | [![ims-util-status]][ims-util-package]   | 工具   |
-| ims-cli   | [![ims-cli-status]][ims-cli-package]     | 命令行  |
+| 项目        | 状态                                       | 介绍        |
+|-----------|------------------------------------------|-----------|
+| ims-core  | [![ims-core-status]][ims-core-package]   | 核心        |
+| ims-util  | [![ims-util-status]][ims-util-package]   | 工具        |
+| ims-cli   | [![ims-cli-status]][ims-cli-package]     | 命令行       |
 | ims-proxy | [![ims-proxy-status]][ims-proxy-package] | 将服务器映射到本地 |
 
 [ims-proxy-status]: https://img.shields.io/npm/v/ims-proxy.svg
@@ -96,13 +96,14 @@ createClient('服务端ip', '本地端口', '绑定域名');
 
 
 <h2 align="center">文档及社区</h2>
+
+## 启动服务
 ```ts
 // 开发者模式
 ims start -d
 // 运营模式
 ims start
 ```
-
 
 * [在线演示](https://demo.meepo.com.cn/)
 

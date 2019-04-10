@@ -18,6 +18,7 @@ export class ImsStart extends ImsCommand {
         exec(`pm2 kill`, { cwd: root }, () => {
             const devApps: StartOptions[] = [];
             fs.ensureDirSync(join(root, 'config/pm2'))
+            fs.ensureDirSync(join(root, 'data/logs'))
             devApps.push({
                 name: 'template_dev',
                 script: join(__dirname, 'bin/template_dev.js'),

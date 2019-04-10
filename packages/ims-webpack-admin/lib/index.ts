@@ -22,7 +22,7 @@ export class ImsWebpackAdmin extends ImsWebpack {
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
     constructor(public context: TypeContext, dev: boolean = true) {
-        super('admin');
+        super('admin', dev);
         this.dev = !!dev;
         this.options.plugins.push(
             new IgnorePlugin(/^\.\/locale$/, /moment$/)
