@@ -1,6 +1,6 @@
 {
   "name": "ims-common",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -18,6 +18,6 @@
   },
   "gitHead": "3ac71c7d12f2f5dcebe858b5996e1fd3f3a79c16",
   "dependencies": {
-    "ims-core": "^1.0.34"
+    "ims-core": "^1.0.35"
   }
 }
