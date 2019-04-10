@@ -6,7 +6,6 @@ import ts = require('gulp-typescript');
 import { join } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
-const babel = require('gulp-babel');
 @Command({
     name: 'build',
     alis: 'b'
@@ -86,7 +85,7 @@ function packProject(name: string, output: string = 'dist') {
     const tscTask = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
         .pipe(tsProject()).pipe(gulp.dest(destPath));
     const otherTask = gulp.src([
-        `${srcPath}/**/*.{md,json,html,css,jpg,jpeg,svg,png,js,jsx,yml}`,
+        `${srcPath}/**/*.{md,json,html,css,less,scss,sass,jpg,jpeg,svg,png,js,jsx,yml}`,
     ]).pipe(gulp.dest(destPath))
     return Promise.all([
         createTask(tscTask).then(() => {
