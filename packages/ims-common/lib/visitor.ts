@@ -11,4 +11,3 @@ export const visitor = new Visitors([
     new StoreVisitor(),
     new SocketVisitor()
 ]);
-

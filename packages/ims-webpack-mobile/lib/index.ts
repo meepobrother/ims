@@ -27,13 +27,8 @@ export class ImsWebpackMobile extends ImsWebpack {
             const template = addonAst.template;
             if (template) {
                 const tmpAst = template.getClass(TemplateMetadataKey) as TemplateAst;
-                tmpAst.admins.map(admin => {
-                    const routerAst = admin.getClass(RouterMetadataKey) as RouterAst;
-                    const def = routerAst.ast.metadataDef;
-                    if (def && def.sourceRoot) sources.add(def.sourceRoot);
-                });
+                tmpAst.sourceRoot && sources.add(tmpAst.sourceRoot)
             }
-            if (addonAst.ast.sourceRoot) sources.add(addonAst.ast.sourceRoot)
         });
         if (this.dev) {
             this.config.devtool('source-map');

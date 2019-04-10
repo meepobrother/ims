@@ -16,10 +16,11 @@ import bodyparser = require('body-parser');
 import cookieParser = require('cookie-parser');
 import session = require('express-session');
 
-import { ImsAdminer } from 'ims-adminer/addon';
-import { ImsCloud } from 'ims-cloud';
-import { ImsWebsite } from 'ims-website';
+// import { ImsAdminer } from 'ims-adminer/addon';
+// import { ImsCloud } from 'ims-cloud';
+// import { ImsWebsite } from 'ims-website';
 import { ImsInstall } from 'ims-install';
+import ImsEditor from '../../../../addons/core/editor'
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import { parseP2p } from './parseP2p';
@@ -68,9 +69,10 @@ export async function bootstrap(root: string, dev: boolean) {
             allAddon.map(addon => {
                 addons.push(require(addon.entry).default)
             });
-            addons.push(ImsAdminer);
-            addons.push(ImsCloud);
-            addons.push(ImsWebsite);
+            // addons.push(ImsAdminer);
+            // addons.push(ImsCloud);
+            // addons.push(ImsWebsite);
+            addons.push(ImsEditor);
             await parseAddons(addons, config);
         } catch (e) { }
     } else {

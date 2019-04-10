@@ -50,7 +50,7 @@ export class ImsBuild {
     static instance: any;
     static create() {
         if (this.instance) return this.instance;
-        this.instance = new ImsCommandBuild();
+        this.instance = new ImsBuild();
         return this.instance;
     }
 }

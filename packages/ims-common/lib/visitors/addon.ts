@@ -22,14 +22,9 @@ export class AddonVisitor extends NullAstVisitor {
             return new TemplateAst(ast, context)
         }
     }
-
     visitParameter(ast: ParameterAst, context: ParserAstContext) {
         if (isRenderParameterAst(ast)) {
             return new RenderAst(ast, context)
         }
-    }
-
-    visitProperty(ast: PropertyAst, context: ParserAstContext) {
-
     }
 }

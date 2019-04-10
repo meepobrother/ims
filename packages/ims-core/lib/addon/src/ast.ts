@@ -244,36 +244,44 @@ export class RouterAst extends ClassContext<T.RouterOptions> {
 }
 
 export class TemplateAst extends ClassContext<T.TemplateOptions> {
-    mobiles: TypeContext[];
-    admins: TypeContext[];
+    mobiles: T.IRouter[];
+    admins: T.IRouter[];
     constructor(ast: ClassAst, context: ParserAstContext) {
         super(ast, context);
         const def = this.ast.metadataDef;
-        this.mobiles = this.forEachObjectToTypeContent(def && def.mobiles)
-        this.admins = this.forEachObjectToTypeContent(def && def.admins)
+        this.mobiles = def.mobiles;
+        this.admins = def.admins;
+    }
+
+    get addon(): AddonAst {
+        return this.context.typeContext.parent.get(K.AddonMetadataKey) as AddonAst
+    }
+
+    handleIRouter(routes: T.IRouter[], parent?: T.IRouter): T.IRouter[] {
+        if (parent) {
+            return routes.map(route => {
+                let { path, component, routes } = route;
+                route.path = `${parent.path}${path}`;
+                route.component = `${this.addon.sourceRoot}${component}`;
+                route.routes = this.handleIRouter(routes, route);
+                return route;
+            });
+        } else {
+            return routes.map(route => {
+                let { path, component, routes } = route;
+                route.path = `${this.addon.path}${path}`;
+                route.component = `${this.addon.sourceRoot}${component}`;
+                route.routes = this.handleIRouter(routes, route);
+                return route;
+            });
+        }
     }
 
     getConfig() {
         return {
-            mobiles: this.getMobiles(),
-            admins: this.getAdmins()
+            mobiles: this.handleIRouter(this.mobiles),
+            admins: this.handleIRouter(this.admins)
         }
-    }
-
-    getMobiles(): T.IRouter[] {
-        return this.getMobilesAst().map(mobile => mobile.getRoute())
-    }
-
-    getAdmins(): T.IRouter[] {
-        return this.getAdminsAst().map(admin => admin.getRoute())
-    }
-
-    getMobilesAst(): RouterAst[] {
-        return this.mobiles.map(mobile => mobile.getClass(K.RouterMetadataKey))
-    }
-
-    getAdminsAst(): RouterAst[] {
-        return this.admins.map(mobile => mobile.getClass(K.RouterMetadataKey))
     }
 }
 export class TypeormAst extends ClassContext<T.TypeormOptions> {

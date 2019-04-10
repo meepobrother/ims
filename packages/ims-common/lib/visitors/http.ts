@@ -20,7 +20,6 @@ export class HttpVisitor extends NullAstVisitor {
         if (isQueryParameterAst(ast)) {
             return new QueryAst(ast, context)
         }
-
         if (isRedirectParameterAst(ast)) {
             return new RedirectAst(ast, context)
         }
@@ -30,7 +29,6 @@ export class HttpVisitor extends NullAstVisitor {
         if (isUploadParameterAst(ast)) {
             return new UploadAst(ast, context)
         }
-
         if (isResParameterAst(ast)) {
             return new ResAst(ast, context)
         }

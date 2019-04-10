@@ -1,6 +1,6 @@
 import { visitor, } from 'ims-common';
 import { Type, TypeContext } from 'ims-decorator'
-import { RouterMetadataKey, RouterAst, AddonMetadataKey, AddonAst } from 'ims-core'
+import { RouterMetadataKey, RouterAst, AddonMetadataKey, AddonAst, IRouter } from 'ims-core'
 import { Express } from 'express'
 import { join } from 'path'
 export function parseTemplate(addons: Type<any>[], app: Express, root: string) {
@@ -25,10 +25,10 @@ function handlerAddon(addon: TypeContext, router: Express) {
         const templateAst = addonAst.getTemplateAst();
         if (templateAst) {
             if (templateAst.admins) templateAst.admins.map(admin => {
-                handlerRouter(admin, addon, 'admin', router);
+                handlerRouter(admin, 'admin', router);
             });
             if (templateAst.mobiles) templateAst.mobiles.map(admin => {
-                handlerRouter(admin, addon, 'mobile', router);
+                handlerRouter(admin, 'mobile', router);
             });
         }
     } catch (e) {
@@ -36,27 +36,20 @@ function handlerAddon(addon: TypeContext, router: Express) {
     }
 }
 
-function handlerRouter(context: TypeContext, addon: TypeContext, type: 'admin' | 'mobile', router: Express) {
-    const routerAst = context.getClass(RouterMetadataKey) as RouterAst;
-    if (routerAst) {
-        const dist = join(process.cwd(), 'template', type, 'index.html');
-        const def = { ...routerAst.ast.metadataDef };
-        const path = routerAst.getPath();
-        if (Array.isArray(routerAst.routes)) {
-            routerAst.routes.map(route => {
-                handlerRouter(route, addon, type, router);
+function handlerRouter(irouter: IRouter, type: 'admin' | 'mobile', router: Express) {
+    const dist = join(process.cwd(), 'template', type, 'index.html');
+    if (irouter.path) {
+        if (irouter.redirect) {
+            router.get(irouter.path, (req, res, next) => {
+                res.redirect(irouter.redirect)
+            })
+        } else {
+            router.get(irouter.path, (req, res, next) => {
+                res.sendFile(dist)
             });
         }
-        if (def.redirect) {
-            routerAst.redirect = routerAst.getRedirect();
-            if (def.path) {
-                router.get(path, (req, res, next) => {
-                    res.redirect(routerAst.redirect)
-                });
-            }
+        if (irouter.routes) {
+            irouter.routes.map(route => handlerRouter(route, type, router))
         }
-        router.get(path, (req, res, next) => {
-            res.sendFile(dist)
-        });
     }
 }

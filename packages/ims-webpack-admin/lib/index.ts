@@ -42,11 +42,7 @@ export class ImsWebpackAdmin extends ImsWebpack {
                 const template = addonAst.template;
                 if (template) {
                     const tmpAst = template.getClass(TemplateMetadataKey) as TemplateAst;
-                    tmpAst.admins.map(admin => {
-                        const routerAst = admin.getClass(RouterMetadataKey) as RouterAst;
-                        const def = routerAst.ast.metadataDef;
-                        if (def && def.sourceRoot) sources.add(def.sourceRoot);
-                    });
+                    if (tmpAst.sourceRoot) sources.add(tmpAst.sourceRoot);
                 }
             }
         });

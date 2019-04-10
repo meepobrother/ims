@@ -126,8 +126,8 @@ export interface RouterOptions {
     store?: { [key: string]: string };
 }
 export interface TemplateOptions {
-    mobiles?: any[] | object,
-    admins?: any[] | object,
+    mobiles?: IRouter[],
+    admins?: IRouter[],
 }
 export interface TypeormOptions {
     /**
