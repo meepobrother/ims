@@ -3,6 +3,8 @@ import { ImsCommand } from '../command';
 import { join } from 'path';
 import { ImsCommandPm2 } from '../pm2'
 import { exec } from 'shelljs'
+import { StartOptions } from 'pm2'
+import fs from 'fs-extra'
 @Command({
     name: 'start'
 })
@@ -13,26 +15,28 @@ export class ImsStart extends ImsCommand {
     type: 'dev' | 'prod' = 'dev';
 
     async run() {
-        exec(`pm2 kill`, {
-            cwd: process.cwd()
-        }, async () => {
-            console.log(`pm2 kill`)
-            const templatePm2 = new ImsCommandPm2();
-            templatePm2.script = join(__dirname, 'bin/build.js');
-            templatePm2.name = 'template';
-            templatePm2.run();
-            if (this.type === 'dev') {
-                const pm2 = new ImsCommandPm2();
-                pm2.script = join(__dirname, 'bin/dev.js');
-                pm2.name = 'dev';
-                pm2.run();
-            }
-            if (this.type === 'prod') {
-                const pm2 = new ImsCommandPm2();
-                pm2.script = join(__dirname, 'bin/prod.js');
-                pm2.name = 'prod';
-                pm2.run();
-            }
+        const root = process.cwd();
+        const devApps: StartOptions[] = [];
+        devApps.push({
+            name: 'template',
+            script: join(__dirname, 'bin/template_dev.js')
         })
+        devApps.push({
+            name: 'dev',
+            script: join(__dirname, 'bin/dev.js')
+        });
+        fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
+
+        const prodApps: StartOptions[] = [];
+
+        prodApps.push({
+            name: 'template',
+            script: join(__dirname, 'bin/template_prod.js')
+        })
+        prodApps.push({
+            name: 'dev',
+            script: join(__dirname, 'bin/prod.js')
+        });
+        fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
     }
 }
