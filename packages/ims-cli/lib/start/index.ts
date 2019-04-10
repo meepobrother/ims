@@ -9,9 +9,9 @@ import fs from 'fs-extra'
 })
 export class ImsStart extends ImsCommand {
     @Input({
-        alis: 't'
+        alis: 'd'
     })
-    type: 'dev' | 'prod' = 'dev';
+    dev: boolean = true;
 
     async run() {
         const root = process.cwd();
@@ -47,7 +47,7 @@ export class ImsStart extends ImsCommand {
                 error: join(root, 'data/logs/prod-error.log')
             });
             fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
-            if (this.type === 'dev') {
+            if (this.dev) {
                 exec(`pm2 start ${join(root, 'config/pm2/dev.json')}`)
             } else {
                 exec(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
