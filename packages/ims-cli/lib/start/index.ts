@@ -50,10 +50,11 @@ export class ImsStart extends ImsCommand {
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
 
         if (this.dev) {
-            execSync(`pm2 start ${join(root, 'config/pm2/dev.json')} &`)
+            await execSync(`pm2 start ${join(root, 'config/pm2/dev.json')} &`)
         } else {
-            execSync(`nohup node ${join(__dirname, 'bin/template_prod')}`)
-            execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
+            await execSync(`node ${join(__dirname, 'bin/template_prod')}`)
+            await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
         }
+        console.log(`服务启动成功`)
     }
 }
