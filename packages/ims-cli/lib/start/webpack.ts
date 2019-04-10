@@ -69,7 +69,7 @@ export class ImsWebpacks {
     watch() {
         const compiler = webpack(this.getConfig())
         compiler.watch({}, (err, stats) => {
-            if (err) console.error(err);
+            // if (err) console.error(err);
             const res = formatWebpackMessages(stats.toJson());
             res.errors.map(err => console.error(err));
             res.warnings.map(err => console.warn(err));
