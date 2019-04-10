@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { App } from 'ims-core'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';

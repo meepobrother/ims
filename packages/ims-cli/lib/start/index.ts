@@ -40,15 +40,7 @@ export class ImsStart extends ImsCommand {
             error: join(root, 'data/logs/dev-error.log')
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
-
         const prodApps: StartOptions[] = [];
-
-        prodApps.push({
-            name: 'template_prod',
-            script: join(__dirname, 'bin/template_prod.js'),
-            output: join(root, 'data/logs/template_prod.log'),
-            error: join(root, 'data/logs/template_prod-error.log')
-        })
         prodApps.push({
             name: 'prod',
             script: join(__dirname, 'bin/prod.js'),
@@ -56,14 +48,11 @@ export class ImsStart extends ImsCommand {
             error: join(root, 'data/logs/prod-error.log')
         });
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
-        process.on('message', (data, handle) => {
-            console.log({
-                data, handle
-            });
-        });
+
         if (this.dev) {
             await execSync(`pm2 start ${join(root, 'config/pm2/dev.json')}`)
         } else {
+            await execSync(`node ${join(__dirname, 'bin/template_prod')}`)
             await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
         }
     }
