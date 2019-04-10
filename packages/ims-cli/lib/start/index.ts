@@ -13,7 +13,6 @@ export class ImsStart extends ImsCommand {
     type: 'dev' | 'prod' = 'dev';
 
     async run() {
-
         exec(`pm2 kill`, {
             cwd: process.cwd()
         }, async () => {

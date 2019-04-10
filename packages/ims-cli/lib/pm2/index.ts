@@ -27,8 +27,9 @@ export class ImsCommandPm2 {
         return new Promise((resolve, reject) => {
             this.error = join(root, 'config/logs', `${this.name}_error.log`)
             this.output = join(root, 'config/logs', `${this.name}.log`)
-            exec(`pm2 ${this.script} --name="${this.name}" --output="${this.output}" --error="${this.error}"
-            `, { cwd: root }, () => resolve())
+            const command = `pm2 ${this.script} --name="${this.name}" --output="${this.output}" --error="${this.error}"`;
+            console.log(command)
+            exec(command, { cwd: root }, () => resolve())
         })
     }
 }
