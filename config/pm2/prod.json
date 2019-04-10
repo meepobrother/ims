@@ -1,0 +1,10 @@
+[
+  {
+    "name": "template",
+    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/template_prod.js"
+  },
+  {
+    "name": "dev",
+    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/prod.js"
+  }
+]
