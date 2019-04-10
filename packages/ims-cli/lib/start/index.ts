@@ -52,8 +52,8 @@ export class ImsStart extends ImsCommand {
         if (this.dev) {
             await execSync(`pm2 start ${join(root, 'config/pm2/dev.json')} &`)
         } else {
-            await execSync(`node ${join(__dirname, 'bin/template_prod')}`)
             await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
+            await execSync(`node ${join(__dirname, 'bin/template_prod')}`)
         }
         console.log(`服务启动成功`)
     }
