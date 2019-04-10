@@ -10,12 +10,12 @@
 
 <h2 align="center">生态系统</h2>
 
-| 项目        | 状态                                       | 介绍        | 文档                                    |
-|-----------|------------------------------------------|-----------|---------------------------------------|
-| ims-core  | [![ims-core-status]][ims-core-package]   | 核心        | [!ims cli docs](./packages/ims-cli)   |
-| ims-util  | [![ims-util-status]][ims-util-package]   | 工具        | [!ims util docs](./packages/ims-util) |
-| ims-cli   | [![ims-cli-status]][ims-cli-package]     | 命令行       | [!ims cli docs](./packages/ims-cli)   |
-| ims-proxy | [![ims-proxy-status]][ims-proxy-package] | 将服务器映射到本地 | [!ims proxy docs](./packages/ims-proxy)   |
+| 项目        | 状态                                       | 介绍        | 文档                                 |
+|-----------|------------------------------------------|-----------|------------------------------------|
+| ims-core  | [![ims-core-status]][ims-core-package]   | 核心        | [cli docs](./packages/ims-cli)     |
+| ims-util  | [![ims-util-status]][ims-util-package]   | 工具        | [util docs](./packages/ims-util)   |
+| ims-cli   | [![ims-cli-status]][ims-cli-package]     | 命令行       | [cli docs](./packages/ims-cli)     |
+| ims-proxy | [![ims-proxy-status]][ims-proxy-package] | 将服务器映射到本地 | [proxy docs](./packages/ims-proxy) |
 
 [ims-proxy-status]: https://img.shields.io/npm/v/ims-proxy.svg
 [ims-proxy-package]: https://npmjs.com/package/ims-proxy
