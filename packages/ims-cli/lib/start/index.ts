@@ -17,6 +17,7 @@ export class ImsStart extends ImsCommand {
     async run() {
         const root = process.cwd();
         const devApps: StartOptions[] = [];
+        fs.ensureDirSync(join(root, 'config/pm2'))
         devApps.push({
             name: 'template',
             script: join(__dirname, 'bin/template_dev.js')
