@@ -24,7 +24,9 @@ export class ImsCommandBuild {
     })
     tag: string = 'build';
 
-    @Input()
+    @Input({
+        alis: 'o'
+    })
     output: string = 'dist';
 
     async run() {

@@ -87,7 +87,9 @@ __decorate([
     __metadata("design:type", String)
 ], ImsCommandBuild.prototype, "tag", void 0);
 __decorate([
-    ims_core_1.Input(),
+    ims_core_1.Input({
+        alis: 'o'
+    }),
     __metadata("design:type", String)
 ], ImsCommandBuild.prototype, "output", void 0);
 ImsCommandBuild = ImsCommandBuild_1 = __decorate([
