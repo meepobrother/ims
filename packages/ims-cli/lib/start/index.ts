@@ -61,7 +61,5 @@ export class ImsStart extends ImsCommand {
         } else {
             await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
         }
-        const list = await execSync(`pm2 list`);
-        console.log(list);
     }
 }
