@@ -58,7 +58,7 @@ export class ImsCommandBuild {
 function _rimraf(dir: string) {
     return new Promise((resolve, reject) => {
         rimraf(dir, () => resolve())
-    })
+    });
 }
 
 function createTask(task: any) {
