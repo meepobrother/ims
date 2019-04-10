@@ -25,13 +25,13 @@ export class ImsStart extends ImsCommand {
                 const pm2 = new ImsCommandPm2();
                 pm2.script = join(__dirname, 'bin/dev.js');
                 pm2.name = 'dev';
-                await pm2.run();
+                pm2.run();
             }
             if (this.type === 'prod') {
                 const pm2 = new ImsCommandPm2();
                 pm2.script = join(__dirname, 'bin/prod.js');
                 pm2.name = 'prod';
-                await pm2.run();
+                pm2.run();
             }
         })
     }
