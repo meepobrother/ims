@@ -38,7 +38,7 @@ export class ImsCommandBuild {
                 'ims-webpack-mobile', 'ims-website'
             ]
             for (let pk of packages) {
-                await _rimraf(join(root, 'dist', pk));
+                await _rimraf(join(root, this.output, pk));
                 await packProject(pk, this.output);
                 console.log(`${chalk.cyan(pk)}: ${chalk.yellow(`构建完成!`)}`);
             }
