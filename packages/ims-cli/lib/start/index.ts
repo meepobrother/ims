@@ -13,19 +13,22 @@ export class ImsStart extends ImsCommand {
     type: 'dev' | 'prod' = 'dev';
 
     async run() {
-        const pm2 = new ImsCommandPm2();
+
         exec(`pm2 kill`, {
             cwd: process.cwd()
         }, async () => {
-            pm2.script = join(__dirname, 'bin/build.js');
-            pm2.name = 'template';
-            pm2.run();
+            const templatePm2 = new ImsCommandPm2();
+            templatePm2.script = join(__dirname, 'bin/build.js');
+            templatePm2.name = 'template';
+            templatePm2.run();
             if (this.type === 'dev') {
+                const pm2 = new ImsCommandPm2();
                 pm2.script = join(__dirname, 'bin/dev.js');
                 pm2.name = 'dev';
                 await pm2.run();
             }
             if (this.type === 'prod') {
+                const pm2 = new ImsCommandPm2();
                 pm2.script = join(__dirname, 'bin/prod.js');
                 pm2.name = 'prod';
                 await pm2.run();
