@@ -99,11 +99,9 @@ createClient('服务端ip', '本地端口', '绑定域名');
 
 * [在线演示](https://demo.meepo.com.cn/)
 
-* [使用文档](https://doc.meepo.com.cn/)
+* [使用文档](./helps/use/readme.md)
 
 * [开发文档](./helps/dev/readme.md)
-
-* [开发运营社区](https://bbs.meepo.com.cn/)
 
 <h2 align="center">后续</h2>
 
