@@ -7,8 +7,9 @@ import fs from 'fs-extra'
 
 async function execSync(command: string) {
     return new Promise((resolve, reject) => {
-        exec(command, { cwd: process.cwd() }, () => {
-            resolve();
+        exec(command, { cwd: process.cwd() }, (code, out, err) => {
+            if(err) reject(err);
+            resolve(out)
         })
     })
 }
@@ -61,6 +62,7 @@ export class ImsStart extends ImsCommand {
         } else {
             await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
         }
-        await execSync(`pm2 list`);
+        const list = await execSync(`pm2 list`);
+        console.log(list);
     }
 }
