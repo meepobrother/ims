@@ -1,8 +1,10 @@
 import React, { Suspense } from 'react'
 import { render } from 'react-dom';
 import { ImsUtil } from 'ims-util';
-import { ImsRoutes, Loading } from 'ims-adminer';
+import { ImsRoutes } from './routes';
+import { Loading } from './loading';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import 'ant-design-pro/dist/ant-design-pro.css';
 import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
 export function createStore(routes: IRouter[]) {

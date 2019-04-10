@@ -34,7 +34,7 @@ export function createMobile(context: TypeContext) {
 }
 
 const template = (routes: IRouter[], tempDir: string) =>
-    `import { bootstrap } from './bootstrap';
+    `import { bootstrap } from 'ims-adminer';
 import "./app.css";
 import "antd/dist/antd.css";
 import React from 'react';

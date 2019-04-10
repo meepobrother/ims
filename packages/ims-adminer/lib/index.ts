@@ -9,3 +9,4 @@ export * from './history';
 export * from './path';
 export * from './loading';
 export * from './lazy';
+export * from './bootstrap';

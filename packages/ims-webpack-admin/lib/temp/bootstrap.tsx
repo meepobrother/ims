@@ -1,7 +1,7 @@
-import React, { Suspense, Component } from 'react'
+import React, { Suspense } from 'react'
 import { render } from 'react-dom';
 import { ImsUtil } from 'ims-util';
-import { ImsRoutes, Exception404 } from 'ims-adminer';
+import { ImsRoutes, Loading } from 'ims-adminer';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import 'ant-design-pro/dist/ant-design-pro.css';
 import { IRouter } from 'ims-core';
@@ -16,7 +16,6 @@ export function createStore(routes: IRouter[]) {
     });
     return ObjectStore;
 }
-import { Loading } from 'ims-adminer'
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes)
     const store = createStore(routes);
