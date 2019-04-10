@@ -10,7 +10,7 @@ import { exec } from 'shelljs';
     name: 'build',
     alis: 'b'
 })
-export class ImsCommandBuild {
+export class ImsBuild {
     root: string = root;
 
     @Input({

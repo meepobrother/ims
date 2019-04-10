@@ -1,11 +1,16 @@
-# `ims-cli`
+# 命令行工具
 
-> TODO: description
-
-## Usage
-
+### 构建
+```ts
+ims build
 ```
-const imsCli = require('ims-cli');
 
-// TODO: DEMONSTRATE API
+### 初始化
+```ts
+ims init
+```
+
+### 开始
+```ts
+ims start
 ```

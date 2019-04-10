@@ -6,8 +6,7 @@ import {
 } from 'ims-core';
 import { TypeContext } from 'ims-decorator'
 import { visitor } from 'ims-common'
-
-export default async function bootstrap(context: TypeContext) {
+export async function bootstrap(context: TypeContext) {
     const cli = context.getClass(AppMetadataKey) as AppAst;
     let args = yargsParser(process.argv.slice(2));
     const _ = args._;
