@@ -19,27 +19,34 @@ export class ImsStart extends ImsCommand {
             const devApps: StartOptions[] = [];
             fs.ensureDirSync(join(root, 'config/pm2'))
             devApps.push({
-                name: 'template',
-                script: join(__dirname, 'bin/template_dev.js')
+                name: 'template_dev',
+                script: join(__dirname, 'bin/template_dev.js'),
+                output: join(root, 'data/logs/template_dev.log'),
+                error: join(root, 'data/logs/template_dev-error.log')
             })
             devApps.push({
                 name: 'dev',
-                script: join(__dirname, 'bin/dev.js')
+                script: join(__dirname, 'bin/dev.js'),
+                output: join(root, 'data/logs/dev.log'),
+                error: join(root, 'data/logs/dev-error.log')
             });
             fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
 
             const prodApps: StartOptions[] = [];
 
             prodApps.push({
-                name: 'template',
-                script: join(__dirname, 'bin/template_prod.js')
+                name: 'template_prod',
+                script: join(__dirname, 'bin/template_prod.js'),
+                output: join(root, 'data/logs/template_prod.log'),
+                error: join(root, 'data/logs/template_prod-error.log')
             })
             prodApps.push({
-                name: 'dev',
-                script: join(__dirname, 'bin/prod.js')
+                name: 'prod',
+                script: join(__dirname, 'bin/prod.js'),
+                output: join(root, 'data/logs/prod.log'),
+                error: join(root, 'data/logs/prod-error.log')
             });
             fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
-
             if (this.type === 'dev') {
                 exec(`pm2 start ${join(root, 'config/pm2/dev.json')}`)
             } else {
