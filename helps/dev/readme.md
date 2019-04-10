@@ -62,8 +62,8 @@ export class ImsDemoSocket{
     // 发送消息
     @Post()
     sendMessage(@P2p() p2p: P2plib){
-        p2p.pubsub.publish('/socket/onMessage',Buffer.from('hello'),()=>{
-            
+        p2p.pubsub.publish('/ims-demo/socket/onMessage',Buffer.from('hello'),()=>{
+
         })
     }
 }
