@@ -96,6 +96,13 @@ createClient('服务端ip', '本地端口', '绑定域名');
 
 
 <h2 align="center">文档及社区</h2>
+```ts
+// 开发者模式
+ims start -d
+// 运营模式
+ims start
+```
+
 
 * [在线演示](https://demo.meepo.com.cn/)
 

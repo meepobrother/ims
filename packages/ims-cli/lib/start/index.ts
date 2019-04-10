@@ -11,7 +11,7 @@ export class ImsStart extends ImsCommand {
     @Input({
         alis: 'd'
     })
-    dev: boolean = true;
+    dev: boolean = false;
 
     async run() {
         const root = process.cwd();
