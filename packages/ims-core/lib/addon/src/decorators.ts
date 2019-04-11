@@ -68,8 +68,6 @@ export interface Body {
 }
 export const Addon = makeDecorator<t.AddonOptions>(k.AddonMetadataKey);
 export const Controller = makeDecorator<t.ControllerOptions>(k.ControllerMetadataKey);
-export const Role = makeDecorator<t.RoleOptions>(k.RoleMetadataKey);
-export const Router = makeDecorator<t.RouterOptions>(k.RouterMetadataKey);
 export const Template = makeDecorator<t.TemplateOptions>(k.TemplateMetadataKey);
 export const Typeorm = makeDecorator<t.TypeormOptions>(k.TypeormMetadataKey);
 export const Cli = makeDecorator<t.CliOptions>(k.CliMetadataKey);

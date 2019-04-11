@@ -8,12 +8,6 @@ export function isAddonClassAst(val: ClassAst): val is ClassAst<T.AddonOptions> 
 export function isControllerClassAst(val: ClassAst): val is ClassAst<T.ControllerOptions> {
     return val.metadataKey === K.ControllerMetadataKey;
 }
-export function isRoleClassAst(val: ClassAst): val is ClassAst<T.RoleOptions> {
-    return val.metadataKey === K.RoleMetadataKey;
-}
-export function isRouterClassAst(val: ClassAst): val is ClassAst<T.RouterOptions> {
-    return val.metadataKey === K.RouterMetadataKey;
-}
 export function isTemplateClassAst(val: ClassAst): val is ClassAst<T.TemplateOptions> {
     return val.metadataKey === K.TemplateMetadataKey;
 }

@@ -1,7 +1,5 @@
 export const AddonMetadataKey = 'AddonMetadataKey'
 export const ControllerMetadataKey = 'ControllerMetadataKey'
-export const RoleMetadataKey = 'RoleMetadataKey';
-export const RouterMetadataKey = 'RouterMetadataKey';
 export const TemplateMetadataKey = 'TemplateMetadataKey';
 export const TypeormMetadataKey = 'TypeormMetadataKey';
 export const CliMetadataKey = 'CliMetadataKey'
