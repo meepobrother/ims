@@ -7,7 +7,6 @@ import { Type, TypeContext } from 'ims-decorator';
 import Libp2p from 'libp2p';
 export function parseRouter(addons: Type<any>[], app: Express, node: Libp2p) {
     const router = createAddonsRouter(addons, node);
-    console.log(JSON.stringify(router.routes, null, 2))
     app.use('/', router.router)
 }
 function createAddonsRouter(addons: Type<any>[], node: Libp2p) {

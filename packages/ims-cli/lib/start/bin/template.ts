@@ -1,4 +1,3 @@
-import { App } from 'ims-core'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
 import { ImsWebpacks } from '../webpack';
@@ -9,7 +8,6 @@ import { visitor, setConfig } from 'ims-common';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
 import ImsEditor from 'ims-core-editor';
-
 const root = process.cwd();
 export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {
@@ -19,8 +17,10 @@ export async function bootstrap(dev: boolean) {
         const model = visitor.visitType(ImsModel);
         const config = require(join(root, 'config/config.json'));
         setConfig(config);
-        try {
+        try { 
             await parseSystem(model, config);
+        } catch (e) { }
+        try {
             const connection = getConnection(config.system)
             const addonRepository = connection.getRepository(ImsAddonEntity);
             const allAddon = await addonRepository.find({
@@ -31,17 +31,14 @@ export async function bootstrap(dev: boolean) {
             });
             addons.push(ImsEditor)
             await parseAddons(addons, config);
-        } catch (e) { }
+        } catch (e) {
+            console.log(`error`, e.message)
+        }
     } else {
         // 安装模块
     }
-    App({
-        addons: addons,
-        dev: dev
-    })(ImsStartApp);
-    const appContext = visitor.visitType(ImsStartApp);
-    createAdmin(appContext);
-    createMobile(appContext);
-    const pack = new ImsWebpacks(visitor.visitType(ImsStartApp), dev);
+    createAdmin(addons);
+    createMobile(addons);
+    const pack = new ImsWebpacks(addons, dev);
     pack.run();
 }

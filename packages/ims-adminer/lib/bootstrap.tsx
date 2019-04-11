@@ -10,10 +10,17 @@ import { Provider } from 'mobx-react'
 export function createStore(routes: IRouter[]) {
     const ObjectStore = {};
     routes.map(route => {
-        const { store } = route
-        Object.keys(store).map(key => {
-            ObjectStore[key] = new store[key](routes);
-        });
+        const { store } = route;
+        if (store) {
+            Object.keys(store).map(key => {
+                if (!!ObjectStore[key]) {
+                    console.log(`warning:${key} is exist!!!`)
+                } else { 
+                    ObjectStore[key] = new store[key](routes);
+                    console.log(`store key: ${key}`)
+                }
+            });
+        }
     });
     return ObjectStore;
 }

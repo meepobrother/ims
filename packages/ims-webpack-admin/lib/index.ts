@@ -1,15 +1,16 @@
 import { ImsWebpack } from 'ims-webpack';
 import { watch } from 'chokidar';
 import {
-    AppMetadataKey, AppAst, AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst, RouterMetadataKey, RouterAst
+    AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst
 } from 'ims-core';
-import { TypeContext } from 'ims-decorator'
+import { Type } from 'ims-decorator'
 import { createAdmin } from './util';
 const sources = new Set();
 import { BehaviorSubject } from 'rxjs';
 import { join } from 'path';
 export { createAdmin };
 import { DllReferencePlugin, IgnorePlugin } from 'webpack';
+import { visitor } from 'ims-common';
 const root = process.cwd();
 /**
  * 打包后台页面
@@ -21,7 +22,7 @@ export class ImsWebpackAdmin extends ImsWebpack {
     dev: boolean;
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
-    constructor(public context: TypeContext, dev: boolean = true) {
+    constructor(public addons: Type<any>[], dev: boolean = true) {
         super('admin', dev);
         this.dev = !!dev;
         this.options.plugins.push(
@@ -35,9 +36,9 @@ export class ImsWebpackAdmin extends ImsWebpack {
     }
 
     onInit() {
-        const appAst = this.context.getClass(AppMetadataKey) as AppAst;
-        appAst.addons.map(addon => {
-            const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
+        this.addons.map(addon => {
+            const context = visitor.visitType(addon)
+            const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
             if (addonAst.ast.sourceRoot) {
                 const template = addonAst.template;
                 if (template) {
@@ -53,9 +54,8 @@ export class ImsWebpackAdmin extends ImsWebpack {
         this.config.plugin('antdDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/antd.manifest.json'))
         }]);
-        this.entity.add(createAdmin(this.context));
+        this.entity.add(createAdmin(this.addons));
         if (this.dev) this.watchFile();
-        this.context.set('imsWebpackAdmin', this.config.toConfig())
     }
 
     watchFile() {

@@ -1,6 +1,11 @@
 import { Addon } from 'ims-core'
 import { ImsCoreEditorTemplate } from './template'
+import { ImsCoreEditorInc } from './inc'
+import { ImsCoreEditorTypeorm } from './typeorm/index'
 @Addon({
-    template: ImsCoreEditorTemplate
+    incs: [ImsCoreEditorInc],
+    template: ImsCoreEditorTemplate,
+    typeorm: ImsCoreEditorTypeorm,
+    sourceRoot: __dirname
 })
 export default class ImsCoreEditor { }

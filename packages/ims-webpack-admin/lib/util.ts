@@ -1,15 +1,17 @@
 import { IRouter, } from 'ims-core';
-import { TypeContext } from 'ims-decorator'
-import { AppMetadataKey, AppAst, AddonMetadataKey, AddonAst } from 'ims-core';
+import { Type } from 'ims-decorator'
+import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { join, relative } from 'path';
 import * as fs from 'fs-extra';
 import { camelCase, kebabCase } from 'lodash';
-export function createAdmin(context: TypeContext) {
-    const appAst = context.getClass(AppMetadataKey) as AppAst;
+import { visitor } from 'ims-common';
+
+export function createAdmin(addons: Type<any>[]) {
     let routers: any[] = [];
     const tempDir = join(__dirname, 'temp');
-    appAst.addons.map(addon => {
-        const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
+    addons.map(addon => {
+        const context = visitor.visitType(addon)
+        const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
         const template = addonAst.getTemplate();
         routers = routers.concat(...template.admins)
         routers = routers.concat(...template.mobiles)
@@ -18,21 +20,6 @@ export function createAdmin(context: TypeContext) {
     fs.writeFileSync(appPath, template(routers, tempDir));
     return appPath;
 }
-export function createMobile(context: TypeContext) {
-    const appAst = context.getClass(AppMetadataKey) as AppAst;
-    let routers: any[] = [];
-    const tempDir = join(__dirname, 'temp');
-    appAst.addons.map(addon => {
-        const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
-        const template = addonAst.getTemplate();
-        // routers = routers.concat(...template.admins)
-        routers = routers.concat(...template.mobiles)
-    });
-    const appPath = join(tempDir, 'app.tsx');
-    fs.writeFileSync(appPath, template(routers, tempDir));
-    return appPath;
-}
-
 const template = (routes: IRouter[], tempDir: string) =>
     `import { bootstrap } from 'ims-adminer';
 import "./app.css";

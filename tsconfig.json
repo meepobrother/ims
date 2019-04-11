@@ -41,6 +41,15 @@
       "ims-adminer": [
         "packages/ims-adminer/lib/index.ts"
       ],
+      "ims-core-editor": [
+        "addons/ims-core-editor/lib/index.ts"
+      ],
+      "medium-editor": [
+        "packages/ims-types/lib/medium-editor"
+      ],
+      "multihashing-async": [
+        "packages/ims-types/lib/multihashing-async"
+      ],
       "ims-cloud": [
         "packages/ims-cloud/lib/index.ts"
       ],

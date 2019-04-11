@@ -6,7 +6,7 @@ declare module 'cids' {
         multibaseName: string;
         readonly buffer: Buffer;
         readonly prefix: Buffer;
-        constructor(version: string | Buffer, codec: string, multihash: Buffer, multibaseName?: string);
+        constructor(version: number | string | Buffer, codec?: string, multihash?: Buffer, multibaseName?: string);
         toV0(): CID;
         toV1(): CID;
         toBaseEncodedString(base?: string): string;

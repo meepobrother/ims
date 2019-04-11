@@ -1,11 +1,12 @@
 import { ImsWebpack } from 'ims-webpack';
 import { watch } from 'chokidar';
-import { AppMetadataKey, AppAst, AddonMetadataKey, AddonAst, TemplateMetadataKey, RouterMetadataKey, TemplateAst, RouterAst } from 'ims-core';
-import { TypeContext } from 'ims-decorator'
+import { AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst } from 'ims-core';
+import { Type } from 'ims-decorator'
 import { createMobile } from './util';
 const sources = new Set();
 import { BehaviorSubject } from 'rxjs';
 import { join } from 'path';
+import { visitor } from 'ims-common';
 export { createMobile };
 /**
  * 打包后台页面
@@ -17,13 +18,13 @@ export class ImsWebpackMobile extends ImsWebpack {
     dev: boolean;
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
-    constructor(public context: TypeContext, dev: boolean = true) {
+    constructor(public addons: Type<any>[], dev: boolean = true) {
         super('mobile', dev);
         this.dev == !!dev;
-        this.entity.add(createMobile(this.context));
-        const appAst = this.context.getClass(AppMetadataKey) as AppAst;
-        appAst.addons.map(addon => {
-            const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
+        this.entity.add(createMobile(addons));
+        addons.map(addon => {
+            const context = visitor.visitType(addon)
+            const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
             const template = addonAst.template;
             if (template) {
                 const tmpAst = template.getClass(TemplateMetadataKey) as TemplateAst;
@@ -35,7 +36,6 @@ export class ImsWebpackMobile extends ImsWebpack {
             this.config.mode('development')
         }
         if (this.dev) this.watchFile()
-        this.context.set('imsWebpackMobile', this.config.toConfig())
     }
 
     getHtmlTemplate() {

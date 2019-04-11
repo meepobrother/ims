@@ -1,7 +1,7 @@
 import rimraf = require('rimraf');
 import webpack = require('webpack')
 import { formatWebpackMessages } from 'ims-webpack';
-import { TypeContext } from 'ims-decorator';
+import { Type } from 'ims-decorator';
 import { join } from 'path'
 import { spawn, ChildProcess } from 'child_process'
 import { ImsWebpackAdmin } from 'ims-webpack-admin';
@@ -19,10 +19,10 @@ export class ImsWebpacks {
     }
     dev: boolean = false;
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
-    constructor(public context: TypeContext, dev: boolean) {
+    constructor(public addons: Type<any>[], dev: boolean) {
         this.dev = dev;
-        this.admin = new ImsWebpackAdmin(context, this.dev);
-        this.mobile = new ImsWebpackMobile(context, this.dev);
+        this.admin = new ImsWebpackAdmin(addons, this.dev);
+        this.mobile = new ImsWebpackMobile(addons, this.dev);
     }
     work: ChildProcess;
     change(file: string) {

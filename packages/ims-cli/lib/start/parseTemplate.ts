@@ -1,6 +1,6 @@
 import { visitor, } from 'ims-common';
 import { Type, TypeContext } from 'ims-decorator'
-import { RouterMetadataKey, RouterAst, AddonMetadataKey, AddonAst, IRouter } from 'ims-core'
+import { AddonMetadataKey, AddonAst, IRouter } from 'ims-core'
 import { Express } from 'express'
 import { join } from 'path'
 export function parseTemplate(addons: Type<any>[], app: Express, root: string) {
@@ -22,12 +22,12 @@ export function parseTemplate(addons: Type<any>[], app: Express, root: string) {
 function handlerAddon(addon: TypeContext, router: Express) {
     try {
         const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
-        const templateAst = addonAst.getTemplateAst();
-        if (templateAst) {
-            if (templateAst.admins) templateAst.admins.map(admin => {
+        const template = addonAst.getTemplateAst().getConfig();
+        if (template) {
+            if (template.admins) template.admins.map(admin => {
                 handlerRouter(admin, 'admin', router);
             });
-            if (templateAst.mobiles) templateAst.mobiles.map(admin => {
+            if (template.mobiles) template.mobiles.map(admin => {
                 handlerRouter(admin, 'mobile', router);
             });
         }

@@ -29,55 +29,6 @@
 [ims-cli-status]: https://img.shields.io/npm/v/ims-cli.svg
 [ims-cli-package]: https://npmjs.com/package/ims-cli
 
-<h2 align="center">安装部署</h2>
-
-### 线上运营部署
-```ts
-// nodejs mysql memcached nginx 自行安装
-npm install -g ims-cli
-cli start 8080
-
-// nginx配置及分布式
-upstream default_upstream {
-    ip_hash;
-    server 127.0.0.1:8080;
-    server 127.0.0.1:8081;
-    server 127.0.0.1:8082;
-    server 127.0.0.1:8083;
-    ...
-}
-
-server {
-    listen       80;
-    server_name  localhost;
-    location / {
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_http_version 1.1;
-        proxy_pass http://default_upstream;
-    }
-}
-```
-
-### 本地安装部署
-```ts
-npm install -g ims-cli
-ims init .
-ims start 8080
-// 浏览器打开
-http://localhost:8080
-```
-
-### 远程开发调试
-```ts
-// 服务端
-ims proxy
-// 客户端
-import { createClient } from 'ims-proxy'
-createClient('服务端ip', '本地端口', '绑定域名');
-```
 
 <h2 align="center">目录结构</h2>
 
@@ -103,6 +54,111 @@ createClient('服务端ip', '本地端口', '绑定域名');
 ims start -d
 // 运营模式
 ims start
+```
+
+## 区块链相关
+
+### Protocol 服务器与服务器间通信 单聊
+```ts
+@Controller({
+    path: '/demo'
+})
+class ImsDemo{
+    @Protocol()
+    protocol: ProtocolProperty;
+    // 方法装饰器可以接受消息
+    // 注册一个名称为/ims-demo/demo的1对1频道
+    @Protocol()
+    receiveMessage(
+        @Body() msg: any, 
+        @Protocol() protocol: ProtocolParameter
+    ){
+        console.log(`接受来自${msg.from}的消息`,msg)
+        // 回复消息
+        protocol('频道',`回复消息`)
+        // 注册频道
+        this.protocol.handle(`频道`,()=>{})
+        // 发送消息
+        this.protocol.send(msg.from,`频道`,`消息`)
+        // 取消
+        this.protocol.unhandle(`频道`)
+    }
+}
+```
+
+### Pubsub 服务器与服务器间通信 群发
+```ts
+@Controller({
+    path: '/demo'
+})
+class ImsDemo{
+    @Pubsub()
+    pubsub: PubsubProperty;
+
+    // 方法注册消息
+    @Pubsub()
+    listenPost(
+        @Body() msg:any,
+        @Pubsub() pubsub: PubsubParameter
+    ){
+        // 接受广播消息
+        console.log(`来自${msg.from}的广播消息`,msg);
+        // 处理消息后广播
+        pubsub('频道',Buffer.from(`一些消息`))
+
+        // 注册频道
+        this.pubsub.subscribe(`频道`,()=>{})
+        // 发布数据
+        this.pubsub.publish(`频道`,`数据`)
+        // 取消
+        this.pubsub.unsubscribe(`频道`)
+    }
+}
+```
+
+### Socket 用户与服务器间通信
+
+```ts
+// 用于浏览器与服务器间通信
+@Controller({
+    path: '/demo'
+})
+class ImsDemo{
+
+    @Socket() socket: SocketProperty;
+
+    @Socket()
+    onReceive(
+        @Body() msg: any,
+        @Socket() socket: SocketParameter
+    ){
+        console.log(`接受来自客户端的数据`,msg)
+        socket(msg.from,`回复数据`)
+        // 群发
+        this.socket(`roomid`,`数据`)
+    }
+}
+```
+
+### http 客户与服务器间交互
+```ts
+@Controller({
+    path: '/demo'
+})
+class ImsDemo{
+
+    // get请求
+    @Get()
+    getId(@Query('id') id: string){
+        
+    }
+
+    // post 请求
+    @Post()
+    post(@Body() msg: any){}
+
+    ...其他方法
+}
 ```
 
 * [在线演示](https://demo.meepo.com.cn/)

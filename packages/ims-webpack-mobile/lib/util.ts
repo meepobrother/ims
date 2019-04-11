@@ -1,30 +1,19 @@
 import { IRouter, } from 'ims-core';
-import { TypeContext } from 'ims-decorator'
-import { AppMetadataKey, AppAst, AddonMetadataKey, AddonAst } from 'ims-core';
+import { Type } from 'ims-decorator'
+import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { join, relative } from 'path';
 import * as fs from 'fs-extra';
-import { camelCase } from 'lodash';
-export function createAdmin(context: TypeContext) {
-    const appAst = context.getClass(AppMetadataKey) as AppAst;
+import { camelCase, kebabCase } from 'lodash';
+import { visitor } from 'ims-common';
+
+export function createMobile(addons: Type<any>[]) {
     let routers: any[] = [];
     const tempDir = join(__dirname, 'temp');
-    appAst.addons.map(addon => {
-        const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
+    addons.map(addon => {
+        const context = visitor.visitType(addon)
+        const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
         const template = addonAst.getTemplate();
-        routers = routers.concat(...template.admins)
-        routers = routers.concat(...template.mobiles)
-    });
-    const appPath = join(tempDir, 'app.tsx');
-    fs.writeFileSync(appPath, template(routers, tempDir));
-    return appPath;
-}
-export function createMobile(context: TypeContext) {
-    const appAst = context.getClass(AppMetadataKey) as AppAst;
-    let routers: any[] = [];
-    const tempDir = join(__dirname, 'temp');
-    appAst.addons.map(addon => {
-        const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
-        const template = addonAst.getTemplate();
+        console.log(template);
         // routers = routers.concat(...template.admins)
         routers = routers.concat(...template.mobiles)
     });
@@ -32,10 +21,10 @@ export function createMobile(context: TypeContext) {
     fs.writeFileSync(appPath, template(routers, tempDir));
     return appPath;
 }
-
 const template = (routes: IRouter[], tempDir: string) =>
-    `import { bootstrap } from './bootstrap';
+    `import { bootstrap } from 'ims-adminer';
 import "./app.css";
+import "antd/dist/antd.css";
 import React from 'react';
 let routes = [${routes.map(route => createRouter(route, tempDir)).join(',')}];
 bootstrap(routes);
@@ -47,7 +36,7 @@ function createRouter(route: IRouter, tempDir: string) {
         let val: any = route[key];
         if (key === 'component') {
             if (val || typeof val === 'undefined' || val === 'undefined') {
-                val = `React.lazy(()=>import("${relative(tempDir, val)}"))`;
+                val = `React.lazy(()=>import(/* webpackChunkName: "${kebabCase(route.path)}" */"${relative(tempDir, val)}"))`;
                 res += `${key}:${val},\n`;
             }
         } else if (key === 'routes') {

@@ -1,5 +1,5 @@
 import { ParameterAst, PropertyAst, NullAstVisitor, MethodAst, ParserAstContext, ClassAst, } from 'ims-decorator';
-import { isOnMethodAst, OnAst, isServerPropertyAst, ServerAst, isSocketParameterAst, SocketAst, isP2pMethodAst, P2pAst, isP2pParameterAst, P2pParameterAst } from 'ims-core';
+import { isOnMethodAst, OnAst, isServerPropertyAst, ServerAst, isSocketParameterAst, SocketAst, isP2pMethodAst, P2pAst, isP2pParameterAst, P2pParameterAst, isP2pPrototypeAst, P2pPropertyAst } from 'ims-core';
 export class SocketVisitor extends NullAstVisitor {
     visitClass(ast: ClassAst, context: ParserAstContext) { }
     visitMethod(ast: MethodAst, context: ParserAstContext) {
@@ -21,6 +21,9 @@ export class SocketVisitor extends NullAstVisitor {
     visitProperty(ast: PropertyAst, context: ParserAstContext) {
         if (isServerPropertyAst(ast)) {
             return new ServerAst(ast, context)
+        }
+        if (isP2pPrototypeAst(ast)) {
+            return new P2pPropertyAst(ast, context)
         }
     }
 }

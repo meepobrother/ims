@@ -249,39 +249,83 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
     constructor(ast: ClassAst, context: ParserAstContext) {
         super(ast, context);
         const def = this.ast.metadataDef;
-        this.mobiles = def.mobiles;
-        this.admins = def.admins;
+        this.mobiles = def.mobiles || [];
+        this.admins = def.admins || [];
     }
 
-    get addon(): AddonAst {
-        return this.context.typeContext.parent.get(K.AddonMetadataKey) as AddonAst
+    getAddon(): AddonAst {
+        return this.context.typeContext.parent.getClass(K.AddonMetadataKey) as AddonAst
     }
 
-    handleIRouter(routes: T.IRouter[], parent?: T.IRouter): T.IRouter[] {
-        if (parent) {
-            return routes.map(route => {
-                let { path, component, routes } = route;
-                route.path = `${parent.path}${path}`;
-                route.component = `${this.addon.sourceRoot}${component}`;
-                route.routes = this.handleIRouter(routes, route);
-                return route;
-            });
-        } else {
-            return routes.map(route => {
-                let { path, component, routes } = route;
-                route.path = `${this.addon.path}${path}`;
-                route.component = `${this.addon.sourceRoot}${component}`;
-                route.routes = this.handleIRouter(routes, route);
-                return route;
-            });
+    handleIRouter(iroutes: T.IRouter[], parent?: T.IRouter): T.IRouter[] {
+        const addon = this.getAddon();
+        if (iroutes && addon && iroutes.length > 0) {
+            if (parent) {
+                const results: T.IRouter[] = [];
+                iroutes.forEach(route => {
+                    let { path, component, routes, store } = { ...route };
+                    const r = {
+                        ...route,
+                        routes: this.handleIRouter(routes, route),
+                        path: `${parent.path}${path}`
+                    }
+                    if (!!component) {
+                        r.component = `${addon.sourceRoot}/template/${component}`
+                    }
+                    if (!!store) {
+                        r.store = {};
+                        Object.keys(store).map(key => {
+                            const val = store[key];
+                            r.store[key] = `${addon.sourceRoot}/template/${val}`
+                        });
+                    }
+                    r.routes = this.handleIRouter(routes, r);
+                    results.push(r);
+                    return route;
+                });
+                return results;
+            } else {
+                const results: T.IRouter[] = [];
+                iroutes.forEach(route => {
+                    let { path, component, routes, store } = { ...route };
+                    if (!path.startsWith('/')) {
+                        path = `/${path}`;
+                    }
+                    const r = {
+                        ...route,
+                        path: `${addon.path}${path}`
+                    }
+                    if (!!component) {
+                        r.component = `${addon.sourceRoot}/template/${component}`
+                    }
+                    if (!!store) {
+                        r.store = {};
+                        Object.keys(store).map(key => {
+                            const val = store[key];
+                            r.store[key] = `${addon.sourceRoot}/template/${val}`
+                        });
+                    }
+                    r.routes = this.handleIRouter(routes, r);
+                    results.push(r);
+                });
+                return results;
+            }
         }
+        return [];
     }
-
+    config: {
+        mobiles: T.IRouter[];
+        admins: T.IRouter[];
+    }
     getConfig() {
-        return {
+        if (this.config) {
+            return this.config
+        };
+        this.config = {
             mobiles: this.handleIRouter(this.mobiles),
             admins: this.handleIRouter(this.admins)
         }
+        return this.config;
     }
 }
 export class TypeormAst extends ClassContext<T.TypeormOptions> {
