@@ -6,7 +6,7 @@ import {
     isRedirectParameterAst, RedirectAst,
     isSessionParameterAst, SessionAst,
     isUploadParameterAst, UploadAst, isResParameterAst,
-    ResAst, isNextParameterAst, NextAst, isUploadsParameterAst, UploadsAst
+    ResAst, isNextParameterAst, NextAst, isUploadsParameterAst, UploadsAst, isCookiePropertyAst, CookieParameterAst
 } from 'ims-core';
 
 export class HttpVisitor extends NullAstVisitor {
@@ -37,6 +37,9 @@ export class HttpVisitor extends NullAstVisitor {
         }
         if (isUploadsParameterAst(ast)) {
             return new UploadsAst(ast, context)
+        }
+        if (isCookiePropertyAst(ast)) {
+            return new CookieParameterAst(ast, context)
         }
     }
 }

@@ -1,3 +1,5 @@
+/// <reference types="node" />
+
 import { getConnection } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
@@ -13,9 +15,18 @@ import { Server } from 'ws'
 import { parseWebSocket } from './parseWebSocket';
 import multer = require('multer');
 import bodyparser = require('body-parser');
-import cookieParser = require('cookie-parser');
+import { ImsCookie } from 'ims-cookie';
 import session = require('express-session');
 
+declare global {
+    namespace Express {
+        interface Request {
+            imsCookie: ImsCookie;
+        }
+        interface Response { }
+        interface Application { }
+    }
+}
 // import { ImsAdminer } from 'ims-adminer/addon';
 // import { ImsCloud } from 'ims-cloud';
 // import { ImsWebsite } from 'ims-website';
@@ -41,7 +52,24 @@ export async function bootstrap(root: string, dev: boolean) {
     app.use(urlencodedParser);
     app.use(textParser);
     app.use(rawParser);
-    app.use(cookieParser());
+    app.use((req, res, next) => {
+        const cookie = new ImsCookie(req.headers.cookie || '');
+        cookie.addChangeListener((change) => {
+            if (!res.cookie || res.headersSent) {
+                return;
+            }
+            if (change.value === undefined) {
+                res.clearCookie(change.name, change.options);
+            } else {
+                const expressOpt = (<any>Object).assign({}, change.options);
+                if (expressOpt.maxAge && change.options && change.options.maxAge) {
+                    expressOpt.maxAge = change.options.maxAge * 1000;
+                }
+                res.cookie(change.name, change.value, expressOpt);
+            }
+        });
+        req.imsCookie = cookie;
+    });
     app.use(session({
         secret: 'secret',
         resave: true,

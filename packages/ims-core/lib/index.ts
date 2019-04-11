@@ -10,6 +10,7 @@ export * from './module';
 export * from './store/index';
 export * from './socket';
 export * from './watch';
+export * from './cookie';
 
 import { QueryRunner } from 'typeorm';
 export interface IQueryRunner extends QueryRunner { }

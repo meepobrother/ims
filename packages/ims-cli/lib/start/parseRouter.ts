@@ -122,6 +122,9 @@ function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
                     else if (par instanceof core.P2pParameterAst) {
                         params[par.ast.parameterIndex] = node;
                     }
+                    else if (par instanceof core.CookieParameterAst) {
+                        params[par.ast.parameterIndex] = req.imsCookie;
+                    }
                     else {
                         throw new Error(`不支持${par.ast.metadataKey}`)
                     }

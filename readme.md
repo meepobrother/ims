@@ -10,11 +10,11 @@
 
 <h2 align="center">生态系统</h2>
 
-| 项目        | 状态                                       | 介绍        | 文档                                 |
-|-----------|------------------------------------------|-----------|------------------------------------|
-| ims-core  | [![ims-core-status]][ims-core-package]   | 核心        | [cli docs](./packages/ims-cli)     |
-| ims-util  | [![ims-util-status]][ims-util-package]   | 工具        | [util docs](./packages/ims-util)   |
-| ims-cli   | [![ims-cli-status]][ims-cli-package]     | 命令行       | [cli docs](./packages/ims-cli)     |
+| 项目       | 状态                                     | 介绍  | 文档                               |
+|----------|----------------------------------------|-----|----------------------------------|
+| ims-core | [![ims-core-status]][ims-core-package] | 核心  | [cli docs](./packages/ims-cli)   |
+| ims-util | [![ims-util-status]][ims-util-package] | 工具  | [util docs](./packages/ims-util) |
+| ims-cli  | [![ims-cli-status]][ims-cli-package]   | 命令行 | [cli docs](./packages/ims-cli)   |
 
 [ims-proxy-status]: https://img.shields.io/npm/v/ims-proxy.svg
 [ims-proxy-package]: https://npmjs.com/package/ims-proxy
@@ -166,6 +166,18 @@ class ImsDemo{
     post(@Body() msg: any){}
 
     ...其他方法
+}
+```
+
+### Cookie 
+```ts
+import {Cookie} from 'ims-core';
+@Post()
+post(@Cookie() cookie: Cookie){
+    cookie.get(name);
+    cookie.getAll()
+    cookie.set(name, value);
+    cookie.remove(name);
 }
 ```
 

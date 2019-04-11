@@ -1,4 +1,4 @@
-import { Controller, Post, Body, P2p, P2pMessage, Libp2p, EntityRepository } from 'ims-core';
+import { Controller, Post, Body, P2p, P2pMessage, Libp2p, EntityRepository,Cookie } from 'ims-core';
 import { ImsArticle } from '../typeorm';
 import Cid from 'cids';
 import multihashing from 'multihashing-async';
