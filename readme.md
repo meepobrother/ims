@@ -56,7 +56,7 @@ ims start -d
 ims start
 ```
 
-## 区块链相关
+## 通信篇
 
 ### Protocol 服务器与服务器间通信 单聊
 ```ts
@@ -150,7 +150,7 @@ class ImsDemo{
     // get请求
     @Get()
     getId(@Query('id') id: string){
-        
+
     }
 
     // post 请求
