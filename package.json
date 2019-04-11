@@ -151,6 +151,7 @@
     "react-redux": "^6.0.1",
     "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
+    "react-split-pane": "^0.1.87",
     "redux": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "regenerator-runtime": "^0.13.2",

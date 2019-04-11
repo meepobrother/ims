@@ -20,7 +20,8 @@ import session = require('express-session');
 // import { ImsCloud } from 'ims-cloud';
 // import { ImsWebsite } from 'ims-website';
 import { ImsInstall } from 'ims-install';
-import ImsEditor from 'ims-core-editor';
+// import ImsEditor from 'ims-core-editor';
+import ImsCoreAdminer from 'ims-core-adminer';
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import { parseP2p } from './parseP2p';
@@ -72,7 +73,7 @@ export async function bootstrap(root: string, dev: boolean) {
             // addons.push(ImsAdminer);
             // addons.push(ImsCloud);
             // addons.push(ImsWebsite);
-            addons.push(ImsEditor);
+            addons.push(ImsCoreAdminer);
             await parseAddons(addons, config);
         } catch (e) { }
     } else {

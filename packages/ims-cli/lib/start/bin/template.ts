@@ -7,7 +7,9 @@ import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, setConfig } from 'ims-common';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
-import ImsEditor from 'ims-core-editor';
+// import ImsEditor from 'ims-core-editor';
+import ImsCoreAdminer from 'ims-core-adminer';
+
 const root = process.cwd();
 export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {
@@ -29,7 +31,7 @@ export async function bootstrap(dev: boolean) {
             allAddon.map(addon => {
                 addons.push(require(addon.entry).default)
             });
-            addons.push(ImsEditor)
+            addons.push(ImsCoreAdminer)
             await parseAddons(addons, config);
         } catch (e) {
             console.log(`error`, e.message)
