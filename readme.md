@@ -28,6 +28,8 @@
 [ims-cli-status]: https://img.shields.io/npm/v/ims-cli.svg
 [ims-cli-package]: https://npmjs.com/package/ims-cli
 
+<h2 align="center">业务场景</h2>
+可实现多个服务器间安全通信，如果在A平台中有提供卖餐服务、B平台提供送货服务，那么A平台可以和B平台签署合作，当A平台有新的订餐订单是，在B平台生成一个配送任务，加入还有一个C平台专门提供配送人员，那么B和C平台可以签署合作，自动在C平台派送送货人员。
 
 <h2 align="center">目录结构</h2>
 
