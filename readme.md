@@ -169,13 +169,13 @@ class ImsDemo{
 }
 ```
 
-### Cookie 
+### Cookie 服务端
 ```ts
 import {Cookie,Controller} from 'ims-core';
 @Controller({
     path: '/demo'
 })
-class ImsDemo{
+class ImsDemo {
     @Post()
     post(@Cookie() cookie: Cookie){
         cookie.get(name);
