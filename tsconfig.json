@@ -200,7 +200,8 @@
       "packages/ims-types/lib"
     ],
     "types": [
-      "node"
+      "node",
+      "mocha"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

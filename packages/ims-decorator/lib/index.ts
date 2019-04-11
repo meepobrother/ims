@@ -33,7 +33,7 @@ export abstract class Ast<T = any> {
 
 export class ClassAst<T = any> extends Ast<T> {
     constructor(
-        target: any,
+        target: Type<any>,
         metadataKey: string,
         metadataDef: T,
         sourceRoot: string
@@ -73,12 +73,10 @@ export class ClassContext<T> {
             this.providers.push(pro);
         });
     }
-
     forEachObjectToTypeContent<T extends TypeContext = TypeContext>(obj: any[] | object, defs: any[] = []): T[] {
         if (obj) return Object.keys(obj).map(key => this.context.visitType<T>(obj[key]));
         return defs;
     }
-
     inject<T>(key: any): T {
         const provider = this.providers.find(pro => {
             if (isClassProvider(pro)) {
@@ -361,7 +359,12 @@ export class Visitors extends NullAstVisitor {
     }
 }
 
+/** 获取ParserAstContext */
 export const imsContext = Symbol.for('imsContext');
+export function getContext(target: any): ParserAstContext {
+    return Reflect.get(target, imsContext);
+}
+
 export class ParserAstContext {
     private _stats: AstTypes;
     prevAst: Ast;
@@ -462,10 +465,6 @@ export class ParserAstContext {
         }
         this._stats = val;
     }
-}
-
-export function getContext(target: any): ParserAstContext {
-    return target[imsContext] as ParserAstContext;
 }
 
 export class ParserVisitor extends NullAstVisitor {
