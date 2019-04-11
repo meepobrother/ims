@@ -171,13 +171,18 @@ class ImsDemo{
 
 ### Cookie 
 ```ts
-import {Cookie} from 'ims-core';
-@Post()
-post(@Cookie() cookie: Cookie){
-    cookie.get(name);
-    cookie.getAll()
-    cookie.set(name, value);
-    cookie.remove(name);
+import {Cookie,Controller} from 'ims-core';
+@Controller({
+    path: '/demo'
+})
+class ImsDemo{
+    @Post()
+    post(@Cookie() cookie: Cookie){
+        cookie.get(name);
+        cookie.getAll()
+        cookie.set(name, value);
+        cookie.remove(name);
+    }
 }
 ```
 
