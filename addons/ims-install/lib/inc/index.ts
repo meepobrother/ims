@@ -6,8 +6,7 @@ const root = process.cwd();
 import { ImsModel, ImsUserEntity } from 'ims-model'
 import { visitor, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
-import { random, cryptoPassword } from 'ims-node';
-import { exec } from 'shelljs'
+import { random, cryptoPassword, execSync } from 'ims-node';
 @Controller({
     path: '/'
 })
@@ -92,5 +91,9 @@ export class ImsIndex {
                 message: e.message
             }
         }
+    }
+    @Post()
+    async restart() {
+        return execSync(`pm2 restart all`)
     }
 }

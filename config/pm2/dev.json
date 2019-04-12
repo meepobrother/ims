@@ -6,6 +6,7 @@
     "error": "/Volumes/work/data/logs/dev-error.log",
     "watch": [
       "/Volumes/work/addons/**/*.ts"
-    ]
+    ],
+    "restart_delay": 5000
   }
 ]

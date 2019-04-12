@@ -45,16 +45,13 @@ export default class Index extends Component<any, any> {
                     </div>
                 </div>}
                 actions={<div>
-                    <Button type="primary" onClick={e => this.install()}>安装系统插件</Button>
+                    <Button type="primary" onClick={e => this.install()}>重新启动</Button>
                 </div>}>
             </Result>
         </div>
     }
 
     install() {
-        util.ws.send({
-            type: '/ims-install/install',
-            payload: {}
-        });
+        util.http.post('/ims-install/restart')
     }
 }
