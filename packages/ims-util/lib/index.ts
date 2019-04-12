@@ -3,16 +3,16 @@ import { ImsWs } from './ws';
 import { ImsHttp } from './http';
 import { ImsRouter } from './router';
 import { IRouter } from 'ims-core';
+import Axios, { AxiosStatic } from 'axios'
 export class ImsUtil {
     static storage: ImsStorage;
     static ws: ImsWs;
-    static http: ImsHttp;
+    static http: AxiosStatic = Axios;
     static router: ImsRouter;
     static cloud: ImsHttp;
     static async onInit(routes: IRouter[]) {
         this.storage = await ImsStorage.create();
         this.ws = await ImsWs.create();
-        this.http = await ImsHttp.create();
         this.router = new ImsRouter({
             routes: routes
         });

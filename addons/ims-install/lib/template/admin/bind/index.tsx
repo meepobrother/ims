@@ -70,12 +70,12 @@ export default class Index extends Component<IndexProps, IndexState> {
         if (this.state.username.length > 0) {
             if (this.state.password.length > 0) {
                 if (this.state.password === this.state.password) {
-                    util.http.post('/ims-install/setUser')({
+                    util.http.post('/ims-install/setUser', {
                         username: this.state.username,
                         password: this.state.password
                     }).then(res => {
-                        if (res.code === -1) {
-                            message.error(`${res.message}`)
+                        if (res.data.code === -1) {
+                            message.error(`${res.data.message}`)
                         } else {
                             this.props.next();
                         }

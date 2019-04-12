@@ -94,8 +94,8 @@ export class ImsIndex {
     }
     @Post()
     async restart() {
-        rmrf(join(root, 'config/config.json'))
-        await execSync(`pm2 restart all`);
+        // rmrf(join(root, 'config/config.json'))
+        execSync(`pm2 restart all`);
         return {
             msg: '重启成功'
         }

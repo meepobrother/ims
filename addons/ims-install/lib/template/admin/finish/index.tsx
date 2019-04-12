@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { Button, Icon } from 'antd';
+import { Link } from 'react-router-dom'
 import { cx } from './index.scss';
 import util from 'ims-util'
 import Result from 'ant-design-pro/lib/Result'
 export default class Index extends Component<any, any> {
     state = {
         installing: true,
-        loading: false
+        loading: false,
+        button: '重新启动',
+        total: 0,
+        link: ''
     }
     componentDidMount() {
         console.log('componentDidMount')
-
         util.ws.on('installSuccess', () => {
             this.setState({
                 installing: false
@@ -45,20 +48,55 @@ export default class Index extends Component<any, any> {
                         <div className="title">联盟链</div>
                     </div>
                 </div>}
-                actions={<div>
-                    <Button type="primary" loading={this.state.loading} onClick={e => this.install()}>重新启动</Button>
-                </div>}>
+                actions={this.renderButton()}>
             </Result>
         </div>
     }
 
+    renderButton() {
+        if (!!this.state.link && this.state.link.length > 0) {
+            return <Button onClick={() => window.location.href = `${this.state.link}`} type="primary" >
+                {this.state.button}
+            </Button >
+        } else {
+            return <Button type="primary" loading={this.state.loading} onClick={e => this.install()}>
+                {this.state.button} {this.state.total > 0 ? `(${this.state.total})` : ''}
+            </Button>
+        }
+    }
+
     install() {
-        util.http.post('/ims-install/restart')({})
+        util.http.post('/ims-install/restart');
         this.setState({
-            loading: true
-        })
-        setTimeout(() => {
-            window.location.href = '/login';
-        }, 10000);
+            loading: true,
+            total: 0,
+            button: '重新启动中..'
+        });
+        const pid = setInterval(() => {
+            this.setState({
+                total: this.state.total + 1
+            });
+        }, 1000);
+        setTimeout(() => request(), 1000)
+        const that = this;
+        function request() {
+            util.http.get('/').then(res => {
+                if (res.status === 200) {
+                    clearInterval(pid);
+                    that.setState({
+                        total: 0,
+                        button: '进入后台',
+                        loading: false,
+                        link: '/login'
+                    })
+                }
+            }).catch(e => {
+                if (that.state.loading) {
+                    setTimeout(() => {
+                        request()
+                    }, 1000)
+                }
+            });
+        }
     }
 }

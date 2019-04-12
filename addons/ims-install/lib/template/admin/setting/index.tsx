@@ -155,15 +155,15 @@ export default class Index extends Component<IndexProps, IndexState> {
             })
         }
         // 配置并连接数据库
-        util.http.post('ims-install/setDatabase')({
+        util.http.post('ims-install/setDatabase', {
             host: this.state.host.value,
             port: this.state.port.value,
             username: this.state.username.value,
             password: this.state.password.value
         }).then(res => {
             // 返回结果
-            if (res.code === -1) {
-                message.error(res.message)
+            if (res.data.code === -1) {
+                message.error(res.data.message)
             } else {
                 this.props.next();
             }

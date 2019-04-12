@@ -11,7 +11,9 @@ export class ImsHttp {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(res => res.json())
+            }).then(res => {
+                return res.json();
+            })
         }
     }
 
