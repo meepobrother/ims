@@ -4,6 +4,7 @@ import { join } from 'path';
 import { exec } from 'shelljs'
 import { StartOptions } from 'pm2'
 import fs from 'fs-extra'
+import rimraf = require('rimraf');
 
 async function execSync(command: string) {
     return new Promise((resolve, reject) => {
@@ -27,6 +28,8 @@ export class ImsStart extends ImsCommand {
         const devApps: StartOptions[] = [];
         fs.ensureDirSync(join(root, 'config/pm2'))
         fs.ensureDirSync(join(root, 'data/logs'))
+        rimraf(join(root, 'config/pm2'), () => { })
+        rimraf(join(root, 'data/logs'), () => { })
         devApps.push({
             name: 'template_dev',
             script: join(__dirname, 'bin/template_dev.js'),
