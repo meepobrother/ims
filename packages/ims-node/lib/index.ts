@@ -1,4 +1,6 @@
 import { randomBytes, createHash } from 'crypto'
+import rimraf = require('rimraf');
+
 /** 生成随机数 */
 export const random = (length: number) => {
     return randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
@@ -26,4 +28,14 @@ export function cryptoPassword(password: string, token: string): string {
  */
 export function isEqualPassword(srcPassword: string, token: string, password: string) {
     return cryptoPassword(srcPassword, token) === password;
+}
+
+/**
+ * 删除文件夹或文件
+ * @param dir 文件或文件夹地址
+ */
+export function rmrf(dir: string) {
+    return new Promise((resolve) => {
+        rimraf(dir, () => resolve())
+    })
 }

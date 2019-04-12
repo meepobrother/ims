@@ -1,8 +1,0 @@
-[
-  {
-    "name": "prod",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/prod.js",
-    "output": "/Volumes/work/data/logs/prod.log",
-    "error": "/Volumes/work/data/logs/prod-error.log"
-  }
-]
