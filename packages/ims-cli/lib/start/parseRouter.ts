@@ -199,6 +199,7 @@ function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
                     const manager = getConnectionManager();
                     let conn: Connection;
                     let config = getConfig()
+                    console.log(`getEntity:${def.target.name} from ${config.system ? 'system' : 'addons'}`);
                     if (def.db === core.RepositoryType.system && config) {
                         conn = manager.get(config.system);
                     } else {
