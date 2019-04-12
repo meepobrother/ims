@@ -1,13 +1,9 @@
 import { makeDecorator, ClassAst, PropertyContext } from 'ims-decorator';
-export enum RepositoryType {
-    system,
-    addons
-}
 export interface EntityRepositoryOptions {
     /**
      * 数据库名称
      */
-    db?: RepositoryType;
+    db?: 'system' | 'addons';
     /**
      * entity
      */
@@ -17,7 +13,7 @@ export const EntityRepositoryMetadataKey = 'EntityRepositoryMetadataKey'
 export const EntityRepository = makeDecorator<EntityRepositoryOptions>(EntityRepositoryMetadataKey, def => {
     let { metadataDef } = def;
     metadataDef = metadataDef || {} as EntityRepositoryOptions;
-    metadataDef.db = metadataDef.db || RepositoryType.addons;
+    metadataDef.db = metadataDef.db || 'addons';
     return metadataDef;
 });
 export function isEntityRepositoryPropertyAst(val: ClassAst): val is ClassAst<EntityRepositoryOptions> {

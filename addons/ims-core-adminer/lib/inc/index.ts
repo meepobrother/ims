@@ -1,4 +1,4 @@
-import { Controller, Post, Body, EntityRepository, RepositoryType } from "ims-core";
+import { Controller, Post, Body, EntityRepository } from "ims-core";
 import { ImsUserEntity } from 'ims-model'
 import { isEqualPassword } from 'ims-node'
 @Controller({
@@ -7,7 +7,7 @@ import { isEqualPassword } from 'ims-node'
 export class ImsCoreAdminerUser {
     @EntityRepository({
         target: ImsUserEntity,
-        db: RepositoryType.system
+        db: 'system'
     })
     user: EntityRepository<ImsUserEntity>;
     @Post()
@@ -16,7 +16,7 @@ export class ImsCoreAdminerUser {
         const user = await this.user.findOne({
             username: msg.username
         });
-        
+
         if (!user) {
             return {
                 message: '用户不存在或已注销'
