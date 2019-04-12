@@ -32,7 +32,6 @@ export async function bootstrap(dev: boolean) {
                 addons.push(require(addon.entry).default)
             });
             addons.push(ImsCoreAdminer)
-            await parseAddons(addons, config);
         } catch (e) {
             console.log(`error`, e.message)
         }

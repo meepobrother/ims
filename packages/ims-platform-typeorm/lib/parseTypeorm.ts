@@ -32,9 +32,7 @@ export function parseTypeorm(context: TypeContext) {
             } else {
                 console.error(`cls`)
             }
-            if (!cls.ast.target) {
-                throw new Error(`target not found`)
-            }
+            console.log(`entity ${cls.ast.target.name}`)
             entities.push(cls.ast.target);
         });
         model.propertys.map(cls => {
