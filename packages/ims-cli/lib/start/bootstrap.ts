@@ -30,7 +30,7 @@ declare global {
 // import { ImsAdminer } from 'ims-adminer/addon';
 // import { ImsCloud } from 'ims-cloud';
 // import { ImsWebsite } from 'ims-website';
-import { ImsInstall } from 'ims-install';
+// import { ImsInstall } from 'ims-install';
 // import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 
@@ -105,7 +105,7 @@ export async function bootstrap(root: string, dev: boolean) {
             await parseAddons(addons, config);
         } catch (e) { }
     } else {
-        addons.push(ImsInstall);
+        // addons.push(ImsInstall);
         app.get('/', (req, res, next) => {
             res.redirect('/ims-install')
         });

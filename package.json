@@ -216,6 +216,6 @@
     "pm2": "pm2 start npm --watch --name ims -- run cli start",
     "dll": "webpack",
     "babel": "babel",
-    "test": "mocha -r ts-node/register packages/**/__test__/**/*.ts"
+    "test": "mocha -r ts-node/register -r tsconfig-paths/register packages/**/__test__/**/*.ts"
   }
 }

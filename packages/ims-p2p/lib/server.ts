@@ -1,7 +1,7 @@
 import PeerInfo from 'peer-info';
 import PeerBook from 'peer-book';
 import { createPeerId } from './createPeerId';
-import { MyBundle } from './node';
+import { Libp2pBundle } from './node';
 import { join } from 'path';
 import Libp2p from 'libp2p';
 export async function bootstrap(): Promise<Libp2p> {
@@ -10,10 +10,9 @@ export async function bootstrap(): Promise<Libp2p> {
     const peerInfo = new PeerInfo(peerId);
     const peerBook = new PeerBook();
     peerInfo.multiaddrs.add(config.p2p)
-    const node = new MyBundle({
+    const node = new Libp2pBundle({
         peerInfo,
     }, config.list);
-
     node.on('start', () => {
         peerInfo.multiaddrs.forEach((ma) => {
             console.log('Swarm listening on', ma.toString())
