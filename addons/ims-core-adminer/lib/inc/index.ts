@@ -16,6 +16,7 @@ export class ImsCoreAdminerUser {
         const user = await this.user.findOne({
             username: msg.username
         });
+        
         if (!user) {
             return {
                 message: '用户不存在或已注销'
