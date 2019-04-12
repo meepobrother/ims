@@ -141,10 +141,11 @@ function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
                     }
                 } catch (e) {
                     res.json({
-                        name: e.name,
-                        code: e.code,
-                        message: e.message,
-                        data: e.data,
+                        name: e.name || 'error',
+                        code: e.code || '',
+                        message: e.message || '',
+                        data: e.data || {},
+                        stack: e.stack,
                         attr: {
                             query: req.query,
                             body: req.body,

@@ -42,6 +42,7 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
         subscribers: subscribers,
         migrations: migrations,
         database: config.addons,
-        synchronize: true
+        synchronize: true,
+        name: config.addons
     });
 }
