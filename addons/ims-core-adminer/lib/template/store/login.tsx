@@ -70,11 +70,11 @@ export default class Login {
                     ...values,
                     autoLogin: this.autoLogin
                 }).then(res => {
-                    if (res.message) {
+                    if (res.data.message) {
                         this.setNotice(err.message)
                     } else {
                         // 跳转
-                        cookie.set('uid', res.id)
+                        cookie.set('uid', res.data.id)
                     }
                 }).catch(e => {
                     this.setNotice(e.message)
@@ -114,7 +114,7 @@ export default class Login {
      * 登录
      */
     login(data: any) {
-        return util.http.post('/user/login')(data)
+        return util.http.post('/user/login', data)
     }
     /**
      * 退出登录

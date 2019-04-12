@@ -200,7 +200,7 @@ function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
                     if (def.db === core.RepositoryType.system && config) {
                         conn = getConnection(config.system);
                     } else {
-                        conn = getConnection();
+                        conn = getConnection(config.addons);
                     }
                     return conn.getRepository(def.target)
                 }

@@ -111,7 +111,6 @@ export async function bootstrap(root: string, dev: boolean) {
         } catch (e) { }
     } else {
         addons.push(ImsInstall);
-
     }
     let node: any;
     if (installed) {
