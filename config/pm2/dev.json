@@ -9,6 +9,9 @@
     "name": "dev",
     "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/dev.js",
     "output": "/Volumes/work/data/logs/dev.log",
-    "error": "/Volumes/work/data/logs/dev-error.log"
+    "error": "/Volumes/work/data/logs/dev-error.log",
+    "watch": [
+      "/Volumes/work/addons"
+    ]
   }
 ]

@@ -40,8 +40,6 @@ export async function bootstrap(dev: boolean) {
         // 安装模块
         addons.push(ImsInstall)
     }
-    createAdmin(addons);
-    createMobile(addons);
     const pack = new ImsWebpacks(addons, dev);
     pack.run();
 }

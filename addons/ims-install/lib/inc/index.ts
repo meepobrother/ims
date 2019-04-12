@@ -83,7 +83,6 @@ export class ImsIndex {
             }
             config.admin = [user.id];
             fs.writeFileSync(this.lockFile, JSON.stringify(config, null, 2));
-            exec(`yarn cli:dev dev`, { cwd: root })
             return {
                 uid: user.id
             }
