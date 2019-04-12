@@ -1,11 +1,12 @@
 import { Command } from 'ims-core';
 import { ImsCommand } from '../command';
-import { exec } from 'shelljs'
+import { join } from 'path'
+import { execSync } from 'ims-node'
 @Command({
     name: 'dev'
 })
 export class ImsDev extends ImsCommand {
     async run() {
-        exec(`pm2 start `)
+        await execSync(`pm2 start ${join(__dirname, 'bin.ts')} --name imsDev --watch`)
     }
 }

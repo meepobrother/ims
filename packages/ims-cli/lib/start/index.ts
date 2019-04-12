@@ -32,7 +32,8 @@ export class ImsStart extends ImsCommand {
                 "ts-node/register",
                 "-r",
                 "tsconfig-paths/register"
-            ]
+            ],
+            interpreter: join(root, 'node_modules/.bin/ts-node')
         });
         devApps.push({
             name: 'dev',
@@ -44,7 +45,8 @@ export class ImsStart extends ImsCommand {
                 "ts-node/register",
                 "-r",
                 "tsconfig-paths/register"
-            ]
+            ],
+            interpreter: join(root, 'node_modules/.bin/ts-node')
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];

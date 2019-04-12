@@ -2,7 +2,8 @@
 import { bootstrap } from '../start/bootstrap'
 import { bootstrap as templateBootstrap } from '../start/bin/template';
 async function start() {
-    await bootstrap(this.root, true)
+    const root = process.cwd();
+    await bootstrap(root, true)
     await templateBootstrap(true);
     console.log(`服务启动成功`)
 }
