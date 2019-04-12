@@ -5,7 +5,7 @@
     "output": "/Volumes/work/data/logs/dev.log",
     "error": "/Volumes/work/data/logs/dev-error.log",
     "watch": [
-      "/Volumes/work/addons"
+      "/Volumes/work/addons/**/*.ts"
     ]
   }
 ]

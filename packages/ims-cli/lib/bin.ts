@@ -5,13 +5,12 @@ import { App } from 'ims-core';
 import { ImsBuild } from './index'
 import { ImsInit } from './init'
 import { ImsStart } from './start'
-import { ImsDev } from './dev'
 
 @App({
     name: 'ims',
     version: '1.0.0',
     commands: [
-        ImsBuild, ImsInit, ImsStart, ImsDev
+        ImsBuild, ImsInit, ImsStart
     ]
 })
 export class ImsCli { }
