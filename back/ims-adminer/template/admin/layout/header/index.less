@@ -1,0 +1,53 @@
+@import '~antd/lib/style/themes/default.less';
+
+.ims-adminer-header{
+    position: relative;
+    height: 64px;
+    padding: 0;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    display: flex;
+    flex-direction: row;
+    &-drown-menu-item{
+        margin: 0 10px;
+    }
+    &-trigger{
+        height: 64px;
+        padding: 22px 24px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: all .3s,padding 0s;
+    }
+    &-left{
+        height: 100%;
+        overflow: hidden;
+        flex: 1;
+        display: flex;
+        margin-left: 20px;
+        .logo{
+            width: 64px;
+            height: 64px;
+        }
+        &-menu{
+            line-height: 64px;
+        }
+    }
+    &-right{
+        height: 100%;
+        overflow: hidden;
+        &-item{
+            padding: 0 12px;
+        }
+        &-user{
+            display: inline-block;
+            height: 100%;
+            padding: 0 12px;
+            cursor: pointer;
+            transition: all .3s;
+        }
+        .ant-select-selection{
+            border: 0;
+            box-shadow: none;
+        }
+    }
+}
