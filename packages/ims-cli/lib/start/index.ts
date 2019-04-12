@@ -31,13 +31,25 @@ export class ImsStart extends ImsCommand {
             name: 'template_dev',
             script: join(__dirname, 'bin/template_dev.js'),
             output: join(root, 'data/logs/template_dev.log'),
-            error: join(root, 'data/logs/template_dev-error.log')
+            error: join(root, 'data/logs/template_dev-error.log'),
+            args: [
+                "-r",
+                "ts-node/register",
+                "-r",
+                "tsconfig-paths/register"
+            ]
         });
         devApps.push({
             name: 'dev',
             script: join(__dirname, 'bin/dev.js'),
             output: join(root, 'data/logs/dev.log'),
-            error: join(root, 'data/logs/dev-error.log')
+            error: join(root, 'data/logs/dev-error.log'),
+            args: [
+                "-r",
+                "ts-node/register",
+                "-r",
+                "tsconfig-paths/register"
+            ]
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
@@ -45,7 +57,13 @@ export class ImsStart extends ImsCommand {
             name: 'prod',
             script: join(__dirname, 'bin/prod.js'),
             output: join(root, 'data/logs/prod.log'),
-            error: join(root, 'data/logs/prod-error.log')
+            error: join(root, 'data/logs/prod-error.log'),
+            args: [
+                "-r",
+                "ts-node/register",
+                "-r",
+                "tsconfig-paths/register"
+            ]
         });
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
         if (this.dev) {
