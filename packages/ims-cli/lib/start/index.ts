@@ -25,7 +25,7 @@ export class ImsStart extends ImsCommand {
         fs.ensureDirSync(join(root, 'data/logs'))
         devApps.push({
             name: 'dev',
-            script: join(__dirname, 'bin/dev.js'),
+            script: join(__dirname, 'bin', 'dev.js'),
             output: join(root, 'data/logs/dev.log'),
             error: join(root, 'data/logs/dev-error.log'),
             watch: [
