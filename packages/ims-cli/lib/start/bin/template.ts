@@ -10,8 +10,6 @@ import { getConnection } from 'typeorm'
 // import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 import ImsInstall from 'ims-install';
-
-
 const root = process.cwd();
 export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {

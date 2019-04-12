@@ -2,11 +2,8 @@ import rimraf = require('rimraf');
 import webpack = require('webpack')
 import { formatWebpackMessages } from 'ims-webpack';
 import { Type } from 'ims-decorator';
-import { join } from 'path'
-import { spawn, ChildProcess } from 'child_process'
 import { ImsWebpackAdmin } from 'ims-webpack-admin';
 import { ImsWebpackMobile } from 'ims-webpack-mobile';
-import { BehaviorSubject } from 'rxjs';
 
 export class ImsWebpacks {
     isRunning: boolean;
@@ -18,26 +15,11 @@ export class ImsWebpacks {
         return [this.admin, this.mobile]
     }
     dev: boolean = false;
-    $change: BehaviorSubject<any> = new BehaviorSubject(0);
     constructor(public addons: Type<any>[], dev: boolean) {
         this.dev = dev;
         this.admin = new ImsWebpackAdmin(addons, this.dev);
         this.mobile = new ImsWebpackMobile(addons, this.dev);
     }
-    work: ChildProcess;
-    change(file: string) {
-        const work = spawn('yarn', ['ts', join(__dirname, file)], {
-            cwd: process.cwd()
-        });
-        work.stdout.on('data', (data) => {
-            console.log(data.toString());
-        });
-        work.stderr.on('data', (data) => {
-            console.log(data.toString());
-        });
-        return work
-    }
-
     getConfig(): webpack.Configuration[] {
         return this.pkgs.map(pkg => {
             const cfg = pkg.toConfig();
@@ -45,7 +27,6 @@ export class ImsWebpacks {
             return cfg;
         });
     }
-
     run() {
         if (this.dev) {
             return this.watch();
@@ -53,7 +34,6 @@ export class ImsWebpacks {
             return this.build();
         }
     }
-
     build() {
         const compiler = webpack(this.getConfig());
         compiler.run((err, stats) => {
