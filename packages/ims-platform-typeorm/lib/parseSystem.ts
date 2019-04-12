@@ -1,7 +1,7 @@
 import { visitor, IConfig } from 'ims-common';
 import { parseTypeorm } from './parseTypeorm'
 import { TypeContext, Type, } from 'ims-decorator'
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionManager } from 'typeorm';
 export async function parseSystem(context: TypeContext, config: IConfig) {
     const typeorm = parseTypeorm(context)
     const { db, system } = config;
@@ -32,7 +32,8 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
         migrations = migrations.concat(typeorm.migrations);
     });
     const { db } = config;
-    await createConnection({
+    const manager = getConnectionManager();
+    const connect = manager.create({
         type: 'mysql',
         host: db.host,
         port: db.port,
@@ -45,4 +46,5 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
         synchronize: true,
         name: config.addons
     });
+    await connect.connect();
 }
