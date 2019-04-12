@@ -18,10 +18,10 @@ export class ImsStart extends ImsCommand {
         const root = process.cwd();
         await execSync(`pm2 kill`)
         const devApps: StartOptions[] = [];
-        fs.ensureDirSync(join(root, 'config/pm2'))
-        fs.ensureDirSync(join(root, 'data/logs'))
         await rmrf(join(root, 'config/pm2'))
         await rmrf(join(root, 'data/logs'))
+        fs.ensureDirSync(join(root, 'config/pm2'))
+        fs.ensureDirSync(join(root, 'data/logs'))
         devApps.push({
             name: 'template_dev',
             script: join(__dirname, 'bin/template_dev.js'),
