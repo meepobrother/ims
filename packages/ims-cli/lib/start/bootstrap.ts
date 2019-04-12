@@ -1,5 +1,4 @@
 /// <reference types="node" />
-
 import { getConnection } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
@@ -30,7 +29,7 @@ declare global {
 // import { ImsAdminer } from 'ims-adminer/addon';
 // import { ImsCloud } from 'ims-cloud';
 // import { ImsWebsite } from 'ims-website';
-// import { ImsInstall } from 'ims-install';
+import ImsInstall from 'ims-install';
 // import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 
@@ -69,6 +68,7 @@ export async function bootstrap(root: string, dev: boolean) {
             }
         });
         req.imsCookie = cookie;
+        next();
     });
     app.use(session({
         secret: 'secret',
@@ -80,9 +80,11 @@ export async function bootstrap(root: string, dev: boolean) {
     }));
     const addons = [];
     const configPath = join(root, 'config/config.json');
-    const addr = multiaddr('/ip4/0.0.0.0/tcp/4200')
+    const addr = multiaddr('/ip4/0.0.0.0/tcp/4201')
     let addressOptions = addr.toOptions();
+    let installed = false;
     if (fs.existsSync(configPath)) {
+        installed = true;
         const model = visitor.visitType(ImsModel);
         const config: IConfig = require(join(root, 'config/config.json'));
         setConfig(config);
@@ -105,12 +107,16 @@ export async function bootstrap(root: string, dev: boolean) {
             await parseAddons(addons, config);
         } catch (e) { }
     } else {
-        // addons.push(ImsInstall);
+        addons.push(ImsInstall);
+        // 如果没有安装跳转到安装页面
         app.get('/', (req, res, next) => {
             res.redirect('/ims-install')
         });
     }
-    const node = await p2pBotstrap();
+    let node: any;
+    if (installed) {
+        node = await p2pBotstrap();
+    }
     // 解析router
     parseRouter(addons, app, node);
     // 解析template

@@ -75,7 +75,10 @@
         "packages/ims-model/lib/index.ts"
       ],
       "ims-install": [
-        "packages/ims-install/lib/index.ts"
+        "addons/ims-install/lib/index.ts"
+      ],
+      "ims-node": [
+        "packages/ims-node/lib/index.ts"
       ],
       "ims-compiler": [
         "packages/ims-compiler/lib/index.ts"
@@ -224,6 +227,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "types"
+    "types",
+    "back"
   ]
 }

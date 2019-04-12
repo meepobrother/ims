@@ -9,6 +9,8 @@ import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
 // import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
+import ImsInstall from 'ims-install';
+
 
 const root = process.cwd();
 export class ImsStartApp { }
@@ -38,6 +40,7 @@ export async function bootstrap(dev: boolean) {
         }
     } else {
         // 安装模块
+        addons.push(ImsInstall)
     }
     createAdmin(addons);
     createMobile(addons);

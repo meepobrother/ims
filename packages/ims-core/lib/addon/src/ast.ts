@@ -119,8 +119,12 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
                     let { path, component, routes, store } = { ...route };
                     const r = {
                         ...route,
-                        routes: this.handleIRouter(routes, route),
-                        path: `${parent.path}${path}`
+                        routes: this.handleIRouter(routes, route)
+                    }
+                    if (!!path && path !== '/') {
+                        r.path = `${parent.path}${path}`
+                    } else {
+                        r.path = parent.path;
                     }
                     if (!!component) {
                         r.component = `${addon.sourceRoot}/template/${component}`
@@ -146,7 +150,11 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
                     }
                     const r = {
                         ...route,
-                        path: `${addon.path}${path}`
+                    }
+                    if (!!path && path !== '/') {
+                        r.path = `${addon.path}${path}`
+                    } else {
+                        r.path = addon.path;
                     }
                     if (!!component) {
                         r.component = `${addon.sourceRoot}/template/${component}`

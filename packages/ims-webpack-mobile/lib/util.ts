@@ -13,7 +13,6 @@ export function createMobile(addons: Type<any>[]) {
         const context = visitor.visitType(addon)
         const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
         const template = addonAst.getTemplate();
-        console.log(template);
         // routers = routers.concat(...template.admins)
         routers = routers.concat(...template.mobiles)
     });

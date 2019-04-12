@@ -7,4 +7,4 @@ import { ImsInstallTemplate } from './template'
     template: ImsInstallTemplate,
     sourceRoot: __dirname
 })
-export class ImsInstall { }
+export default class ImsInstall { }

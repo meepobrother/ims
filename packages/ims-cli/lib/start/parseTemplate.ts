@@ -8,16 +8,7 @@ export function parseTemplate(addons: Type<any>[], app: Express, root: string) {
         const context = visitor.visitType(addon);
         handlerAddon(context, app);
     })
-    const adminDist = join(root, 'template', 'admin', 'index.html')
-    const mobileDist = join(root, 'template', 'mobile', 'index.html')
-    app.get('/', (req, res, next) => {
-        res.sendFile(adminDist);
-    });
-    app.get('/app', (req, res, next) => {
-        res.sendFile(mobileDist);
-    });
 }
-
 
 function handlerAddon(addon: TypeContext, router: Express) {
     try {
@@ -44,11 +35,13 @@ function handlerRouter(irouter: IRouter, type: 'admin' | 'mobile', router: Expre
                 res.redirect(irouter.redirect)
             })
         } else {
+            console.log(`handlerRouter: ${irouter.path}`)
             router.get(irouter.path, (req, res, next) => {
+                console.log(`get template ${irouter.path}`)
                 res.sendFile(dist)
             });
         }
-        if (irouter.routes) {
+        if (irouter.routes && irouter.routes.length > 0) {
             irouter.routes.map(route => handlerRouter(route, type, router))
         }
     }

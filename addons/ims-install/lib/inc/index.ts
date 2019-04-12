@@ -6,9 +6,10 @@ const root = process.cwd();
 import { ImsModel, ImsUserEntity } from 'ims-model'
 import { visitor, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
+import { random, cryptoPassword } from 'ims-node';
+import { exec } from 'shelljs'
 @Controller({
-    path: '/',
-    sourceRoot: __filename
+    path: '/'
 })
 export class ImsIndex {
     lockFile: string = join(root, 'config/config.json')
@@ -35,8 +36,11 @@ export class ImsIndex {
             fs.writeFileSync(this.lockFile, JSON.stringify({
                 system,
                 addons,
-                port: 8080,
+                p2p: "/ip4/0.0.0.0/tcp/4200",
+                api: "/ip4/0.0.0.0/tcp/4201",
+                list: [],
                 admin: [],
+                memcached: [],
                 db: {
                     username,
                     host,
@@ -50,10 +54,7 @@ export class ImsIndex {
         } catch (e) {
             return {
                 code: -1,
-                message: e.message,
-                data: {
-                    username, host, port, password
-                }
+                message: e.message
             }
         }
     }
@@ -76,12 +77,13 @@ export class ImsIndex {
             if (!user) {
                 const user = new ImsUserEntity();
                 user.username = username;
-                user.token = 'abcd';
-                user.password = password;
+                user.token = random(8);
+                user.password = cryptoPassword(password, user.token);
                 await userRepository.save(user);
             }
             config.admin = [user.id];
             fs.writeFileSync(this.lockFile, JSON.stringify(config, null, 2));
+            exec(`yarn cli:dev dev`, { cwd: root })
             return {
                 uid: user.id
             }
@@ -91,13 +93,5 @@ export class ImsIndex {
                 message: e.message
             }
         }
-    }
-
-    /**
-     * 安装应用
-     */
-    @On('install')
-    install() {
-
     }
 }
