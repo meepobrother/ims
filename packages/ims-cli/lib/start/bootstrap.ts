@@ -109,7 +109,9 @@ export async function bootstrap(root: string, dev: boolean) {
             // addons.push(ImsWebsite);
             addons.push(ImsCoreAdminer);
             await parseAddons(addons, config);
-        } catch (e) { }
+        } catch (e) {
+            console.log(e.message)
+        }
     } else {
         addons.push(ImsInstall);
     }
