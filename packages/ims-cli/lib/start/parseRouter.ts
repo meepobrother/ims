@@ -1,6 +1,6 @@
 import * as common from 'ims-common';
 import { Express, Router, NextFunction, Request, Response } from 'express';
-import { getConnection, Connection } from 'typeorm'
+import { Connection, getConnectionManager } from 'typeorm'
 import { getConfig } from 'ims-common';
 import * as core from 'ims-core';
 import { Type, TypeContext } from 'ims-decorator';
@@ -196,12 +196,13 @@ function createAddonIncRouter(inc: TypeContext, node: Libp2p) {
             Reflect.defineProperty(inc.instance, _inject.ast.propertyKey, {
                 get: () => {
                     const def = _inject.ast.metadataDef;
+                    const manager = getConnectionManager();
                     let conn: Connection;
                     let config = getConfig()
                     if (def.db === core.RepositoryType.system && config) {
-                        conn = getConnection(config.system);
+                        conn = manager.get(config.system);
                     } else {
-                        conn = getConnection(config.addons);
+                        conn = manager.get(config.addons);
                     }
                     return conn.getRepository(def.target)
                 }

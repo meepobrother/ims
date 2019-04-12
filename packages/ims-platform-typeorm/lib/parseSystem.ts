@@ -1,7 +1,7 @@
 import { visitor, IConfig } from 'ims-common';
 import { parseTypeorm } from './parseTypeorm'
 import { TypeContext, Type, } from 'ims-decorator'
-import { createConnection, getConnectionManager } from 'typeorm';
+import { getConnectionManager } from 'typeorm';
 export async function parseSystem(context: TypeContext, config: IConfig) {
     const typeorm = parseTypeorm(context)
     const { db, system } = config;

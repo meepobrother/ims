@@ -50,7 +50,9 @@ export class AddonAst extends ClassContext<T.AddonOptions> {
         return typeormAst && typeormAst.getConfig()
     }
     getTypeormAst(): TypeormAst {
-        return this.typeorm.getClass<TypeormAst>(K.TypeormMetadataKey)
+        if (this.typeorm) {
+            return this.typeorm.getClass<TypeormAst>(K.TypeormMetadataKey)
+        }
     }
     /**
      * 获取template配置
