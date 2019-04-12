@@ -10,6 +10,7 @@ export class ImsCoreAdminerUser {
         db: RepositoryType.system
     })
     user: EntityRepository<ImsUserEntity>;
+    
     @Post()
     async login(@Body() msg: { username: string, password: string }) {
         console.log(this.user)

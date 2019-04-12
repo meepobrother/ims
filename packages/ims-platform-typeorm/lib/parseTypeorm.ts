@@ -20,7 +20,6 @@ export function parseTypeorm(context: TypeContext) {
     const typeormAst = addonAst.getTypeormAst();
     const entities = [];
     typeormAst.entities.map(model => {
-        entities.push(model.target);
         model.classes.map(cls => {
             if (cls instanceof EntityAst) {
                 typeorm.Entity(cls.ast.metadataDef as any)(cls.ast.target)
@@ -33,6 +32,7 @@ export function parseTypeorm(context: TypeContext) {
             } else {
                 console.error(`cls`)
             }
+            entities.push(cls.ast.target);
         });
         model.propertys.map(cls => {
             if (cls instanceof ColumnAst) {
