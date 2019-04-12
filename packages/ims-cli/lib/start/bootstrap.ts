@@ -36,6 +36,9 @@ import ImsCoreAdminer from 'ims-core-adminer';
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import { parseP2p } from './parseP2p';
 import multiaddr, { Options } from 'multiaddr'
+import { createAdmin } from 'ims-webpack-admin';
+import { createMobile } from 'ims-webpack-mobile';
+
 const file = multer();
 export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
@@ -121,6 +124,10 @@ export async function bootstrap(root: string, dev: boolean) {
     parseRouter(addons, app, node);
     // 解析template
     parseTemplate(addons, app, root);
+    if (dev) {
+        createAdmin(addons);
+        createMobile(addons);
+    }
     /** 安装 */
     App({
         addons: addons,
