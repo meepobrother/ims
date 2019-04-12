@@ -72,7 +72,7 @@ export default class Login {
                 }).then(res => {
                     const { data } = res;
                     if (data.code + '' !== '0') {
-                        this.setNotice(err.message)
+                        this.setNotice(data.message)
                     } else {
                         // 跳转
                         const user = data.data;

@@ -1,6 +1,6 @@
 import { Controller, Post, Body, EntityRepository } from "ims-core";
 import { ImsUserEntity } from 'ims-model'
-import { isEqualPassword } from 'ims-node'
+import { isEqualPassword, sign } from 'ims-node'
 @Controller({
     path: '/user'
 })
@@ -29,8 +29,10 @@ export class ImsCoreAdminerUser {
                     code: 0,
                     message: '登录成功',
                     data: {
-                        id: user.id,
-                        username: user.username
+                        token: sign({
+                            id: user.id,
+                            username: user.username
+                        })
                     }
                 };
             } else {
