@@ -68,17 +68,6 @@ export interface ControllerOptions {
     path: string
 };
 
-export interface RoleOptions {
-    /**
-     * 代号
-     */
-    name: string;
-    /**
-     * 名称
-     */
-    title?: string;
-}
-
 export interface RouterOptions {
     /**
      * 跳转

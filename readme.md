@@ -186,6 +186,11 @@ class ImsDemo {
 }
 ```
 
+### Role 权限
+```ts
+
+```
+
 * [在线演示](https://demo.meepo.com.cn/)
 
 * [使用文档](./helps/use/readme.md)

@@ -133,6 +133,7 @@
     "libp2p-websockets": "^0.12.2",
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
+    "m3u8": "^0.0.8",
     "marked": "^0.6.2",
     "medium-editor": "^5.23.3",
     "mocha": "^6.1.2",

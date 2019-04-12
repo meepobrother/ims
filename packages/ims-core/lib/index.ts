@@ -1,3 +1,4 @@
+export * from './socket';
 export * from './app';
 export * from './inject';
 export * from './injectable';
@@ -8,7 +9,6 @@ export * from './addon/index';
 export * from './orm/index';
 export * from './module';
 export * from './store/index';
-export * from './socket';
 export * from './watch';
 export * from './cookie';
 

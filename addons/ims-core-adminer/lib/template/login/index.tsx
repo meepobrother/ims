@@ -34,6 +34,7 @@ export default class LoginPage extends React.Component<{ login: LoginStore }> {
                 </div>
                 <div className="login-content">
                     <div className="login-warp">
+                        <video src="blob:http://www.quxx04.com/86725407-03de-4dab-b343-10c42f2f0c40"></video>
                         <Login
                             defaultActiveKey={login.tab}
                             onTabChange={(key: any) => login.setTab(key)}
