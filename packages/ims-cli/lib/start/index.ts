@@ -7,9 +7,11 @@ import { StartOptions } from 'pm2'
 import fs from 'fs-extra'
 import { rmrf, execSync } from 'ims-node';
 import { buildApp } from './buildApp'
+
 // 生成watch文件
 function buildWatch() {
     const apps = buildApp();
+    console.log(apps)
     const files = [];
     apps.map(app => {
         const context = visitor.visitType(app);

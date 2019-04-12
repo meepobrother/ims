@@ -204,7 +204,8 @@
     ],
     "types": [
       "node",
-      "mocha"
+      "mocha",
+      "reflect-metadata"
     ],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

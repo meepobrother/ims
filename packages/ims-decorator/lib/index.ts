@@ -444,7 +444,7 @@ export class ParserAstContext {
     }
 
     getConstructor(metadataKey?: string): ConstructorAst[] {
-        if (metadataKey) {
+        if (metadataKey && this.constructors) {
             return this.constructors.filter(pro => pro.metadataKey === metadataKey)
         } else {
             return this.constructors;
@@ -499,20 +499,16 @@ export class ParserVisitor extends NullAstVisitor {
 
 
 export class ParserManager {
-    static _visitor: AstVisitor = new ParserVisitor();
-    static _map: Map<any, ParserAstContext> = new Map();
-    static set visitor(visit: AstVisitor) {
-        this._visitor = visit;
-    }
-    static get visitor() {
-        return this._visitor || new NullAstVisitor()
-    }
-    static getContext(target: any) {
+    visitor: AstVisitor = new ParserVisitor();
+    _map: Map<any, ParserAstContext> = new Map();
+    getContext(target: any) {
         if (this._map.has(target)) return this._map.get(target);
         this._map.set(target, new ParserAstContext());
         return this.getContext(target);
     }
 }
+
+const parserManager = new ParserManager();
 
 export interface DefaultOptions<T> {
     type: 'parameter' | 'property' | 'method' | 'constructor' | 'class';
@@ -529,12 +525,12 @@ export interface DefaultOptions<T> {
 }
 
 export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultOptions<T>) => T = opt => opt.metadataDef || {} as T) {
-    const visitor = ParserManager.visitor;
+    const visitor = parserManager.visitor;
     return (metadataDef?: T & { sourceRoot?: string, imports?: any[], providers?: Provider[] }) => (target: any, propertyKey?: string | symbol, descriptor?: TypedPropertyDescriptor<any> | number) => {
         const sourceRoot = metadataDef && metadataDef.sourceRoot;
         if (propertyKey) {
             if (typeof descriptor === 'number') {
-                const context = ParserManager.getContext(target.constructor);
+                const context = parserManager.getContext(target.constructor);
                 const types = getDesignParamTypes(target, propertyKey)
                 metadataDef = getDefault({
                     type: 'parameter',
@@ -550,7 +546,7 @@ export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultO
                 visitor.visitParameter(ast, context)
             } else if (typeof descriptor === 'undefined') {
                 // property
-                const context = ParserManager.getContext(target.constructor);
+                const context = parserManager.getContext(target.constructor);
                 const propertyType = getDesignType(target, propertyKey)
                 metadataDef = getDefault({
                     type: 'property',
@@ -567,7 +563,7 @@ export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultO
                 try {
                     const returnType = getDesignReturnType(target, propertyKey)
                     const paramTypes = getDesignParamTypes(target, propertyKey);
-                    const context = ParserManager.getContext(target.constructor);
+                    const context = parserManager.getContext(target.constructor);
                     metadataDef = getDefault({
                         type: 'method',
                         metadataDef,
@@ -584,7 +580,7 @@ export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultO
         } else {
             if (typeof descriptor === 'number') {
                 // constructor
-                const context = ParserManager.getContext(target);
+                const context = parserManager.getContext(target);
                 const types = getDesignParamTypes(target, 'constructor')
                 metadataDef = getDefault({
                     type: 'constructor',
@@ -598,7 +594,7 @@ export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultO
                 visitor.visitConstructor(ast, context)
             } else {
                 // class
-                const context = ParserManager.getContext(target);
+                const context = parserManager.getContext(target);
                 metadataDef = getDefault({
                     type: 'class',
                     metadataDef,
