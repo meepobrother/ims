@@ -211,9 +211,8 @@
     "start:build": "pm2 start npm --name startBuild -i 1 -- run ts packages/ims-cli/lib/start/build.ts",
     "start:bin": "pm2 start npm --name startBin -i 3 -- run ts packages/ims-cli/lib/start/bin.ts",
     "start": "yarn start:build && yarn start:bin",
-    "pm2h": "pm2 start -h",
     "migration": "typeorm migration:create -n ",
-    "pm2": "pm2 start npm --watch --name ims -- run cli start",
+    "pm2": "pm2",
     "dll": "webpack",
     "babel": "babel",
     "test": "mocha -r ts-node/register -r tsconfig-paths/register packages/**/__test__/**/*.ts"

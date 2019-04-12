@@ -27,14 +27,14 @@ export class ImsStart extends ImsCommand {
             script: join(__dirname, 'bin/template_dev.js'),
             output: join(root, 'data/logs/template_dev.log'),
             error: join(root, 'data/logs/template_dev-error.log'),
-            interpreter: join(root, 'node_modules/.bin/ts-node -r ts-node/register -r tsconfig-paths/register')
+            interpreter: 'typescript'
         });
         devApps.push({
             name: 'dev',
             script: join(__dirname, 'bin/dev.js'),
             output: join(root, 'data/logs/dev.log'),
             error: join(root, 'data/logs/dev-error.log'),
-            interpreter: join(root, 'node_modules/.bin/ts-node -r ts-node/register -r tsconfig-paths/register')
+            interpreter: 'typescript'
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
