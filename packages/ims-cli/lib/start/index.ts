@@ -4,6 +4,7 @@ import { join } from 'path';
 import { StartOptions } from 'pm2'
 import fs from 'fs-extra'
 import { rmrf, execSync } from 'ims-node';
+import { cpus } from 'os';
 // 生成watch文件
 @Command({
     name: 'start'
@@ -29,7 +30,8 @@ export class ImsStart extends ImsCommand {
             error: join(root, 'data/logs/dev-error.log'),
             watch: [
                 join(root, 'addons/**/*.ts'),
-            ]
+            ],
+            restart_delay: 5000
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
@@ -37,7 +39,9 @@ export class ImsStart extends ImsCommand {
             name: 'prod',
             script: join(__dirname, 'bin/prod.js'),
             output: join(root, 'data/logs/prod.log'),
-            error: join(root, 'data/logs/prod-error.log')
+            error: join(root, 'data/logs/prod-error.log'),
+            instances: cpus().length,
+            exec_mode: '‘cluster’'
         });
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
         if (this.dev) {
