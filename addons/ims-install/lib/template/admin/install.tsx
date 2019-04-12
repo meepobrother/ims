@@ -82,7 +82,7 @@ export default class Index extends Component<any, IndexState> {
                             <div className="band">欢迎使用IMS应用框架</div>
                         </div>
                         <Steps style={{ minWidth: '650px' }} current={this.state.step}>
-                            <Steps.Step title="协议" icon={<Icon type="property-safety" />}></Steps.Step>
+                            <Steps.Step title="协议1" icon={<Icon type="property-safety" />}></Steps.Step>
                             <Steps.Step title="配置" icon={<Icon type="setting" />} />
                             <Steps.Step title="账户" icon={<Icon type="user" />} />
                             <Steps.Step title="完成" icon={<Icon type="smile-o" />} />

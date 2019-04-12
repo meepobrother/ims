@@ -27,7 +27,9 @@ export class ImsStart extends ImsCommand {
             script: join(__dirname, 'bin/dev.js'),
             output: join(root, 'data/logs/dev.log'),
             error: join(root, 'data/logs/dev-error.log'),
-            watch: [join(root, 'addons')]
+            watch: [
+                join(root, 'addons/**/*.ts'),
+            ]
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
@@ -35,13 +37,7 @@ export class ImsStart extends ImsCommand {
             name: 'prod',
             script: join(__dirname, 'bin/prod.js'),
             output: join(root, 'data/logs/prod.log'),
-            error: join(root, 'data/logs/prod-error.log'),
-            args: [
-                "-r",
-                "ts-node/register",
-                "-r",
-                "tsconfig-paths/register"
-            ]
+            error: join(root, 'data/logs/prod-error.log')
         });
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
         if (this.dev) {
