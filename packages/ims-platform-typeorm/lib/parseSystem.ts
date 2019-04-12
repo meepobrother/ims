@@ -5,7 +5,8 @@ import { createConnection, getConnectionManager } from 'typeorm';
 export async function parseSystem(context: TypeContext, config: IConfig) {
     const typeorm = parseTypeorm(context)
     const { db, system } = config;
-    await createConnection({
+    const manager = getConnectionManager();
+    const connect = manager.create({
         type: 'mysql',
         host: db.host,
         port: db.port,
@@ -18,6 +19,8 @@ export async function parseSystem(context: TypeContext, config: IConfig) {
         database: system,
         synchronize: true
     });
+    await connect.connect();
+    console.log(`connections`, manager.connections.length)
 }
 
 export async function parseAddons(addons: Type<any>[], config: IConfig) {
@@ -47,4 +50,5 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
         name: config.addons
     });
     await connect.connect();
+    console.log(`connections`, manager.connections.length)
 }
