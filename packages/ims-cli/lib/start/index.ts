@@ -1,28 +1,10 @@
-import { Command, Input, AddonMetadataKey, AddonAst } from 'ims-core';
-import { visitor } from 'ims-common';
-
+import { Command, Input } from 'ims-core';
 import { ImsCommand } from '../command';
 import { join } from 'path';
 import { StartOptions } from 'pm2'
 import fs from 'fs-extra'
 import { rmrf, execSync } from 'ims-node';
-import { buildApp } from './buildApp'
-
 // 生成watch文件
-function buildWatch() {
-    const apps = buildApp();
-    console.log(apps)
-    const files = [];
-    apps.map(app => {
-        const context = visitor.visitType(app);
-        const addon = context.getClass(AddonMetadataKey) as AddonAst;
-        addon.getTemplate()
-        files.push(join(addon.path, 'template/index.ts'))
-        files.push(join(addon.path, 'template/inc'))
-        files.push(join(addon.path, 'template/typeorm'))
-    })
-    return files;
-}
 @Command({
     name: 'start'
 })
@@ -46,13 +28,12 @@ export class ImsStart extends ImsCommand {
             output: join(root, 'data/logs/template_dev.log'),
             error: join(root, 'data/logs/template_dev-error.log'),
         });
-        const files = buildWatch();
         devApps.push({
             name: 'dev',
             script: join(__dirname, 'bin/dev.js'),
             output: join(root, 'data/logs/dev.log'),
             error: join(root, 'data/logs/dev-error.log'),
-            watch: files
+            watch: [join(root, 'addons')]
         });
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
