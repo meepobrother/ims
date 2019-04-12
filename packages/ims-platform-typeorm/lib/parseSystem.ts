@@ -6,21 +6,23 @@ export async function parseSystem(context: TypeContext, config: IConfig) {
     const typeorm = parseTypeorm(context)
     const { db, system } = config;
     const manager = getConnectionManager();
-    const connect = manager.create({
-        type: 'mysql',
-        host: db.host,
-        port: db.port,
-        username: db.username,
-        password: db.password,
-        entities: typeorm.entities,
-        subscribers: typeorm.subscribers,
-        migrations: typeorm.migrations,
-        name: system,
-        database: system,
-        synchronize: true
-    });
-    await connect.connect();
-    console.log(`connections`, manager.connections.length)
+    if (!manager.has(system)) {
+        const connect = manager.create({
+            type: 'mysql',
+            host: db.host,
+            port: db.port,
+            username: db.username,
+            password: db.password,
+            entities: typeorm.entities,
+            subscribers: typeorm.subscribers,
+            migrations: typeorm.migrations,
+            database: system,
+            synchronize: true,
+            name: system
+        });
+        await connect.connect();
+    }
+    console.log(`parseSystem`, manager.connections.length)
 }
 
 export async function parseAddons(addons: Type<any>[], config: IConfig) {
@@ -36,19 +38,21 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
     });
     const { db } = config;
     const manager = getConnectionManager();
-    const connect = manager.create({
-        type: 'mysql',
-        host: db.host,
-        port: db.port,
-        username: db.username,
-        password: db.password,
-        entities: entities,
-        subscribers: subscribers,
-        migrations: migrations,
-        database: config.addons,
-        synchronize: true,
-        name: config.addons
-    });
-    await connect.connect();
-    console.log(`connections`, manager.connections.length)
+    if (!manager.has(config.addons)) {
+        const connect = manager.create({
+            type: 'mysql',
+            host: db.host,
+            port: db.port,
+            username: db.username,
+            password: db.password,
+            entities: entities,
+            subscribers: subscribers,
+            migrations: migrations,
+            database: config.addons,
+            synchronize: true,
+            name: config.addons
+        });
+        await connect.connect();
+    }
+    console.log(`parseAddons`, manager.connections.length)
 }

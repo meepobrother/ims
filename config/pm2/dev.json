@@ -8,5 +8,11 @@
       "/Volumes/work/addons/**/*.ts"
     ],
     "restart_delay": 5000
+  },
+  {
+    "name": "template_dev",
+    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/template_dev.js",
+    "output": "/Volumes/work/data/logs/template_dev.log",
+    "error": "/Volumes/work/data/logs/template_dev-error.log"
   }
 ]
