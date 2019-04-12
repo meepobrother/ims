@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { getConnection } from 'typeorm';
+import { getConnectionManager } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, IConfig, setConfig } from 'ims-common';
@@ -95,7 +95,8 @@ export async function bootstrap(root: string, dev: boolean) {
         addressOptions = addr.toOptions();
         try {
             await parseSystem(model, config);
-            const connection = getConnection(config.system)
+            const manager = getConnectionManager();
+            const connection = manager.get(config.system)
             const addonRepository = connection.getRepository(ImsAddonEntity);
             const allAddon = await addonRepository.find({
                 enable: true
