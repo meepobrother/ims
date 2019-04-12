@@ -1,6 +1,6 @@
 import { randomBytes, createHash } from 'crypto'
 import rimraf = require('rimraf');
-
+import { exec } from 'shelljs'
 /** 生成随机数 */
 export const random = (length: number) => {
     return randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
@@ -37,5 +37,16 @@ export function isEqualPassword(srcPassword: string, token: string, password: st
 export function rmrf(dir: string) {
     return new Promise((resolve) => {
         rimraf(dir, () => resolve())
+    })
+}
+/**
+ * 执行命令
+ * @param command 命令内容
+ */
+export function execSync(command: string) {
+    return new Promise((resolve, reject) => {
+        exec(command, { cwd: process.cwd() }, (code, out, err) => {
+            resolve(out)
+        });
     })
 }

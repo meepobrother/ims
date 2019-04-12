@@ -1,18 +1,10 @@
 import { Command, Input } from 'ims-core';
 import { ImsCommand } from '../command';
 import { join } from 'path';
-import { exec } from 'shelljs'
 import { StartOptions } from 'pm2'
 import fs from 'fs-extra'
-import rimraf = require('rimraf');
+import { rmrf, execSync } from 'ims-node';
 
-async function execSync(command: string) {
-    return new Promise((resolve, reject) => {
-        exec(command, { cwd: process.cwd() }, (code, out, err) => {
-            resolve(out)
-        });
-    })
-}
 @Command({
     name: 'start'
 })
@@ -28,8 +20,8 @@ export class ImsStart extends ImsCommand {
         const devApps: StartOptions[] = [];
         fs.ensureDirSync(join(root, 'config/pm2'))
         fs.ensureDirSync(join(root, 'data/logs'))
-        rimraf(join(root, 'config/pm2'), () => { })
-        rimraf(join(root, 'data/logs'), () => { })
+        await rmrf(join(root, 'config/pm2'))
+        await rmrf(join(root, 'data/logs'))
         devApps.push({
             name: 'template_dev',
             script: join(__dirname, 'bin/template_dev.js'),
