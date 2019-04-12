@@ -70,11 +70,21 @@ export default class Login {
                     ...values,
                     autoLogin: this.autoLogin
                 }).then(res => {
-                    if (res.data.message) {
+                    const { data } = res;
+                    if (data.code + '' !== '0') {
                         this.setNotice(err.message)
                     } else {
                         // 跳转
-                        cookie.set('uid', res.data.id)
+                        const user = data.data;
+                        const date = new Date();
+                        date.setMinutes(date.getMinutes() + 35)
+                        cookie.set('uid', user.id, {
+                            expires: date
+                        });
+                        cookie.set('username', user.username, {
+                            expires: date
+                        });
+                        console.log(cookie)
                     }
                 }).catch(e => {
                     this.setNotice(e.message)

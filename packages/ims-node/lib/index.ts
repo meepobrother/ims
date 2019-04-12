@@ -1,6 +1,9 @@
 import { randomBytes, createHash } from 'crypto'
 import rimraf = require('rimraf');
-import { exec } from 'shelljs'
+import { exec } from 'shelljs';
+
+export * from './jwt';
+
 /** 生成随机数 */
 export const random = (length: number) => {
     return randomBytes(Math.ceil(length / 2)).toString('hex').slice(0, length);
