@@ -111,10 +111,7 @@ export async function bootstrap(root: string, dev: boolean) {
         } catch (e) { }
     } else {
         addons.push(ImsInstall);
-        // 如果没有安装跳转到安装页面
-        app.get('/', (req, res, next) => {
-            res.redirect('/ims-install')
-        });
+
     }
     let node: any;
     if (installed) {
@@ -140,6 +137,12 @@ export async function bootstrap(root: string, dev: boolean) {
         parseWebSocket(appContext, socket, ws)
     });
     parseP2p(appContext, node);
+    if (!installed) {
+        // 如果没有安装跳转到安装页面
+        app.get('*', (req, res, next) => {
+            res.redirect('/ims-install')
+        });
+    }
     return new Promise((resolve, reject) => {
         server.listen(addressOptions.port, addressOptions.host, () => {
             console.log(`api start at http://${addressOptions.host}:${addressOptions.port}`)

@@ -5,7 +5,8 @@ import util from 'ims-util'
 import Result from 'ant-design-pro/lib/Result'
 export default class Index extends Component<any, any> {
     state = {
-        installing: true
+        installing: true,
+        loading: false
     }
     componentDidMount() {
         console.log('componentDidMount')
@@ -45,13 +46,19 @@ export default class Index extends Component<any, any> {
                     </div>
                 </div>}
                 actions={<div>
-                    <Button type="primary" onClick={e => this.install()}>重新启动</Button>
+                    <Button type="primary" loading={this.state.loading} onClick={e => this.install()}>重新启动</Button>
                 </div>}>
             </Result>
         </div>
     }
 
     install() {
-        util.http.post('/ims-install/restart')
+        util.http.post('/ims-install/restart')({})
+        this.setState({
+            loading: true
+        })
+        setTimeout(() => {
+            window.location.href = '/login';
+        }, 10000);
     }
 }

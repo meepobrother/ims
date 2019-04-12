@@ -3,9 +3,8 @@ import "./app.css";
 import "antd/dist/antd.css";
 import React from 'react';
 let routes = [{
-path:"/login",
-component:React.lazy(()=>import(/* webpackChunkName: "login" */"../../../../addons/ims-core-adminer/lib/template/login")),
-store:{login: require('../../../../addons/ims-core-adminer/lib/template/store/login').default,cookie: require('../../../../addons/ims-core-adminer/lib/template/store/cookie').default,},
+path:"/ims-install",
+component:React.lazy(()=>import(/* webpackChunkName: "ims-install" */"../../../../addons/ims-install/lib/template/admin/install")),
 routes:[],
 }];
 bootstrap(routes);
