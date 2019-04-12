@@ -111,6 +111,7 @@ export async function bootstrap(root: string, dev: boolean) {
             await parseAddons(addons, config);
         } catch (e) {
             console.log(e.message)
+            console.log(e.stack)
         }
     } else {
         addons.push(ImsInstall);
