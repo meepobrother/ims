@@ -33,6 +33,12 @@ export class ImsStart extends ImsCommand {
             ],
             restart_delay: 5000
         });
+        devApps.push({
+            name: 'template_dev',
+            script: join(__dirname, 'bin/template_dev.js'),
+            output: join(root, 'data/logs/template_dev.log'),
+            error: join(root, 'data/logs/template_dev-error.log')
+        })
         fs.writeFileSync(join(root, 'config/pm2/dev.json'), JSON.stringify(devApps, null, 2));
         const prodApps: StartOptions[] = [];
         prodApps.push({
@@ -46,7 +52,7 @@ export class ImsStart extends ImsCommand {
         fs.writeFileSync(join(root, 'config/pm2/prod.json'), JSON.stringify(prodApps, null, 2));
         if (this.dev) {
             await execSync(`pm2 start ${join(root, 'config/pm2/dev.json')}`)
-            await execSync(`node ${join(__dirname, 'bin/template_dev')}`)
+            // await execSync(`node ${join(__dirname, 'bin/template_dev')}`)
         } else {
             await execSync(`pm2 start ${join(root, 'config/pm2/prod.json')}`)
             await execSync(`node ${join(__dirname, 'bin/template_prod')}`)
