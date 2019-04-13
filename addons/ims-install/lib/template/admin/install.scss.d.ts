@@ -6,7 +6,6 @@ interface Style {
   login: string;
   'login-header': string;
   loginHeader: string;
-  logo: string;
   band: string;
   'main-form': string;
   mainForm: string;

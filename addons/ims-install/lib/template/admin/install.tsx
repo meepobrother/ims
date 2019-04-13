@@ -40,7 +40,7 @@ export default class Index extends Component<any, IndexState> {
     }
     componentDidMount() { }
     install() {
-        util.http.post('ims-install/install')(this.state).then(res => {
+        util.http.post('/ims-install/install', this.state).then(res => {
             console.log(res)
         });
     }
@@ -76,10 +76,8 @@ export default class Index extends Component<any, IndexState> {
                             loginHeader: true
                         })}>
                             <img style={{
-                                width: '50px',
                                 height: '50px'
                             }} className="logo" src={logo6} alt="ims" />
-                            <div className="band">欢迎使用IMS应用框架</div>
                         </div>
                         <Steps style={{ minWidth: '650px' }} current={this.state.step}>
                             <Steps.Step title="协议" icon={<Icon type="property-safety" />}></Steps.Step>

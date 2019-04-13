@@ -140,6 +140,13 @@ export async function bootstrap(root: string, dev: boolean) {
         app.get('*', (req, res, next) => {
             res.redirect('/ims-install')
         });
+    } else {
+        app.get('*', (req, res, next) => {
+            res.json({
+                code: 404,
+                message: 'not found'
+            })
+        });
     }
     return new Promise((resolve, reject) => {
         server.listen(addressOptions.port, addressOptions.host, () => {

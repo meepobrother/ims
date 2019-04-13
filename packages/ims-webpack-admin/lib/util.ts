@@ -47,6 +47,8 @@ function createRouter(route: IRouter, tempDir: string) {
                 res += `${camelCase(key)}: require('${relative(tempDir, val[key])}').default,`
             })
             res += `},\n`;
+        } else if (key === 'roles') {
+            res += `roles:${JSON.stringify(val)},`
         } else {
             if (Array.isArray(val)) {
                 res += `${key}:[${val.join(',')}],\n`

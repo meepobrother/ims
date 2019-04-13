@@ -21,6 +21,8 @@ Axios.interceptors.response.use(res => {
             case 401:
                 ImsUtil.cookie.remove('token');
                 break;
+            case 404:
+                break;
             default:
                 console.log(`err.response.status`, err.response.status);
                 break;

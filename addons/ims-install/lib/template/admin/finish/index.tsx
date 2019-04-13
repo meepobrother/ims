@@ -81,6 +81,7 @@ export default class Index extends Component<any, any> {
         const that = this;
         function request() {
             util.http.get('/').then(res => {
+                console.log(res)
                 if (res.status === 200) {
                     clearInterval(pid);
                     that.setState({
