@@ -19,27 +19,16 @@ export class ImsStart extends ImsCommand {
         const root = process.cwd();
         await execSync(`pm2 kill`)
         const devApps: StartOptions[] = [];
-        
+
         await rmrf(join(root, 'config/pm2'))
         await rmrf(join(root, 'data/logs'))
         fs.ensureDirSync(join(root, 'config/pm2'))
         fs.ensureDirSync(join(root, 'data/logs'))
         devApps.push({
-            name: 'api_dev',
-            script: join(__dirname, 'bin', 'api_dev.js'),
-            output: join(root, 'data/logs/api_dev.log'),
-            error: join(root, 'data/logs/api_dev-error.log'),
-            restart_delay: 5000
-        });
-        devApps.push({
             name: 'dev',
             script: join(__dirname, 'bin', 'dev.js'),
             output: join(root, 'data/logs/dev.log'),
-            error: join(root, 'data/logs/dev-error.log'),
-            watch: [
-                join(root, 'addons/**/*.ts'),
-            ],
-            restart_delay: 5000
+            error: join(root, 'data/logs/dev-error.log')
         });
         devApps.push({
             name: 'template_dev',
