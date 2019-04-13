@@ -23,6 +23,7 @@ export class ImsAddon {
         incs.map(inc => {
             this.install(inc)
         });
+        console.log(`create addon path ${addonAst.path}`)
         options.app.use(addonAst.path, this.router);
         const stack = options.app._router.stack;
         const last = stack[stack.length - 1];
