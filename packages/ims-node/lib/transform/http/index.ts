@@ -6,8 +6,7 @@ import { TransformOptions } from '../type'
 import { getConfig } from "ims-common";
 export const routerMap: Map<string, any> = new Map();
 import { ImsCookie } from 'ims-cookie';
-import debug = require('debug');
-const httpDebug = debug('transform:http');
+const httpDebug = (msg: string) => console.log(`transform:http:${msg}`);
 declare global {
     namespace Express {
         interface Request {

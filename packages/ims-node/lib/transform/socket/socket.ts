@@ -7,8 +7,7 @@ interface Handler<T> {
 }
 export const handlerMap: Map<string, Handler<any>> = new Map();
 import { TransformOptions } from '../type'
-import debug = require('debug');
-const socketDebug = debug('transform:socket');
+const socketDebug = (msg: string) => console.log(`transform:socket:${msg}`);
 
 export function transformSocket(
     context: TypeContext,

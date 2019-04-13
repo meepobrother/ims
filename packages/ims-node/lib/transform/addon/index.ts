@@ -6,8 +6,7 @@ import transformHttp from '../http';
 import { TransformOptions } from '../type'
 import transformRole from '../role'
 import { Router } from "express";
-import debug = require('debug');
-const transformDebug = debug('transform');
+const transformDebug = (msg: string) => console.log(`transform:${msg}`);
 export default function transform(addon: TypeContext, options: TransformOptions) {
     const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
     const incs = addonAst.incs;

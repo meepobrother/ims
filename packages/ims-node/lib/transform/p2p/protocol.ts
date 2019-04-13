@@ -3,8 +3,7 @@ import { TypeContext } from 'ims-decorator';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 import { TransformOptions } from '../type'
-import debug = require('debug');
-const protocolDebug = debug('transform:protocol');
+const protocolDebug = (msg: string) => console.log(`transform:protocol:${msg}`);
 
 export function transformProtocol(context: TypeContext, options: TransformOptions) {
     /** 属性 */

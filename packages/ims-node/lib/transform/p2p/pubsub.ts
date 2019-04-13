@@ -6,8 +6,7 @@ import PeerId from 'peer-id';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 import { TransformOptions } from '../type'
-import debug = require('debug');
-const pubsubDebug = debug('transform:pubsub');
+const pubsubDebug = (msg: string) => console.log(`transform:pubsub:${msg}`);
 
 export function transformPubsub(context: TypeContext, options: TransformOptions) {
     /** 属性 */

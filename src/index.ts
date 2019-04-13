@@ -1,18 +1,16 @@
-import { join } from "path";
+var a = require('debug')('worker:a')
+  , b = require('debug')('worker:b');
 
-var m3u8 = require('m3u8');
-var fs = require('fs');
+function work() {
+  a('doing lots of uninteresting work');
+  setTimeout(work, Math.random() * 1000);
+}
 
-var parser = m3u8.createStream();
+work();
 
-var file = fs.createReadStream(join(__dirname, 'index.m3u8'));
-file.pipe(parser);
+function workb() {
+  b('doing some work');
+  setTimeout(workb, Math.random() * 2000);
+}
 
-parser.on('item', function (item) {
-    console.log(item)
-    // emits PlaylistItem, MediaItem, StreamItem, and IframeStreamItem
-});
-parser.on('m3u', function (m3u) {
-    console.log(m3u)
-    // fully parsed m3u file
-});
+workb();
