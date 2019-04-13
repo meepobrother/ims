@@ -16,6 +16,7 @@ export class ImsAddon {
     uninstalls: ImsAddonUninstall[] = [];
     private router = Router();
     constructor(public target: Type<any>, public options: TransformOptions) {
+        console.log(`create addon ${target.name}`)
         const addon = visitor.visitType(target);
         const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
         const incs = addonAst.incs;
@@ -38,7 +39,7 @@ export class ImsAddon {
                 options.app._router.stack.splice(index, 1)
             });
         });
-        
+
     }
 
     private install(inc: TypeContext) {

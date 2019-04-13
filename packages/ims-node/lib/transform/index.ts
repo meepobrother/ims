@@ -9,6 +9,7 @@ export function transform(
     addons: Type<any>[],
     options: TransformOptions
 ): ImsApplication {
+    console.log(`create application`)
     const { server } = options;
     const application = new ImsApplication(addons, options);
     // socket
