@@ -19,6 +19,7 @@ export default function transform(addon: TypeContext, options: TransformOptions)
         transformP2p(inc, options);
         transformSocket(inc, options);
         const path = transformHttp(inc, options);
+        transformDebug(`registe addon inc ${path.path}`)
         router.use(path.path, path.router)
     });
     options.app.use(addonAst.path, router);

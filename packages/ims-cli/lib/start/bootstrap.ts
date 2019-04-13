@@ -31,7 +31,7 @@ import ImsInstall from 'ims-install';
 // import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
-import multiaddr, { Options } from 'multiaddr'
+import multiaddr from 'multiaddr'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
 import { transform } from 'ims-node'
