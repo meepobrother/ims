@@ -78,7 +78,10 @@ export default function transform(context: TypeContext, options: TransformOption
     const incRouter = Router();
     const inc = context.getClass(ControllerMetadataKey) as ControllerAst;
     context.getProperty().map(pro => transformHttpProperty(pro, context, options))
-    context.getMethod().map(pro => transformHttpMethod(pro, context, options, incRouter));
+    context.getMethod().map(pro => {
+        console.log(`get method`)
+        transformHttpMethod(pro, context, options, incRouter)
+    });
     return {
         path: inc.path,
         router: incRouter
