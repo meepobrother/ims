@@ -1,9 +1,10 @@
 import { ProtocolMetadataKey, ProtocolPropertyAst, ProtocolMethodAst, AddonMetadataKey, AddonAst, ControllerAst, ControllerMetadataKey, ProtocolParameterAst, BodyAst } from "ims-core";
 import { TypeContext } from 'ims-decorator';
-import Libp2p from 'libp2p';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 import { TransformOptions } from '../type'
+import debug = require('debug');
+const protocolDebug = debug('transform:protocol');
 
 export function transformProtocol(context: TypeContext, options: TransformOptions) {
     /** 属性 */
@@ -30,7 +31,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
     const p = Pushable()
-    console.log(`registe protocol ${path}`)
+    protocolDebug.log(`registe protocol ${path}`)
     options.libp2p.handle(path, (protocol: any, conn: any) => {
         pull(p, conn);
         const handler = (data: string) => p.push(data)
@@ -44,7 +45,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
                     // 接收消息
                     params[par.ast.parameterIndex] = item;
                 } else {
-                    console.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
+                    protocolDebug.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
                 }
             });
             mth(...params);

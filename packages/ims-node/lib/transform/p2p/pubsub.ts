@@ -6,6 +6,8 @@ import PeerId from 'peer-id';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 import { TransformOptions } from '../type'
+import debug = require('debug');
+const pubsubDebug = debug('transform:pubsub');
 
 export function transformPubsub(context: TypeContext, options: TransformOptions) {
     /** 属性 */
@@ -25,7 +27,7 @@ function transformPubsubMethod(method: PubsubMethodAst, context: TypeContext, op
     const path = `${addon.path}/${controller.path}/${method.name}`;
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
-    console.log(`registe pubsub ${path}`)
+    pubsubDebug.log(`registe pubsub ${path}`)
     options.libp2p.pubsub.subscribe(path, (msg: Message) => {
         method.parameters.map(par => {
             if (par instanceof ProtocolParameterAst) {
@@ -49,7 +51,7 @@ function transformPubsubMethod(method: PubsubMethodAst, context: TypeContext, op
                 params[par.ast.parameterIndex] = msg;
             }
             else {
-                console.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
+                pubsubDebug.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
             }
         });
         mth(...params);
