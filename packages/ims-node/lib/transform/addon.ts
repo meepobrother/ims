@@ -43,6 +43,11 @@ export class ImsAddon {
     }
 
     private install(inc: TypeContext) {
+        console.log(`create addon inc ${inc.target.name}`)
+        console.log(`create addon inc ${inc.classes.length}`)
+        console.log(`create addon inc ${inc.propertys.length}`)
+        console.log(`create addon inc ${inc.methods.length}`)
+
         // 解析role
         transformRole(inc, this.options);
         this.uninstalls.push((options) => {
