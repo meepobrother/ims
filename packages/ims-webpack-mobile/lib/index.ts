@@ -1,5 +1,4 @@
 import { ImsWebpack } from 'ims-webpack';
-import { watch } from 'chokidar';
 import { AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst } from 'ims-core';
 import { Type } from 'ims-decorator'
 import { createMobile } from './util';
@@ -35,27 +34,9 @@ export class ImsWebpackMobile extends ImsWebpack {
             this.config.devtool('source-map');
             this.config.mode('development')
         }
-        if (this.dev) this.watchFile()
     }
 
     getHtmlTemplate() {
         return join(__dirname, 'index.html')
-    }
-
-    watchFile() {
-        if (sources.size > 0) {
-            const strs = [];
-            sources.forEach(file => strs.push(`${file}.*`))
-            const watcher = watch(strs);
-            watcher.on('add', () => {
-                this.$change.next(0);
-            });
-            watcher.on('change', () => {
-                this.$change.next(0);
-            });
-            watcher.on('unlink', () => {
-                this.$change.next(0);
-            });
-        }
     }
 }
