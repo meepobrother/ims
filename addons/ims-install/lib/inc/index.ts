@@ -1,4 +1,4 @@
-import { Controller, Post, Body, On } from 'ims-core';
+import { Controller, Post, Body } from 'ims-core';
 import fs = require('fs-extra')
 import { join } from 'path';
 import { createConnection, getConnection, getConnectionManager } from 'typeorm';
