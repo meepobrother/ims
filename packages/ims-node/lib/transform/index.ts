@@ -57,6 +57,6 @@ export function transform(
     // todo
     server.on('headers', (headers, req) => {
         // 检查
-        log(`headers:headers.join(',')`)
+        log(`headers:${headers.join(',')}`)
     });
 }

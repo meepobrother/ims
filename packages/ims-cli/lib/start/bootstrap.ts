@@ -35,11 +35,17 @@ import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import multiaddr, { Options } from 'multiaddr'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
-
+import { rmrf } from 'ims-node'
 import { transform } from 'ims-node'
 const file = multer();
 export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
+
+    await rmrf(join(root, 'config/pm2'))
+    await rmrf(join(root, 'data/logs'))
+    fs.ensureDirSync(join(root, 'config/pm2'))
+    fs.ensureDirSync(join(root, 'data/logs'))
+
     const app = express();
     app.use(file.any());
     app.use(express.static(join(root, 'template')))

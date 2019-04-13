@@ -14,11 +14,9 @@ export class ImsCoreAdminerUser {
 
     @Post()
     async login(@Body() msg: { username: string, password: string }) {
-        console.log(this.user)
         const user = await this.user.findOne({
             username: msg.username
         });
-
         if (!user) {
             return {
                 code: -1,
