@@ -48,7 +48,7 @@ export class ImsBuild {
             const srcRoot = this.system ? 'packages' : 'addons';
             await _rimraf(join(root, this.output, this.name));
             console.log(`name:${this.name}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${this.watch}`)
-            await packProject(this.name, this.output, srcRoot, this.watch);
+            await packProject(this.name, this.output, srcRoot, !!this.watch);
             if (!this.watch) {
                 console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
                 exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
@@ -83,6 +83,8 @@ function packProject(
 ) {
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
+    console.log(`srcPath: ${srcPath}\n`)
+    console.log(`destPath: ${destPath}\n`)
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
