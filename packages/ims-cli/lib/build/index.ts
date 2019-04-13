@@ -47,7 +47,7 @@ export class ImsBuild {
         if (this.name) {
             const srcRoot = this.system ? 'packages' : 'addons';
             await _rimraf(join(root, this.output, this.name));
-            console.log(`name:${this.name}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${this.watch}`)
+            console.log(`name:${this.name}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`)
             await packProject(this.name, this.output, srcRoot, !!this.watch);
             if (!this.watch) {
                 console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
@@ -74,6 +74,28 @@ function _rimraf(dir: string) {
     });
 }
 
+function packFile(src: string, output: string) {
+    console.log(`packFile ${src} ${output}`)
+    const taskTsc = done => {
+        const tsProject = ts.createProject(join(root, 'tsconfig.json'));
+        const task = gulp.src(src).pipe(tsProject()).pipe(gulp.dest(output))
+        task.on('end', () => {
+            console.log(chalk.yellow(`${src}:tsc finish ${new Date().getTime()}`))
+        });
+    }
+    const taskCopy = done => {
+        const otherTask = gulp.src(src).pipe(gulp.dest(output))
+        otherTask.on('end', () => {
+            console.log(chalk.yellow(`${src}:copy finish ${new Date().getTime()}`))
+            done()
+        })
+    }
+    if (src.endsWith('.ts') || src.endsWith('.tsx')) {
+        taskTsc(done => { })
+    } else {
+        taskCopy(done => { })
+    }
+}
 
 function packProject(
     name: string,
@@ -83,9 +105,8 @@ function packProject(
 ) {
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
-    console.log(`srcPath: ${srcPath}`)
-    console.log(`destPath: ${destPath}`)
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
+
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
@@ -107,7 +128,11 @@ function packProject(
     if (watch) {
         return new Promise((resolve) => {
             taskFn(done => {
-                const watcher = gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
+                const watcher = gulp.watch(`${srcPath}/**/*`)
+                watcher.on('change', (eventType: string, filename: string) => {
+                    console.log(`change ${eventType} ${filename}`);
+                    packFile(filename, filename.replace(srcRoot, output).replace('.ts', '.js').replace('.tsx', '.jsx'))
+                })
                 watcher.on('error', () => resolve())
             });
         })
