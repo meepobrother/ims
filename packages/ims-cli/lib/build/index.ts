@@ -105,6 +105,8 @@ function packProject(
     if (watch) {
         gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
     } else {
-        gulp.series(taskFn)
+        return new Promise((resolve, reject) => {
+            gulp.series(taskFn)(() => resolve())
+        });
     }
 }
