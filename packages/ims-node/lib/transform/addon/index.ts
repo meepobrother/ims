@@ -12,10 +12,10 @@ export default function transform(addon: TypeContext, options: TransformOptions)
     const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
     const incs = addonAst.incs;
     const router = Router();
-    transformDebug.log(`registe addon ${addonAst.path}`)
+    transformDebug(`registe addon ${addonAst.path}`)
     incs.map(inc => {
         const incAst = inc.getClass(ControllerMetadataKey) as ControllerAst;
-        transformDebug.log(`registe controller ${incAst.path}`)
+        transformDebug(`registe controller ${incAst.path}`)
         transformRole(inc, options);
         transformP2p(inc, options);
         transformSocket(inc, options);

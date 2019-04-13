@@ -31,7 +31,7 @@ function transformMethod(method: SocketMethodAst, context: TypeContext) {
     const path = `${addon.path}/${controller.path}/${method.name}`;
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
-    socketDebug.log(`registe socket ${path}`);
+    socketDebug(`registe socket ${path}`);
     handlerMap.set(path, (ws, req, data: any) => {
         method.parameters.map(par => {
             if (par instanceof ReqAst) {

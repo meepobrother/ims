@@ -27,7 +27,7 @@ function transformPubsubMethod(method: PubsubMethodAst, context: TypeContext, op
     const path = `${addon.path}/${controller.path}/${method.name}`;
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
-    pubsubDebug.log(`registe pubsub ${path}`)
+    pubsubDebug(`registe pubsub ${path}`)
     options.libp2p.pubsub.subscribe(path, (msg: Message) => {
         method.parameters.map(par => {
             if (par instanceof ProtocolParameterAst) {
@@ -51,7 +51,7 @@ function transformPubsubMethod(method: PubsubMethodAst, context: TypeContext, op
                 params[par.ast.parameterIndex] = msg;
             }
             else {
-                pubsubDebug.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
+                pubsubDebug(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
             }
         });
         mth(...params);

@@ -31,7 +31,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
     const p = Pushable()
-    protocolDebug.log(`registe protocol ${path}`)
+    protocolDebug(`registe protocol ${path}`)
     options.libp2p.handle(path, (protocol: any, conn: any) => {
         pull(p, conn);
         const handler = (data: string) => p.push(data)
@@ -45,7 +45,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
                     // 接收消息
                     params[par.ast.parameterIndex] = item;
                 } else {
-                    protocolDebug.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
+                    protocolDebug(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
                 }
             });
             mth(...params);
