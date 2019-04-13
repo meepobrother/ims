@@ -75,16 +75,12 @@ declare global {
 
 // controller
 export default function transform(context: TypeContext, options: TransformOptions) {
-    console.log(`transform context ${context.target.name}`)
     const incRouter = Router();
     const inc = context.getClass(ControllerMetadataKey) as ControllerAst;
-    console.log(`transform method length ${context.methods.length}`)
     context.getProperty().map(pro => {
-        console.log(`transform property`)
         transformHttpProperty(pro, context, options)
     })
     context.getMethod().map(pro => {
-        console.log(`transform method`)
         transformHttpMethod(pro, context, options, incRouter)
     });
     return {
@@ -176,8 +172,8 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     const propertyKey = pro.ast.propertyKey;
-    httpDebug(`registe get path ${(pro as any).path}`)
     if (pro instanceof GetMethodAst) {
+        httpDebug(`registe get path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.get(pro.path, role.get(propertyKey), handler)
         } else {

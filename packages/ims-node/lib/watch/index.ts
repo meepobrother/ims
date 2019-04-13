@@ -11,9 +11,8 @@ export function watchAddon(type: Type<any>) {
     watch(`${addonAst.sourceRoot}`).on('all', (eventName, path) => {
         if (ImsApplication.application) {
             console.log(`${eventName}${path}`);
-            delete require.cache[path];
+            // delete require.cache[path];
             const type = require(addonAst.path).default;
-            console.log(getContext(type))
             ImsApplication.application.reInstall(type)
         }
     })
