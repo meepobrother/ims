@@ -16,7 +16,7 @@ export class ImsCoreAdminerUser {
     @Get()
     test() {
         return {
-            test: 'test12'
+            test: 'test123333'
         }
     }
 

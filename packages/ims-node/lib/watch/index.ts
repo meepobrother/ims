@@ -9,10 +9,11 @@ export function watchAddon(type: Type<any>) {
     const context = visitor.visitType(type);
     const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
     const path = addonAst.sourceRoot;
-    watch(`${addonAst.sourceRoot}/**/*.ts`).on('all', () => {
+    watch(`${addonAst.sourceRoot}/**/*.ts`).on('all', (eventName, path) => {
         if (ImsApplication.application) {
             const type = require(path).default;
             ImsApplication.application.reInstall(type)
+            delete require.cache[path];
         }
     })
 }
