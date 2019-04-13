@@ -168,8 +168,8 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     const propertyKey = pro.ast.propertyKey;
+    httpDebug(`registe get path ${(pro as any).path}`)
     if (pro instanceof GetMethodAst) {
-        httpDebug(`registe get path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.get(pro.path, role.get(propertyKey), handler)
         } else {
