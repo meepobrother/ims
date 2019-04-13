@@ -48,7 +48,6 @@ export class ImsAddon {
         console.log(`create addon inc classes ${inc.classes.length}`)
         console.log(`create addon inc propertys ${inc.propertys.length}`)
         console.log(`create addon inc methods ${inc.methods.length}`)
-
         // 解析role
         transformRole(inc, this.options);
         this.uninstalls.push((options) => {
