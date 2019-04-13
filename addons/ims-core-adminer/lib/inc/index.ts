@@ -1,6 +1,7 @@
 import { Controller, Post, Body, EntityRepository } from "ims-core";
-import { ImsUserEntity } from 'ims-model'
-import { isEqualPassword, sign } from 'ims-node'
+import { ImsUserEntity } from 'ims-model';
+import { isEqualPassword, sign } from 'ims-node';
+
 @Controller({
     path: '/user'
 })

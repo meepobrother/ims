@@ -168,6 +168,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
     }
     const propertyKey = pro.ast.propertyKey;
     if (pro instanceof GetMethodAst) {
+        console.log(`registe get path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.get(pro.path, role.get(propertyKey), handler)
         } else {
@@ -175,6 +176,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof PostMethodAst) {
+        console.log(`registe post path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.post(pro.path, role.get(propertyKey), handler)
         } else {
@@ -182,6 +184,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof DeleteMethodAst) {
+        console.log(`registe delete path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.delete(pro.path, role.get(propertyKey), handler)
         } else {
@@ -189,6 +192,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof AllMethodAst) {
+        console.log(`registe all path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.all(pro.path, role.get(propertyKey), handler)
         } else {
@@ -196,6 +200,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof HeadMethodAst) {
+        console.log(`registe head path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.head(pro.path, role.get(propertyKey), handler)
         } else {
@@ -203,6 +208,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof PatchMethodAst) {
+        console.log(`registe patch path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.patch(pro.path, role.get(propertyKey), handler)
         } else {
@@ -210,6 +216,7 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
         }
     }
     else if (pro instanceof PutMethodAst) {
+        console.log(`registe put path ${pro.path}`)
         if (role.has(propertyKey)) {
             router.put(pro.path, role.get(propertyKey), handler)
         } else {
