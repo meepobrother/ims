@@ -44,9 +44,9 @@ export class ImsAddon {
 
     private install(inc: TypeContext) {
         console.log(`create addon inc ${inc.target.name}`)
-        console.log(`create addon inc ${inc.classes.length}`)
-        console.log(`create addon inc ${inc.propertys.length}`)
-        console.log(`create addon inc ${inc.methods.length}`)
+        console.log(`create addon inc classes ${inc.classes.length}`)
+        console.log(`create addon inc propertys ${inc.propertys.length}`)
+        console.log(`create addon inc methods ${inc.methods.length}`)
 
         // 解析role
         transformRole(inc, this.options);
@@ -59,6 +59,7 @@ export class ImsAddon {
         transformSocket(inc, this.options);
         // 解析http
         const path = transformHttp(inc, this.options);
+        console.log(`create addon inc router ${path.path}`)
         this.router.use(path.path, path.router);
         const stack = this.router.stack[this.router.stack.length - 1];
         this.uninstalls.push(options => {
