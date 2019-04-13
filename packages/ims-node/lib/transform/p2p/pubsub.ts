@@ -25,7 +25,7 @@ function transformPubsubMethod(method: PubsubMethodAst, context: TypeContext, op
     const path = `${addon.path}/${controller.path}/${method.name}`;
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
-    const p = Pushable();
+    console.log(`registe pubsub ${path}`)
     options.libp2p.pubsub.subscribe(path, (msg: Message) => {
         method.parameters.map(par => {
             if (par instanceof ProtocolParameterAst) {

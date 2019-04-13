@@ -21,6 +21,7 @@ export function transform(
         // 接收消息
         ws.on('message', (data) => {
             // 收到消息
+            console.log(`receive socket message:${data}`)
             const { type, payload } = JSON.parse(data.toString());
             handlerMap.get(type)(ws, req, payload);
         });

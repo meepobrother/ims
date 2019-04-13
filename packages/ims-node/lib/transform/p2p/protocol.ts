@@ -30,6 +30,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
     const p = Pushable()
+    console.log(`registe protocol ${path}`)
     options.libp2p.handle(path, (protocol: any, conn: any) => {
         pull(p, conn);
         const handler = (data: string) => p.push(data)
