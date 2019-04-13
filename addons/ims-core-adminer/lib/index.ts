@@ -6,7 +6,7 @@ import * as incs from './inc';
     template: ImsAdminerTemplate,
     typeorm: ImsCoreAdminerTypeorm,
     incs: incs,
-    type: 'system',
-    sourceRoot: __dirname
+    sourceRoot: __dirname,
+    path: '/'
 })
 export default class ImsCoreAddons { }

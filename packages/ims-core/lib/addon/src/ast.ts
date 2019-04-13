@@ -22,11 +22,7 @@ export class AddonAst extends ClassContext<T.AddonOptions> {
         if (def.incs) {
             this.incs = Object.keys(def.incs).map(key => context.visitType(def.incs[key]))
         }
-        if (def.type === 'system') {
-            this.path = '/'
-        } else {
-            this.path = `/${kebabCase(this.ast.target.name)}`;
-        }
+        this.path = def.path ? def.path : `/${kebabCase(this.ast.target.name)}`;
         this.name = kebabCase(this.ast.target.name);
         if (!this.sourceRoot) throw new Error(`${kebabCase(ast.target.name)} addon need set sourceRoot`)
     }

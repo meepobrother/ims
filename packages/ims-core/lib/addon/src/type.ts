@@ -48,8 +48,8 @@ export interface AddonOptions {
      * 详情
      */
     detail?: string;
-    /** 类型 */
-    type?: 'system' | 'addon';
+    /** 跟路由 */
+    path?: string;
     /**
      * api
      */
