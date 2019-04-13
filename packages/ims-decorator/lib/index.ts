@@ -286,20 +286,18 @@ export class TypeContext {
         }
     }
 
-    getProperty(metadataKey: string): PropertyContext<any>[] {
-        try {
+    getProperty(metadataKey?: string): PropertyContext<any>[] {
+        if (metadataKey) {
             return this.propertys.filter(cls => cls.ast.metadataKey === metadataKey)
-        } catch (e) {
-            console.log(`getProperty:${metadataKey}`);
         }
+        return this.propertys;
     }
 
-    getMethod(metadataKey: string): MethodContext<any>[] {
-        try {
+    getMethod(metadataKey?: string): MethodContext<any>[] {
+        if (metadataKey) {
             return this.methods.filter(cls => cls.ast.metadataKey === metadataKey)
-        } catch (e) {
-            console.log(`getMethod:${metadataKey}`);
         }
+        return this.methods;
     }
 
     getController(metadataKey: string): ConstructorContext<any>[] {

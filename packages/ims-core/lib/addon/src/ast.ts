@@ -3,7 +3,7 @@ import * as K from './keys';
 import * as T from './type';
 import { kebabCase } from 'lodash';
 import { EntityMetadataKey, EntityAst, MigrationAst, MigrationMetadataKey, EventSubscriberAst, EventSubscriberMetadataKey } from '../../orm';
-import { DeleteMetadataKey, GetMetadataKey, HeadMetadataKey, PostMetadataKey, OptionMetadataKey, PatchMetadataKey, PutMetadataKey } from '../../methods';
+import { DeleteMetadataKey, GetMetadataKey, HeadMetadataKey, PostMetadataKey, PatchMetadataKey, PutMetadataKey } from '../../methods';
 export class AddonAst extends ClassContext<T.AddonOptions> {
     path: string;
     incs: TypeContext[] = [];
@@ -86,9 +86,6 @@ export class ControllerAst extends ClassContext<T.ControllerOptions> {
     }
     posts(): MethodAst[] {
         return this.context.getMethod(PostMetadataKey)
-    }
-    options(): MethodAst[] {
-        return this.context.getMethod(OptionMetadataKey)
     }
     patchs(): MethodAst[] {
         return this.context.getMethod(PatchMetadataKey)

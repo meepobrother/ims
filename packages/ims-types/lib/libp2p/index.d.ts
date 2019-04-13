@@ -70,7 +70,7 @@ export interface Libp2pPubsub {
         handler: (msg: Message) => any,
         callback?: (err?: Error) => any
     ): any;
-    publish(topic: string, data: Buffer, callback: (err?: Error) => any): any;
+    publish(topic: string, data: Buffer, callback?: (err?: Error) => any): any;
     ls(
         callback?: (err?: Error, list?: string[]) => any
     ): any;
@@ -79,10 +79,15 @@ export interface Libp2pPubsub {
         callback?: (err?: Error, list?: string[]) => any
     ): any;
 }
+interface Libp2pContentRouting {
+    provide(key: Buffer, callback: Function): any;
+    findProviders(key: Buffer, options: { maxTimeout: number, maxNumProviders: number }, callback: Function): any;
+}
 declare class Libp2p {
     peerBook: PeerBook;
     peerInfo: PeerInfo;
     pubsub: Libp2pPubsub;
+    contentRouting: Libp2pContentRouting;
     constructor(options: NodeOptions);
     start(callback: (err?: Error) => any): void;
     stop(callback: (err?: Error) => any): void;
@@ -91,7 +96,7 @@ declare class Libp2p {
     dialFSM(peer: PeerInfo, protocol: string, callback: (err?: Error, connFSM?: any) => any): void;
     dialProtocol(peer: PeerInfo, protocol: string, callback: (err?: Error, conn?: Connection) => any): void;
     ping(peer: PeerInfo, options?: any, callback?: any): void;
-    handle(path: string, callback: (protocol: any, conn: any) => any): any;
+    handle(path: string, callback: (protocol: any, conn: any) => any, matchFunc?: any): any;
     unhandle(path: string): any;
     hangUp(peer: PeerInfo, callback: (err: Error) => any): any;
     on(name: 'start', fn: (err?: Error) => any): void;

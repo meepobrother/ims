@@ -1,33 +1,80 @@
-import { NullAstVisitor, MethodAst, ParserAstContext } from 'ims-decorator';
+import { NullAstVisitor, MethodAst, ParserAstContext, PropertyAst } from 'ims-decorator';
 import {
-    isGetMethodAst, GetAst, isPostMethodAst, PostAst,
-    isDeleteMethodAst, DeleteAst, isPutMethodAst, PutAst,
-    isOptionMethodAst, OptionAst, isHeadMethodAst, HeadAst,
-    isPatchMethodAst, PatchAst
+    isGetMethodAst, isPostMethodAst,
+    isDeleteMethodAst, isPutMethodAst,
+    isHeadMethodAst,
+    isPatchMethodAst,
+    GetMethodAst,
+    PostMethodAst,
+    DeleteMethodAst,
+    PutMethodAst,
+    HeadMethodAst,
+    PatchMethodAst,
+    isAllMethodAst,
+    AllMethodAst,
+    isGetPropertyAst,
+    GetPropertyAst,
+    isPostPropertyAst,
+    PostPropertyAst,
+    isDeletePropertyAst,
+    DeletePropertyAst,
+    isPatchPropertyAst,
+    PatchPropertyAst,
+    isPutPropertyAst,
+    PutPropertyAst,
+    isHeadPropertyAst,
+    HeadPropertyAst,
+    isAllPropertyAst,
+    AllPropertyAst
 } from 'ims-core';
 
 export class MethodVisitor extends NullAstVisitor {
+    visitProperty(ast: PropertyAst, context: ParserAstContext) {
+        if (isGetPropertyAst(ast)) {
+            return new GetPropertyAst(ast, context)
+        }
+        if (isPostPropertyAst(ast)) {
+            return new PostPropertyAst(ast, context)
+        }
+        if (isDeletePropertyAst(ast)) {
+            return new DeletePropertyAst(ast, context)
+        }
+
+        if (isPatchPropertyAst(ast)) {
+            return new PatchPropertyAst(ast, context)
+        }
+        if (isPutPropertyAst(ast)) {
+            return new PutPropertyAst(ast, context)
+        }
+        if (isHeadPropertyAst(ast)) {
+            return new HeadPropertyAst(ast, context)
+        }
+        if (isAllPropertyAst(ast)) {
+            return new AllPropertyAst(ast, context)
+        }
+    }
     visitMethod(ast: MethodAst, context: ParserAstContext) {
         if (isGetMethodAst(ast)) {
-            return new GetAst(ast, context);
+            return new GetMethodAst(ast, context);
         }
         if (isPostMethodAst(ast)) {
-            return new PostAst(ast, context);
+            return new PostMethodAst(ast, context);
         }
         if (isDeleteMethodAst(ast)) {
-            return new DeleteAst(ast, context);
+            return new DeleteMethodAst(ast, context);
         }
+
         if (isPutMethodAst(ast)) {
-            return new PutAst(ast, context);
-        }
-        if (isOptionMethodAst(ast)) {
-            return new OptionAst(ast, context);
+            return new PutMethodAst(ast, context);
         }
         if (isHeadMethodAst(ast)) {
-            return new HeadAst(ast, context);
+            return new HeadMethodAst(ast, context);
         }
         if (isPatchMethodAst(ast)) {
-            return new PatchAst(ast, context);
+            return new PatchMethodAst(ast, context);
+        }
+        if (isAllMethodAst(ast)) {
+            return new AllMethodAst(ast, context);
         }
     }
 }

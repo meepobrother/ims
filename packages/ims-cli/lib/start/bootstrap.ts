@@ -7,11 +7,9 @@ import { App } from 'ims-core';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { join } from 'path';
 import fs = require('fs-extra');
-import { parseRouter } from './parseRouter'
 import { parseTemplate } from './parseTemplate'
 import { createServer } from 'http'
 import { Server } from 'ws'
-import { parseWebSocket } from './parseWebSocket';
 import multer = require('multer');
 import bodyparser = require('body-parser');
 import { ImsCookie } from 'ims-cookie';
@@ -34,11 +32,11 @@ import ImsInstall from 'ims-install';
 import ImsCoreAdminer from 'ims-core-adminer';
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
-import { parseP2p } from './parseP2p';
 import multiaddr, { Options } from 'multiaddr'
 import { createAdmin } from 'ims-webpack-admin';
 import { createMobile } from 'ims-webpack-mobile';
 
+import { transform } from 'ims-node'
 const file = multer();
 export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
@@ -120,8 +118,6 @@ export async function bootstrap(root: string, dev: boolean) {
     if (installed) {
         node = await p2pBotstrap();
     }
-    // 解析router
-    parseRouter(addons, app, node);
     // 解析template
     parseTemplate(addons, app, root);
     if (dev) {
@@ -136,10 +132,12 @@ export async function bootstrap(root: string, dev: boolean) {
     const appContext = visitor.visitType(ImsStartApp);
     const server = createServer(app);
     const ws = new Server({ server });
-    ws.on('connection', (socket) => {
-        parseWebSocket(appContext, socket, ws)
-    });
-    parseP2p(appContext, node);
+    transform(addons, {
+        app: app,
+        connectionManager: getConnectionManager(),
+        server: ws,
+        libp2p: node
+    })
     if (!installed) {
         // 如果没有安装跳转到安装页面
         app.get('*', (req, res, next) => {
