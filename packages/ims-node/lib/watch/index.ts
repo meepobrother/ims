@@ -1,4 +1,4 @@
-import { Type } from "ims-decorator";
+import { Type, getContext } from "ims-decorator";
 import { visitor } from "ims-common";
 
 import { watch } from 'chokidar';
@@ -13,7 +13,8 @@ export function watchAddon(type: Type<any>) {
             console.log(`${eventName}${path}`);
             delete require.cache[path];
             const type = require(addonAst.path).default;
-            ImsApplication.application.reInstall(type)
+            console.log(getContext(type))
+            // ImsApplication.application.reInstall(type)
         }
     })
 }

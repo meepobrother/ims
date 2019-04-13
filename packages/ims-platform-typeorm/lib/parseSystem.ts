@@ -22,7 +22,6 @@ export async function parseSystem(context: TypeContext, config: IConfig) {
         });
         await connect.connect();
     }
-    console.log(`parseSystem:${config.system}`, JSON.stringify(typeorm.entities))
 }
 
 export async function parseAddons(addons: Type<any>[], config: IConfig) {
@@ -54,5 +53,4 @@ export async function parseAddons(addons: Type<any>[], config: IConfig) {
         });
         await connect.connect();
     }
-    console.log(`parseAddons:${config.addons}`, JSON.stringify(entities))
 }
