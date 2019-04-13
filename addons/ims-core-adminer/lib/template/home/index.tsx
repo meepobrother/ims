@@ -8,6 +8,6 @@ import AddonList from '../store/addon-list';
 export default class Index extends React.Component<{ addonList: AddonList }, any> {
     componentDidMount() {}
     render() {
-        return <div className="ims-adminer">home12</div>
+        return <div className="ims-adminer">1222</div>
     }
 }

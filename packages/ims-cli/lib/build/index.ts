@@ -3,7 +3,7 @@ const root = process.cwd();
 import chalk from 'chalk';
 import gulp from 'gulp';
 import ts = require('gulp-typescript');
-import { join } from 'path';
+import { join, dirname } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
 @Command({
@@ -75,7 +75,7 @@ function _rimraf(dir: string) {
 }
 
 function packFile(src: string, output: string) {
-    console.log(`packFile ${src} ${output}`)
+    output = dirname(output)
     const taskTsc = done => {
         const tsProject = ts.createProject(join(root, 'tsconfig.json'));
         const task = gulp.src(src).pipe(tsProject()).pipe(gulp.dest(output))
@@ -129,8 +129,7 @@ function packProject(
         return new Promise((resolve) => {
             taskFn(done => {
                 const watcher = gulp.watch(`${srcPath}/**/*`)
-                watcher.on('change', (eventType: string, filename: string) => {
-                    console.log(`change ${eventType} ${filename}`);
+                watcher.on('change', (filename: string) => {
                     packFile(filename, filename.replace(srcRoot, output).replace('.ts', '.js').replace('.tsx', '.jsx'))
                 })
                 watcher.on('error', () => resolve())
