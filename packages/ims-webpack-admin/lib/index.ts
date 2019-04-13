@@ -1,5 +1,4 @@
 import { ImsWebpack } from 'ims-webpack';
-import { watch } from 'chokidar';
 import {
     AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst
 } from 'ims-core';
@@ -55,23 +54,5 @@ export class ImsWebpackAdmin extends ImsWebpack {
             manifest: require(join(root, 'template/library/antd.manifest.json'))
         }]);
         this.entity.add(createAdmin(this.addons));
-        if (this.dev) this.watchFile();
-    }
-
-    watchFile() {
-        if (sources.size > 0) {
-            const strs = [];
-            sources.forEach(file => strs.push(`${file}`));
-            const watcher = watch(strs);
-            watcher.on('add', () => {
-                this.$change.next(0);
-            });
-            watcher.on('change', () => {
-                this.$change.next(0);
-            });
-            watcher.on('unlink', () => {
-                this.$change.next(0);
-            });
-        }
     }
 }

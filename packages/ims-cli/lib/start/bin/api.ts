@@ -3,18 +3,19 @@ import { getConnectionManager } from 'typeorm';
 import express = require('express');
 import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, IConfig, setConfig } from 'ims-common';
-import { App } from 'ims-core';
 import { parseSystem, parseAddons } from 'ims-platform-typeorm'
 import { join } from 'path';
 import fs = require('fs-extra');
-import { parseTemplate } from './parseTemplate'
+import { parseTemplate } from '../parseTemplate'
 import { createServer } from 'http'
-import { Server } from 'ws'
+import { Server } from 'ws';
 import multer = require('multer');
 import bodyparser = require('body-parser');
 import { ImsCookie } from 'ims-cookie';
 import session = require('express-session');
-
+/**
+ * 开发者模式 监听应用文件变化 并自动重新加载应用
+ */
 declare global {
     namespace Express {
         interface Request {
@@ -24,19 +25,12 @@ declare global {
         interface Application { }
     }
 }
-// import { ImsAdminer } from 'ims-adminer/addon';
-// import { ImsCloud } from 'ims-cloud';
-// import { ImsWebsite } from 'ims-website';
 import ImsInstall from 'ims-install';
-// import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import multiaddr from 'multiaddr'
-import { createAdmin } from 'ims-webpack-admin';
-import { createMobile } from 'ims-webpack-mobile';
-import { transform } from 'ims-node'
+import { transform, watchAddon } from 'ims-node'
 const file = multer();
-export class ImsStartApp { }
 export async function bootstrap(root: string, dev: boolean) {
     const app = express();
     app.use(file.any());
@@ -98,12 +92,12 @@ export async function bootstrap(root: string, dev: boolean) {
                 enable: true
             });
             allAddon.map(addon => {
-                addons.push(require(addon.entry).default)
+                const targt = require(addon.entry).default;
+                addons.push(targt);
+                if(dev) watchAddon(targt)
             });
-            // addons.push(ImsAdminer);
-            // addons.push(ImsCloud);
-            // addons.push(ImsWebsite);
             addons.push(ImsCoreAdminer);
+            if(dev) watchAddon(ImsCoreAdminer)
             await parseAddons(addons, config);
         } catch (e) {
             console.log(e.message)
@@ -111,6 +105,7 @@ export async function bootstrap(root: string, dev: boolean) {
         }
     } else {
         addons.push(ImsInstall);
+        if(dev) watchAddon(ImsInstall)
     }
     let node: any;
     if (installed) {
@@ -118,15 +113,7 @@ export async function bootstrap(root: string, dev: boolean) {
     }
     // 解析template
     parseTemplate(addons, app, root);
-    if (dev) {
-        createAdmin(addons);
-        createMobile(addons);
-    }
     /** 安装 */
-    App({
-        addons: addons,
-        dev: dev
-    })(ImsStartApp);
     const server = createServer(app);
     const ws = new Server({ server });
     transform(addons, {
@@ -134,18 +121,11 @@ export async function bootstrap(root: string, dev: boolean) {
         connectionManager: getConnectionManager(),
         server: ws,
         libp2p: node
-    })
+    });
     if (!installed) {
         // 如果没有安装跳转到安装页面
         app.get('*', (req, res, next) => {
             res.redirect('/ims-install')
-        });
-    } else {
-        app.get('*', (req, res, next) => {
-            res.json({
-                code: 404,
-                message: 'not found'
-            })
         });
     }
     return new Promise((resolve, reject) => {

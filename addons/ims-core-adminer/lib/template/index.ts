@@ -4,17 +4,17 @@ import { Template } from 'ims-core'
     admins: [{
         path: '/',
         redirect: 'home',
+        store: {
+            login: 'store/login',
+            cookie: 'store/cookie',
+        },
         routes: [
             {
-                path: '/',
+                path: '/home',
                 component: 'home'
             }, {
                 path: '/login',
                 component: 'login',
-                store: {
-                    login: 'store/login',
-                    cookie: 'store/cookie'
-                }
             }, {
                 path: '/adminer',
                 component: 'addon-list',

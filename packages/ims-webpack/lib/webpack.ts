@@ -3,7 +3,6 @@ import { join } from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import AntdPlugin from './plugins/antd'
 import autoprefixer = require('autoprefixer');
-// import pxtransform = require('postcss-pxtransform');
 const root = process.cwd();
 import webpack = require('webpack');
 import merge = require('webpack-merge');

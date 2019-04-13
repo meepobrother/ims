@@ -1,20 +1,16 @@
 import { Type } from "ims-decorator";
-import { visitor } from 'ims-common'
-import transformAddon from './addon'
 import WebSocket from 'ws';
 import { handlerMap } from './socket'
 import { TransformOptions } from './type'
 const log = (str: string) => console.log(`transform:${str}`)
 export const socketSet: Set<WebSocket> = new Set();
+import { ImsApplication } from './application'
 export function transform(
     addons: Type<any>[],
     options: TransformOptions
-) {
+): ImsApplication {
     const { server } = options;
-    addons.map(addon => {
-        const addonType = visitor.visitType(addon)
-        transformAddon(addonType, options);
-    });
+    const application = new ImsApplication(addons, options);
     // socket
     server.on('connection', (ws, req) => {
         log(`connection`)
@@ -59,4 +55,6 @@ export function transform(
         // 检查
         log(`headers:${headers.join(',')}`)
     });
+    return application;
 }
+export * from './type'

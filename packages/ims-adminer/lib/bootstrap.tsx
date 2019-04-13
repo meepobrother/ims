@@ -7,19 +7,22 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import 'ant-design-pro/dist/ant-design-pro.css';
 import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
+const ObjectStore: { [key: string]: any } = {};
 export function createStore(routes: IRouter[]) {
-    const ObjectStore = {};
     routes.map(route => {
-        const { store } = route;
+        const { store, routes } = route;
         if (store) {
             Object.keys(store).map(key => {
                 if (!!ObjectStore[key]) {
                     console.log(`warning:${key} is exist!!!`)
-                } else { 
+                } else {
                     ObjectStore[key] = new store[key](routes);
                     console.log(`store key: ${key}`)
                 }
             });
+        }
+        if (routes && routes.length > 0) {
+            createStore(routes)
         }
     });
     return ObjectStore;

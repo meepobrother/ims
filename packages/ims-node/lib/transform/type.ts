@@ -6,5 +6,5 @@ export interface TransformOptions {
     libp2p: Libp2p,
     server: WebSocket.Server,
     app: Express,
-    connectionManager: ConnectionManager
+    connectionManager: ConnectionManager,
 }

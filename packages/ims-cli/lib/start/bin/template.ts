@@ -1,13 +1,10 @@
-import { createAdmin } from 'ims-webpack-admin';
-import { createMobile } from 'ims-webpack-mobile';
 import { ImsWebpacks } from '../webpack';
 import { join } from 'path';
 import fs from 'fs-extra';
 import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, setConfig } from 'ims-common';
-import { parseSystem, parseAddons } from 'ims-platform-typeorm'
+import { parseSystem } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
-// import ImsEditor from 'ims-core-editor';
 import ImsCoreAdminer from 'ims-core-adminer';
 import ImsInstall from 'ims-install';
 const root = process.cwd();

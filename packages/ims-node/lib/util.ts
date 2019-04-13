@@ -1,7 +1,7 @@
 import { randomBytes, createHash } from 'crypto'
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
-
+export { isIP, isIPv4, isIPv6 } from 'net'
 export * from './jwt';
 export * from './key';
 

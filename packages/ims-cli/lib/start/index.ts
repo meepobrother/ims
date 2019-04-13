@@ -25,6 +25,13 @@ export class ImsStart extends ImsCommand {
         fs.ensureDirSync(join(root, 'config/pm2'))
         fs.ensureDirSync(join(root, 'data/logs'))
         devApps.push({
+            name: 'api_dev',
+            script: join(__dirname, 'bin', 'api_dev.js'),
+            output: join(root, 'data/logs/api_dev.log'),
+            error: join(root, 'data/logs/api_dev-error.log'),
+            restart_delay: 5000
+        });
+        devApps.push({
             name: 'dev',
             script: join(__dirname, 'bin', 'dev.js'),
             output: join(root, 'data/logs/dev.log'),
