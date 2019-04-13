@@ -9,7 +9,7 @@ import { ImsCookie } from 'ims-cookie';
 Axios.interceptors.request.use((config) => {
     const token = ImsUtil.cookie.get('token');
     if (token) {
-        config.headers.Authorization = 'imeepos ' + `${token}`;
+        config.headers.Authorization = token;
     }
     return config;
 });

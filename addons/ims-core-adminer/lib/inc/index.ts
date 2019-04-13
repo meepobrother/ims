@@ -1,6 +1,6 @@
 import { Controller, Post, Body, EntityRepository, Role } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
-import { isEqualPassword, sign } from 'ims-node';
+import { isEqualPassword, sign, verify } from 'ims-node';
 
 @Controller({
     path: '/user'
@@ -13,10 +13,10 @@ export class ImsCoreAdminerUser {
     user: EntityRepository<ImsUserEntity>;
 
     @Post()
-    @Role((req, res, next) => {
-        console.log(`${req.path}`)
-        next();
-    })
+    @Role(verify((user) => {
+        console.log(user)
+        return true;
+    }))
     async login(@Body() msg: { username: string, password: string }) {
         const user = await this.user.findOne({
             username: msg.username

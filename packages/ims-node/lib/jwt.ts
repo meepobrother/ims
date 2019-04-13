@@ -11,9 +11,9 @@ export function sign(payload: string | Buffer | object): string {
 }
 export function verify(fn: <T>(user: T) => boolean) {
     return (req: Request, res: Response, next: NextFunction) => {
-        const token = req.get('token')
+        const token = req.headers.authorization;
         const key = getKey();
-        jsonwebtoken.verify(token, key.pubKey, (err, decoded) => {
+        jsonwebtoken.verify(token, key.privKey, (err, decoded) => {
             if (err) {
                 res.json({
                     data: {},
