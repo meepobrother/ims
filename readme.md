@@ -62,6 +62,8 @@
 ims start -d
 // 运营模式
 ims start
+// 编译
+ims build --name ims-core-adminer --output node_modules --watch
 ```
 
 ## 通信篇
