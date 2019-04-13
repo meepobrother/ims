@@ -65,11 +65,7 @@ export class ControllerAst extends ClassContext<T.ControllerOptions> {
     path: string;
     constructor(ast: ClassAst<T.ControllerOptions>, context: ParserAstContext) {
         super(ast, context)
-        if (this.ast.metadataDef)
-            this.path = this.ast.metadataDef.path || '/';
-        else {
-            this.path = `/`
-        }
+        this.path = this.ast.metadataDef.path || '/';
     }
     deletesAst(): MethodAst[] {
         return this.context.getMethod(DeleteMetadataKey)
@@ -116,8 +112,15 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
                         ...route,
                         routes: this.handleIRouter(routes, route)
                     }
+                    if (parent.path.startsWith('//')) {
+                        console.log(parent.path)
+                    }
                     if (!!path && path !== '/') {
-                        r.path = `${parent.path}${path}`
+                        if (parent.path === '/') {
+                            r.path = path
+                        } else {
+                            r.path = `${parent.path}${path}`
+                        }
                     } else {
                         r.path = parent.path;
                     }
@@ -147,7 +150,11 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
                         ...route,
                     }
                     if (!!path && path !== '/') {
-                        r.path = `${addon.path}${path}`
+                        if (addon.path === '/') {
+                            r.path = path;
+                        } else {
+                            r.path = `${addon.path}${path}`
+                        }
                     } else {
                         r.path = addon.path;
                     }
