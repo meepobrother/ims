@@ -10,7 +10,8 @@ import { Template } from 'ims-core'
         }
     }, {
         path: '/adminer',
-        component: 'addon-list'
+        component: 'addon-list',
+        roles: ['admin']
     }]
 })
 export class ImsAdminerTemplate { }

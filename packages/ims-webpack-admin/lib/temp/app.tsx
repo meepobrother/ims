@@ -10,6 +10,7 @@ routes:[],
 },{
 path:"/adminer",
 component:React.lazy(()=>import(/* webpackChunkName: "adminer" */"../../../../addons/ims-core-adminer/lib/template/addon-list")),
+roles:[admin],
 routes:[],
 }];
 bootstrap(routes);
