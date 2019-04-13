@@ -17,8 +17,12 @@ export function transform(
     });
     // socket
     server.on('connection', (ws, req) => {
+        log(`connection`)
         // 建立连接
         socketSet.add(ws);
+        ws.on('open', () => {
+            log(`ws open`)
+        })
         // 接收消息
         ws.on('message', (data) => {
             // 收到消息
@@ -28,11 +32,12 @@ export function transform(
         });
         // 错误
         ws.on('error', (err) => {
-            log(err.message)
+            log(`error:${err.message}`)
             socketSet.delete(ws);
         });
         // 关闭
         ws.on('close', (code: number, reason: string) => {
+            log(`close:${code}${reason}`)
             ws.send({
                 type: 'close',
                 payload: {
@@ -45,11 +50,13 @@ export function transform(
             socketSet.delete(ws)
         });
     });
-    server.on('error', (err) => log(err.message));
-    server.on('listening', () => { });
+    server.on('error', (err) => log(`error:${err.message}`));
+    server.on('listening', () => {
+        console.log(`listening`)
+    });
     // todo
     server.on('headers', (headers, req) => {
         // 检查
-        log(headers.join('\n'))
+        log(`headers:headers.join(',')`)
     });
 }
