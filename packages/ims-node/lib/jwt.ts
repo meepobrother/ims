@@ -5,8 +5,7 @@ import * as codes from './codes';
 
 export function sign(payload: string | Buffer | object): string {
     const key = getKey();
-    return jsonwebtoken.sign(payload, `-----BEGIN RSA PRIVATE KEY-----\n${key.privKey}\n-----END RSA PRIVATE KEY-----`, {
-        algorithm: 'ES256',
+    return jsonwebtoken.sign(payload, key.privKey, {
         expiresIn: '30m'
     });
 }
