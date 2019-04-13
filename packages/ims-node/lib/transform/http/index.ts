@@ -143,8 +143,8 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
     const role = context.get<Map<PropertyKey, any>>('role')
     const handler = async (req: Request, res: Response, next: NextFunction) => {
         pro.parameters.map(param => params[param.ast.parameterIndex] = transformHttpParameter(param, context, options, req, res, next))
-        const result = await mth(...params);
         try {
+            const result = await mth(...params);
             if (typeof result !== 'object') {
                 res.end(result)
             } else {
