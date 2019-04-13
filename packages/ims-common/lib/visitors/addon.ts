@@ -1,8 +1,8 @@
-import { NullAstVisitor, ClassAst, ParserAstContext, ParameterAst } from 'ims-decorator';
+import { NullAstVisitor, ClassAst, ParserAstContext, ParameterAst, MethodAst } from 'ims-decorator';
 import {
     isAddonClassAst, AddonAst, isControllerClassAst, ControllerAst,
     isRenderParameterAst, RenderAst,
-    isTemplateClassAst, TemplateAst
+    isTemplateClassAst, TemplateAst, isRoleMethodAst, RoleMethodAst
 } from 'ims-core';
 
 export class AddonVisitor extends NullAstVisitor {
@@ -20,6 +20,11 @@ export class AddonVisitor extends NullAstVisitor {
     visitParameter(ast: ParameterAst, context: ParserAstContext) {
         if (isRenderParameterAst(ast)) {
             return new RenderAst(ast, context)
+        }
+    }
+    visitMethod(ast: MethodAst, context: ParserAstContext) {
+        if (isRoleMethodAst(ast)) {
+            return new RoleMethodAst(ast, context)
         }
     }
 }

@@ -1,14 +1,13 @@
 import { observable, action } from 'mobx';
-import { ImsCookie } from 'ims-cookie';
-export const cookie = new ImsCookie(document.cookie);
+import util from 'ims-util';
 export default class Cookie {
     @observable
     cookie: { [name: string]: any }
 
     constructor() {
-        this.cookie = cookie.getAll();
-        cookie.addChangeListener((change) => {
-            this.setCookie(cookie.getAll())
+        this.cookie = util.cookie.getAll();
+        util.cookie.addChangeListener((change) => {
+            this.setCookie(util.cookie.getAll())
         });
     }
     @action

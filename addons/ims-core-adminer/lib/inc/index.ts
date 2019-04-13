@@ -1,4 +1,4 @@
-import { Controller, Post, Body, EntityRepository } from "ims-core";
+import { Controller, Post, Body, EntityRepository, Role } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
 import { isEqualPassword, sign } from 'ims-node';
 
@@ -13,6 +13,10 @@ export class ImsCoreAdminerUser {
     user: EntityRepository<ImsUserEntity>;
 
     @Post()
+    @Role((req, res, next) => {
+        console.log(`${req.path}`)
+        next();
+    })
     async login(@Body() msg: { username: string, password: string }) {
         const user = await this.user.findOne({
             username: msg.username
@@ -28,6 +32,7 @@ export class ImsCoreAdminerUser {
                     code: 0,
                     message: '登录成功',
                     data: {
+                        username: user.username,
                         token: sign({
                             id: user.id,
                             username: user.username

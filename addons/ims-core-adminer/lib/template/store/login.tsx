@@ -1,7 +1,6 @@
 import { observable, action } from 'mobx';
 import React from 'react';
 import util from 'ims-util';
-import { cookie } from './cookie'
 export default class Login {
     // 记住
     @observable
@@ -78,13 +77,9 @@ export default class Login {
                         const user = data.data;
                         const date = new Date();
                         date.setMinutes(date.getMinutes() + 35)
-                        cookie.set('uid', user.id, {
+                        util.cookie.set('token', user.token, {
                             expires: date
                         });
-                        cookie.set('username', user.username, {
-                            expires: date
-                        });
-                        console.log(cookie)
                     }
                 }).catch(e => {
                     this.setNotice(e.message)
@@ -130,7 +125,7 @@ export default class Login {
      * 退出登录
      **/
     logout() {
-        cookie.set('uid', 0)
+        util.cookie.set('uid', 0)
     }
     /**
      * 注册
