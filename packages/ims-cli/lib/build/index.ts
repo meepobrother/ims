@@ -47,6 +47,7 @@ export class ImsBuild {
         if (this.name) {
             const srcRoot = this.system ? 'packages' : 'addons';
             await _rimraf(join(root, this.output, this.name));
+            console.log(`name:${this.name}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${this.watch}`)
             await packProject(this.name, this.output, srcRoot, this.watch);
             if (!this.watch) {
                 console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
@@ -70,14 +71,6 @@ export class ImsBuild {
 function _rimraf(dir: string) {
     return new Promise((resolve, reject) => {
         rimraf(dir, () => resolve())
-    });
-}
-
-function createTask(task: any) {
-    return new Promise((resolve, reject) => {
-        task.on('end', () => {
-            resolve();
-        });
     });
 }
 
@@ -110,10 +103,11 @@ function packProject(
     }
     const taskFn = gulp.series(taskTsc, taskCopy);
     if (watch) {
-        taskFn(done => { });
         return new Promise((resolve) => {
-            const watcher = gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
-            watcher.on('error', () => resolve())
+            taskFn(done => {
+                const watcher = gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
+                watcher.on('error', () => resolve())
+            });
         })
     } else {
         return new Promise((resolve, reject) => {
