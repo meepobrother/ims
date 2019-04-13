@@ -34,6 +34,7 @@ export class ImsApplication {
     }
     // 重新安装
     reInstall(target: Type<any>) {
+        console.log(`重新安装${target.name}`)
         this.unInstallAddon(target);
         this.installAddon(target);
     }

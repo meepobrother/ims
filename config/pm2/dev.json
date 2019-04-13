@@ -1,20 +1,9 @@
 [
   {
-    "name": "api_dev",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/api_dev.js",
-    "output": "/Volumes/work/data/logs/api_dev.log",
-    "error": "/Volumes/work/data/logs/api_dev-error.log",
-    "restart_delay": 5000
-  },
-  {
     "name": "dev",
     "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/dev.js",
     "output": "/Volumes/work/data/logs/dev.log",
-    "error": "/Volumes/work/data/logs/dev-error.log",
-    "watch": [
-      "/Volumes/work/addons/**/*.ts"
-    ],
-    "restart_delay": 5000
+    "error": "/Volumes/work/data/logs/dev-error.log"
   },
   {
     "name": "template_dev",

@@ -7,6 +7,6 @@ import AddonList from '../store/addon-list';
 export default class Index extends Component<{ addonList: AddonList }, any> {
     componentDidMount() {}
     render() {
-        return <div className="ims-adminer">home</div>
+        return <div className="ims-adminer">home1</div>
     }
 }

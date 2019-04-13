@@ -1,4 +1,4 @@
-import { Controller, Post, Body, EntityRepository, Role } from "ims-core";
+import { Controller, Post, Body, EntityRepository, Role, Get } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
 import { isEqualPassword, sign, verify } from 'ims-node';
 import { getConfig } from "ims-common";
@@ -12,6 +12,13 @@ export class ImsCoreAdminerUser {
         db: 'system'
     })
     user: EntityRepository<ImsUserEntity>;
+
+    @Get()
+    test() {
+        return {
+            test: 'test1'
+        }
+    }
 
     @Post()
     async login(@Body() msg: { username: string, password: string }) {
