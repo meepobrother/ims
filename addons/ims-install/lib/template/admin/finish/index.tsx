@@ -55,11 +55,20 @@ export default class Index extends Component<any, any> {
 
     renderButton() {
         if (!!this.state.link && this.state.link.length > 0) {
-            return <Button onClick={() => window.location.href = `${this.state.link}`} type="primary" >
+            const props: any = {
+                onClick: () => window.location.href = `${this.state.link}`,
+                type: "primary"
+            }
+            return <Button {...props} >
                 {this.state.button}
             </Button >
         } else {
-            return <Button type="primary" loading={this.state.loading} onClick={e => this.install()}>
+            const props: any = {
+                type: "primary",
+                loading: this.state.loading,
+                onClick: e => this.install()
+            }
+            return <Button {...props} >
                 {this.state.button} {this.state.total > 0 ? `(${this.state.total})` : ''}
             </Button>
         }

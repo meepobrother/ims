@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
-import React from 'react';
+import React = require('react');
 import util from 'ims-util';
+
 export default class Login {
     // 记住
     @observable

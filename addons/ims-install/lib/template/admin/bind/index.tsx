@@ -33,6 +33,13 @@ export default class Index extends Component<IndexProps, IndexState> {
         super(props);
     }
     render() {
+        const nextBtnProps: any = {
+            type: "primary",
+            onClick: () => this.next()
+        }
+        const prevBtnProps: any = {
+            onClick: () => this.props.prev()
+        }
         return <Form className={cx({ imsBind: true })} labelCol={{ span: 8 }} wrapperCol={{ span: 12 }}>
             <Form.Item hasFeedback required validateStatus={this.state.usernameStatus} label="账户名">
                 <Input onChange={e => this.username(e.target.value)} value={this.state.username} placeholder="请输入用户名" />
@@ -45,8 +52,8 @@ export default class Index extends Component<IndexProps, IndexState> {
             </Form.Item>
             <Form.Item wrapperCol={{ span: 12, offset: 8 }}>
                 <div className={cx({ footerBar: true })}>
-                    <Button onClick={() => this.props.prev()}>上一步</Button>
-                    <Button type="primary" onClick={() => this.next()} >下一步</Button>
+                    <Button {...prevBtnProps}>上一步</Button>
+                    <Button {...nextBtnProps} >下一步</Button>
                 </div>
             </Form.Item>
         </Form>

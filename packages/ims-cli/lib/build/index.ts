@@ -48,10 +48,12 @@ export class ImsBuild {
             const srcRoot = this.system ? 'packages' : 'addons';
             await _rimraf(join(root, this.output, this.name));
             await packProject(this.name, this.output, srcRoot, this.watch);
-            console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
-            exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
-                cwd: root
-            });
+            if (!this.watch) {
+                console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
+                exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
+                    cwd: root
+                });
+            }
         } else {
             console.log(`ims b -n "应用名" -o "输出目录"`)
         }
@@ -79,6 +81,7 @@ function createTask(task: any) {
     });
 }
 
+
 function packProject(
     name: string,
     output: string = 'dist',
@@ -88,22 +91,30 @@ function packProject(
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
-    const taskFn = async (done) => {
-        const tscTask = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
+    const taskTsc = done => {
+        const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
+        task.on('end', () => {
+            console.log(chalk.yellow(`${name}:tsc finish ${new Date().getTime()}`))
+            done()
+        })
+    }
+    const taskCopy = done => {
         const otherTask = gulp.src([
             `${srcPath}/**/*.{md,json,html,css,less,scss,sass,jpg,jpeg,svg,png,js,jsx,yml}`,
         ]).pipe(gulp.dest(destPath))
-        await Promise.all([
-            createTask(tscTask).then(() => {
-                console.log(chalk.yellow(`${name}:tsc finish`))
-            }),
-            createTask(otherTask).then(() => console.log(chalk.yellow(`${name}:copy finish`)))
-        ]);
-        done();
-    };
+        otherTask.on('end', () => {
+            console.log(chalk.yellow(`${name}:copy finish ${new Date().getTime()}`))
+            done()
+        })
+    }
+    const taskFn = gulp.series(taskTsc, taskCopy);
     if (watch) {
-        gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
+        taskFn(done => { });
+        return new Promise((resolve) => {
+            const watcher = gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
+            watcher.on('error', () => resolve())
+        })
     } else {
         return new Promise((resolve, reject) => {
             gulp.series(taskFn)(() => resolve())

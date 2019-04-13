@@ -61,6 +61,13 @@ export default class Index extends Component<IndexProps, IndexState> {
         super(props);
     }
     render() {
+        const nextBtnProps: any = {
+            type: "primary",
+            onClick: () => this.next()
+        }
+        const prevBtnProps: any = {
+            onClick: () => this.props.prev()
+        }
         const { username, host, port, password } = this.state;
         return <Form className={cx({ imsSetting: true })} labelCol={{ span: 8 }} wrapperCol={{ span: 12 }}>
             <Form.Item {...host}>
@@ -77,8 +84,8 @@ export default class Index extends Component<IndexProps, IndexState> {
             </Form.Item>
             <Form.Item wrapperCol={{ span: 12, offset: 8 }}>
                 <div className={cx({ footerBar: true })}>
-                    <Button onClick={() => this.props.prev()} >上一步</Button>
-                    <Button onClick={() => this.next()} type="primary" >下一步</Button>
+                    <Button {...prevBtnProps} >上一步</Button>
+                    <Button {...nextBtnProps} >下一步</Button>
                 </div>
             </Form.Item>
         </Form>

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { cx } from "./install.scss";
 import util from 'ims-util';
 import { Steps, Icon } from 'antd';
+import React = require('react');
 
 import Bind from './bind';
 import Finish from './finish';
@@ -9,7 +10,6 @@ import Setting from './setting';
 import Info from './info';
 import GlobalFooter from 'ant-design-pro/lib/GlobalFooter';
 
-import logo6 from './logo6.png';
 interface IndexState {
     step: number;
     db: {
@@ -74,11 +74,7 @@ export default class Index extends Component<any, IndexState> {
                     })}>
                         <div className={cx({
                             loginHeader: true
-                        })}>
-                            <img style={{
-                                height: '50px'
-                            }} className="logo" src={logo6} alt="ims" />
-                        </div>
+                        })}></div>
                         <Steps style={{ minWidth: '650px' }} current={this.state.step}>
                             <Steps.Step title="协议" icon={<Icon type="property-safety" />}></Steps.Step>
                             <Steps.Step title="配置" icon={<Icon type="setting" />} />

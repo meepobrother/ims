@@ -34,6 +34,10 @@ export default class Index extends Component<any, any> {
         `
     }
     render() {
+        const btnProps: any = {
+            onClick: () => this.next(),
+            type: this.state.agree ? 'primary' : 'ghost'
+        }
         return <Form className={cx({ imsInfo: true })}>
             <Form.Item className="detail">
                 <div dangerouslySetInnerHTML={{
@@ -45,7 +49,7 @@ export default class Index extends Component<any, any> {
                     <Checkbox onChange={e => this.setState({
                         agree: e.target.checked
                     })}>我已仔细阅读并理解此协议</Checkbox>
-                    <Button onClick={() => this.next()} type={this.state.agree ? 'primary' : 'ghost'}>下一步</Button>
+                    <Button {...btnProps}>下一步</Button>
                 </div>
             </Form.Item>
         </Form>

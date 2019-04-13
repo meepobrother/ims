@@ -1,11 +1,11 @@
-import React, { Component } from "react";
 import { Avatar } from 'antd'
+import React = require('react');
 import "./index.less";
 import { observer, inject } from 'mobx-react'
 import AddonList from '../store/addon-list';
 @inject('addonList')
 @observer
-export default class Index extends Component<{ addonList: AddonList }, any> {
+export default class Index extends React.Component<{ addonList: AddonList }, any> {
     componentDidMount() {
         this.props.addonList.addList({
             name: 'ims-member',

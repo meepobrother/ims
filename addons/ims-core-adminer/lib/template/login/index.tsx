@@ -1,7 +1,7 @@
 import Login from 'ant-design-pro/lib/Login';
 import { Alert, Checkbox, Icon } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
-import React from 'react';
+import React = require('react');
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 import "./index.less";
 import { observer, inject } from 'mobx-react';
