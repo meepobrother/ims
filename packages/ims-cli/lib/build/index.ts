@@ -83,8 +83,8 @@ function packProject(
 ) {
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
-    console.log(`srcPath: ${srcPath}\n`)
-    console.log(`destPath: ${destPath}\n`)
+    console.log(`srcPath: ${srcPath}`)
+    console.log(`destPath: ${destPath}`)
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
