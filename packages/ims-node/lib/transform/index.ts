@@ -4,6 +4,7 @@ import transformAddon from './addon'
 import WebSocket from 'ws';
 import { handlerMap } from './socket'
 import { TransformOptions } from './type'
+const log = (str: string) => console.log(`transform:${str}`)
 export const socketSet: Set<WebSocket> = new Set();
 export function transform(
     addons: Type<any>[],
@@ -21,13 +22,13 @@ export function transform(
         // 接收消息
         ws.on('message', (data) => {
             // 收到消息
-            console.log(`receive socket message:${data}`)
+            log(`receive socket message:${data}`)
             const { type, payload } = JSON.parse(data.toString());
             handlerMap.get(type)(ws, req, payload);
         });
         // 错误
         ws.on('error', (err) => {
-            console.log(err.message)
+            log(err.message)
             socketSet.delete(ws);
         });
         // 关闭
@@ -39,16 +40,16 @@ export function transform(
                     reason
                 }
             }, (err) => {
-                if (err) console.log(err.message)
+                if (err) log(err.message)
             });
             socketSet.delete(ws)
         });
     });
-    server.on('error', (err) => console.log(err.message));
+    server.on('error', (err) => log(err.message));
     server.on('listening', () => { });
     // todo
     server.on('headers', (headers, req) => {
         // 检查
-        console.log(headers.join('\n'))
+        log(headers.join('\n'))
     });
 }

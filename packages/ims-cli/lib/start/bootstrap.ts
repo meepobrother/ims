@@ -129,7 +129,6 @@ export async function bootstrap(root: string, dev: boolean) {
         addons: addons,
         dev: dev
     })(ImsStartApp);
-    const appContext = visitor.visitType(ImsStartApp);
     const server = createServer(app);
     const ws = new Server({ server });
     transform(addons, {
