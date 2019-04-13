@@ -13,31 +13,41 @@ import { exec } from 'shelljs';
 export class ImsBuild {
     root: string = root;
 
+    // 系统
     @Input({
         alis: 's'
     })
     system: boolean;
 
+    // 名称
     @Input({
         alis: 'n'
     })
     name: string;
 
+    // tag
     @Input({
         alis: 't'
     })
     tag: string = 'build';
 
+    // 输出
     @Input({
         alis: 'o'
     })
     output: string = 'dist';
 
+    // 开发
+    @Input({
+        alis: 'w'
+    })
+    watch: boolean;
+
     async run() {
         if (this.name) {
             const srcRoot = this.system ? 'packages' : 'addons';
             await _rimraf(join(root, this.output, this.name));
-            await packProject(this.name, this.output, srcRoot);
+            await packProject(this.name, this.output, srcRoot, this.watch);
             console.log(`${chalk.cyan(this.name)}: ${chalk.yellow(`构建完成!`)}`);
             exec(`git add . && git commit -m ${this.name}:${this.tag}`, {
                 cwd: root
@@ -69,19 +79,32 @@ function createTask(task: any) {
     });
 }
 
-function packProject(name: string, output: string = 'dist', srcRoot: string = 'packages') {
+function packProject(
+    name: string,
+    output: string = 'dist',
+    srcRoot: string = 'packages',
+    watch: boolean = false
+) {
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
-    const tscTask = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
-        .pipe(tsProject()).pipe(gulp.dest(destPath));
-    const otherTask = gulp.src([
-        `${srcPath}/**/*.{md,json,html,css,less,scss,sass,jpg,jpeg,svg,png,js,jsx,yml}`,
-    ]).pipe(gulp.dest(destPath))
-    return Promise.all([
-        createTask(tscTask).then(() => {
-            console.log(chalk.yellow(`${name}:tsc finish`))
-        }),
-        createTask(otherTask).then(() => console.log(chalk.yellow(`${name}:copy finish`)))
-    ])
+    const taskFn = async (done) => {
+        const tscTask = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
+            .pipe(tsProject()).pipe(gulp.dest(destPath));
+        const otherTask = gulp.src([
+            `${srcPath}/**/*.{md,json,html,css,less,scss,sass,jpg,jpeg,svg,png,js,jsx,yml}`,
+        ]).pipe(gulp.dest(destPath))
+        await Promise.all([
+            createTask(tscTask).then(() => {
+                console.log(chalk.yellow(`${name}:tsc finish`))
+            }),
+            createTask(otherTask).then(() => console.log(chalk.yellow(`${name}:copy finish`)))
+        ]);
+        done();
+    };
+    if (watch) {
+        gulp.watch(`${srcPath}/**/*.{ts,tsx}`, taskFn)
+    } else {
+        gulp.series(taskFn)
+    }
 }

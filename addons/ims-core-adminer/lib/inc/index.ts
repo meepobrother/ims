@@ -1,6 +1,6 @@
-import { Controller, Post, Body, EntityRepository, Role, Get } from "ims-core";
+import { Controller, Post, Body, EntityRepository, Get } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
-import { isEqualPassword, sign, verify } from 'ims-node';
+import { isEqualPassword, sign } from 'ims-node';
 import { getConfig } from "ims-common";
 
 @Controller({
@@ -16,7 +16,7 @@ export class ImsCoreAdminerUser {
     @Get()
     test() {
         return {
-            test: '888888'
+            test: '1000014555'
         }
     }
 
