@@ -23,7 +23,7 @@ export class AddonAst extends ClassContext<T.AddonOptions> {
             this.incs = Object.keys(def.incs).map(key => context.visitType(def.incs[key]))
         }
         if (def.type === 'system') {
-            this.path = ''
+            this.path = '/'
         } else {
             this.path = `/${kebabCase(this.ast.target.name)}`;
         }
