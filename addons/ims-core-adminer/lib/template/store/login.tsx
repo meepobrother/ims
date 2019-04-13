@@ -125,7 +125,7 @@ export default class Login {
      * 退出登录
      **/
     logout() {
-        util.cookie.set('uid', 0)
+        util.cookie.remove('token')
     }
     /**
      * 注册

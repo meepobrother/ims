@@ -7,6 +7,7 @@ export default class Cookie {
     constructor() {
         this.cookie = util.cookie.getAll();
         util.cookie.addChangeListener((change) => {
+            console.log(change)
             this.setCookie(util.cookie.getAll())
         });
     }

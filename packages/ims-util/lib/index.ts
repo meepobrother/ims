@@ -1,6 +1,5 @@
 import { ImsStorage } from './storage';
 import { ImsWs } from './ws';
-import { ImsHttp } from './http';
 import { ImsRouter } from './router';
 import { IRouter } from 'ims-core';
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
@@ -14,12 +13,27 @@ Axios.interceptors.request.use((config) => {
     return config;
 });
 
+Axios.interceptors.response.use(res => {
+    return res;
+}, err => {
+    if (err.response) {
+        switch (err.response.status) {
+            case 401:
+                ImsUtil.cookie.remove('token');
+                break;
+            default:
+                console.log(`err.response.status`, err.response.status);
+                break;
+        }
+    }
+    return Promise.reject(err.response.data)
+})
+
 export class ImsUtil {
     static storage: ImsStorage;
     static ws: ImsWs;
     static http: AxiosInstance = Axios;
     static router: ImsRouter;
-    static cloud: ImsHttp;
     static cookie: ImsCookie = new ImsCookie(document.cookie);
     static createHttp(opt: AxiosRequestConfig) {
         return Axios.create(opt)
@@ -30,7 +44,6 @@ export class ImsUtil {
         this.router = new ImsRouter({
             routes: routes
         });
-        this.cloud = await ImsHttp.create('http://localhost:8080')
     }
 }
 export default ImsUtil;

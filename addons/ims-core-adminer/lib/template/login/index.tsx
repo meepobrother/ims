@@ -1,14 +1,16 @@
 import Login from 'ant-design-pro/lib/Login';
 import { Alert, Checkbox, Icon } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import React from 'react';
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 import "./index.less";
 import { observer, inject } from 'mobx-react';
 import LoginStore from '../store/login'
-@inject('login')
+import LoginCookie from '../store/cookie'
+
+@inject('login', 'cookie')
 @observer
-export default class LoginPage extends React.Component<{ login: LoginStore }> {
+export default class LoginPage extends React.Component<{ login: LoginStore, cookie: LoginCookie }> {
     renderNotice() {
         const { login } = this.props;
         if (login.notice && login.notice.length > 0) {
@@ -22,12 +24,13 @@ export default class LoginPage extends React.Component<{ login: LoginStore }> {
         }
     }
     render() {
-        const { login } = this.props;
+        const { login, cookie } = this.props;
         const { account, mobile, submit, autoLogin, forget, register } = login.setting;
         const { username, password } = account;
         const { mobile: InputMobile, captcha } = mobile;
         return (
             <div className="login-page">
+                {cookie.cookie.token ? <Redirect to={'/adminer'} /> : ''}
                 <div className="login-banner"></div>
                 <div className="login-name">
                     IMS系统

@@ -186,9 +186,15 @@ class ImsDemo {
 }
 ```
 
-### Role 权限
+### Guard 权限
 ```ts
-
+@Role(verify((user) => {
+    // 校验用户是否有权限
+    return true;
+}))
+getUserList(){
+    return [];
+}
 ```
 
 * [在线演示](https://demo.meepo.com.cn/)

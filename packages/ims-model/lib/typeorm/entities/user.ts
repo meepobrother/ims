@@ -25,6 +25,12 @@ export class ImsUserEntity {
      */
     @Column()
     password: string;
+
+    /**
+     * 头像
+     */
+    @Column()
+    avatar: string;
     /**
      * 创建时间
      */

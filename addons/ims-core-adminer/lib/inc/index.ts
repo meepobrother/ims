@@ -1,6 +1,7 @@
 import { Controller, Post, Body, EntityRepository, Role } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
 import { isEqualPassword, sign, verify } from 'ims-node';
+import { getConfig } from "ims-common";
 
 @Controller({
     path: '/user'
@@ -13,10 +14,6 @@ export class ImsCoreAdminerUser {
     user: EntityRepository<ImsUserEntity>;
 
     @Post()
-    @Role(verify((user) => {
-        console.log(user)
-        return true;
-    }))
     async login(@Body() msg: { username: string, password: string }) {
         const user = await this.user.findOne({
             username: msg.username
@@ -28,6 +25,11 @@ export class ImsCoreAdminerUser {
             }
         } else {
             if (isEqualPassword(msg.password, user.token, user.password)) {
+                const config = getConfig();
+                let role = 'default';
+                if (config.admin.includes(user.id)) {
+                    role = 'admin';
+                }
                 return {
                     code: 0,
                     message: '登录成功',
@@ -35,7 +37,8 @@ export class ImsCoreAdminerUser {
                         username: user.username,
                         token: sign({
                             id: user.id,
-                            username: user.username
+                            username: user.username,
+                            role
                         })
                     }
                 };

@@ -8,6 +8,9 @@ import { Template } from 'ims-core'
             login: 'store/login',
             cookie: 'store/cookie'
         }
+    }, {
+        path: '/adminer',
+        component: 'addon-list'
     }]
 })
 export class ImsAdminerTemplate { }
