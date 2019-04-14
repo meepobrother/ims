@@ -1,4 +1,4 @@
-<p align="center"><a href="https://meepo.com.cn" target="_blank" rel="noopener noreferrer"><img width="100" src="./assets/logo-v4.png" alt="Ims logo"></a></p>
+<p align="center"><a href="https://meepo.com.cn" target="_blank" rel="noopener noreferrer"><img height="60" src="./assets/logo-v4.png" alt="Ims logo"></a></p>
 
 <h2 align="center">系统介绍</h2>
 
