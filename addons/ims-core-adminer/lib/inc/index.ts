@@ -35,13 +35,14 @@ export class ImsCoreAdminerUser {
                 const config = getConfig();
                 let role = 'default';
                 if (config.admin.includes(user.id)) {
-                    role = 'admin';
+                    role = 'member';
                 }
                 return {
                     code: 0,
                     message: '登录成功',
                     data: {
                         username: user.username,
+                        role,
                         token: sign({
                             id: user.id,
                             username: user.username,

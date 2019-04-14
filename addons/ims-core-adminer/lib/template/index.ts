@@ -10,10 +10,23 @@ import { Template } from 'ims-core'
         },
         routes: [
             {
+                path: '/403',
+                component: '403'
+            },
+            {
+                path: '/404',
+                component: '404'
+            },
+            {
+                path: '/500',
+                component: '500'
+            },
+            {
                 path: '/home',
                 component: 'home'
             }, {
                 path: '/login',
+                roles: ['admin'],
                 component: 'login',
             }, {
                 path: '/adminer',

@@ -19,9 +19,9 @@ export default class Login {
     @observable
     from: string;
 
-    // 登录状态
+    // 角色
     @observable
-    isLogin: boolean;
+    role: string;
 
     // ui 设置
     @observable
@@ -78,9 +78,8 @@ export default class Login {
                         const user = data.data;
                         const date = new Date();
                         date.setMinutes(date.getMinutes() + 35)
-                        util.cookie.set('token', user.token, {
-                            expires: date
-                        });
+                        this.role = user.role;
+                        console.log(user);
                     }
                 }).catch(e => {
                     this.setNotice(e.message)

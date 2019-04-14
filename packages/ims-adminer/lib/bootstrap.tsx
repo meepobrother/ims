@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import 'ant-design-pro/dist/ant-design-pro.css';
 import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
+import Authorized from 'ant-design-pro/lib/Authorized';
+
 const ObjectStore: { [key: string]: any } = {};
 export function createStore(routes: IRouter[]) {
     routes.map(route => {
@@ -35,6 +37,7 @@ export async function bootstrap(routes: IRouter[]) {
             <Router>
                 <Suspense fallback={<Loading></Loading>} >
                     {routes.map((route, key) => {
+                        route.roles = route.roles || [];
                         const { component: Component, path, exact } = route;
                         return <Route key={key} path={path} exact={exact} render={() => {
                             if (Component) {

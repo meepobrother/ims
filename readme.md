@@ -56,14 +56,18 @@
 
 <h2 align="center">文档及社区</h2>
 
-## 启动服务
+## cli命令行工具
 ```ts
 // 开发者模式
 ims start -d
 // 运营模式
 ims start
-// 编译
+// 浏览器打开 http://localhost:4201
+// 按照指示安装
+
+// 开发编译
 ims build --name ims-core-adminer --output node_modules --watch
+// 系统安装成功后，会在config目录生成一个server.json，请妥善保管。
 ```
 
 ## 通信篇
