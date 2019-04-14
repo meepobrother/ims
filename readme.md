@@ -94,8 +94,17 @@ class ImsDemoTemplate{}
 class ImsManager{
 
 }
-// 使用权限
-@Role([ImsManager])
+
+@Role({
+    name: 'managerEditor',
+    title: '网站编辑',
+    desc: '网站编辑'
+})
+class ImsManager{
+
+}
+// 使用权限 网站管理员和网站编辑可以添加会员
+@Role([ImsManager,managerEditor])
 addUser(){
     // 添加会员
 }
