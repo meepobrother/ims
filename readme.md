@@ -8,8 +8,8 @@
 
 <h2 align="center">UI</h2>
 
-* 移动端taro
-* pc端antd
+* 移动端taro，可编译生成微信小程序、百度小程序、native app还有手机网站及微信端。
+* pc端antd，企业级后台管理方案。
 
 <h2 align="center">生态系统</h2>
 
