@@ -6,20 +6,19 @@ import { AddonMetadataKey, AddonAst } from "ims-core";
 import { ImsApplication } from "../transform/application";
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-
+const change = new Subject();
+change.pipe(
+    debounceTime(500)
+).subscribe((sourceRoot: string) => {
+    if (ImsApplication.application) {
+        const type = require(sourceRoot).default;
+        ImsApplication.application.reInstall(type)
+    }
+});
 export function watchAddon(type: Type<any>) {
     const context = visitor.visitType(type);
     const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
-    const change = new Subject();
-    change.pipe(
-        debounceTime(500)
-    ).subscribe(() => {
-        if (ImsApplication.application) {
-            const type = require(addonAst.sourceRoot).default;
-            ImsApplication.application.reInstall(type)
-        }
-    });
     watch(`${addonAst.sourceRoot}`).on('all', (eventName, path) => {
-        change.next()
+        change.next(addonAst.sourceRoot)
     })
 }

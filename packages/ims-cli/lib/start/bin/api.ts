@@ -96,10 +96,8 @@ export async function bootstrap(root: string, dev: boolean) {
             allAddon.map(addon => {
                 const targt = require(addon.entry).default;
                 addons.push(targt);
-                if(dev) watchAddon(targt)
             });
             addons.push(ImsCoreAdminer);
-            if(dev) watchAddon(ImsCoreAdminer)
             await parseAddons(addons, config);
         } catch (e) {
             console.log(e.message)
@@ -107,7 +105,6 @@ export async function bootstrap(root: string, dev: boolean) {
         }
     } else {
         addons.push(ImsInstall);
-        if(dev) watchAddon(ImsInstall)
     }
     let node: any;
     if (installed) {
@@ -133,6 +130,7 @@ export async function bootstrap(root: string, dev: boolean) {
     return new Promise((resolve, reject) => {
         server.listen(addressOptions.port, addressOptions.host, () => {
             console.log(`api start at http://${addressOptions.host}:${addressOptions.port}`)
+            if (dev) watchAddon(ImsInstall)
             resolve();
         });
     });
