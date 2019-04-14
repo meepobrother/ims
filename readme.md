@@ -72,18 +72,7 @@ ims build --name ims-core-adminer --output node_modules --watch
 
 ## 权限篇
 
-### 模板权限
-```ts
-@Template({
-    admins: [{
-        path: '/addUser',
-        role: ['manager'],
-        component: 'admin/addUser'
-    }]
-})
-class ImsDemoTemplate{}
-```
-### 接口权限
+### 角色定义
 ```ts
 // 定义权限
 @Role({
@@ -91,18 +80,29 @@ class ImsDemoTemplate{}
     title: '网站管理员',
     desc: '权限简介'
 })
-class ImsManager{
-
-}
+class ImsManager{}
 
 @Role({
     name: 'managerEditor',
     title: '网站编辑',
     desc: '网站编辑'
 })
-class ImsManager{
+class ImsManagerEditor{}
+```
 
-}
+### 模板权限
+```ts
+@Template({
+    admins: [{
+        path: '/addUser',
+        role: [ImsManager,ImsManagerEditor],
+        component: 'admin/addUser'
+    }]
+})
+class ImsDemoTemplate{}
+```
+### 接口权限
+```ts
 // 使用权限 网站管理员和网站编辑可以添加会员
 @Role([ImsManager,managerEditor])
 addUser(){
