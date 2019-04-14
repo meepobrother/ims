@@ -18,7 +18,7 @@ export default class ImsCoreEditor {
     }
 
     publish() {
-        return util.http.post('/ims-core-editor/saveArticle')({
+        return util.http.post('/ims-core-editor/saveArticle',{
             title: this.title,
             content: this.content
         });

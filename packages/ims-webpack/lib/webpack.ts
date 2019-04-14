@@ -93,6 +93,12 @@ export abstract class ImsWebpack {
                             presets: ['@babel/preset-env', '@babel/preset-react'],
                             plugins: [
                                 ['@babel/plugin-syntax-dynamic-import'],
+                                ['@babel/transform-runtime', {
+                                    "helpers": false,
+                                    "polyfill": false,
+                                    "regenerator": true,
+                                    "moduleName": "babel-runtime"
+                                }],
                                 [AntdPlugin, {
                                     "libraryName": "antd",
                                     "libraryDirectory": "es",

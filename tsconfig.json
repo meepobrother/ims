@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "es6",
+    "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
     "lib": [
@@ -49,6 +49,9 @@
       ],
       "medium-editor": [
         "packages/ims-types/lib/medium-editor"
+      ],
+      "ims-cookie": [
+        "packages/ims-cookie/lib/index"
       ],
       "cookie": [
         "packages/ims-types/lib/cookie"

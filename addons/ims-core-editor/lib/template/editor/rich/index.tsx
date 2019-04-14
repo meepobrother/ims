@@ -14,7 +14,6 @@ export default class Index extends Component<{ editor: ImsCoreEditor }, { focus:
         this.props.editor.setContent(text)
     }
     render() {
-        console.log(this.props)
         return <Layout type="rich">
             <div className="ims-core-ditor-rich">
                 <div className="ims-core-ditor-rich-content">

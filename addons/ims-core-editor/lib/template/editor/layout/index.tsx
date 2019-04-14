@@ -6,7 +6,7 @@ import { observer, inject } from 'mobx-react'
 import ImsEditor from '../../store/index'
 @inject('editor')
 @observer
-export default class Index extends Component<{ editor: ImsEditor, type: 'markdown' | 'rich' }> {
+export default class Index extends Component<{ editor?: ImsEditor, type: 'markdown' | 'rich' }> {
     switchEditor() {
         const { type } = this.props;
         if (type === 'markdown') {
@@ -20,6 +20,10 @@ export default class Index extends Component<{ editor: ImsEditor, type: 'markdow
         }
     }
     render() {
+        const btnProps: any = {
+            onClick: () => this.props.editor.publish(),
+            type: "primary"
+        };
         return <Layout className="ims-core-editor">
             <Layout.Header style={{ backgroundColor: '#fff' }} className="header">
                 <div className="header-left"></div>
@@ -34,7 +38,7 @@ export default class Index extends Component<{ editor: ImsEditor, type: 'markdow
                     </div>
                     {this.switchEditor()}
                     <Dropdown trigger={['click']} overlay={<div className="ims-core-editor-panel">
-                        <Button onClick={() => this.props.editor.publish()} type="primary">发布</Button>
+                        <Button {...btnProps}>发布</Button>
                     </div>}>
                         <a className="btn-publish" href="javascript:;">
                             发布 <Icon type="down" />

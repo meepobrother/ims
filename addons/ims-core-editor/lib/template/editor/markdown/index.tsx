@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Icon } from 'antd';
-import { IRouter } from 'ims-adminer'
+import { IRouter } from 'ims-core'
 import AceEditor from "react-ace";
 import Layout from '../layout'
 import marked from 'marked';
@@ -34,6 +34,9 @@ export default class Index extends Component<IndexProps, any> {
     }
     render() {
         const width = '50vw'
+        const btnProps: any = {
+            size: "small", type: "ghost"
+        }
         return <Layout type="markdown">
             <div className="ims-core-ditor-markdown">
                 <div className="editor">
@@ -55,14 +58,14 @@ export default class Index extends Component<IndexProps, any> {
                         />
                     </div>
                     <div className="editor-footer">
-                        <Button size="small" type="ghost">
+                        <Button {...btnProps}>
                             <Icon type="file-markdown" />
                         </Button>
-                        <Button size="small" type="ghost">
+                        <Button {...btnProps}>
                             <Icon type="picture" />
                         </Button>
                         <div className="editor-footer-right">
-                            <Button size="small" type="ghost">
+                            <Button {...btnProps}>
                                 <Icon type="swap" />
                             </Button>
                         </div>

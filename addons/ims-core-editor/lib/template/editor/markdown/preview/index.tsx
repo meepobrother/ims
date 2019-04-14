@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 interface PreviewProps {
-    editor: ImsCoreEditor;
+    editor?: ImsCoreEditor;
 }
 import "./index.less";
 import { inject, observer } from 'mobx-react'
