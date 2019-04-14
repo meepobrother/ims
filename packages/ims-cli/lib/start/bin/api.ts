@@ -130,7 +130,7 @@ export async function bootstrap(root: string, dev: boolean) {
     return new Promise((resolve, reject) => {
         server.listen(addressOptions.port, addressOptions.host, () => {
             console.log(`api start at http://${addressOptions.host}:${addressOptions.port}`)
-            if (dev) watchAddon(ImsInstall)
+            if (dev) addons.map(addon => watchAddon(addon))
             resolve();
         });
     });
