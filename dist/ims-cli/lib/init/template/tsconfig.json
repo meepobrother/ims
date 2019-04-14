@@ -1,0 +1,30 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "emitDeclarationOnly": true,
+        "emitDecoratorMetadata": true,
+        "types": [
+            "dom"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "paths": {
+            "*": [
+                "addons/*",
+                "packages/*"
+            ]
+        }
+    },
+    "include": [
+        "addons"
+    ],
+    "exclude": [
+        "node_modules",
+        "attachment",
+        "data",
+        "template"
+    ]
+}

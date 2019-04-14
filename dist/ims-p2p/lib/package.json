@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "libp2p-tcp": "^0.13.0"
+  }
+}

@@ -95,7 +95,7 @@ export abstract class ImsWebpack {
                                 ['@babel/plugin-syntax-dynamic-import'],
                                 ['@babel/transform-runtime', {
                                     "helpers": false,
-                                    "polyfill": false,
+                                    "polyfill": true,
                                     "regenerator": true,
                                     "moduleName": "babel-runtime"
                                 }],

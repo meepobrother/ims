@@ -1,0 +1,82 @@
+.ims-core-editor{
+    height: 100vh;
+    width: 100vw;
+    .main{
+        flex: 1;
+        display: flex;
+        height: calc(100vh - 64px);
+        position: relative;
+        overflow: auto;
+    }
+    
+    .header{
+        height: 64px;
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        padding-left: 20px;
+        padding-right: 5px;
+        &-left{
+            display: block;
+            align-items: center;
+            display: flex;
+        }
+        input{
+            margin: 0;
+            padding: 0;
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            border: none;
+            outline: none;
+            height: 63px;
+            &:focus{
+                border:none;
+                border-right-width: 0px;
+                box-shadow:none;
+            }
+        }
+        &-right{
+            justify-content: flex-end;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            .status-text{
+                white-space: nowrap;
+                color: #ddd;
+                cursor: default;
+                font-size: 16px;
+                user-select: none;
+                white-space: nowrap;
+                padding: 0 10px;
+                a{
+                    margin: 0 10px;
+                }
+            }
+            .image-select,.toogle-select{
+                margin: 0 10px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .btn-publish{
+                white-space: nowrap;
+                color: #007fff;
+                cursor: pointer;
+                user-select: none;
+                font-size: 16px;
+                margin: 0 10px;
+            }
+            .user-avatar{
+                margin: 0 10px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.ims-core-editor-panel{
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ccc;
+}

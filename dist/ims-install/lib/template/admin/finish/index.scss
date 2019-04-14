@@ -1,0 +1,38 @@
+.ims-finish {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  .addon_list {
+    display: flex;
+    justify-content: center;
+    .addon {
+      margin: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      .title {
+        text-align: center;
+        margin: 5px 0px;
+      }
+      .icon {
+        font-size: 30px;
+      }
+    }
+  }
+  .footer-bar {
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .extra {
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 10px;
+    width: 350px;
+  }
+}
