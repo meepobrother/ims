@@ -12,7 +12,7 @@ export function watchAddon(type: Type<any>) {
         if (ImsApplication.application) {
             console.log(`${eventName}${path}`);
             // delete require.cache[path];
-            const type = require(addonAst.path).default;
+            const type = require(addonAst.sourceRoot).default;
             ImsApplication.application.reInstall(type)
         }
     })
