@@ -89,15 +89,16 @@ export default class Index extends React.Component<any, any> {
         const that = this;
         function request() {
             util.http.get('/').then(res => {
-                console.log(res)
                 if (res.status === 200) {
                     clearInterval(pid);
-                    that.setState({
-                        total: 0,
-                        button: '进入后台',
-                        loading: false,
-                        link: '/login'
-                    })
+                    setTimeout(() => {
+                        that.setState({
+                            total: 0,
+                            button: '进入后台',
+                            loading: false,
+                            link: '/login'
+                        })
+                    }, 2000);
                 }
             }).catch(e => {
                 if (that.state.loading) {

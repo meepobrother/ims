@@ -7,7 +7,7 @@ import "./index.less";
 import { observer, inject } from 'mobx-react';
 import LoginStore from '../store/login'
 import LoginCookie from '../store/cookie'
-
+import logo from './logo-light.png';
 @inject('login', 'cookie')
 @observer
 export default class LoginPage extends React.Component<{ login: LoginStore, cookie: LoginCookie }> {
@@ -24,16 +24,16 @@ export default class LoginPage extends React.Component<{ login: LoginStore, cook
         }
     }
     render() {
-        const { login, cookie } = this.props;
+        const { login } = this.props;
         const { account, mobile, submit, autoLogin, forget, register } = login.setting;
         const { username, password } = account;
         const { mobile: InputMobile, captcha } = mobile;
         return (
             <div className="login-page">
-                {cookie.cookie.token ? <Redirect to={'/adminer'} /> : ''}
+                {login.role !== 'default' ? <Redirect to={login.from} /> : ''}
                 <div className="login-banner"></div>
                 <div className="login-name">
-                    IMS系统
+                    <img src={logo} height="45" alt=""/>
                 </div>
                 <div className="login-content">
                     <div className="login-warp">
@@ -68,8 +68,8 @@ export default class LoginPage extends React.Component<{ login: LoginStore, cook
                         </Login>
                     </div>
                     <div className="login-title">
-                        欢迎使用IMS系统
-                        <p>开源免费企业级实时联合web应用框架</p>
+                        微链
+                        <p>开源免费区块链链框架</p>
                     </div>
                 </div>
             </div>

@@ -23,10 +23,20 @@ import { Template } from 'ims-core'
             },
             {
                 path: '/home',
-                component: 'home'
+                component: 'home',
+                exact: true
+            }, {
+                path: '/home/news',
+                component: 'news'
+            }, {
+                path: '/home/news',
+                component: 'products'
             }, {
                 path: '/login',
                 component: 'login',
+            }, {
+                path: '/register',
+                component: 'register',
             }, {
                 path: '/adminer',
                 component: 'addon-list',

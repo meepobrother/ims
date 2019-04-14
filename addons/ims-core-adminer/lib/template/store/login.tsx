@@ -17,11 +17,11 @@ export default class Login {
 
     // 从什么地方进入登录的
     @observable
-    from: string;
+    from: string = '/home';
 
     // 角色
     @observable
-    role: string;
+    role: string = 'default';
 
     // ui 设置
     @observable
