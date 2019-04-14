@@ -32,7 +32,6 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
         })
         return route.routes && route.routes.map((router, key) => {
             const _props = props(router);
-            console.log({ _props, router })
             return <AuthorizedRoute {..._props} />
         })
     }
