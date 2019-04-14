@@ -10,12 +10,11 @@ export class ImsRoutes extends Component<{ login?: any, route: IRouter, fallback
         fallback: () => <div></div>
     }
     render() {
-        const { route, fallback } = this.props;
+        const { route } = this.props;
         const userRole = this.props.login.role || 'default'
         const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
-        const props: any = router => ({
+        const props: any = (router) => ({
             authority: role => {
-                console.log({ role, userRole })
                 if (!router.roles) return true;
                 if (router.roles.length === 0) return true;
                 if (role === 'admin') return true;
@@ -25,12 +24,12 @@ export class ImsRoutes extends Component<{ login?: any, route: IRouter, fallback
             key: router.path,
             path: router.path,
             exact: router.exact,
-            render: () => <router.component route={router} />
+            render: () => {
+                return <router.component route={router} />
+            }
         })
-        return <Suspense fallback={fallback()}>
-            {route.routes && route.routes.map((router, key) => {
-                return <AuthorizedRoute {...props(router)} />
-            })}
-        </Suspense>
+        return route.routes && route.routes.map((router, key) => {
+            return <AuthorizedRoute key={key} {...props(router)} />
+        })
     }
 }

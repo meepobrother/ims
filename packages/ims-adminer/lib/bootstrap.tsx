@@ -32,20 +32,33 @@ export function createStore(routes: IRouter[]) {
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes)
     const store = createStore(routes);
+    const userRole = store.login.role || 'default'
+    const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
+    const routerProps: any = (router) => ({
+        authority: role => {
+            if (!router.roles) return true;
+            if (router.roles.length === 0) return true;
+            if (role === 'admin') return true;
+            return router.roles.indexOf(role) > -1;
+        },
+        redirectPath: '/403',
+        key: router.path,
+        path: router.path,
+        exact: router.exact,
+        render: () => {
+            if (router.component) {
+                return <router.component route={router} />
+            } else {
+                return <ImsRoutes route={router} />
+            }
+        }
+    });
     render(
         <Provider {...store}>
             <Router>
                 <Suspense fallback={<Loading></Loading>} >
                     {routes.map((route, key) => {
-                        route.roles = route.roles || [];
-                        const { component: Component, path, exact } = route;
-                        return <Route key={key} path={path} exact={exact} render={() => {
-                            if (Component) {
-                                return <Component route={route} />
-                            } else {
-                                return <ImsRoutes route={route} />
-                            }
-                        }} />
+                        return <AuthorizedRoute {...routerProps(route)} />
                     })}
                 </Suspense>
             </Router>
