@@ -16,17 +16,17 @@ export function createAdmin(addons: Type<any>[]) {
         routers = routers.concat(...template.admins)
         routers = routers.concat(...template.mobiles)
     });
-    const appPath = join(tempDir, 'app.tsx');
+    const appPath = join(tempDir, 'app.js');
     fs.writeFileSync(appPath, template(routers, tempDir));
     return appPath;
 }
 const template = (routes: IRouter[], tempDir: string) =>
-    `import { bootstrap } from 'ims-adminer';
-import "./app.css";
-import "antd/dist/antd.css";
-import React from 'react';
+    `const adminer = require('ims-adminer')
+require("./app.css");
+require("antd/dist/antd.css");
+const React = require('react');
 let routes = [${routes.map(route => createRouter(route, tempDir)).join(',')}];
-bootstrap(routes);
+adminer.bootstrap(routes);
 `
 
 function createRouter(route: IRouter, tempDir: string) {

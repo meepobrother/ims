@@ -2,7 +2,7 @@ import { IRouter } from 'ims-core';
 import { Loading } from './loading';
 import { observer, inject } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
-import React = require('react')
+import React from 'react';
 @inject('login')
 @observer
 export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fallback?: any }, any> {
