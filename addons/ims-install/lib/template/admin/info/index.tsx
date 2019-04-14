@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
 import { Button, Checkbox, Form, message } from 'antd'
 import { cx } from './index.scss'
-export default class Index extends Component<any, any> {
+import React = require('react')
+export default class Index extends React.Component<any, any> {
     state = {
         agree: false,
         info: `

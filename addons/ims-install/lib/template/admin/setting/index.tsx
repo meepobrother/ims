@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
 import { Form, Input, Button, message } from 'antd';
 import { cx } from './index.scss';
 import util from 'ims-util';
+import React = require('react');
+
 import { ValidateStatus } from 'ims-adminer'
 interface IndexProps {
     next?: any;
@@ -21,7 +22,7 @@ interface IndexState {
     username?: FormItem;
     password?: FormItem;
 }
-export default class Index extends Component<IndexProps, IndexState> {
+export default class Index extends React.Component<IndexProps, IndexState> {
     static defaultProps: IndexProps = {}
     state: IndexState = {
         host: {

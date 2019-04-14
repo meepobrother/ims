@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
 import { Button, Icon } from 'antd';
-import { Link } from 'react-router-dom'
+import React = require('react');
 import { cx } from './index.scss';
 import util from 'ims-util'
 import Result from 'ant-design-pro/lib/Result'
-export default class Index extends Component<any, any> {
+export default class Index extends React.Component<any, any> {
     state = {
         installing: true,
         loading: false,

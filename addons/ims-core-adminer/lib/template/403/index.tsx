@@ -4,6 +4,7 @@ export default function Exception403() {
     return <Exception
         type="403"
         desc={<div>抱歉，权限不足!</div>}
-        backText={"返回"}
+        backText={"换个账号登录"}
+        redirect={'/login'}
     />
 }

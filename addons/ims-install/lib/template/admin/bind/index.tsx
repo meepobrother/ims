@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React = require('react');
+
 import { Button, Input, Form, message } from 'antd';
 import { cx } from './index.scss'
 import util from 'ims-util'
@@ -15,7 +16,7 @@ interface IndexState {
     passwordStatus?: "success" | "warning" | "error" | "validating" | "";
     repasswordStatus?: "success" | "warning" | "error" | "validating" | "";
 }
-export default class Index extends Component<IndexProps, IndexState> {
+export default class Index extends React.Component<IndexProps, IndexState> {
     static defaultProps = {
         mobile: '',
         code: ''
