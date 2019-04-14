@@ -5,9 +5,10 @@ import React = require('react');
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 import "./index.less";
 import { observer, inject } from 'mobx-react';
-import LoginStore from '../store/login'
-import LoginCookie from '../store/cookie'
+import LoginStore from '../../store/login';
+import LoginCookie from '../../store/cookie';
 import logo from './logo-light.png';
+
 @inject('login', 'cookie')
 @observer
 export default class LoginPage extends React.Component<{ login: LoginStore, cookie: LoginCookie }> {

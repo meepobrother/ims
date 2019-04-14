@@ -2,7 +2,7 @@ import { Avatar } from 'antd'
 import React = require('react');
 import "./index.less";
 import { observer, inject } from 'mobx-react'
-import AddonList from '../store/addon-list';
+import AddonList from '../../store/addon-list';
 @inject('addonList')
 @observer
 export default class Index extends React.Component<{ addonList: AddonList }, any> {

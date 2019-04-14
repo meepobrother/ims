@@ -2,7 +2,7 @@ import React = require('react');
 import { Layout, Button, Card, Menu } from 'antd'
 import "./index.less";
 import { observer } from 'mobx-react'
-import AddonList from '../store/addon-list';
+import AddonList from '../../store/addon-list';
 import GlobalFooter from 'ant-design-pro/lib/GlobalFooter'
 import logo from './logo-light.png'
 import { Link } from 'react-router-dom';
@@ -29,14 +29,22 @@ export default class Index extends React.Component<{ addonList: AddonList }, any
                     <img src={logo} height={45} alt="" />
                 </div>
                 <Menu className="header-left-menu" mode="horizontal" style={{ height: '64px', lineHeight: '64px' }} theme="dark">
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>安装</Menu.Item>
-                    <Menu.Item>新闻</Menu.Item>
-                    <Menu.Item>产品</Menu.Item>
+                    <Menu.Item>
+                        <Link to={'/home'}>首页</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to={'/home/install'}>安装</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to={'/home/news'}>新闻</Link>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <Link to={'/home/products'}>产品</Link>
+                    </Menu.Item>
                 </Menu>
                 <div className="header-right-menu">
-                    <Link to={'/login'}>登录</Link>
-                    <Link to={'/register'}>注册</Link>
+                    <Link to={'/home/login'}>登录</Link>
+                    <Link to={'/home/register'}>注册</Link>
                 </div>
             </Layout.Header>
             <Layout.Content className="ims-home-layout-content">

@@ -8,11 +8,11 @@ redirect:"home",
 store:{login: require('../../../../addons/ims-core-adminer/lib/template/store/login').default,cookie: require('../../../../addons/ims-core-adminer/lib/template/store/cookie').default,},
 routes:[{
 path:"/home",
-component:React.lazy(()=>import(/* webpackChunkName: "home" */"../../../../addons/ims-core-adminer/lib/template/home")),
+component:React.lazy(()=>import(/* webpackChunkName: "home" */"../../../../addons/ims-core-adminer/lib/template/home/index")),
 routes:[],
 },{
 path:"/login",
-component:React.lazy(()=>import(/* webpackChunkName: "login" */"../../../../addons/ims-core-adminer/lib/template/login")),
+component:React.lazy(()=>import(/* webpackChunkName: "login" */"../../../../addons/ims-core-adminer/lib/template/home/login")),
 routes:[],
 },{
 path:"/adminer",

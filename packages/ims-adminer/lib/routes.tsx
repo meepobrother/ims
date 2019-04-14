@@ -15,6 +15,7 @@ export class ImsRoutes extends Component<{ login?: any, route: IRouter, fallback
         const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
         const props: any = router => ({
             authority: role => {
+                console.log({ role, userRole })
                 if (!router.roles) return true;
                 if (router.roles.length === 0) return true;
                 if (role === 'admin') return true;
