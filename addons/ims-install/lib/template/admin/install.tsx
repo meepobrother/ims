@@ -7,7 +7,7 @@ import Finish from './finish';
 import Setting from './setting';
 import Info from './info';
 import GlobalFooter from 'ant-design-pro/lib/GlobalFooter';
-import logo from './logo6.png';
+import logo from './logo-v3.png';
 
 interface IndexState {
     step: number;

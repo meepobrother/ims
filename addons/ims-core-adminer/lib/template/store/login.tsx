@@ -76,10 +76,7 @@ export default class Login {
                     } else {
                         // 跳转
                         const user = data.data;
-                        const date = new Date();
-                        date.setMinutes(date.getMinutes() + 35)
                         this.role = user.role;
-                        console.log(user);
                     }
                 }).catch(e => {
                     this.setNotice(e.message)
