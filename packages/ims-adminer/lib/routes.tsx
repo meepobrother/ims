@@ -1,11 +1,11 @@
-import React, { Component, Suspense } from 'react';
 import { IRouter } from 'ims-core';
+import { Loading } from './loading';
 import { observer, inject } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
-
+import React = require('react')
 @inject('login')
 @observer
-export class ImsRoutes extends Component<{ login?: any, route: IRouter, fallback?: any }, any> {
+export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fallback?: any }, any> {
     static defaultProps = {
         fallback: () => <div></div>
     }
@@ -23,13 +23,17 @@ export class ImsRoutes extends Component<{ login?: any, route: IRouter, fallback
             redirectPath: '/403',
             key: router.path,
             path: router.path,
-            exact: router.exact,
+            exact: !!router.exact,
             render: () => {
-                return <router.component route={router} />
+                return <React.Suspense fallback={<Loading/>} >
+                    <router.component route={router} />
+                </React.Suspense>
             }
         })
         return route.routes && route.routes.map((router, key) => {
-            return <AuthorizedRoute key={key} {...props(router)} />
+            const _props = props(router);
+            console.log({ _props, router })
+            return <AuthorizedRoute {..._props} />
         })
     }
 }

@@ -24,3 +24,9 @@ export function isRoleParameterAst(val: ParameterAst): val is ParameterAst<RoleO
     return val.metadataKey === RoleMetadataKey;
 }
 export class RoleParameterAst extends ParameterContext<RoleOptions> { }
+
+export interface RoleParameter {
+    id: number;
+    username: string;
+    role: string;
+}

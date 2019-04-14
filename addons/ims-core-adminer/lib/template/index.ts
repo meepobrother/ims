@@ -17,35 +17,40 @@ import { Template } from 'ims-core'
             path: '/500',
             component: '500'
         },
-        // 官网
+        // 首页
         {
             path: '/',
-            redirect: 'home',
+            redirect: '/home/index'
+        },
+        // 官网
+        {
+            path: '/home',
+            component: 'home/layout',
             store: {
+                homeLayout: 'store/homeLayout',
                 login: 'store/login',
                 cookie: 'store/cookie',
             },
             routes: [
                 {
-                    path: '/home',
-                    component: 'home/index',
-                    exact: true
+                    path: '/index',
+                    component: 'home/index'
                 }, {
-                    path: '/home/news',
+                    path: '/news',
                     component: 'home/news'
                 }, {
-                    path: '/home/products',
+                    path: '/products',
                     component: 'home/products'
                 }, {
-                    path: '/home/login',
+                    path: '/login',
                     component: 'home/login',
                 }, {
-                    path: '/home/register',
+                    path: '/register',
                     component: 'home/register',
                 }, {
-                    path: '/home/install',
+                    path: '/install',
                     component: 'home/install',
-                },
+                }
             ]
         },
         // 后台管理

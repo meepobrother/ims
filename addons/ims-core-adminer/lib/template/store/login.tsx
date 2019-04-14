@@ -77,6 +77,7 @@ export default class Login {
                         // 跳转
                         const user = data.data;
                         this.role = user.role;
+                        util.cookie.set('token', user.token)
                     }
                 }).catch(e => {
                     this.setNotice(e.message)

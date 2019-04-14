@@ -1,63 +1,34 @@
-.ims-adminer{
-    display: block;
-    min-height: 100vh;
-    .home-header{
-        display: flex;
-        .header-logo{
-            display: inline-block;
-        }
-        .header-left-menu{
-            flex: 1;
-        }
-        .header-right-menu{
-            a{
-                margin: 0 10px;
-                color: rgba(255, 255, 255, 0.65);
-            }
-        }
-    }
-    
-    .ims-home-layout-content{
-        overflow: auto;
-    }
-    .home-banner{
+.home-banner{
+    width: 100%;
+    height: calc(100vh - 64px);
+    position: relative;
+    border-color: #666;
+    background: #fff;
+    .bg{
         width: 100%;
-        height: calc(100vh - 64px);
-        position: relative;
-        border-color: #666;
-        background: #fff;
-        .bg{
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-            background-size: cover;
-            background-image: url(https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg)
-        }
-        &-wrapper{
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            .desc{
-                color: #fff;
-                margin-bottom: 20px;
-                word-wrap: break-word;
-                font-size: 30px;
-                visibility: visible;
-                display: block;
-                line-height: 30px;
-                z-index: 9;
-            }
-        }
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        background-size: cover;
+        background-image: url(https://zos.alipayobjects.com/rmsportal/hzPBTkqtFpLlWCi.jpg)
     }
-    
-    .main{
-        width: 1180px;
-        margin: 0 auto;
-        padding: 20px 0px;
+    &-wrapper{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .desc{
+            color: #fff;
+            margin-bottom: 20px;
+            word-wrap: break-word;
+            font-size: 30px;
+            visibility: visible;
+            display: block;
+            line-height: 30px;
+            z-index: 9;
+        }
     }
 }

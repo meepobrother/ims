@@ -1,6 +1,2 @@
-import React, { Component } from 'react';
-export class Loading extends Component<any, any> {
-    render() {
-        return <div></div>
-    }
-}
+const React = require('react')
+export const Loading = () => <div></div>

@@ -44,10 +44,12 @@ export async function bootstrap(routes: IRouter[]) {
         redirectPath: '/403',
         key: router.path,
         path: router.path,
-        exact: router.exact,
+        exact: !!router.exact,
         render: () => {
             if (router.component) {
-                return <router.component route={router} />
+                return <Suspense fallback={<Loading />} >
+                    <router.component route={router} />
+                </Suspense>
             } else {
                 return <ImsRoutes route={router} />
             }
@@ -56,13 +58,13 @@ export async function bootstrap(routes: IRouter[]) {
     render(
         <Provider {...store}>
             <Router>
-                <Suspense fallback={<Loading></Loading>} >
-                    {routes.map((route, key) => {
-                        return <AuthorizedRoute {...routerProps(route)} />
-                    })}
-                </Suspense>
+                {routes.map((route, key) => {
+                    const props = routerProps(route);
+                    console.log(props);
+                    return <AuthorizedRoute {...props} />
+                })}
             </Router>
-        </Provider>
+        </Provider >
         ,
         document.getElementById('root')
     )

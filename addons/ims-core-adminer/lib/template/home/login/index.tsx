@@ -33,9 +33,6 @@ export default class LoginPage extends React.Component<{ login: LoginStore, cook
             <div className="login-page">
                 {login.role !== 'default' ? <Redirect to={login.from} /> : ''}
                 <div className="login-banner"></div>
-                <div className="login-name">
-                    <img src={logo} height="45" alt=""/>
-                </div>
                 <div className="login-content">
                     <div className="login-warp">
                         <Login

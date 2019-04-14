@@ -1,11 +1,12 @@
 .login-page{
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 64px);
     display: flex;
     justify-content: center;
     align-items: center;
     background-image: url("./bg.png");
     background-size: 100% 100%;
+    position: relative;
     .login-banner{
         position: absolute;
         height: 200px;
@@ -21,14 +22,6 @@
         margin: 0 auto;
         z-index: 9;
         display: flex;
-    }
-    .login-name{
-        color: #fff;
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        font-size: 30px;
-        padding: 30px;
     }
     .login-title{
         display: flex;

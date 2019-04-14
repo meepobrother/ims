@@ -2,7 +2,8 @@ import { NullAstVisitor, ClassAst, ParserAstContext, ParameterAst, MethodAst } f
 import {
     isAddonClassAst, AddonAst, isControllerClassAst, ControllerAst,
     isRenderParameterAst, RenderAst,
-    isTemplateClassAst, TemplateAst, isRoleMethodAst, RoleMethodAst
+    isTemplateClassAst, TemplateAst, isRoleMethodAst, RoleMethodAst,
+    isRoleParameterAst, RoleParameterAst
 } from 'ims-core';
 
 export class AddonVisitor extends NullAstVisitor {
@@ -20,6 +21,9 @@ export class AddonVisitor extends NullAstVisitor {
     visitParameter(ast: ParameterAst, context: ParserAstContext) {
         if (isRenderParameterAst(ast)) {
             return new RenderAst(ast, context)
+        }
+        if (isRoleParameterAst(ast)) {
+            return new RoleParameterAst(ast, context)
         }
     }
     visitMethod(ast: MethodAst, context: ParserAstContext) {
