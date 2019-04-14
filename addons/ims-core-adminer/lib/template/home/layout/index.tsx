@@ -11,11 +11,11 @@ export default class Index extends React.Component<any, any> {
     componentDidMount() { }
     render() {
         return <Layout className="ims-home-layout">
-            <Header/>
-            <Layout.Content>
+            <Header />
+            <Layout.Content className="layout-content">
                 <ImsRoutes route={this.props.route} />
+                <Footer />
             </Layout.Content>
-            <Footer/>
         </Layout>
     }
 }

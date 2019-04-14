@@ -14,13 +14,11 @@ export default class Index extends React.Component<{ homeLayout?: ImsHomeLayout 
             <div className="header-logo">
                 <img src={homeLayout.logo} height={45} alt="" />
             </div>
-            <Menu className="header-left-menu" mode="horizontal" style={{ height: '64px', lineHeight: '64px' }} theme="dark">
+            <div className="header-left-menu">
                 {homeLayout.left.map(it => {
-                    return <Menu.Item key={it.href}>
-                        <Link to={it.href}>{it.title}</Link>
-                    </Menu.Item>
+                    return <Link to={it.href}>{it.title}</Link>
                 })}
-            </Menu>
+            </div>
             <div className="header-right-menu">
                 {homeLayout.right.map(it => {
                     return <Link key={it.href} to={it.href}>{it.title}</Link>
