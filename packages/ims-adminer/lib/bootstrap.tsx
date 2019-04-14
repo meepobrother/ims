@@ -60,7 +60,6 @@ export async function bootstrap(routes: IRouter[]) {
             <Router>
                 {routes.map((route, key) => {
                     const props = routerProps(route);
-                    console.log(props);
                     return <AuthorizedRoute {...props} />
                 })}
             </Router>
