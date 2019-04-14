@@ -26,12 +26,11 @@ import { Template } from 'ims-core'
                 component: 'home'
             }, {
                 path: '/login',
-                roles: ['admin'],
                 component: 'login',
             }, {
                 path: '/adminer',
                 component: 'addon-list',
-                roles: ['admin'],
+                roles: ['admin', 'manager'],
                 store: {
                     addonList: 'store/addon-list'
                 }

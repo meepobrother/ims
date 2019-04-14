@@ -70,6 +70,13 @@ ims build --name ims-core-adminer --output node_modules --watch
 // 系统安装成功后，会在config目录生成一个server.json，请妥善保管。
 ```
 
+## 权限篇
+
+### 模板权限
+
+### 接口权限
+
+
 ## 通信篇
 
 ### Protocol 服务器与服务器间通信 单聊

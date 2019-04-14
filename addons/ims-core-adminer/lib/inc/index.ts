@@ -13,13 +13,6 @@ export class ImsCoreAdminerUser {
     })
     user: EntityRepository<ImsUserEntity>;
 
-    @Get()
-    test() {
-        return {
-            test: '123'
-        }
-    }
-
     @Post()
     async login(@Body() msg: { username: string, password: string }) {
         const user = await this.user.findOne({
