@@ -95,7 +95,7 @@ class ImsManager{
 
 }
 // 使用权限
-@Role(ImsManager)
+@Role([ImsManager])
 addUser(){
     // 添加会员
 }
