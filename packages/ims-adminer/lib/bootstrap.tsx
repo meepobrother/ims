@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React = require('react');
 import { render } from 'react-dom';
 import { ImsUtil } from 'ims-util';
 import { ImsRoutes } from './routes';
@@ -47,9 +47,9 @@ export async function bootstrap(routes: IRouter[]) {
         exact: !!router.exact,
         render: () => {
             if (router.component) {
-                return <Suspense fallback={<Loading />} >
+                return <React.Suspense fallback={<Loading />} >
                     <router.component route={router} />
-                </Suspense>
+                </React.Suspense>
             } else {
                 return <ImsRoutes route={router} />
             }
