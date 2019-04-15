@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx'
 import util from 'ims-util';
-import { CpuInfo} from 'os'
+import { CpuInfo } from 'os';
 export interface AnalysisInfo {
     uptime: number;
     type: string;
@@ -17,31 +17,28 @@ export interface AnalysisInfo {
     cpus: CpuInfo[];
     arch: string;
     processes: any[];
+    pm2: any[];
+    node: {
+        path: string;
+        versions: typeof process.versions,
+        npm: string;
+        cwd: string;
+    }
 }
 export class Analysis {
     @observable
     info: AnalysisInfo;
 
     @observable
-    tasks: any[] = [];
-
-    analysis() {
-        return util.http.get('/adminer/dashboard/updateAnalysis').then(res => {
-            this.setInfo(res.data)
-            return res;
-        });
-    }
-
-    pm2List() {
-        return util.http.get('/adminer/dashboard/pm2List').then(res => {
-            this.tasks = res.data;
-            return res;
-        });
-    }
+    loading: boolean;
 
     @action
-    setInfo(info: AnalysisInfo) {
-        this.info = info;
+    analysis() {
+        this.loading = true;
+        return util.http.get('/adminer/dashboard/updateAnalysis').then(res => {
+            this.info = res.data;
+            this.loading = false;
+        });
     }
 }
 

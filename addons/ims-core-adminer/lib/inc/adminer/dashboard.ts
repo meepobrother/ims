@@ -1,7 +1,7 @@
 import { Controller, Get, Role, Post, Body } from 'ims-core'
 import os from 'os';
 import { exec } from 'shelljs'
-import { verify } from 'ims-node'
+import { verify, execSync } from 'ims-node'
 import { list, ProcessDescription } from 'pm2';
 import ps = require('current-processes');
 
@@ -28,7 +28,14 @@ export class ImsCoreAdminerDashboard {
             tmpdir: os.tmpdir(),
             arch: os.arch(),
             avg: os.loadavg(),
-            processes: await this.getProcesses()
+            processes: await this.getProcesses(),
+            pm2: await this.pm2List(),
+            node: {
+                path: process.execPath,
+                cwd: process.cwd(),
+                versions: process.versions,
+                npm: await execSync(`npm -v`)
+            }
         }
     }
 
@@ -55,10 +62,6 @@ export class ImsCoreAdminerDashboard {
         exec(`killall ${body.id}`)
     }
 
-    @Get()
-    @Role(verify((user: any) => {
-        return user.role === 'admin'
-    }))
     pm2List() {
         const titles = {
             dev: '服务',

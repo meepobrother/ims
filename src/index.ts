@@ -1,11 +1,3 @@
-import lodash = require('lodash');
-import ps = require('current-processes');
+import { exec } from 'shelljs'
 
-ps.get(function (err, processes) {
-
-    var sorted = lodash.sortBy(processes, 'cpu');
-    var top5 = sorted.reverse().splice(0, 5);
-
-    console.log(top5);
-    debugger;
-});
+exec(`typescript -v`)
