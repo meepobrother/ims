@@ -12,6 +12,7 @@ import { history } from './history'
 import { role } from './store'
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes);
+    await role.autoLogin();
     render(<Provider role={role}>
         <AdminerRouter routes={routes} />
     </Provider>, document.getElementById('root'))

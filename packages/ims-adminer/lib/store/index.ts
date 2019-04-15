@@ -14,20 +14,10 @@ export class ImsRole {
     @observable
     avatar: string = '';
 
-    /** 自动登录 */
-    @observable
-    autoLogin: boolean;
-
     /** 设置role */
     @action
     setRole(role: string) {
         this.role = role;
-    }
-
-    /** 设置自动登录 */
-    @action
-    setAutoLogin(auto: boolean) {
-        this.autoLogin = auto;
     }
 
     /** 设置用户名 */
@@ -42,10 +32,11 @@ export class ImsRole {
         this.avatar = avatar;
     }
 
-    constructor() {
+    @action
+    autoLogin() {
         const token = util.cookie.get('token')
         if (token) {
-            util.http.get('/user/getRole').then(res => {
+            return util.http.get('/user/getRole').then(res => {
                 const user = res.data;
                 this.setRole(user.role)
                 this.setUsername(user.username);
