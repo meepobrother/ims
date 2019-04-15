@@ -16,23 +16,6 @@ export default class Index extends React.Component<{ adminerLayout: AdminerLayou
                 <div className="ucenter"></div>
                 <Menu theme="dark">
                     <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
-                    <Menu.Item>首页</Menu.Item>
                 </Menu>
             </Layout.Sider>
             <Layout.Content className="layout-content">

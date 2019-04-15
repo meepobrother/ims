@@ -10,7 +10,9 @@ export default class Index extends React.Component<{ adminerLayout?: AdminerLayo
     render() {
         const { adminerLayout, role } = this.props;
         const overlay = <Menu>
-            <Menu.Item>设计</Menu.Item>
+            {adminerLayout.menus.map(menu => {
+                return <Menu.Item style={{ padding: "5px 20px" }} onClick={(param) => menu.onClick(param)}>{menu.title}</Menu.Item>
+            })}
         </Menu>
         return <div className="ims-global-header">
             <span className="global-header-index-trigger" onClick={() => adminerLayout.setCollapsed()}>

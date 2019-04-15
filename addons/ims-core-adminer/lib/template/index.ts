@@ -63,7 +63,6 @@ import { Template } from 'ims-core'
             store: {
                 addonList: 'store/addon-list',
                 adminerLayout: 'store/adminerLayout',
-                login: 'store/login',
                 cookie: 'store/cookie',
             },
             routes: [{
@@ -76,6 +75,13 @@ import { Template } from 'ims-core'
                 routes: [{
                     path: '/analysis',
                     component: 'adminer/dashboard/analysis'
+                }]
+            }, {
+                path: '/addon',
+                component: 'adminer/addon/layout',
+                routes: [{
+                    path: '/design',
+                    component: 'adminer/addon/design'
                 }]
             }, {
                 path: '/addon-list',

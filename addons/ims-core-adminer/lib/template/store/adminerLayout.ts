@@ -1,5 +1,7 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util'
+import { history } from 'ims-adminer'
+
 export class AdminerLayout {
 
     @observable
@@ -18,7 +20,20 @@ export class AdminerLayout {
     collapsedIcon: 'menu-unfold' | 'menu-fold' = 'menu-fold';
 
     @observable
-    copyright: string = 'Powser By 杭州米波网络科技有限公司'
+    copyright: string = 'Powser By 杭州米波网络科技有限公司';
+
+    @observable
+    menus: any[] = [{
+        title: '系统监控',
+        onClick: () => {
+            history.push('/adminer/dashboard/analysis')
+        }
+    }, {
+        title: '设计模块',
+        onClick: () => {
+            history.push('/adminer/addon/design')
+        }
+    },];
 
     constructor() {
         this.collapsed = !!util.store.get('adminer:collapsed');

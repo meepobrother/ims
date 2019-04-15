@@ -35,6 +35,7 @@ export class ImsAddon {
             const last = stack[stack.length - 1];
             this.uninstalls.push((options) => {
                 const index = options.app._router.stack.indexOf(last)
+                console.log({ index });
                 options.app._router.stack.splice(index, 1)
             });
         });
