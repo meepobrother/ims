@@ -17,6 +17,9 @@ export class AdminerLayout {
     @observable
     collapsedIcon: 'menu-unfold' | 'menu-fold' = 'menu-fold';
 
+    @observable
+    copyright: string = 'Powser By 杭州米波网络科技有限公司'
+
     constructor() {
         this.collapsed = !!util.store.get('adminer:collapsed');
         this.setCollapsedIcon();

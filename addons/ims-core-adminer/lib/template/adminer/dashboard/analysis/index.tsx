@@ -19,14 +19,12 @@ export default class Index extends React.Component<{ analysis?: Analysis, role: 
             <Card title="服务器" extra={this.renderExtra()}>
                 {this.renderDetail()}
             </Card>
+            <Card style={{ marginTop: '10px' }}>
+                {this.renderTasks()}
+            </Card>
             <div className="analysis-stats">
                 <Cpu />
                 <Memory />
-            </div>
-            <div className="analysis-container">
-                <Card>
-                    {this.renderTasks()}
-                </Card>
             </div>
             <div className="analysis-tasks">
                 {this.renderTask()}

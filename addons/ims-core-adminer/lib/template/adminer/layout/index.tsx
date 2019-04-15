@@ -5,6 +5,7 @@ import "./index.less"
 import Header from './header'
 import { observer, inject } from 'mobx-react'
 import { AdminerLayout } from '../../store/adminerLayout'
+import GlobalFooter from 'ant-design-pro/lib/GlobalFooter'
 @inject('adminerLayout')
 @observer
 export default class Index extends React.Component<{ adminerLayout: AdminerLayout, route: any }, any> {
@@ -41,6 +42,7 @@ export default class Index extends React.Component<{ adminerLayout: AdminerLayou
                     </Layout.Header>
                     <Layout.Content className="main">
                         <ImsRoutes route={this.props.route} />
+                        <GlobalFooter copyright={adminerLayout.copyright} />
                     </Layout.Content>
                 </Layout>
             </Layout.Content>

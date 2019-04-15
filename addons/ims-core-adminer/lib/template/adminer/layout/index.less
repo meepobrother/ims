@@ -1,20 +1,27 @@
-.ims-adminer-layout{
+.ims-adminer-layout {
     min-height: 100vh;
-    .layout-sider{
-        overflow: auto;
+
+    .layout-sider {
+        overflow  : auto;
         max-height: 100vh;
-        .ucenter{
-            height: 300px;
+
+        .ucenter {
+            height: 64px;
         }
     }
-    .layout-content{
-        height: calc(100vh - 64px);
+
+    .layout-content {
+        height: 100%;
     }
-    .layout-header{
-        margin: 0;
-        padding:0;
+
+    .layout-header {
+        margin : 0;
+        padding: 0;
     }
-    .main{
-        padding: 20px;
+
+    .main {
+        padding   : 20px;
+        overflow  : auto;
+        max-height: calc(100vh - 64px);
     }
 }

@@ -57,7 +57,7 @@ export class HomeLayout {
             title: '联系我们',
             href: '/home/concat'
         }],
-        copyright: 'powser by 杭州米波网络科技有限公司'
+        copyright: 'Powser By 杭州米波网络科技有限公司'
     }
 
     @action
