@@ -12,7 +12,6 @@ export default class Index extends React.Component<any, any> {
         link: ''
     }
     componentDidMount() {
-        console.log('componentDidMount')
         util.ws.on('installSuccess', () => {
             this.setState({
                 installing: false

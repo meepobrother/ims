@@ -32,7 +32,6 @@ export function parseTypeorm(context: TypeContext) {
             } else {
                 console.error(`cls`)
             }
-            console.log(`entity ${cls.ast.target.name}`)
             entities.push(cls.ast.target);
         });
         model.propertys.map(cls => {

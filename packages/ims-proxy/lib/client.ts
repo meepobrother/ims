@@ -3,7 +3,6 @@ import { createConnection } from 'net';
 import def from './proto';
 export function createClient(host: string, port: number, www?: string) {
     const client = createConnection(9000, host, () => {
-        console.log(`create connection success`);
         const buf = def.Message.encode({
             type: 'connect',
             key: 10,
@@ -21,7 +20,6 @@ export function createClient(host: string, port: number, www?: string) {
     }
     client.on('socket', (data: Buffer) => {
         const item = def.Socket.decode(data, 0, data.length);
-        console.log(item);
     })
     let datas: Buffer = Buffer.alloc(0);
     client.on('data', (data: Buffer) => {
@@ -37,7 +35,6 @@ export function createClient(host: string, port: number, www?: string) {
             if (method === 'POST') {
                 options.body = body;
             }
-            console.log(`http://localhost:${port}${path}`);
             fetch(`http://localhost:${port}${path}`, options).then(async res => {
                 const dataBuf = await res.buffer();
                 const type = res.headers.get('content-type');

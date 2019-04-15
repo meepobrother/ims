@@ -1,15 +1,17 @@
-import { Controller, Get, Role, RoleParameter, Post, Socket } from 'ims-core'
+import { Controller, Get, Role, Post } from 'ims-core'
 import os from 'os';
 import { exec } from 'shelljs'
+import { verify } from 'ims-node'
+import { list, ProcessDescription } from 'pm2'
 @Controller({
     path: '/adminer/dashboard'
 })
 export class ImsCoreAdminerDashboard {
     @Get()
-    @Role((user: any) => {
+    @Role(verify((user: any) => {
         return user.role === 'admin'
-    })
-    updateAnalysis(@Role() role: RoleParameter) {
+    }))
+    async updateAnalysis() {
         return {
             hostname: os.hostname(),
             uptime: os.uptime(),
@@ -33,5 +35,26 @@ export class ImsCoreAdminerDashboard {
     })
     restart() {
         exec(`pm2 retart all`)
+    }
+
+    @Get()
+    @Role(verify((user: any) => {
+        return user.role === 'admin'
+    }))
+    pm2List() {
+        return new Promise((resolve, reject) => {
+            list((err: Error, processDescriptionList: ProcessDescription[]) => {
+                if (err) reject(err);
+                const lis = processDescriptionList.map(li => {
+                    return {
+                        name: li.name,
+                        pid: li.pid,
+                        pm_id: li.pm_id,
+                        monit: li.monit
+                    }
+                });
+                resolve(lis)
+            })
+        })
     }
 }

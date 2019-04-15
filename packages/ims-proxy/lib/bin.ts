@@ -22,7 +22,6 @@ ws.on('connection', (socket: WebSocket, request: IncomingMessage) => {
     socket.on('message', (data: string | Buffer) => {
         const str = data.toString('utf8');
         const hand = handler.hostMap.get(hostName);
-        console.log(`on message`)
         if (hand) {
             const buf = def.Socket.encode({ type: 'socket', data: str, key: handler.getKey() });
             hand.emit('socket', buf);

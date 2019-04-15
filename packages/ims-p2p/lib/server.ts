@@ -14,9 +14,6 @@ export async function bootstrap(): Promise<Libp2p> {
         peerInfo,
     }, config.list);
     node.on('start', () => {
-        peerInfo.multiaddrs.forEach((ma) => {
-            console.log('Swarm listening on', ma.toString())
-        });
         discoveredPeers.forEach(putAndDial)
         discoveredPeers = []
     });

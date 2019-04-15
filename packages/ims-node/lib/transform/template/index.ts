@@ -28,9 +28,7 @@ function handlerRouter(irouter: IRouter, type: 'admin' | 'mobile', router: Expre
             });
             callback()
         } else {
-            console.log(`handlerRouter: ${irouter.path}`)
             router.get(irouter.path, (req, res, next) => {
-                console.log(`get template ${irouter.path}`)
                 res.sendFile(dist)
             });
             callback()

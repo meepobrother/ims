@@ -112,9 +112,6 @@ export class TemplateAst extends ClassContext<T.TemplateOptions> {
                         ...route,
                         routes: this.handleIRouter(routes, route)
                     }
-                    if (parent.path.startsWith('//')) {
-                        console.log(parent.path)
-                    }
                     if (!!path && path !== '/') {
                         if (parent.path === '/') {
                             r.path = path

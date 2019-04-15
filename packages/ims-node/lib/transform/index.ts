@@ -2,39 +2,33 @@ import { Type } from "ims-decorator";
 import WebSocket from 'ws';
 import { handlerMap } from './socket'
 import { TransformOptions } from './type'
-const log = (str: string) => console.log(`transform:${str}`)
 export const socketSet: Set<WebSocket> = new Set();
 import { ImsApplication } from './application'
 export function transform(
     addons: Type<any>[],
     options: TransformOptions
 ): ImsApplication {
-    console.log(`create application`)
     const { server } = options;
     const application = new ImsApplication(addons, options);
     // socket
     server.on('connection', (ws, req) => {
-        log(`connection`)
         // 建立连接
         socketSet.add(ws);
         ws.on('open', () => {
-            log(`ws open`)
+            // open
         })
         // 接收消息
         ws.on('message', (data) => {
             // 收到消息
-            log(`receive socket message:${data}`)
             const { type, payload } = JSON.parse(data.toString());
             handlerMap.get(type)(ws, req, payload);
         });
         // 错误
         ws.on('error', (err) => {
-            log(`error:${err.message}`)
             socketSet.delete(ws);
         });
         // 关闭
         ws.on('close', (code: number, reason: string) => {
-            log(`close:${code}${reason}`)
             ws.send({
                 type: 'close',
                 payload: {
@@ -42,19 +36,20 @@ export function transform(
                     reason
                 }
             }, (err) => {
-                if (err) log(err.message)
+                // error
             });
             socketSet.delete(ws)
         });
     });
-    server.on('error', (err) => log(`error:${err.message}`));
+    server.on('error', (err) => {
+        // error
+    });
     server.on('listening', () => {
-        console.log(`listening`)
+        // listening
     });
     // todo
     server.on('headers', (headers, req) => {
         // 检查
-        log(`headers:${headers.join(',')}`)
     });
     return application;
 }

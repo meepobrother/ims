@@ -3,7 +3,6 @@ import { TypeContext } from 'ims-decorator';
 const pull = require('pull-stream');
 const Pushable = require('pull-pushable');
 import { TransformOptions } from '../type'
-const protocolDebug = (msg: string) => console.log(`transform:protocol:${msg}`);
 
 export function transformProtocol(context: TypeContext, options: TransformOptions) {
     /** 属性 */
@@ -30,7 +29,6 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
     const mth = context.instance[method.ast.propertyKey].bind(context.instance);
     const params = new Array(method.ast.parameterLength);
     const p = Pushable()
-    protocolDebug(`registe protocol ${path}`)
     options.libp2p.handle(path, (protocol: any, conn: any) => {
         pull(p, conn);
         const handler = (data: string) => p.push(data)
@@ -44,7 +42,7 @@ function transformProtocolMethod(method: ProtocolMethodAst, context: TypeContext
                     // 接收消息
                     params[par.ast.parameterIndex] = item;
                 } else {
-                    protocolDebug(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
+                    console.log(`transformProtocolMethod:${path} ${par.ast.metadataKey} parameter not found handler`)
                 }
             });
             mth(...params);

@@ -16,14 +16,12 @@ export class ImsAddon {
     uninstalls: ImsAddonUninstall[] = [];
     private router = Router();
     constructor(public target: Type<any>, public options: TransformOptions) {
-        console.log(`create addon ${target.name}`)
         const addon = visitor.visitType(target);
         const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;
         const incs = addonAst.incs;
         incs.map(inc => {
             this.install(inc)
         });
-        console.log(`create addon path ${addonAst.path}`)
         options.app.use(addonAst.path, this.router);
         const stack = options.app._router.stack;
         const last = stack[stack.length - 1];
@@ -43,10 +41,6 @@ export class ImsAddon {
     }
 
     private install(inc: TypeContext) {
-        console.log(`create addon inc ${inc.target.name}`)
-        console.log(`create addon inc classes ${inc.classes.length}`)
-        console.log(`create addon inc propertys ${inc.propertys.length}`)
-        console.log(`create addon inc methods ${inc.methods.length}`)
         // 解析role
         transformRole(inc, this.options);
         this.uninstalls.push((options) => {
@@ -58,7 +52,6 @@ export class ImsAddon {
         transformSocket(inc, this.options);
         // 解析http
         const path = transformHttp(inc, this.options);
-        console.log(`create addon inc router ${path.path}`)
         this.router.use(path.path, path.router);
         const stack = this.router.stack[this.router.stack.length - 1];
         this.uninstalls.push(options => {
