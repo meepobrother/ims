@@ -9,7 +9,8 @@ import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import { history } from './history'
-import { role } from './store'
+import { role } from './store';
+
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes);
     await role.autoLogin();

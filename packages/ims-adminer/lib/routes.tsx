@@ -3,7 +3,8 @@ import { Loading } from './loading';
 import { observer } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import React from 'react';
-import { role } from './store/index'
+import { role } from './store';
+
 @observer
 export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fallback?: any }, any> {
     static defaultProps = {
