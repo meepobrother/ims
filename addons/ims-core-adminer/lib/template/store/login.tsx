@@ -25,6 +25,14 @@ export class Login {
     @observable
     token: string;
 
+    @action
+    setToken(token: string) {
+        this.token = token;
+        util.http.get('/user/getRole').then(res => {
+            console.log(res.data)
+        });
+    }
+
     // ui 设置
     @observable
     setting: any = {
@@ -82,8 +90,6 @@ export class Login {
                         this.username = user.username;
                         this.token = user.token;
                         util.cookie.set('token', user.token)
-                        util.cookie.set('role', user.role)
-                        util.cookie.set('username', user.username)
                         history.push('/home/index')
                     }
                 }).catch(e => {
@@ -134,8 +140,6 @@ export class Login {
         this.username = '';
         this.token = '';
         util.cookie.remove('token')
-        util.cookie.remove('role')
-        util.cookie.remove('username')
         history.push('/home/login')
     }
     /**

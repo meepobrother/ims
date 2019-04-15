@@ -9,26 +9,7 @@ import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import { history } from './history'
-const ObjectStore: { [key: string]: any } = {};
-export function createStore(routes: IRouter[]) {
-    routes.map(route => {
-        const { store, routes } = route;
-        if (store) {
-            Object.keys(store).map(key => {
-                if (!!ObjectStore[key]) {
-                    console.log(`warning:${key} is exist!!!`)
-                } else {
-                    ObjectStore[key] = store[key];
-                    console.log(`store key: ${key}`)
-                }
-            });
-        }
-        if (routes && routes.length > 0) {
-            createStore(routes)
-        }
-    });
-    return ObjectStore;
-}
+
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes);
     render(<AdminerRouter routes={routes} />, document.getElementById('root'))

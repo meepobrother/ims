@@ -1,6 +1,6 @@
-import { Controller, Post, Body, EntityRepository, Get } from "ims-core";
+import { Controller, Post, Body, EntityRepository, Get, Role, Req } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
-import { isEqualPassword, sign } from 'ims-node';
+import { isEqualPassword, sign, verify } from 'ims-node';
 import { getConfig } from "ims-common";
 
 @Controller({
@@ -49,6 +49,18 @@ export class ImsCoreAdminerUser {
                     message: '账户名或密码错误'
                 }
             }
+        }
+    }
+
+
+    @Get()
+    @Role(verify((user) => {
+        return true;
+    }))
+    async getRole(@Req() req: any) {
+        const user = req.user;
+        return {
+            role: user.role
         }
     }
 }

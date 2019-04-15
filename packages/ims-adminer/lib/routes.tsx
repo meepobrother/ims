@@ -1,9 +1,9 @@
 import { IRouter } from 'ims-core';
 import { Loading } from './loading';
-import { observer, inject } from 'mobx-react'
+import { observer } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import React from 'react';
-@inject('login')
+import util from 'ims-util'
 @observer
 export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fallback?: any }, any> {
     static defaultProps = {
@@ -11,7 +11,7 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
     }
     render() {
         const { route } = this.props;
-        const userRole = this.props.login.role || 'default'
+        const userRole = util.cookie.get('role') || 'default'
         const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
         const props: any = (router) => ({
             authority: role => {
@@ -26,7 +26,7 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
             path: router.path,
             exact: !!router.exact,
             render: () => {
-                return <React.Suspense fallback={<Loading/>} >
+                return <React.Suspense fallback={<Loading />} >
                     <router.component route={router} />
                 </React.Suspense>
             }

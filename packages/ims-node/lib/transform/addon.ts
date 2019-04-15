@@ -40,7 +40,6 @@ export class ImsAddon {
                 options.app._router.stack.splice(index, 1)
             });
         });
-        
     }
 
     private install(inc: TypeContext) {
