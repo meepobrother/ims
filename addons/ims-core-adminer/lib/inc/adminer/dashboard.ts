@@ -48,12 +48,19 @@ export class ImsCoreAdminerDashboard {
         return user.role === 'admin'
     }))
     pm2List() {
+        const titles = {
+            dev: '服务',
+            template_dev: '模板',
+            prod: '服务',
+            template_prod: '模板'
+        }
         return new Promise((resolve, reject) => {
             list((err: Error, processDescriptionList: ProcessDescription[]) => {
                 if (err) reject(err);
-                const lis = processDescriptionList.map(li => {
+                const lis = processDescriptionList.map((li, key) => {
                     return {
                         name: li.name,
+                        title: titles[li.name] || `任务${key}`,
                         pid: li.pid,
                         pm_id: li.pm_id,
                         monit: li.monit

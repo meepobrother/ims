@@ -58,21 +58,23 @@ export default class Index extends React.Component<{
         const { info } = analysis;
         if (info) {
             const total = this.getTotalV();
+            const percent = numeral(total.idle).divide(total.total).multiply(1000).value()
             return <ChartCard
-                title="CPU已使用"
+                title={`CPU已使用`}
                 action={
                     <Tooltip title="指标说明">
                         <Icon type="info-circle-o" />
                     </Tooltip>
                 }
                 total={() => {
-                    const percent = numeral(total.idle).divide(total.total).value()
-                    console.log(percent);
-                    return <WaterWave
-                        height={38}
-                        title=""
-                        percent={percent}
-                    />
+                    return <div style={{ display: 'flex' }}>
+                        {parseInt(`${percent / 10}`)}% &nbsp;
+                        <WaterWave
+                            height={38}
+                            title=""
+                            percent={percent / 10}
+                        />
+                    </div>
                 }}
                 footer={<Field label="总计" value={numeral(total.total).format('0,0') + 'Hz'} />}
                 contentHeight={46}
