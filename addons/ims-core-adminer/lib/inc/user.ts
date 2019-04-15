@@ -60,7 +60,8 @@ export class ImsCoreAdminerUser {
     async getRole(@Req() req: any) {
         const user = req.user;
         return {
-            role: user.role
+            role: user.role,
+            id: user.id
         }
     }
 }
