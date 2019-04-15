@@ -2,7 +2,7 @@ import React = require('react');
 import { Button } from 'antd'
 import "./index.less";
 import { observer } from 'mobx-react'
-import AddonList from '../../store/addon-list';
+import { AddonList } from '../../store/addon-list';
 @observer
 export default class Index extends React.Component<{ addonList: AddonList }, any> {
     componentDidMount() { }

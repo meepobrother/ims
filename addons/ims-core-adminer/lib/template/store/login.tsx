@@ -73,7 +73,7 @@ export class Login {
                         util.cookie.set('token', user.token, {
                             path: '/'
                         });
-                        history.push('/home/index')
+                        history.push('/adminer/dashboard/analysis')
                     }
                 }).catch(e => {
                     this.setNotice(e.message)

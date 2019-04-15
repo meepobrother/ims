@@ -4,6 +4,7 @@ import { ImsRouter } from './router';
 import { IRouter } from 'ims-core';
 import Axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { ImsCookie } from 'ims-cookie';
+import store from 'store';
 
 Axios.interceptors.request.use((config) => {
     const token = ImsUtil.cookie.get('token');
@@ -37,6 +38,7 @@ export class ImsUtil {
     static http: AxiosInstance = Axios;
     static router: ImsRouter;
     static cookie: ImsCookie = new ImsCookie(document.cookie);
+    static store: typeof store = store;
     static createHttp(opt: AxiosRequestConfig) {
         return Axios.create(opt)
     }

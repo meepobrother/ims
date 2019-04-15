@@ -3,12 +3,17 @@ import { Layout, Menu } from 'antd';
 import { ImsRoutes } from 'ims-adminer'
 import "./index.less"
 import Header from './header'
-export default class Index extends React.Component<any, any> {
+import { observer, inject } from 'mobx-react'
+import { AdminerLayout } from '../../store/adminerLayout'
+@inject('adminerLayout')
+@observer
+export default class Index extends React.Component<{ adminerLayout: AdminerLayout, route: any }, any> {
     render() {
+        const { adminerLayout } = this.props;
         return <Layout className="ims-adminer-layout">
-            <Layout.Sider className="layout-sider">
+            <Layout.Sider collapsed={adminerLayout.collapsed} className="layout-sider">
                 <div className="ucenter"></div>
-                <Menu>
+                <Menu theme="dark">
                     <Menu.Item>首页</Menu.Item>
                     <Menu.Item>首页</Menu.Item>
                     <Menu.Item>首页</Menu.Item>
@@ -34,7 +39,7 @@ export default class Index extends React.Component<any, any> {
                     <Layout.Header className="layout-header">
                         <Header />
                     </Layout.Header>
-                    <Layout.Content>
+                    <Layout.Content className="main">
                         <ImsRoutes route={this.props.route} />
                     </Layout.Content>
                 </Layout>

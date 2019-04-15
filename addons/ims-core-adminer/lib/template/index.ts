@@ -59,14 +59,25 @@ import { Template } from 'ims-core'
             path: '/adminer',
             component: 'adminer/layout',
             roles: ['admin'],
-            redirect: '/adminer/addon-list',
+            redirect: '/adminer/dashboard/analysis',
             store: {
                 addonList: 'store/addon-list',
-                homeLayout: 'store/homeLayout',
+                adminerLayout: 'store/adminerLayout',
                 login: 'store/login',
                 cookie: 'store/cookie',
             },
             routes: [{
+                path: '/dashboard',
+                redirect: '/adminer/dashboard/analysis',
+                component: 'adminer/dashboard/layout',
+                store: {
+                    analysis: 'adminer/dashboard/analysis/store'
+                },
+                routes: [{
+                    path: '/analysis',
+                    component: 'adminer/dashboard/analysis'
+                }]
+            }, {
                 path: '/addon-list',
                 component: 'adminer/addon-list'
             }, {

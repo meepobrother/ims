@@ -1,6 +1,6 @@
 import { IRouter } from 'ims-core';
 import { Loading } from './loading';
-import { observer } from 'mobx-react'
+import { observer, Provider } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import React from 'react';
 import { role } from './store';
@@ -33,7 +33,13 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
         })
         return route.routes && route.routes.map((router, key) => {
             const _props = props(router);
-            return <AuthorizedRoute {..._props} />
+            if (router.store) {
+                return <Provider role={role} {...router.store}>
+                    <AuthorizedRoute {..._props} />
+                </Provider>
+            } else {
+                return <AuthorizedRoute {..._props} />
+            }
         })
     }
 }

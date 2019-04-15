@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 const change = new Subject();
 change.pipe(
-    debounceTime(500)
+    debounceTime(50)
 ).subscribe((sourceRoot: string) => {
     if (ImsApplication.application) {
         const type = require(sourceRoot).default;
