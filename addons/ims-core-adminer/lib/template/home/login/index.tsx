@@ -1,13 +1,12 @@
 import Login from 'ant-design-pro/lib/Login';
-import { Alert, Checkbox, Icon } from 'antd';
-import { Link, Redirect } from 'react-router-dom';
+import { Alert, Checkbox, Icon, Modal } from 'antd';
+import { Link } from 'react-router-dom';
 import React = require('react');
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 import "./index.less";
 import { observer, inject } from 'mobx-react';
-import LoginStore from '../../store/login';
-import LoginCookie from '../../store/cookie';
-import logo from './logo-light.png';
+import { Login as LoginStore } from '../../store/login';
+import { Cookie as LoginCookie } from '../../store/cookie';
 
 @inject('login', 'cookie')
 @observer
@@ -31,7 +30,6 @@ export default class LoginPage extends React.Component<{ login: LoginStore, cook
         const { mobile: InputMobile, captcha } = mobile;
         return (
             <div className="login-page">
-                {login.role !== 'default' ? <Redirect to={login.from} /> : ''}
                 <div className="login-banner"></div>
                 <div className="login-content">
                     <div className="login-warp">

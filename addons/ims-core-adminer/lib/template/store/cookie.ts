@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util';
-export default class Cookie {
+export class Cookie {
     @observable
     cookie: { [name: string]: any }
 
@@ -11,8 +11,10 @@ export default class Cookie {
             this.setCookie(util.cookie.getAll())
         });
     }
+
     @action
     setCookie(cookie: { [name: string]: any }) {
         this.cookie = cookie;
     }
 }
+export default new Cookie();

@@ -1,7 +1,7 @@
 import { observer, inject } from 'mobx-react'
 import React = require('react');
 import GlobalFooter from 'ant-design-pro/lib/GlobalFooter';
-import ImsHomeLayout from '../../../store/homeLayout'
+import { HomeLayout as ImsHomeLayout } from '../../../store/homeLayout'
 @inject('homeLayout')
 @observer
 export default class Index extends React.Component<{ homeLayout?: ImsHomeLayout }, any> {

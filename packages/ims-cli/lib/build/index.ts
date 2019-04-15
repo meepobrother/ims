@@ -46,7 +46,10 @@ export class ImsBuild {
     async run() {
         if (this.name) {
             const srcRoot = this.system ? 'packages' : 'addons';
-            await _rimraf(join(root, this.output, this.name));
+            if(!this.watch){
+                // 如果非开发模式删除原路径文件
+                await _rimraf(join(root, this.output, this.name));
+            }
             console.log(`name:${this.name}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`)
             await packProject(this.name, this.output, srcRoot, !!this.watch);
             if (!this.watch) {

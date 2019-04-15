@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx';
 import React = require('react');
 import util from 'ims-util';
-
-export default class Login {
+import { history } from 'ims-adminer'
+export class Login {
     // 记住
     @observable
     autoLogin: boolean = true;
@@ -15,13 +15,15 @@ export default class Login {
     @observable
     tab: 'account' | 'mobile' = 'account';
 
-    // 从什么地方进入登录的
-    @observable
-    from: string = '/home';
-
     // 角色
     @observable
     role: string = 'default';
+
+    @observable
+    username: string;
+
+    @observable
+    token: string;
 
     // ui 设置
     @observable
@@ -77,7 +79,12 @@ export default class Login {
                         // 跳转
                         const user = data.data;
                         this.role = user.role;
+                        this.username = user.username;
+                        this.token = user.token;
                         util.cookie.set('token', user.token)
+                        util.cookie.set('role', user.role)
+                        util.cookie.set('username', user.username)
+                        history.push('/home/index')
                     }
                 }).catch(e => {
                     this.setNotice(e.message)
@@ -123,7 +130,13 @@ export default class Login {
      * 退出登录
      **/
     logout() {
+        this.role = 'default';
+        this.username = '';
+        this.token = '';
         util.cookie.remove('token')
+        util.cookie.remove('role')
+        util.cookie.remove('username')
+        history.push('/home/login')
     }
     /**
      * 注册
@@ -131,3 +144,5 @@ export default class Login {
     register() {
     }
 }
+
+export default new Login();

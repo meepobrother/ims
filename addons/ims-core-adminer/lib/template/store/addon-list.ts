@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-export default class AddonList {
+export class AddonList {
 
     @observable
     list: any[] = [{
@@ -16,3 +16,5 @@ export default class AddonList {
         this.list.push(item)
     }
 }
+
+export default new AddonList();

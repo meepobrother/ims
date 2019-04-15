@@ -36,6 +36,7 @@ ImsAdminerTemplate = __decorate([
             {
                 path: '/home',
                 component: 'home/layout',
+                redirect: '/home/index',
                 store: {
                     homeLayout: 'store/homeLayout',
                     login: 'store/login',

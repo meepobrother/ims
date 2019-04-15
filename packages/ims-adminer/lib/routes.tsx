@@ -15,6 +15,7 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
         const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
         const props: any = (router) => ({
             authority: role => {
+                console.log(role)
                 if (!router.roles) return true;
                 if (router.roles.length === 0) return true;
                 if (role === 'admin') return true;

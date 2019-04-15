@@ -21,6 +21,9 @@ export class ImsApplication {
     installAddon(target: Type<any>) {
         this.types.push(target);
         this.addons.set(target, new ImsAddon(target, this.options))
+        // build template
+        createAdmin(this.types);
+        createMobile(this.types);
     }
     // 卸载
     unInstallAddon(target: Type<any>) {

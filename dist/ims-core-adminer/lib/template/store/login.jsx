@@ -24,7 +24,7 @@ class Login {
         // 当前激活tab
         this.tab = 'account';
         // 从什么地方进入登录的
-        this.from = '/home';
+        this.from = '/home/index';
         // 角色
         this.role = 'default';
         // ui 设置
@@ -82,7 +82,11 @@ class Login {
                             // 跳转
                             const user = data.data;
                             this.role = user.role;
+                            this.username = user.username;
+                            this.token = user.token;
                             ims_util_1.default.cookie.set('token', user.token);
+                            ims_util_1.default.cookie.set('role', user.role);
+                            ims_util_1.default.cookie.set('username', user.username);
                         }
                     }).catch(e => {
                         this.setNotice(e.message);
@@ -153,6 +157,14 @@ __decorate([
     mobx_1.observable,
     __metadata("design:type", String)
 ], Login.prototype, "role", void 0);
+__decorate([
+    mobx_1.observable,
+    __metadata("design:type", String)
+], Login.prototype, "username", void 0);
+__decorate([
+    mobx_1.observable,
+    __metadata("design:type", String)
+], Login.prototype, "token", void 0);
 __decorate([
     mobx_1.observable,
     __metadata("design:type", Object)

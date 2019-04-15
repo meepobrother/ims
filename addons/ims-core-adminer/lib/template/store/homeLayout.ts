@@ -1,10 +1,12 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util'
+import { history } from 'ims-adminer'
 interface Footer {
     links: any[];
     copyright: string;
 }
-export default class Cookie {
+import login from './login'
+export class HomeLayout {
 
     @observable
     logo: string;
@@ -34,6 +36,19 @@ export default class Cookie {
     }];
 
     @observable
+    userMenus: any[] = [{
+        title: '进入后台',
+        onClick: () => {
+            history.push('/adminer');
+        }
+    }, {
+        title: '退出登录',
+        onClick: () => {
+            login.logout();
+        }
+    }]
+
+    @observable
     footer: Footer = {
         links: [{
             title: '关于我们',
@@ -50,3 +65,4 @@ export default class Cookie {
         util.http.get('/')
     }
 }
+export default new HomeLayout();

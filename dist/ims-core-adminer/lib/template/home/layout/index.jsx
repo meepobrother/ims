@@ -21,10 +21,10 @@ let Index = class Index extends React.Component {
     render() {
         return <antd_1.Layout className="ims-home-layout">
             <header_1.default />
-            <antd_1.Layout.Content>
+            <antd_1.Layout.Content className="layout-content">
                 <ims_adminer_1.ImsRoutes route={this.props.route}/>
+                <footer_1.default />
             </antd_1.Layout.Content>
-            <footer_1.default />
         </antd_1.Layout>;
     }
 };

@@ -4,6 +4,8 @@ export default class Login {
     tab: 'account' | 'mobile';
     from: string;
     role: string;
+    username: string;
+    token: string;
     setting: any;
     setAutoLogin(e: boolean): void;
     setTab(key: 'account' | 'mobile'): void;

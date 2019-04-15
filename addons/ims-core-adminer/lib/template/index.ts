@@ -60,7 +60,10 @@ import { Template } from 'ims-core'
             component: 'adminer/addon-list',
             roles: ['admin'],
             store: {
-                addonList: 'store/addon-list'
+                addonList: 'store/addon-list',
+                homeLayout: 'store/homeLayout',
+                login: 'store/login',
+                cookie: 'store/cookie',
             }
         }
     ]

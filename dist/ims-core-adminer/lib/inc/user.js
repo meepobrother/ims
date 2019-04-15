@@ -32,7 +32,7 @@ let ImsCoreAdminerUser = class ImsCoreAdminerUser {
                 const config = ims_common_1.getConfig();
                 let role = 'default';
                 if (config.admin.includes(user.id)) {
-                    role = 'member';
+                    role = 'admin';
                 }
                 return {
                     code: 0,

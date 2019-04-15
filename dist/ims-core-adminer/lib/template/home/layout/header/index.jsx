@@ -11,6 +11,10 @@ const React = require("react");
 const antd_1 = require("antd");
 const ims_adminer_1 = require("ims-adminer");
 require("./index.less");
+const userMenu = <antd_1.Menu>
+    <antd_1.Menu.Item>管理后台</antd_1.Menu.Item>
+    <antd_1.Menu.Item>退出登录</antd_1.Menu.Item>
+</antd_1.Menu>;
 let Index = class Index extends React.Component {
     render() {
         const { homeLayout } = this.props;
@@ -18,23 +22,35 @@ let Index = class Index extends React.Component {
             <div className="header-logo">
                 <img src={homeLayout.logo} height={45} alt=""/>
             </div>
-            <antd_1.Menu className="header-left-menu" mode="horizontal" style={{ height: '64px', lineHeight: '64px' }} theme="dark">
+            <div className="header-left-menu">
                 {homeLayout.left.map(it => {
-            return <antd_1.Menu.Item key={it.href}>
-                        <ims_adminer_1.Link to={it.href}>{it.title}</ims_adminer_1.Link>
-                    </antd_1.Menu.Item>;
+            return <ims_adminer_1.Link to={it.href}>{it.title}</ims_adminer_1.Link>;
         })}
-            </antd_1.Menu>
+            </div>
             <div className="header-right-menu">
-                {homeLayout.right.map(it => {
-            return <ims_adminer_1.Link key={it.href} to={it.href}>{it.title}</ims_adminer_1.Link>;
-        })}
+                {this.renderHeaderRightMenu()}
             </div>
         </antd_1.Layout.Header>;
     }
+    renderHeaderRightMenu() {
+        const { login, homeLayout } = this.props;
+        if (login.username) {
+            return <div className="username">
+                <antd_1.Dropdown trigger={['click']} overlay={userMenu}>
+                    <antd_1.Avatar />
+                    <span><b>{login.username}</b></span>
+                </antd_1.Dropdown>
+            </div>;
+        }
+        else {
+            return homeLayout.right.map(it => {
+                return <ims_adminer_1.Link key={it.href} to={it.href}>{it.title}</ims_adminer_1.Link>;
+            });
+        }
+    }
 };
 Index = __decorate([
-    mobx_react_1.inject('homeLayout'),
+    mobx_react_1.inject('homeLayout', 'login'),
     mobx_react_1.observer
 ], Index);
 exports.default = Index;
