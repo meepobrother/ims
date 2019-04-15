@@ -29,6 +29,8 @@ export class ImsCoreAdminerUser {
                 let role = 'default';
                 if (config.admin.includes(user.id)) {
                     role = 'admin';
+                } else {
+                    role = 'manager';
                 }
                 return {
                     code: 0,

@@ -115,6 +115,7 @@
     "core-js": "^2.6.5",
     "css-loader": "^2.1.1",
     "css-modules-typescript-loader": "^1.1.1",
+    "current-processes": "^0.2.1",
     "dts-css-modules-loader": "^1.0.1",
     "dva": "^2.4.1",
     "electron": "^4.0.8",

@@ -3,7 +3,6 @@ import "./index.less"
 import math from 'mathjs';
 import { inject, observer } from 'mobx-react'
 import { Analysis } from '../store'
-
 import { ChartCard, Field } from 'ant-design-pro/lib/Charts';
 import { Icon, Tooltip } from 'antd';
 

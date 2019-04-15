@@ -2,7 +2,9 @@ import { Controller, Get, Role, Post, Body } from 'ims-core'
 import os from 'os';
 import { exec } from 'shelljs'
 import { verify } from 'ims-node'
-import { list, ProcessDescription } from 'pm2'
+import { list, ProcessDescription } from 'pm2';
+import ps = require('current-processes');
+
 @Controller({
     path: '/adminer/dashboard'
 })
@@ -25,8 +27,18 @@ export class ImsCoreAdminerDashboard {
             platform: os.platform(),
             tmpdir: os.tmpdir(),
             arch: os.arch(),
-            avg: os.loadavg()
+            avg: os.loadavg(),
+            processes: await this.getProcesses()
         }
+    }
+
+    getProcesses() {
+        return new Promise((resolve, reject) => {
+            ps.get((err, processes) => {
+                if (err) reject(err)
+                resolve(processes);
+            });
+        });
     }
 
     /** 重新启动 */

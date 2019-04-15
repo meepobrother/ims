@@ -16,6 +16,7 @@ export interface AnalysisInfo {
     homedir: string;
     cpus: CpuInfo[];
     arch: string;
+    processes: any[];
 }
 export class Analysis {
     @observable

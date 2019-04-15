@@ -1,27 +1,11 @@
-import { loadavg } from 'os'
+import lodash = require('lodash');
+import ps = require('current-processes');
 
-const avg = loadavg();
+ps.get(function (err, processes) {
 
-import { exec } from 'shelljs'
-const top = exec(`top`, {
-    cwd: process.cwd()
-}, () => { })
+    var sorted = lodash.sortBy(processes, 'cpu');
+    var top5 = sorted.reverse().splice(0, 5);
 
-top.stdout.on('data', (chunk: string) => {
-    const chunks = chunk.split('\n')
-    const res = {
-        processes: getProcesses(chunks[0])
-    }
+    console.log(top5);
     debugger;
-})
-
-function getProcesses(chunk: string) {
-    const processes = /Processes:(.*?)total,(.*?)running,(.*?)sleeping,(.*?)threads/
-    const res = processes.exec(chunk);
-    return {
-        total: res[1].trim(),
-        running: res[2].trim(),
-        sleeping: res[3].trim(),
-        threads: res[4].trim()
-    }
-}
+});
