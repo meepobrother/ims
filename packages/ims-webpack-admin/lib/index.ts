@@ -53,13 +53,13 @@ export class ImsWebpackAdmin extends ImsWebpack {
         this.config.plugin('antdDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/antd.manifest.json'))
         }]);
-        this.config.plugin('antdDll').use(DllReferencePlugin, [{
+        this.config.plugin('antDesignIconsDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/antDesignIcons.manifest.json'))
         }]);
-        this.config.plugin('antdDll').use(DllReferencePlugin, [{
+        this.config.plugin('bizchartsDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/bizcharts.manifest.json'))
         }]);
-        this.config.plugin('antdDll').use(DllReferencePlugin, [{
+        this.config.plugin('dataSetDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/dataSet.manifest.json'))
         }]);
         this.entity.add(createAdmin(this.addons));
