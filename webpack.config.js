@@ -9,7 +9,10 @@ module.exports = {
         react: ['react', 'react-dom', 'react-router', 'react-router-dom'],
         core: ['ims-core', 'lodash'],
         antd: ['antd'],
-        polyfill: ['@babel/polyfill']
+        polyfill: ['@babel/polyfill'],
+        bizcharts: ['bizcharts'],
+        dataSet: ['@antv/data-set'],
+        antDesignIcons: ['@ant-design/icons']
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],

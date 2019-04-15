@@ -1,10 +1,13 @@
 import React = require('react');
 import { MiniArea } from 'ant-design-pro/lib/Charts';
+import { Pie } from 'ant-design-pro/lib/Charts';
 import { Analysis } from './store'
 import { observer, inject } from 'mobx-react'
-import { Card, Button, Row, Col } from 'antd'
+import { Card, Button } from 'antd'
 import { WaterWave } from 'ant-design-pro/lib/Charts'
 import math from 'mathjs';
+import Cpu from './cpu'
+import Memory from './memory'
 
 import "./index.less";
 @inject('analysis', 'role')
@@ -17,8 +20,13 @@ export default class Index extends React.Component<{ analysis?: Analysis, role: 
     render() {
         return <div className="ims-page-analysis">
             <div className="analysis-container">
+                <Cpu />
+                <Memory />
+            </div>
+            <div className="analysis-container">
                 {this.renderDetail()}
                 {this.renderCpu()}
+                {this.renderTasks()}
             </div>
         </div>
     }
@@ -26,7 +34,6 @@ export default class Index extends React.Component<{ analysis?: Analysis, role: 
     renderDetail() {
         const { analysis } = this.props;
         const { info } = analysis;
-        console.log(info)
         if (info) {
             return <Card title="服务器"
                 style={{ width: '300px' }}
@@ -41,8 +48,19 @@ export default class Index extends React.Component<{ analysis?: Analysis, role: 
         }
     }
 
-    renderTasks() { 
-        
+    renderTasks() {
+        const { analysis } = this.props;
+        const { tasks } = analysis;
+        if (tasks) {
+            return tasks.map(task => {
+                const { monit } = task;
+                return <Card style={{ width: '300px', marginLeft: '20px' }} title={task.name}>
+                    <div style={{ textAlign: 'center' }}>
+                        <Pie percent={monit.cpu} subTitle="cpu" total={`${monit.cpu}%`} height={140} />
+                    </div>
+                </Card>
+            })
+        }
     }
 
     renderCpu() {

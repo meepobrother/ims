@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import util from 'ims-util';
-interface AnalysisInfo {
+import { CpuInfo} from 'os'
+export interface AnalysisInfo {
     uptime: number;
     type: string;
     freemem: number;
@@ -13,11 +14,7 @@ interface AnalysisInfo {
     };
     hostname: string;
     homedir: string;
-    cpus: {
-        model: string;
-        speed: number;
-        times: any;
-    }[];
+    cpus: CpuInfo[];
     arch: string;
 }
 export class Analysis {

@@ -1,4 +1,4 @@
-import { Controller, Get, Role, Post } from 'ims-core'
+import { Controller, Get, Role, Post, Body } from 'ims-core'
 import os from 'os';
 import { exec } from 'shelljs'
 import { verify } from 'ims-node'
@@ -24,7 +24,8 @@ export class ImsCoreAdminerDashboard {
             homedir: os.homedir(),
             platform: os.platform(),
             tmpdir: os.tmpdir(),
-            arch: os.arch()
+            arch: os.arch(),
+            avg: os.loadavg()
         }
     }
 
@@ -35,6 +36,11 @@ export class ImsCoreAdminerDashboard {
     })
     restart() {
         exec(`pm2 retart all`)
+    }
+
+    @Post()
+    killPid(@Body() body: any) {
+        exec(`killall ${body.id}`)
     }
 
     @Get()
