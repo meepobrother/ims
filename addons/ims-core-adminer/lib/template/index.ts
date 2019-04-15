@@ -81,7 +81,10 @@ import { Template } from 'ims-core'
                 component: 'adminer/addon/layout',
                 routes: [{
                     path: '/design',
-                    component: 'adminer/addon/design'
+                    component: 'adminer/addon/design',
+                    store: {
+                        design: 'adminer/addon/design/store'
+                    }
                 }]
             }, {
                 path: '/addon-list',
