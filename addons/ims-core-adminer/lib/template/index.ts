@@ -57,14 +57,25 @@ import { Template } from 'ims-core'
         // 后台管理
         {
             path: '/adminer',
-            component: 'adminer/addon-list',
+            component: 'adminer/layout',
             roles: ['admin'],
+            redirect: '/adminer/addon-list',
             store: {
                 addonList: 'store/addon-list',
                 homeLayout: 'store/homeLayout',
                 login: 'store/login',
                 cookie: 'store/cookie',
-            }
+            },
+            routes: [{
+                path: '/addon-list',
+                component: 'adminer/addon-list'
+            }, {
+                path: '/addon-list/:id',
+                component: 'adminer/addon-list'
+            }, {
+                path: '/addon-edit/:id',
+                component: 'adminer/addon-edit'
+            }]
         }
     ]
 })

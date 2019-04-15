@@ -3,7 +3,8 @@ export class AddonList {
 
     @observable
     list: any[] = [{
-        title: '模块管理'
+        title: '添加',
+        icon: 'plus'
     }];
 
     @action

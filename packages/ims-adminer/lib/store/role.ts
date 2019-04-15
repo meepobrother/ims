@@ -47,7 +47,6 @@ export class ImsRole {
     @action
     autoLogin() {
         const token = util.cookie.get('token');
-        console.log(token)
         if (token) {
             return util.http.get('/user/getRole').then(res => {
                 const user = res.data;
@@ -56,7 +55,6 @@ export class ImsRole {
             });
         }
     }
-
 }
 
 export const role = new ImsRole();

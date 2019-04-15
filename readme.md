@@ -77,14 +77,6 @@ ims build --name ims-core-adminer --output node_modules --watch
 
 ### 角色定义
 ```ts
-// 定义权限
-@Role({
-    name: 'manager',
-    title: '网站管理员',
-    desc: '权限简介'
-})
-class ImsManager{}
-
 @Role({
     name: 'managerEditor',
     title: '网站编辑',
@@ -98,7 +90,7 @@ class ImsManagerEditor{}
 @Template({
     admins: [{
         path: '/addUser',
-        role: [ImsManager,ImsManagerEditor],
+        role: ['manager'],
         component: 'admin/addUser'
     }]
 })
