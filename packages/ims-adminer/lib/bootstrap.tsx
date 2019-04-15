@@ -9,17 +9,22 @@ import { IRouter } from 'ims-core';
 import { Provider } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import { history } from './history'
-
+import { role } from './store'
 export async function bootstrap(routes: IRouter[]) {
     await ImsUtil.onInit(routes);
-    render(<AdminerRouter routes={routes} />, document.getElementById('root'))
+    render(<Provider role={role}>
+        <AdminerRouter routes={routes} />
+    </Provider>, document.getElementById('root'))
 }
+import { observer, inject } from 'mobx-react';
 
-export class AdminerRouter extends React.Component<{ routes: IRouter[] }> {
+@inject('role')
+@observer
+export class AdminerRouter extends React.Component<{ role?: any, routes: IRouter[] }> {
     render() {
         return <Router history={history}>
             {this.props.routes.map((route, key) => {
-                const userRole = ImsUtil.cookie.get('role') || 'default'
+                const userRole = this.props.role.role || 'default'
                 const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
                 const routerProps: any = (router) => ({
                     authority: role => {
@@ -44,8 +49,7 @@ export class AdminerRouter extends React.Component<{ routes: IRouter[] }> {
                 });
                 const props = routerProps(route);
                 if (route.store) {
-                    console.log(route)
-                    return <Provider {...route.store}>
+                    return <Provider role={role} {...route.store}>
                         <AuthorizedRoute {...props} />
                     </Provider>
                 } else {

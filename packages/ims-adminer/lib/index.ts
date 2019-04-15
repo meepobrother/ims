@@ -4,3 +4,4 @@ export type ValidateStatus = "success" | "warning" | "error" | "validating" | ""
 export * from './history';
 export * from './loading';
 export * from './bootstrap';
+export * from './store';

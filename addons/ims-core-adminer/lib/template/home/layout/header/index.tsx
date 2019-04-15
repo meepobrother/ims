@@ -1,14 +1,12 @@
 import { observer, inject } from 'mobx-react'
 import React = require('react');
 import { Layout, Avatar, Dropdown, Menu } from 'antd';
-import { Link } from 'ims-adminer'
+import { Link, role } from 'ims-adminer'
 import { HomeLayout as ImsHomeLayout } from '../../../store/homeLayout'
 import { Login as ImsHomeLogin } from '../../../store/login'
 
 import "./index.less";
-
-
-@inject('homeLayout', 'login')
+@inject('homeLayout', 'role')
 @observer
 export default class Index extends React.Component<{
     homeLayout?: ImsHomeLayout,
@@ -32,8 +30,8 @@ export default class Index extends React.Component<{
     }
 
     renderHeaderRightMenu() {
-        const { login, homeLayout } = this.props
-        if (login.username) {
+        const { homeLayout } = this.props
+        if (role.username) {
             const userMenu = <Menu>
                 {homeLayout.userMenus.map(menu => {
                     return <Menu.Item onClick={menu.onClick}>
@@ -43,8 +41,8 @@ export default class Index extends React.Component<{
             </Menu>
             return <Dropdown trigger={['click']} overlay={userMenu}>
                 <div className="username">
-                    <Avatar />
-                    <span><b>{login.username}</b></span>
+                    <Avatar src={role.avatar} />
+                    <span>{role.username}</span>
                 </div>
             </Dropdown>
         } else {

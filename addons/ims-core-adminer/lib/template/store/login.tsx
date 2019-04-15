@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import React = require('react');
 import util from 'ims-util';
-import { history } from 'ims-adminer'
+import { history, role } from 'ims-adminer'
 export class Login {
     // 记住
     @observable
@@ -15,26 +15,15 @@ export class Login {
     @observable
     tab: 'account' | 'mobile' = 'account';
 
-    // 角色
-    @observable
-    role: string = 'default';
-
-    // 用户名
-    @observable
-    username: string;
-
-    // token
-    @observable
-    token: string;
-
-    @action
-    setToken(token: string) {
-        this.token = token;
-        util.http.get('/user/getRole').then(res => {
-            const user = res.data;
-            this.role = user.role;
-            this.username = user.username;
-        });
+    constructor() {
+        const token = util.cookie.get('token')
+        if (token) {
+            util.http.get('/user/getRole').then(res => {
+                const user = res.data;
+                role.setRole(user.role)
+                role.setUsername(user.username);
+            });
+        }
     }
 
     // ui 设置
@@ -90,9 +79,8 @@ export class Login {
                     } else {
                         // 跳转
                         const user = data.data;
-                        this.role = user.role;
-                        this.username = user.username;
-                        this.token = user.token;
+                        role.setRole(user.role);
+                        role.username = user.username;
                         util.cookie.set('token', user.token)
                         history.push('/home/index')
                     }
@@ -140,9 +128,8 @@ export class Login {
      * 退出登录
      **/
     logout() {
-        this.role = 'default';
-        this.username = '';
-        this.token = '';
+        role.role = 'default';
+        role.username = '';
         util.cookie.remove('token')
         history.push('/home/login')
     }

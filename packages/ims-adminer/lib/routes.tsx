@@ -3,7 +3,7 @@ import { Loading } from './loading';
 import { observer } from 'mobx-react'
 import Authorized from 'ant-design-pro/lib/Authorized';
 import React from 'react';
-import util from 'ims-util'
+import { role } from './store'
 @observer
 export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fallback?: any }, any> {
     static defaultProps = {
@@ -11,7 +11,7 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
     }
     render() {
         const { route } = this.props;
-        const userRole = util.cookie.get('role') || 'default'
+        const userRole = role.role || 'default'
         const AuthorizedRoute = Authorized(userRole).AuthorizedRoute;
         const props: any = (router) => ({
             authority: role => {
