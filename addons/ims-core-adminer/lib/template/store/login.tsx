@@ -15,17 +15,6 @@ export class Login {
     @observable
     tab: 'account' | 'mobile' = 'account';
 
-    constructor() {
-        const token = util.cookie.get('token')
-        if (token) {
-            util.http.get('/user/getRole').then(res => {
-                const user = res.data;
-                role.setRole(user.role)
-                role.setUsername(user.username);
-            });
-        }
-    }
-
     // ui 设置
     @observable
     setting: any = {
@@ -81,7 +70,9 @@ export class Login {
                         const user = data.data;
                         role.setRole(user.role);
                         role.username = user.username;
-                        util.cookie.set('token', user.token)
+                        util.cookie.set('token', user.token, {
+                            path: '/'
+                        });
                         history.push('/home/index')
                     }
                 }).catch(e => {
