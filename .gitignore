@@ -8,7 +8,8 @@ lerna-debug.log
 .TemporaryItems
 .DocumentRevisions-V100
 .Spotlight-V100/
-/template/
+/template/mobile
+/template/admin
 /data/
 .Trashes/
 .fseventsd/
