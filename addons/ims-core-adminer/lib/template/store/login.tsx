@@ -19,9 +19,11 @@ export class Login {
     @observable
     role: string = 'default';
 
+    // 用户名
     @observable
     username: string;
 
+    // token
     @observable
     token: string;
 
@@ -29,7 +31,9 @@ export class Login {
     setToken(token: string) {
         this.token = token;
         util.http.get('/user/getRole').then(res => {
-            console.log(res.data)
+            const user = res.data;
+            this.role = user.role;
+            this.username = user.username;
         });
     }
 

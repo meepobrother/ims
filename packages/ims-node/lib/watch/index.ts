@@ -12,7 +12,7 @@ change.pipe(
 ).subscribe((sourceRoot: string) => {
     if (ImsApplication.application) {
         const type = require(sourceRoot).default;
-        console.log(`change ${type.target}`)
+        console.log(`change ${sourceRoot} ${type.target}`)
         ImsApplication.application.reInstall(type)
     }
 });

@@ -9,7 +9,6 @@ declare global {
                 id: number;
                 username: string;
                 role: string;
-                token: string;
             };
         }
         interface Response { }
@@ -38,7 +37,6 @@ export function verify(fn: <T>(user: T) => boolean) {
                     req.user = {
                         id: decoded.id,
                         username: decoded.username,
-                        token: token,
                         role: decoded.role
                     };
                     next();
