@@ -4,10 +4,10 @@ import { Subject } from 'rxjs'
 import { watch } from 'chokidar';
 import { AddonMetadataKey, AddonAst } from "ims-core";
 import { ImsApplication } from "../transform/application";
-import { debounceTime } from "rxjs/operators";
+import { throttleTime } from "rxjs/operators";
 const change = new Subject();
 change.pipe(
-    debounceTime(1000)
+    throttleTime(1000)
 ).subscribe((root: string) => {
     if (ImsApplication.application) {
         const type = require(root).default;
