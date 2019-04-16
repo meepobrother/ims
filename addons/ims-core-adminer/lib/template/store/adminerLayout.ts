@@ -57,9 +57,9 @@ export class AdminerLayout {
             history.push('/adminer/manager/home')
         }
     }, {
-        title: '集群管理',
+        title: '服务管理',
         onClick: () => {
-            history.push('/adminer/cluster/home')
+            history.push('/adminer/services/list')
         }
     }, {
         title: 'IMS联盟',

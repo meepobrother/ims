@@ -12,13 +12,11 @@ export default class Index extends React.Component<{ home?: ClusterHome }, any> 
         const { home } = this.props;
         return <div className="ims-adminer-manager-home-page">
             <PageHeader {...header}
-                title="集群管理"
+                title="服务管理"
                 wide={true}
                 action={
                     <div>
                         <a href="javascript:;" onClick={() => home.addCluster()}>添加服务</a>
-                        &nbsp;
-                        <a href="javascript:;" onClick={() => home.switchDrawer()}>服务市场</a>
                     </div>
                 }
                 content={

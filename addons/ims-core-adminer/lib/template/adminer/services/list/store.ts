@@ -24,8 +24,9 @@ export class ClusterHome {
 
     @action
     addCluster() {
-        history.push('/adminer/cluster/add')
+        history.push('/adminer/services/add')
     }
+    
 }
 
 export default new ClusterHome();
