@@ -8,7 +8,7 @@ import * as incs from './inc';
     incs: incs,
     sourceRoot: __dirname,
     path: '/',
-    title: "测试",
+    title: "案例",
     version: "1.0.0"
 })
 export default class imsDemo { }
