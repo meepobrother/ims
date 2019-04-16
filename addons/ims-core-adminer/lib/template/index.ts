@@ -4,18 +4,25 @@ import { Template } from 'ims-core'
     admins: [
         // 权限不足
         {
-            path: '/403',
-            component: '403'
-        },
-        // 404资源没有找到
-        {
-            path: '/404',
-            component: '404'
-        },
-        // 服务器错误
-        {
-            path: '/500',
-            component: '500'
+            path: '/error',
+            component: 'layout',
+            store: {
+                homeLayout: 'store/homeLayout'
+            },
+            routes: [{
+                path: '/403',
+                component: '403'
+            },
+            // 404资源没有找到
+            {
+                path: '/404',
+                component: '404'
+            },
+            // 服务器错误
+            {
+                path: '/500',
+                component: '500'
+            }]
         },
         // 首页
         {
@@ -29,8 +36,7 @@ import { Template } from 'ims-core'
             redirect: '/home/index',
             store: {
                 homeLayout: 'store/homeLayout',
-                login: 'store/login',
-                cookie: 'store/cookie',
+                login: 'store/login'
             },
             routes: [
                 {
@@ -62,8 +68,7 @@ import { Template } from 'ims-core'
             redirect: '/adminer/dashboard/analysis',
             store: {
                 addonList: 'store/addon-list',
-                adminerLayout: 'store/adminerLayout',
-                cookie: 'store/cookie',
+                adminerLayout: 'store/adminerLayout'
             },
             routes: [{
                 path: '/dashboard',

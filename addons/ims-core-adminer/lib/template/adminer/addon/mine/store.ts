@@ -1,10 +1,6 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util'
-import numeral from 'numeral'
 import moment = require('moment');
-
-console.log(moment);
-
 export class AddonMine {
 
     @observable
@@ -35,7 +31,6 @@ export class AddonMine {
         key: 'create_at',
         dataIndex: 'create_at',
         render: (item) => {
-            console.log(item)
             return moment(item).format('YYYY-MM-DD')
         }
     }];

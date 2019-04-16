@@ -21,7 +21,7 @@ export class ImsRoutes extends React.Component<{ login?: any, route: IRouter, fa
                 if (role === 'admin') return true;
                 return router.roles.indexOf(role) > -1;
             },
-            redirectPath: '/403',
+            redirectPath: '/error/403',
             key: router.path,
             path: router.path,
             exact: !!router.exact,

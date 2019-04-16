@@ -49,30 +49,30 @@ function bootstrap(routes) {
                     return true;
                 return router.roles.indexOf(role) > -1;
             },
-            redirectPath: '/403',
+            redirectPath: '/error/403',
             key: router.path,
             path: router.path,
             exact: !!router.exact,
             render: () => {
                 if (router.component) {
                     return <React.Suspense fallback={<loading_1.Loading />}>
-                        <router.component route={router}/>
+                        <router.component route={router} />
                     </React.Suspense>;
                 }
                 else {
-                    return <routes_1.ImsRoutes route={router}/>;
+                    return <routes_1.ImsRoutes route={router} />;
                 }
             }
         });
         react_dom_1.render(<mobx_react_1.Provider {...store}>
-                <react_router_dom_1.BrowserRouter>
-                    {routes.map((route, key) => {
-            const props = routerProps(route);
-            console.log(props);
-            return <AuthorizedRoute {...props}/>;
-        })}
-                </react_router_dom_1.BrowserRouter>
-            </mobx_react_1.Provider>, document.getElementById('root'));
+            <react_router_dom_1.BrowserRouter>
+                {routes.map((route, key) => {
+                    const props = routerProps(route);
+                    console.log(props);
+                    return <AuthorizedRoute {...props} />;
+                })}
+            </react_router_dom_1.BrowserRouter>
+        </mobx_react_1.Provider>, document.getElementById('root'));
     });
 }
 exports.bootstrap = bootstrap;

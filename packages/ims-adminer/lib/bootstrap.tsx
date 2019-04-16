@@ -35,7 +35,7 @@ export class AdminerRouter extends React.Component<{ role?: any, routes: IRouter
                         if (role === 'admin') return true;
                         return router.roles.indexOf(role) > -1;
                     },
-                    redirectPath: '/403',
+                    redirectPath: '/error/403',
                     key: router.path,
                     path: router.path,
                     exact: !!router.exact,

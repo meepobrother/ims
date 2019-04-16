@@ -121,7 +121,9 @@ export class Login {
     logout() {
         role.role = 'default';
         role.username = '';
-        util.cookie.remove('token')
+        util.cookie.remove('token', {
+            path: '/'
+        });
         history.push('/home/login')
     }
     /**

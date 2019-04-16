@@ -1,7 +1,7 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util'
 import { history } from 'ims-adminer'
-
+import login from './login'
 export class AdminerLayout {
 
     @observable
@@ -37,6 +37,11 @@ export class AdminerLayout {
         title: '我的模块',
         onClick: () => {
             history.push('/adminer/addon/mine')
+        }
+    }, {
+        title: '退出登录',
+        onClick: () => {
+            return login.logout();
         }
     },];
 
