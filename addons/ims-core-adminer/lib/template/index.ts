@@ -119,17 +119,17 @@ import { Template } from 'ims-core'
             },
             //集群
             {
-                path: '/cluster/home',
-                component: 'adminer/cluster/home/index',
+                path: '/services/list',
+                component: 'adminer/services/list',
                 store: {
-                    home: 'adminer/cluster/home/store'
+                    home: 'adminer/services/list/store'
                 }
             },
             {
-                path: '/cluster/add',
-                component: 'adminer/cluster/home/add/add',
+                path: '/services/add',
+                component: 'adminer/services/add/add',
                 store: {
-                    add: 'adminer/cluster/home/add/store'
+                    add: 'adminer/services/add/store'
                 }
             },
             //联盟
