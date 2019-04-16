@@ -67,14 +67,7 @@ export abstract class ImsWebpack {
                 filename: '[name]_[hash].bound.js',
                 chunkFilename: '[name]_[hash].chunk.js'
             },
-            externals: {
-                moment: {
-                    root: 'moment',
-                    commonjs2: 'moment',
-                    commonjs: 'moment',
-                    amd: 'moment',
-                }
-            },
+            externals: {},
             resolve: {
                 extensions: ['.ts', '.tsx', '.js', '.jsx'],
                 mainFields: ['main:h5', 'main', 'module'],
