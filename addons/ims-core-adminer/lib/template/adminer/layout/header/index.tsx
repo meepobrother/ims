@@ -11,13 +11,18 @@ export default class Index extends React.Component<{ adminerLayout?: AdminerLayo
         const { adminerLayout, role } = this.props;
         const overlay = <Menu>
             {adminerLayout.menus.map(menu => {
-                return <Menu.Item style={{ padding: "5px 20px" }} onClick={(param) => menu.onClick(param)}>{menu.title}</Menu.Item>
+                return <Menu.Item onClick={(param) => menu.onClick(param)}>{menu.title}</Menu.Item>
             })}
         </Menu>
         return <div className="ims-global-header">
             <span className="global-header-index-trigger" onClick={() => adminerLayout.setCollapsed()}>
                 <Icon type={adminerLayout.collapsedIcon} />
             </span>
+            <div className="global-header-index-left">
+                {adminerLayout.lefts.map(left => {
+                    return <div className="global-header-index-left-item" onClick={(param) => left.onClick(param)}>{left.title}</div>
+                })}
+            </div>
             <div className="global-header-index-right">
                 <Dropdown className="username" trigger={['hover']} overlay={overlay}>
                     <div className="username-wrapper">

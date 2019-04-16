@@ -24,6 +24,11 @@ export class AdminerLayout {
 
     @observable
     menus: any[] = [{
+        title: '官网首页',
+        onClick: () => {
+            history.push('/home/index')
+        }
+    }, {
         title: '系统监控',
         onClick: () => {
             history.push('/adminer/dashboard/analysis')
@@ -43,7 +48,16 @@ export class AdminerLayout {
         onClick: () => {
             return login.logout();
         }
-    },];
+    }];
+
+    @observable
+    lefts: any[] = [{
+        title: '模块管理',
+        onClick: () => { }
+    }, {
+        title: '模块市场',
+        onClick: () => { }
+    }];
 
     constructor() {
         this.collapsed = !!util.store.get('adminer:collapsed');

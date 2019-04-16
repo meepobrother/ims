@@ -39,7 +39,7 @@ export default class Index extends React.Component<{
                     </Menu.Item>
                 })}
             </Menu>
-            return <Dropdown trigger={['click']} overlay={userMenu}>
+            return <Dropdown trigger={['hover']} overlay={userMenu}>
                 <div className="username">
                     <Avatar src={role.avatar} />
                     <span>{role.username}</span>

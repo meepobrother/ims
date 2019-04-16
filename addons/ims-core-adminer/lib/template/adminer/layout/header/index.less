@@ -1,34 +1,56 @@
-.ims-global-header{
-    position: relative;
-    height: 64px;
-    padding: 0;
+.ims-global-header {
+    position  : relative;
+    height    : 64px;
+    padding   : 0;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0,21,41,.08);
-    .global-header-index-trigger{
-        height: 64px;
-        padding: 22px 24px;
-        font-size: 20px;
-        cursor: pointer;
-        transition: all .3s,padding 0s;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+    display   : flex;
+
+    .global-header-index-trigger {
+        height      : 64px;
+        font-size   : 20px;
+        cursor      : pointer;
+        transition  : all .3s, padding 0s;
+        padding-left: 20px;
     }
-    .global-header-index-right{
-        float: right;
-        height: 100%;
-        overflow: hidden;
-        padding: 0 20px;
-        .username{
-            display: inline-block;
-            height: 100%;
-            cursor: pointer;
-            transition: all .3s;
-            .username-wrapper{
-                display: flex;
-                align-items: center;
-                height: 64px;
+
+    .global-header-index-left {
+        flex       : 1;
+        display    : flex;
+        margin-left: 20px;
+
+        .global-header-index-left-item {
+            height     : 64px;
+            line-height: 64px;
+            padding    : 0 20px;
+            cursor     : pointer;
+            user-select: none;
+            &:hover {
+                opacity: .7;
             }
-            .avatar{
+        }
+    }
+
+    .global-header-index-right {
+        height  : 100%;
+        overflow: hidden;
+        padding : 0 20px;
+
+        .username {
+            display   : inline-block;
+            height    : 100%;
+            cursor    : pointer;
+            transition: all .3s;
+
+            .username-wrapper {
+                display    : flex;
+                align-items: center;
+                height     : 64px;
+            }
+
+            .avatar {
                 vertical-align: middle;
-                margin-right: 5px;
+                margin-right  : 5px;
             }
         }
     }

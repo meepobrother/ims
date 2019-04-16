@@ -15,15 +15,6 @@ export class HomeLayout {
     left: any[] = [{
         title: '首页',
         href: '/home/index'
-    }, {
-        title: '安装',
-        href: '/home/install'
-    }, {
-        title: '新闻',
-        href: '/home/news'
-    }, {
-        title: '产品',
-        href: '/home/products'
     }];
 
     @observable

@@ -6,11 +6,10 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 import "./index.less";
 import { observer, inject } from 'mobx-react';
 import { Login as LoginStore } from '../../store/login';
-import { Cookie as LoginCookie } from '../../store/cookie';
 
-@inject('login', 'cookie')
+@inject('login')
 @observer
-export default class LoginPage extends React.Component<{ login: LoginStore, cookie: LoginCookie }> {
+export default class LoginPage extends React.Component<{ login: LoginStore }> {
     renderNotice() {
         const { login } = this.props;
         if (login.notice && login.notice.length > 0) {
