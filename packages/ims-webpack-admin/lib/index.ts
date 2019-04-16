@@ -50,6 +50,9 @@ export class ImsWebpackAdmin extends ImsWebpack {
             this.config.devtool('source-map');
             this.config.mode('development')
         }
+        this.config.plugin('momentDll').use(DllReferencePlugin, [{
+            manifest: require(join(root, 'template/library/moment.manifest.json'))
+        }]);
         this.config.plugin('antdDll').use(DllReferencePlugin, [{
             manifest: require(join(root, 'template/library/antd.manifest.json'))
         }]);

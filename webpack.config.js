@@ -12,7 +12,8 @@ module.exports = {
         polyfill: ['@babel/polyfill'],
         bizcharts: ['bizcharts'],
         dataSet: ['@antv/data-set'],
-        antDesignIcons: ['@ant-design/icons']
+        antDesignIcons: ['@ant-design/icons'],
+        moment: ['moment']
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
