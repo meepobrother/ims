@@ -1,12 +1,10 @@
 import React = require('react');
 import PageHeader from 'ant-design-pro/lib/PageHeader'
-import { List, Card, Drawer, Form, Input, Button, Modal } from 'antd'
+import { List, Card } from 'antd'
 const header: any = {};
 import './index.less';
-
 import { inject, observer } from 'mobx-react';
 import { ClusterHome } from './store'
-const btn: any = {};
 @inject('home')
 @observer
 export default class Index extends React.Component<{ home?: ClusterHome }, any> {
@@ -18,7 +16,7 @@ export default class Index extends React.Component<{ home?: ClusterHome }, any> 
                 wide={true}
                 action={
                     <div>
-                        <a href="javascript:;" onClick={() => home.switchDrawer()}>添加服务</a>
+                        <a href="javascript:;" onClick={() => home.addCluster()}>添加服务</a>
                         &nbsp;
                         <a href="javascript:;" onClick={() => home.switchDrawer()}>服务市场</a>
                     </div>
@@ -47,47 +45,6 @@ export default class Index extends React.Component<{ home?: ClusterHome }, any> 
                         </List.Item>
                     }}></List>
             </div>
-            <Drawer
-                title="添加服务"
-                placement="right"
-                closable
-                onClose={() => home.switchDrawer()}
-                visible={!!home.drawerVisible}
-            >
-                <Form>
-                    <Form.Item>
-                        <Input value={home.currentServer.name} onChange={e => home.setCurrentServerName(e.target.value)} placeholder="服务名" />
-                    </Form.Item>
-                    <Form.Item>
-                        <Input value={home.currentServer.path} onChange={e => home.setCurrentServerPath(e.target.value)} placeholder="挂载路径" />
-                    </Form.Item>
-                    <h4>主机</h4>
-                    <div className="add_upstream">
-                        <a onClick={() => home.switchModel()}>添加</a>
-                    </div>
-                    <Form.Item>
-                        <Button onClick={() => home.addServer()} {...btn} type="primary">提交</Button>
-                    </Form.Item>
-                </Form>
-            </Drawer>
-            <Modal
-                onCancel={() => { home.switchModel() }}
-                closable
-                visible={home.modelVisible}
-                okText="确定"
-                cancelText="取消"
-                title="添加主机"
-                onOk={() => home.addHost()}
-            >
-                <Form>
-                    <Form.Item>
-                        <Input value={home.ip} onChange={(e) => home.setIp(e.target.value)} placeholder="ip" />
-                    </Form.Item>
-                    <Form.Item>
-                        <Input value={home.port} onChange={(e) => home.setPort(e.target.value)} placeholder="端口号" />
-                    </Form.Item>
-                </Form>
-            </Modal>
         </div>
     }
 }

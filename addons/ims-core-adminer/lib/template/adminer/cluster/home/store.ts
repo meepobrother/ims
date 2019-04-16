@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util';
-import { ImsServer } from 'ims-model';
+import { history } from 'ims-adminer';
 
 interface HomeItem { }
 export class ClusterHome {
@@ -9,51 +9,6 @@ export class ClusterHome {
 
     @observable
     drawerVisible: boolean;
-
-    @observable
-    modelVisible: boolean;
-
-    @action
-    switchModel() {
-        this.modelVisible = !this.modelVisible;
-    }
-
-    @observable
-    currentServer: ImsServer = new ImsServer();
-
-    @action
-    setCurrentServerName(name: string) {
-        this.currentServer.name = name;
-    }
-
-    @action
-    setCurrentServerPath(path: string) {
-        this.currentServer.path = path;
-    }
-
-    @observable
-    ip: string;
-
-    @action
-    setIp(ip: string) {
-        this.ip = ip;
-    }
-
-    @observable
-    port: number;
-
-    @action
-    setPort(port: any) {
-        this.port = port;
-    }
-
-    @action
-    addHost() {
-        this.currentServer.upstream.push({
-            ip: this.ip,
-            port: this.port
-        })
-    }
 
     @action
     switchDrawer() {
@@ -68,8 +23,8 @@ export class ClusterHome {
     }
 
     @action
-    addServer() {
-        console.log(this)
+    addCluster() {
+        history.push('/adminer/cluster/add')
     }
 }
 

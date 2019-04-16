@@ -125,6 +125,13 @@ import { Template } from 'ims-core'
                     home: 'adminer/cluster/home/store'
                 }
             },
+            {
+                path: '/cluster/add',
+                component: 'adminer/cluster/home/add/add',
+                store: {
+                    add: 'adminer/cluster/home/add/store'
+                }
+            },
             //联盟
             {
                 path: '/union/home',
