@@ -120,7 +120,10 @@ import { Template } from 'ims-core'
             //集群
             {
                 path: '/cluster/home',
-                component: 'adminer/cluster/home/index'
+                component: 'adminer/cluster/home/index',
+                store: {
+                    home: 'adminer/cluster/home/store'
+                }
             },
             //联盟
             {

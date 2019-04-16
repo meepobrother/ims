@@ -3,8 +3,13 @@ import PageHeader from 'ant-design-pro/lib/PageHeader'
 import { List, Card } from 'antd'
 const header: any = {};
 import './index.less';
+import { inject, observer } from 'mobx-react';
+
+@inject('home')
+@observer
 export default class Index extends React.Component<any, any> {
     render() {
+        console.log(this.props)
         return <div className="ims-adminer-manager-home-page">
             <PageHeader {...header}
                 title="集群管理"
