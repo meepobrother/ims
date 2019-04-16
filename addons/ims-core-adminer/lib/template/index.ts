@@ -106,8 +106,32 @@ import { Template } from 'ims-core'
             }, {
                 path: '/addon-edit/:id',
                 component: 'adminer/addon-edit'
+            },
+            // manager
+            {
+                path: '/manager/home',
+                component: 'adminer/manager/home/index'
+            },
+            // shop
+            {
+                path: '/shop/home',
+                component: 'adminer/shop/home/index'
+            },
+            //集群
+            {
+                path: '/cluster/home',
+                component: 'adminer/cluster/home/index'
+            },
+            //联盟
+            {
+                path: '/union/home',
+                component: 'adminer/union/home/index',
+                store: {
+                    union: 'adminer/union/home/store'
+                }
             }]
-        }
+        },
+
     ]
 })
 export class ImsAdminerTemplate { }

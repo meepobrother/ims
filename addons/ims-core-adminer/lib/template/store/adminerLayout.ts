@@ -53,10 +53,24 @@ export class AdminerLayout {
     @observable
     lefts: any[] = [{
         title: '模块管理',
-        onClick: () => { }
+        onClick: () => {
+            history.push('/adminer/manager/home')
+        }
+    }, {
+        title: '集群管理',
+        onClick: () => {
+            history.push('/adminer/cluster/home')
+        }
+    }, {
+        title: 'IMS联盟',
+        onClick: () => {
+            history.push('/adminer/union/home')
+        }
     }, {
         title: '模块市场',
-        onClick: () => { }
+        onClick: () => {
+            history.push('/adminer/shop/home')
+        }
     }];
 
     constructor() {

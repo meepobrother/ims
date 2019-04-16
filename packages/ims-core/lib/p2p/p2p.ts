@@ -10,3 +10,4 @@ export function isP2pPrototypeAst(val: PropertyAst): val is PropertyAst<P2pOptio
 }
 export class P2pPropertyAst extends PropertyContext<P2pOptions> { }
 export interface P2pProperty extends Libp2p { }
+

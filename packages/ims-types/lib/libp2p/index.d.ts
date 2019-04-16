@@ -83,11 +83,15 @@ interface Libp2pContentRouting {
     provide(key: Buffer, callback: Function): any;
     findProviders(key: Buffer, options: { maxTimeout: number, maxNumProviders: number }, callback: Function): any;
 }
+interface Libp2pStats {
+    peers(): string[];
+}
 declare class Libp2p {
     peerBook: PeerBook;
     peerInfo: PeerInfo;
     pubsub: Libp2pPubsub;
     contentRouting: Libp2pContentRouting;
+    stats: Libp2pStats;
     constructor(options: NodeOptions);
     start(callback: (err?: Error) => any): void;
     stop(callback: (err?: Error) => any): void;
