@@ -77,12 +77,9 @@ ims build --name ims-core-adminer --output node_modules --watch
 
 ### 角色定义
 ```ts
-@Role({
-    name: 'managerEditor',
-    title: '网站编辑',
-    desc: '网站编辑'
-})
-class ImsManagerEditor{}
+admin 网站站长
+manager 网站用户
+develementor 开发者
 ```
 
 ### 模板权限

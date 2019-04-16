@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn } from "ims-core";
-import { Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from "ims-core";
 
 @Entity()
 export class ImsSetting {

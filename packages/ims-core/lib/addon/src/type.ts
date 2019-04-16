@@ -21,6 +21,10 @@ export interface AddonOptions {
      */
     title?: string;
     /**
+     * 版本号
+     */
+    version?: string;
+    /**
      * 应用简介
      */
     desc?: string;
@@ -41,14 +45,10 @@ export interface AddonOptions {
      */
     thumbs?: string[];
     /**
-     * 版本号
-     */
-    version?: string;
-    /**
      * 详情
      */
     detail?: string;
-    /** 跟路由 */
+    /** 根路由 */
     path?: string;
     /**
      * api

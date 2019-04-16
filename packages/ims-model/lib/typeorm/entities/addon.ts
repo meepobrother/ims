@@ -11,45 +11,61 @@ export class ImsAddonEntity {
      */
     @PrimaryGeneratedColumn()
     id: number;
+    /** 代号 */
+    @Column()
+    name: string = '';
     /**
      * 名称
      */
     @Column()
-    title: string;
+    title: string = '';
     /**
      * 入口
      */
     @Column()
-    entry: string;
+    entry: string = '';
     /**
      * 作者
      */
     @Column()
-    author: string;
+    author: string = '';
     /**
      * 图标
      */
     @Column()
-    icon: string;
+    icon: string = '';
     /**
      * 轮播
      */
-    @Column()
-    thumbs: string;
+    @Column({
+        type: 'string',
+        transformer: {
+            to(value: string[]) {
+                return JSON.stringify(value)
+            },
+            from(value: string) {
+                return JSON.parse(value)
+            },
+        }
+    })
+    thumbs: string[] = [];
     /**
     * 简介
     */
     @Column()
-    desc: string;
+    desc: string = '';
     /** 是否可用 */
     @Column()
-    enable: boolean;
+    enable: boolean = false;
     /**
      * 版本号
      */
     @Column()
-    version: string;
-    /**
+    version: string = '1.0.0';
+
+    @Column()
+    isLocal: boolean;
+      /**
      * 创建时间
      */
     @CreateDateColumn()

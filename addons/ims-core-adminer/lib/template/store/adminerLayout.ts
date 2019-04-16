@@ -33,6 +33,11 @@ export class AdminerLayout {
         onClick: () => {
             history.push('/adminer/addon/design')
         }
+    }, {
+        title: '我的模块',
+        onClick: () => {
+            history.push('/adminer/addon/mine')
+        }
     },];
 
     constructor() {

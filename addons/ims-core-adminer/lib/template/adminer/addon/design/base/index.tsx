@@ -1,8 +1,7 @@
 import React = require('react');
 import {
-    Form, Input, Steps, Button, DatePicker, TimePicker, Select, Cascader, InputNumber,
+    Form, Input
 } from 'antd';
-const { Option } = Select;
 const formItemLayout = {
     labelCol: {
         xs: { span: 24 },
@@ -13,33 +12,20 @@ const formItemLayout = {
         sm: { span: 12 },
     },
 };
-export default class Index extends React.Component<any, any> {
+import { inject, observer } from 'mobx-react'
+import { AddonDesign } from '../store'
+@inject('design')
+@observer
+export default class Index extends React.Component<{ design?: AddonDesign }, any> {
     render() {
+        const { design } = this.props;
         return <Form {...formItemLayout}>
-            <Form.Item label="模块代号">
-                <Input placeholder="模块代号" />
-            </Form.Item>
-            <Form.Item label="模块名称">
-                <Input placeholder="模块名称" />
-            </Form.Item>
-            <Form.Item label="模块简介">
-                <Input placeholder="模块简介" />
-            </Form.Item>
-            <Form.Item label="icon">
-                <Input placeholder="icon" />
-            </Form.Item>
-            <Form.Item label="logo">
-                <Input placeholder="logo" />
-            </Form.Item>
-            <Form.Item label="版本号">
-                <Input placeholder="version" />
-            </Form.Item>
-            <Form.Item label="详情">
-                <Input placeholder="Detail" />
-            </Form.Item>
-            <Form.Item label="轮播">
-                <Input placeholder="thumb" />
-            </Form.Item>
+            {Object.keys(design.baseForm).map(key => {
+                const item = design.baseForm[key];
+                return <Form.Item key={key} {...item.item}>
+                    <Input {...item.input} />
+                </Form.Item>
+            })}
         </Form>
     }
 }
