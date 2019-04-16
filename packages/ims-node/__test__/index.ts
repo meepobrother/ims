@@ -1,7 +1,7 @@
 import {
     cryptoPassword,
     random,
-    isEqualPassword
+    isEqualPassword,
 } from '../lib/index';
 import { expect } from 'chai'
 describe('ims-node', () => {
@@ -17,4 +17,5 @@ describe('ims-node', () => {
         const password = cryptoPassword(`ims`, token);
         expect(isEqualPassword(`ims`, token, password)).to.eq(true)
     })
+    it('createNginxConfig', () => { })
 });

@@ -104,6 +104,7 @@ export async function bootstrap(root: string, dev: boolean) {
                 addons.push(targt);
             });
             addons.push(ImsCoreAdminer);
+            // 服务启动
             await parseAddons(addons, config);
         } catch (e) {
             console.log(e.message)

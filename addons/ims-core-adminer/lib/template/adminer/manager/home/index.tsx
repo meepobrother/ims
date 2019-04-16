@@ -30,16 +30,15 @@ export default class Index extends React.Component<any, any> {
                 }}
                 wide={true}
                 action={
-                    <a href="javascript:;">商城</a>
+                    <a href="javascript:;">模块商城</a>
                 }
                 content={
                     <div>
                         <p>
                             每个模块都有一个独立的进程负责，您可以根据您的业务需求，随时随地关闭或启动某个或某几个服务!
-                    </p>
+                        </p>
                     </div>
                 }
-                extraContent={'extraContent'}
             >
             </PageHeader>
             <div className="main">

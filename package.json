@@ -149,6 +149,7 @@
     "libp2p-websockets": "^0.12.2",
     "loader-utils": "^1.2.3",
     "lodash": "^4.17.11",
+    "log4js": "^4.1.0",
     "m3u8": "^0.0.8",
     "marked": "^0.6.2",
     "mathjs": "^5.9.0",

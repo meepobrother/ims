@@ -28,7 +28,7 @@ export class ImsStart extends ImsCommand {
             name: 'dev',
             script: join(__dirname, 'bin', 'dev.js'),
             output: join(root, 'data/logs/dev.log'),
-            error: join(root, 'data/logs/dev-error.log')
+            error: join(root, 'data/logs/dev-error.log'),
         });
         devApps.push({
             name: 'template_dev',
