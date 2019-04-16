@@ -13,12 +13,15 @@ export class AddonDesign {
     version: string;
 
     @observable
+    author: string;
+
+    @observable
     baseForm: any = {
         name: {
             item: {
                 required: true,
                 hasFeedback: false,
-                help: "请输入[a-z]_[a-z0-9]",
+                help: "请输入[a-z]",
                 validateStatus: 'validating',
                 label: '模块代号'
             },
@@ -54,6 +57,20 @@ export class AddonDesign {
                 type: 'text',
                 placeholder: '请输入版本号',
                 onChange: (e) => this.version = e.target.value
+            }
+        },
+        author: {
+            item: {
+                required: true,
+                hasFeedback: false,
+                help: "请输入作者",
+                validateStatus: 'validating',
+                label: '作者'
+            },
+            input: {
+                type: 'text',
+                placeholder: '请输入作者',
+                onChange: (e) => this.author = e.target.value
             }
         }
     }
@@ -111,9 +128,10 @@ export class AddonDesign {
     finish() {
         this.loading = true;
         util.http.post('/adminer/addon/designAddon', {
-            name: this.name,
+            name: `${this.author}_${this.name}`,
             title: this.title,
-            version: this.version
+            version: this.version,
+            author: this.author
         }).then(res => {
             const { data } = res;
             this.loading = false;

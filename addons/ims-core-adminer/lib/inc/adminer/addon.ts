@@ -10,13 +10,13 @@ import creatIncIndex from './template/inc/index'
 import creatTypeormEntitiesIndex from './template/typeorm/entities/index'
 import creatTypeormIndex from './template/typeorm/index'
 
-
 @Controller({
     path: '/adminer/addon'
 })
 export class ImsCoreAdminerSetting {
 
     @EntityRepository({
+        db: 'system',
         target: ImsAddonEntity
     })
     addon: EntityRepository<ImsAddonEntity>;
@@ -26,23 +26,20 @@ export class ImsCoreAdminerSetting {
         return user.role === 'admin'
     }))
     async designAddon(@Body() body: any) {
-        const { name, title, version } = body;
+        const { name, title, version, author } = body;
         const path = join(root, 'addons', name);
-        if (fs.existsSync) {
+        if (fs.existsSync(path)) {
             return {
                 code: -1,
                 message: '模块已存在'
             }
         } else {
             // 检查模块是否已存在
-            const item = await this.addon.findOne({
+            let addon = await this.addon.findOne({
                 name: name
             });
-            if (item) {
-                return {
-                    code: -1,
-                    message: '模块已存在'
-                }
+            if (!addon) {
+                addon = new ImsAddonEntity();
             }
             /** 创建模块 */
             fs.ensureDirSync(path);
@@ -59,11 +56,15 @@ export class ImsCoreAdminerSetting {
             fs.writeFileSync(join(path, 'typeorm/entities', 'index.ts'), creatTypeormEntitiesIndex(name));
             fs.writeFileSync(join(path, 'typeorm', 'index.ts'), creatTypeormIndex(name));
 
-            const addon = new ImsAddonEntity();
+            /** 模块入库 */
             addon.name = name;
             addon.title = title;
             addon.version = version;
             addon.isLocal = true;
+            addon.enable = false;
+            addon.entry = join(path, 'index.ts');
+            addon.author = author;
+
             await this.addon.save(addon);
             return {
                 id: addon.id,

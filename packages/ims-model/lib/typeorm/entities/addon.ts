@@ -12,27 +12,37 @@ export class ImsAddonEntity {
     @PrimaryGeneratedColumn()
     id: number;
     /** 代号 */
-    @Column()
+    @Column({
+        default: ''
+    })
     name: string = '';
     /**
      * 名称
      */
-    @Column()
+    @Column({
+        default: ''
+    })
     title: string = '';
     /**
      * 入口
      */
-    @Column()
+    @Column({
+        default: ''
+    })
     entry: string = '';
     /**
      * 作者
      */
-    @Column()
+    @Column({
+        default: ''
+    })
     author: string = '';
     /**
      * 图标
      */
-    @Column()
+    @Column({
+        default: ''
+    })
     icon: string = '';
     /**
      * 轮播
@@ -52,7 +62,9 @@ export class ImsAddonEntity {
     /**
     * 简介
     */
-    @Column()
+    @Column({
+        default: ''
+    })
     desc: string = '';
     /** 是否可用 */
     @Column()
@@ -60,7 +72,9 @@ export class ImsAddonEntity {
     /**
      * 版本号
      */
-    @Column()
+    @Column({
+        default: ''
+    })
     version: string = '1.0.0';
 
     @Column()
