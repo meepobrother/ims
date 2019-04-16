@@ -74,5 +74,7 @@ export class ImsCoreAdminerSetting {
     }
 
     @Get()
-    mineAddons() { }
+    mineAddons() {
+        return this.addon.findAndCount({})
+    }
 }

@@ -87,7 +87,10 @@ import { Template } from 'ims-core'
                     }
                 }, {
                     path: '/mine',
-                    component: 'adminer/addon/mine'
+                    component: 'adminer/addon/mine',
+                    store: {
+                        mine: 'adminer/addon/mine/store'
+                    }
                 }]
             }, {
                 path: '/addon-list',

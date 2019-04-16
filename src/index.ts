@@ -1,3 +1,3 @@
-import { exec } from 'shelljs'
-
-exec(`typescript -v`)
+const moment = require("moment");
+const m = moment;
+debugger;
