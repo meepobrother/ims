@@ -48,7 +48,7 @@ export class ImsAddonEntity {
      * 轮播
      */
     @Column({
-        type: 'string',
+        type: 'text',
         transformer: {
             to(value: string[]) {
                 return JSON.stringify(value)
