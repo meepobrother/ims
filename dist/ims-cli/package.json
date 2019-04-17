@@ -1,6 +1,6 @@
 {
   "name": "ims-cli",
-  "version": "1.0.57",
+  "version": "1.0.58",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -26,6 +26,7 @@
     "@nodeutils/defaults-deep": "*",
     "body-parser": "*",
     "chalk": "*",
+    "current-processes": "*",
     "express": "*",
     "express-session": "*",
     "fs-extra": "*",
@@ -66,7 +67,6 @@
     "typescript": "*",
     "webpack": "*",
     "ws": "*",
-    "yargs-parser": "*",
-    "current-processes": "*"
+    "yargs-parser": "*"
   }
 }
