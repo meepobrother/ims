@@ -3,22 +3,19 @@ import webpack = require('webpack')
 import { formatWebpackMessages } from 'ims-webpack';
 import { Type } from 'ims-decorator';
 import { ImsWebpackAdmin } from 'ims-webpack-admin';
-import { ImsWebpackMobile } from 'ims-webpack-mobile';
 
 export class ImsWebpacks {
     isRunning: boolean;
 
     admin: ImsWebpackAdmin;
-    mobile: ImsWebpackMobile;
 
     get pkgs() {
-        return [this.admin, this.mobile]
+        return [this.admin]
     }
     dev: boolean = false;
     constructor(public addons: Type<any>[], dev: boolean) {
         this.dev = dev;
         this.admin = new ImsWebpackAdmin(addons, this.dev);
-        this.mobile = new ImsWebpackMobile(addons, this.dev);
     }
     getConfig(): webpack.Configuration[] {
         return this.pkgs.map(pkg => {

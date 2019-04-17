@@ -4,17 +4,15 @@ const rimraf = require("rimraf");
 const webpack = require("webpack");
 const ims_webpack_1 = require("ims-webpack");
 const ims_webpack_admin_1 = require("ims-webpack-admin");
-const ims_webpack_mobile_1 = require("ims-webpack-mobile");
 class ImsWebpacks {
     constructor(addons, dev) {
         this.addons = addons;
         this.dev = false;
         this.dev = dev;
         this.admin = new ims_webpack_admin_1.ImsWebpackAdmin(addons, this.dev);
-        this.mobile = new ims_webpack_mobile_1.ImsWebpackMobile(addons, this.dev);
     }
     get pkgs() {
-        return [this.admin, this.mobile];
+        return [this.admin];
     }
     getConfig() {
         return this.pkgs.map(pkg => {
