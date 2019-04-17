@@ -19,11 +19,6 @@ export default class Index extends React.Component<{ home?: ClusterHome, route?:
             <PageHeader {...header}
                 title="服务管理"
                 wide={true}
-                action={
-                    <div>
-                        <a href="javascript:;" onClick={() => home.addCluster()}>添加服务</a>
-                    </div>
-                }
                 content={
                     <div>
                         <p>

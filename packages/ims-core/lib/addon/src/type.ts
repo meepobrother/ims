@@ -62,6 +62,10 @@ export interface AddonOptions {
      * 模板
      */
     template?: any;
+    /** 父模块 */
+    parent?: any;
+    /** 以来模块 */
+    dependencies?: string[];
 }
 
 export interface ControllerOptions {
