@@ -1,7 +1,7 @@
-import { Controller, EntityRepository, Post, Body } from 'ims-core'
+import { Controller, EntityRepository, Post, Body, Get } from 'ims-core'
 import { ImsServer } from 'ims-model'
 @Controller({
-    path: '/adminer/server'
+    path: '/adminer/services'
 })
 export class ImsCoreAdminerServer {
 
@@ -10,6 +10,11 @@ export class ImsCoreAdminerServer {
         target: ImsServer
     })
     server: EntityRepository<ImsServer>;
+
+    @Get()
+    getList() {
+        return this.server.findAndCount()
+    }
 
     @Post()
     async addServer(@Body() body: any) {

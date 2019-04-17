@@ -52,7 +52,7 @@ export class Add {
             path: this.path,
             upstream: this.upstream
         }
-        util.http.post('/adminer/server/addServer',data).then(res => {
+        util.http.post('/adminer/services/addServer',data).then(res => {
             console.log(res.data)
         });
     }

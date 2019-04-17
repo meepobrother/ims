@@ -1,6 +1,6 @@
 import React = require('react');
 import PageHeader from 'ant-design-pro/lib/PageHeader'
-import { List, Card } from 'antd'
+import { List, Card, Table } from 'antd'
 const header: any = {};
 import './index.less';
 import { inject, observer } from 'mobx-react';
@@ -8,6 +8,9 @@ import { ClusterHome } from './store'
 @inject('home')
 @observer
 export default class Index extends React.Component<{ home?: ClusterHome }, any> {
+    componentDidMount() {
+        this.props.home.getList();
+    }
     render() {
         const { home } = this.props;
         return <div className="ims-adminer-manager-home-page">
@@ -29,19 +32,22 @@ export default class Index extends React.Component<{ home?: ClusterHome }, any> 
             >
             </PageHeader>
             <div className="main">
-                <List
+                <Table dataSource={home.list} columns={home.columns}></Table>
+                {/* <List
                     grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
                     dataSource={home.list}
-                    renderItem={(item) => {
+                    renderItem={(item: any) => {
                         return <List.Item>
-                            <Card hoverable actions={[
+                            <Card title={item.name} hoverable actions={[
                                 <a>编辑</a>,
                                 <a>移除</a>
                             ]}>
-                                localhost:4200
-                        </Card>
+                                {item.upstream.map((it, key) => {
+                                    return <div key={key}>{it.ip}:{it.port}</div>
+                                })}
+                            </Card>
                         </List.Item>
-                    }}></List>
+                    }}></List> */}
             </div>
         </div>
     }
