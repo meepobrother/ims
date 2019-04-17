@@ -5,10 +5,10 @@ import { join, relative } from 'path';
 import * as fs from 'fs-extra';
 import { camelCase, kebabCase } from 'lodash';
 import { visitor } from 'ims-common';
-
+const root = process.cwd();
 export function createAdmin(addons: Type<any>[]) {
     let routers: any[] = [];
-    const tempDir = join(__dirname, 'temp');
+    const tempDir = join(root, 'data/temp');
     addons.map(addon => {
         const context = visitor.visitType(addon)
         const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
