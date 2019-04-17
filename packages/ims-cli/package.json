@@ -50,6 +50,7 @@
     "gulp-typescript": "*",
     "shelljs": "*",
     "typescript": "*",
-    "jsonwebtoken": "*"
+    "jsonwebtoken": "*",
+    "pull-stream": "*"
   }
 }
