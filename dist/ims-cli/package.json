@@ -1,6 +1,6 @@
 {
   "name": "ims-cli",
-  "version": "1.0.45",
+  "version": "1.0.46",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -40,16 +40,16 @@
     "yargs-parser": "*"
   },
   "dependencies": {
-    "ims-addon-adminer": "^1.0.45",
-    "ims-addon-install": "^1.0.45",
-    "ims-common": "^1.0.45",
-    "ims-cookie": "^1.0.45",
-    "ims-core": "^1.0.45",
-    "ims-decorator": "^1.0.45",
-    "ims-model": "^1.0.45",
-    "ims-node": "^1.0.45",
-    "ims-platform-typeorm": "^1.0.45",
-    "ims-webpack-admin": "^1.0.45",
-    "ims-webpack-mobile": "^1.0.45"
+    "ims-addon-adminer": "^1.0.46",
+    "ims-addon-install": "^1.0.46",
+    "ims-common": "^1.0.46",
+    "ims-cookie": "^1.0.46",
+    "ims-core": "^1.0.46",
+    "ims-decorator": "^1.0.46",
+    "ims-model": "^1.0.46",
+    "ims-node": "^1.0.46",
+    "ims-platform-typeorm": "^1.0.46",
+    "ims-webpack-admin": "^1.0.46",
+    "ims-webpack-mobile": "^1.0.46"
   }
 }
