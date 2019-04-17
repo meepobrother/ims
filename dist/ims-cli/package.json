@@ -6,6 +6,7 @@
   "homepage": "http://meepo.com.cn",
   "license": "ISC",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "bin": {
     "ims": "lib/bin.js"
   },
