@@ -1,27 +1,26 @@
-import log4js = require('log4js');
-log4js.configure({
-    appenders: {
-        console: {
-            type: 'console'
-        },
-        logstash: {
-            url: 'http://172.17.0.5:9200/_bulk',
-            type: '@log4js-node/logstash-http',
-            logType: 'application',
-            logChannel: 'node',
-            application: 'logstash-log4js',
-            layout: {
-                type: 'pattern',
-                pattern: '%m'
-            }
-        }
-    },
-    categories: {
-        default: { appenders: ['console', 'logstash'], level: 'info' }
-    },
-    pm2: true,
-    pm2InstanceVar: 'INSTANCE_ID'
-});
+import { EventEmitter } from 'events';
+import PeerBook from 'peer-book';
+import PeerInfo from 'peer-info';
+import BlockService from 'ipfs-block-service';
+import Ipld from 'ipld';
+export interface ImsOptions { }
+export class Ims extends EventEmitter {
+    private _peerInfoBook: PeerBook = new PeerBook();
+    private _peerInfo: PeerInfo;
+    private _blockService: BlockService;
+    private _ipld: Ipld;
+    constructor(options: ImsOptions) {
+        super();
+    }
 
-const logger = log4js.getLogger('myLogger');
-logger.info('Test log message %s', 'arg1', 'arg2');
+    init() { }
+    preStart() { }
+    start() { }
+    stop() { }
+    shutdown() { }
+    isOnline() { }
+
+    static create(options: ImsOptions): Ims {
+        return new Ims(options);
+    }
+}

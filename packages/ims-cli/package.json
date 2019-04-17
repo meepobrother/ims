@@ -5,9 +5,9 @@
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
   "license": "ISC",
-  "main": "lib/index",
+  "main": "lib/index.js",
   "bin": {
-    "ims": "lib/bin"
+    "ims": "lib/bin.js"
   },
   "directories": {
     "lib": "lib",
