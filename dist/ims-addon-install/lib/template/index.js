@@ -13,7 +13,7 @@ ImsInstallTemplate = __decorate([
     ims_core_1.Template({
         mobiles: [],
         admins: [{
-                path: '/',
+                path: '/*',
                 component: 'admin/install'
             }]
     })

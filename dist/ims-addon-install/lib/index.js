@@ -22,7 +22,8 @@ ImsAddonInstall = __decorate([
     ims_core_1.Addon({
         incs: incs,
         template: template_1.ImsInstallTemplate,
-        sourceRoot: __dirname
+        sourceRoot: __dirname,
+        path: '/'
     })
 ], ImsAddonInstall);
 exports.default = ImsAddonInstall;
