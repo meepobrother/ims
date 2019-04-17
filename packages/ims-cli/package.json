@@ -72,6 +72,8 @@
     "ant-design-pro": "*",
     "ims-adminer": "*",
     "ims-util": "*",
-    "react": "*"
+    "react": "*",
+    "react-dom": "*",
+    "current-processes": "*"
   }
 }

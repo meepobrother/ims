@@ -71,6 +71,7 @@
     "typescript": "*",
     "webpack": "*",
     "ws": "*",
-    "yargs-parser": "*"
+    "yargs-parser": "*",
+    "current-processes": "*"
   }
 }
