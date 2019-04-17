@@ -1,6 +1,6 @@
 {
   "name": "ims-addon-install",
-  "version": "1.0.40",
+  "version": "1.0.66",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "https://github.com/meepobrother/ims#readme",
@@ -27,10 +27,10 @@
     "url": "https://github.com/meepobrother/ims/issues"
   },
   "dependencies": {
-    "antd": "*",
     "ant-design-pro": "*",
-    "ims-adminer": "*",
-    "ims-util": "*",
+    "antd": "*",
+    "ims-adminer": "^1.0.66",
+    "ims-util": "^1.0.66",
     "react": "*"
   }
 }
