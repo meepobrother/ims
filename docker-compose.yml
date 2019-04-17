@@ -6,6 +6,8 @@ services:
     ports: 
       - 0.0.0.0:80:80
       - 0.0.0.0:81:81
+    environment:
+      - NGINX_PORT=80
     networks: 
       - app
     volumes: 

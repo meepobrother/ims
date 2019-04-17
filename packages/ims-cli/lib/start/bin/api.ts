@@ -39,6 +39,9 @@ export async function bootstrap(root: string, dev: boolean) {
     app.use(file.any());
     app.use(express.static(join(root, 'template')))
     app.use(express.static(join(root, 'attachment')))
+    app.use('/favicon.ico', (req, res, next) => { 
+        res.end('')
+    });
     const jsonParser: any = bodyparser.json();
     const textParser: any = bodyparser.text();
     const rawParser: any = bodyparser.raw();
