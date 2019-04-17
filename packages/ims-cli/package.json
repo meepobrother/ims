@@ -66,6 +66,7 @@
     "libp2p-kad-dht": "*",
     "libp2p-mdns": "*",
     "@babel/helper-module-imports": "*",
-    "@babel/traverse": "*"
+    "@babel/traverse": "*",
+    "log4js": "*"
   }
 }

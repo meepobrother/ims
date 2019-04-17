@@ -41,7 +41,8 @@
     "chokidar": "*",
     "libp2p": "*",
     "ws": "*",
-    "axios": "*"
+    "axios": "*",
+    "log4js": "*"
   },
   "devDependencies": {}
 }
