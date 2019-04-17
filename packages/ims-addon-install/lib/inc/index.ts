@@ -92,6 +92,7 @@ export class ImsIndex {
             }
         }
     }
+    
     @Post()
     async restart() {
         // rmrf(join(root, 'config/config.json'))

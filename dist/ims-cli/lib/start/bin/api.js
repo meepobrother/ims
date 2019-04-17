@@ -119,12 +119,6 @@ async function bootstrap(root, dev) {
         server: ws,
         libp2p: node
     });
-    if (!installed) {
-        // 如果没有安装跳转到安装页面
-        app.get('*', (req, res, next) => {
-            res.redirect('/ims-install');
-        });
-    }
     return new Promise((resolve, reject) => {
         server.listen(addressOptions.port, addressOptions.host, () => {
             console.log(`api start at http://${addressOptions.host}:${addressOptions.port}`);
