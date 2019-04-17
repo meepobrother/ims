@@ -20,7 +20,19 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
-  "devDependencies": {
+  "devDependencies": {},
+  "dependencies": {
+    "ims-common": "*",
+    "ims-core": "*",
+    "ims-decorator": "*",
+    "ims-model": "*",
+    "ims-platform-typeorm": "*",
+    "ims-cookie": "*",
+    "ims-node": "*",
+    "ims-addon-adminer": "*",
+    "ims-addon-install": "*",
+    "ims-webpack-admin": "*",
+    "ims-webpack-mobile": "*",
     "rimraf": "*",
     "yargs-parser": "*",
     "express": "*",
@@ -38,18 +50,5 @@
     "gulp-typescript": "*",
     "shelljs": "*",
     "typescript": "*"
-  },
-  "dependencies": {
-    "ims-common": "*",
-    "ims-core": "*",
-    "ims-decorator": "*",
-    "ims-model": "*",
-    "ims-platform-typeorm": "*",
-    "ims-cookie": "*",
-    "ims-node": "*",
-    "ims-addon-adminer": "*",
-    "ims-addon-install": "*",
-    "ims-webpack-admin": "*",
-    "ims-webpack-mobile": "*"
   }
 }
