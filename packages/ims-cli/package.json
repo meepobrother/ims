@@ -51,6 +51,7 @@
     "shelljs": "*",
     "typescript": "*",
     "jsonwebtoken": "*",
-    "pull-stream": "*"
+    "pull-stream": "*",
+    "pull-pushable": "*"
   }
 }
