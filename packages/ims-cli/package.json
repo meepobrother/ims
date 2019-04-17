@@ -49,6 +49,7 @@
     "chalk": "*",
     "gulp-typescript": "*",
     "shelljs": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "jsonwebtoken": "*"
   }
 }
