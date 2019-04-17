@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
+  },
+  "dependencies": {
+    "ims-core": "*"
   }
 }

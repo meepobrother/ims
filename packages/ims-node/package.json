@@ -25,5 +25,24 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
+  },
+  "dependencies": {
+    "ims-decorator": "*",
+    "ims-common": "*",
+    "ims-core": "*",
+    "ims-webpack-admin": "*",
+    "ims-webpack-mobile": "*"
+  },
+  "devDependencies": {
+    "rimraf": "*",
+    "shelljs": "*",
+    "fs-extra": "*",
+    "jsonwebtoken": "*",
+    "express": "*",
+    "rxjs": "*",
+    "chokidar": "*",
+    "libp2p": "*",
+    "ws": "*",
+    "axios": "*"
   }
 }

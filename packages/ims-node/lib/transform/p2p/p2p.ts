@@ -1,5 +1,4 @@
 import { TypeContext } from "ims-decorator";
-import Libp2p from 'libp2p';
 import { P2pMetadataKey, P2pPropertyAst } from "ims-core";
 import { TransformOptions } from '../type'
 

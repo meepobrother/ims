@@ -1,6 +1,6 @@
 {
   "name": "ims-p2p",
-  "version": "1.0.41",
+  "version": "1.0.32",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "https://github.com/meepobrother/ims#readme",
@@ -22,5 +22,19 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "peer-id": "*",
+    "peer-info": "*",
+    "peer-book": "*",
+    "libp2p": "*",
+    "libp2p-tcp": "*",
+    "libp2p-mplex": "*",
+    "libp2p-secio": "*",
+    "libp2p-bootstrap": "*",
+    "@nodeutils/defaults-deep": "*",
+    "libp2p-kad-dht": "*",
+    "libp2p-mdns": "*"
   }
 }
