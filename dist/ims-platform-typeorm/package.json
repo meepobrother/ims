@@ -1,6 +1,6 @@
 {
   "name": "ims-platform-typeorm",
-  "version": "1.0.46",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -16,5 +16,10 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "2e3d03ed91ef08c02bf1782f270377247ff5947d"
+  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
+  "dependencies": {
+    "ims-common": "*",
+    "ims-decorator": "*",
+    "typeorm": "*"
+  }
 }

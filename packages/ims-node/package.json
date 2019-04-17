@@ -31,9 +31,7 @@
     "ims-common": "*",
     "ims-core": "*",
     "ims-webpack-admin": "*",
-    "ims-webpack-mobile": "*"
-  },
-  "devDependencies": {
+    "ims-webpack-mobile": "*",
     "rimraf": "*",
     "shelljs": "*",
     "fs-extra": "*",
@@ -44,5 +42,6 @@
     "libp2p": "*",
     "ws": "*",
     "axios": "*"
-  }
+  },
+  "devDependencies": {}
 }

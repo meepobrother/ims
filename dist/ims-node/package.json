@@ -1,6 +1,6 @@
 {
   "name": "ims-node",
-  "version": "1.0.46",
+  "version": "1.0.36",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "https://github.com/meepobrother/ims#readme",
@@ -27,23 +27,21 @@
     "url": "https://github.com/meepobrother/ims/issues"
   },
   "dependencies": {
-    "ims-common": "^1.0.46",
-    "ims-core": "^1.0.46",
-    "ims-decorator": "^1.0.46",
-    "ims-webpack-admin": "^1.0.46",
-    "ims-webpack-mobile": "^1.0.46"
-  },
-  "devDependencies": {
-    "axios": "*",
-    "chokidar": "*",
-    "express": "*",
+    "ims-decorator": "*",
+    "ims-common": "*",
+    "ims-core": "*",
+    "ims-webpack-admin": "*",
+    "ims-webpack-mobile": "*",
+    "rimraf": "*",
+    "shelljs": "*",
     "fs-extra": "*",
     "jsonwebtoken": "*",
-    "libp2p": "*",
-    "rimraf": "*",
+    "express": "*",
     "rxjs": "*",
-    "shelljs": "*",
-    "ws": "*"
+    "chokidar": "*",
+    "libp2p": "*",
+    "ws": "*",
+    "axios": "*"
   },
-  "gitHead": "2e3d03ed91ef08c02bf1782f270377247ff5947d"
+  "devDependencies": {}
 }

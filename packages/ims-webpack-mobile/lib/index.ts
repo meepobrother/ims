@@ -3,7 +3,6 @@ import { AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst } from 'im
 import { Type } from 'ims-decorator'
 import { createMobile } from './util';
 const sources = new Set();
-import { BehaviorSubject } from 'rxjs';
 import { join } from 'path';
 import { visitor } from 'ims-common';
 export { createMobile };
@@ -15,7 +14,6 @@ export class ImsWebpackMobile extends ImsWebpack {
      * 是否开发中
      */
     dev: boolean;
-    $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
     constructor(public addons: Type<any>[], dev: boolean = true) {
         super('mobile', dev);

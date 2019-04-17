@@ -5,7 +5,6 @@ const ims_core_1 = require("ims-core");
 const util_1 = require("./util");
 exports.createMobile = util_1.createMobile;
 const sources = new Set();
-const rxjs_1 = require("rxjs");
 const path_1 = require("path");
 const ims_common_1 = require("ims-common");
 /**
@@ -15,7 +14,6 @@ class ImsWebpackMobile extends ims_webpack_1.ImsWebpack {
     constructor(addons, dev = true) {
         super('mobile', dev);
         this.addons = addons;
-        this.$change = new rxjs_1.BehaviorSubject(0);
         this.dev == !!dev;
         this.entity.add(util_1.createMobile(addons));
         addons.map(addon => {

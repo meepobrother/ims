@@ -17,12 +17,12 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "webpack-chain": "*",
     "html-webpack-plugin": "*",
     "autoprefixer": "*",
     "webpack": "*",
     "webpack-merge": "*"
-  }
+  },
+  "devDependencies": {}
 }
