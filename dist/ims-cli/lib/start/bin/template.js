@@ -10,8 +10,8 @@ const ims_model_1 = require("ims-model");
 const ims_common_1 = require("ims-common");
 const ims_platform_typeorm_1 = require("ims-platform-typeorm");
 const typeorm_1 = require("typeorm");
-const ims_core_adminer_1 = __importDefault(require("ims-core-adminer"));
-const ims_install_1 = __importDefault(require("ims-install"));
+const ims_addon_adminer_1 = __importDefault(require("ims-addon-adminer"));
+const ims_addon_install_1 = __importDefault(require("ims-addon-install"));
 const root = process.cwd();
 class ImsStartApp {
 }
@@ -36,7 +36,7 @@ async function bootstrap(dev) {
             allAddon.map(addon => {
                 addons.push(require(addon.entry).default);
             });
-            addons.push(ims_core_adminer_1.default);
+            addons.push(ims_addon_adminer_1.default);
         }
         catch (e) {
             console.log(`error`, e.message);
@@ -44,7 +44,7 @@ async function bootstrap(dev) {
     }
     else {
         // 安装模块
-        addons.push(ims_install_1.default);
+        addons.push(ims_addon_install_1.default);
     }
     const pack = new webpack_1.ImsWebpacks(addons, dev);
     pack.run();

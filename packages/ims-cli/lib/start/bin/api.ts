@@ -26,8 +26,8 @@ declare global {
     }
 }
 
-import ImsInstall from 'ims-install';
-import ImsCoreAdminer from 'ims-core-adminer';
+import ImsInstall from 'ims-addon-install';
+import ImsCoreAdminer from 'ims-addon-adminer';
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import multiaddr from 'multiaddr'

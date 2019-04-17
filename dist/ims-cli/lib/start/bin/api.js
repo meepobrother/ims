@@ -18,8 +18,8 @@ const multer = require("multer");
 const bodyparser = require("body-parser");
 const ims_cookie_1 = require("ims-cookie");
 const session = require("express-session");
-const ims_install_1 = __importDefault(require("ims-install"));
-const ims_core_adminer_1 = __importDefault(require("ims-core-adminer"));
+const ims_addon_install_1 = __importDefault(require("ims-addon-install"));
+const ims_addon_adminer_1 = __importDefault(require("ims-addon-adminer"));
 const ims_p2p_1 = require("ims-p2p");
 const multiaddr_1 = __importDefault(require("multiaddr"));
 const ims_node_1 = require("ims-node");
@@ -92,7 +92,7 @@ async function bootstrap(root, dev) {
                 const targt = require(addon.entry).default;
                 addons.push(targt);
             });
-            addons.push(ims_core_adminer_1.default);
+            addons.push(ims_addon_adminer_1.default);
             // 服务启动
             await ims_platform_typeorm_1.parseAddons(addons, config);
         }
@@ -102,7 +102,7 @@ async function bootstrap(root, dev) {
         }
     }
     else {
-        addons.push(ims_install_1.default);
+        addons.push(ims_addon_install_1.default);
     }
     let node;
     if (installed) {
