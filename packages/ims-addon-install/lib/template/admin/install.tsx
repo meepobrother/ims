@@ -92,7 +92,6 @@ export default class Index extends React.Component<any, IndexState> {
                 </div>
                 <GlobalFooter copyright={<div>
                     <p>Copyright © 2019 杭州米波网络科技有限公司</p>
-                    <p>网站备案/许可证号：豫ICP备14020079号-3</p>
                 </div>} />
             </div>
         </div>
