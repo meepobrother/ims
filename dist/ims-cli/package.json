@@ -1,6 +1,6 @@
 {
   "name": "ims-cli",
-  "version": "1.0.43",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -20,34 +20,36 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
-  "dependencies": {
-    "body-parser": "*",
-    "chalk": "*",
+  "devDependencies": {
+    "rimraf": "*",
+    "yargs-parser": "*",
     "express": "*",
-    "express-session": "*",
+    "typeorm": "*",
     "fs-extra": "*",
+    "ws": "*",
+    "multer": "*",
+    "body-parser": "*",
+    "express-session": "*",
+    "reflect-metadata": "*",
+    "pm2": "*",
+    "webpack": "*",
     "gulp": "*",
+    "chalk": "*",
     "gulp-typescript": "*",
-    "ims-addon-adminer": "*",
-    "ims-addon-install": "*",
+    "shelljs": "*",
+    "typescript": "*"
+  },
+  "dependencies": {
     "ims-common": "*",
-    "ims-cookie": "*",
     "ims-core": "*",
     "ims-decorator": "*",
     "ims-model": "*",
-    "ims-node": "*",
     "ims-platform-typeorm": "*",
+    "ims-cookie": "*",
+    "ims-node": "*",
+    "ims-addon-adminer": "*",
+    "ims-addon-install": "*",
     "ims-webpack-admin": "*",
-    "ims-webpack-mobile": "*",
-    "multer": "*",
-    "pm2": "*",
-    "reflect-metadata": "*",
-    "rimraf": "*",
-    "shelljs": "*",
-    "typeorm": "*",
-    "typescript": "*",
-    "webpack": "*",
-    "ws": "*",
-    "yargs-parser": "*"
+    "ims-webpack-mobile": "*"
   }
 }
