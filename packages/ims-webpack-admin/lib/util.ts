@@ -9,6 +9,7 @@ const root = process.cwd();
 export function createAdmin(addons: Type<any>[]) {
     let routers: any[] = [];
     const tempDir = join(root, 'data/temp');
+    fs.ensureDirSync(tempDir);
     addons.map(addon => {
         const context = visitor.visitType(addon)
         const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
