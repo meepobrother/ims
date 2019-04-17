@@ -1,6 +1,6 @@
 {
   "name": "ims-cli",
-  "version": "1.0.64",
+  "version": "1.0.65",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -47,7 +47,7 @@
     "ims-platform-typeorm": "*",
     "ims-protons": "*",
     "ims-util": "*",
-    "ims-webpack": "*",
+    "ims-webpack": "^1.0.65",
     "ims-webpack-admin": "*",
     "ims-webpack-mobile": "*",
     "jsonwebtoken": "*",
