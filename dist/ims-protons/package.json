@@ -1,6 +1,6 @@
 {
   "name": "ims-protons",
-  "version": "1.0.54",
+  "version": "1.0.10",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -25,6 +25,5 @@
   },
   "dependencies": {
     "protons": "^1.0.1"
-  },
-  "gitHead": "243944f7a958104e77a057a4e53ca53433854438"
+  }
 }

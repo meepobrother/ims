@@ -1,6 +1,6 @@
 {
   "name": "ims-util",
-  "version": "1.0.54",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -16,13 +16,13 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "243944f7a958104e77a057a4e53ca53433854438",
+  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
   "devDependencies": {
     "axios": "*",
     "store": "*"
   },
   "dependencies": {
-    "ims-cookie": "^1.0.54",
-    "ims-core": "^1.0.54"
+    "ims-core": "*",
+    "ims-cookie": "*"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ims-babel",
-  "version": "1.0.54",
+  "version": "1.0.32",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "https://github.com/meepobrother/ims#readme",
@@ -22,6 +22,5 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
-  },
-  "gitHead": "243944f7a958104e77a057a4e53ca53433854438"
+  }
 }

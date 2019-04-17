@@ -1,6 +1,6 @@
 {
   "name": "ims-proxy",
-  "version": "1.0.54",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -10,13 +10,13 @@
     "ims-proxy": "lib/bin.js"
   },
   "dependencies": {
-    "express": "^4.16.4",
-    "fs-extra": "^7.0.1",
-    "ims-protons": "^1.0.54",
-    "node-fetch": "^2.3.0",
     "tslib": "^1.9.3",
+    "express": "^4.16.4",
+    "node-fetch": "^2.3.0",
     "ws": "^6.2.1",
-    "yargs-parser": "^13.0.0"
+    "fs-extra": "^7.0.1",
+    "yargs-parser": "^13.0.0",
+    "ims-protons": "*"
   },
   "directories": {
     "lib": "lib",
@@ -35,5 +35,5 @@
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
   },
-  "gitHead": "243944f7a958104e77a057a4e53ca53433854438"
+  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e"
 }

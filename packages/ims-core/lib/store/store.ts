@@ -1,4 +1,4 @@
-import { makeDecorator, ClassContext, ClassAst, TypeContext, ParserAstContext } from 'ims-decorator';
+import { makeDecorator, ClassContext, ClassAst, ParserAstContext } from 'ims-decorator';
 export const StoreMetadataKey = 'StoreMetadataKey';
 export interface Store {
     name: string;

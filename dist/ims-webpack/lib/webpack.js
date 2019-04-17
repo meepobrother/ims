@@ -85,7 +85,13 @@ class ImsWebpack {
                                     configFile: false,
                                     presets: ['@babel/preset-env', '@babel/preset-react'],
                                     plugins: [
-                                        "@babel/plugin-transform-runtime",
+                                        ["@babel/plugin-transform-runtime", {
+                                                "absoluteRuntime": false,
+                                                "corejs": false,
+                                                "helpers": true,
+                                                "regenerator": true,
+                                                "useESModules": false
+                                            }],
                                         ['@babel/plugin-syntax-dynamic-import'],
                                         [antd_1.default, {
                                                 "libraryName": "antd",

@@ -3,7 +3,7 @@ import { Template } from "ims-core";
 @Template({
     mobiles: [],
     admins: [{
-        path: '/*',
+        path: '/',
         component: 'admin/install'
     }]
 })
