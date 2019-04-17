@@ -22,7 +22,9 @@
     "html-webpack-plugin": "*",
     "autoprefixer": "*",
     "webpack": "*",
-    "webpack-merge": "*"
+    "webpack-merge": "*",
+    "@babel/helper-module-imports": "*",
+    "@babel/traverse": "*"
   },
   "devDependencies": {}
 }

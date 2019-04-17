@@ -64,6 +64,8 @@
     "libp2p-bootstrap": "*",
     "@nodeutils/defaults-deep": "*",
     "libp2p-kad-dht": "*",
-    "libp2p-mdns": "*"
+    "libp2p-mdns": "*",
+    "@babel/helper-module-imports": "*",
+    "@babel/traverse": "*"
   }
 }
