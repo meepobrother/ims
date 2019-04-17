@@ -52,6 +52,17 @@
     "typescript": "*",
     "jsonwebtoken": "*",
     "pull-stream": "*",
-    "pull-pushable": "*"
+    "pull-pushable": "*",
+    "peer-id": "*",
+    "peer-info": "*",
+    "peer-book": "*",
+    "libp2p": "*",
+    "libp2p-tcp": "*",
+    "libp2p-mplex": "*",
+    "libp2p-secio": "*",
+    "libp2p-bootstrap": "*",
+    "@nodeutils/defaults-deep": "*",
+    "libp2p-kad-dht": "*",
+    "libp2p-mdns": "*"
   }
 }

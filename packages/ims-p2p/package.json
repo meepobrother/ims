@@ -23,8 +23,7 @@
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
   },
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "peer-id": "*",
     "peer-info": "*",
     "peer-book": "*",
@@ -36,5 +35,6 @@
     "@nodeutils/defaults-deep": "*",
     "libp2p-kad-dht": "*",
     "libp2p-mdns": "*"
-  }
+  },
+  "devDependencies": {}
 }
