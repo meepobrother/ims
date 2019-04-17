@@ -59,7 +59,7 @@ export class AdminerLayout {
     }, {
         title: '服务管理',
         onClick: () => {
-            history.push('/adminer/services/list')
+            history.push('/adminer/services')
         }
     }, {
         title: 'IMS联盟',

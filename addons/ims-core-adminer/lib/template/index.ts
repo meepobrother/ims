@@ -119,16 +119,10 @@ import { Template } from 'ims-core'
             },
             //集群
             {
-                path: '/services/list',
-                component: 'adminer/services/list',
+                path: '/services',
+                component: 'adminer/services/layout',
                 store: {
-                    home: 'adminer/services/list/store'
-                }
-            },
-            {
-                path: '/services/add',
-                component: 'adminer/services/add/add',
-                store: {
+                    home: 'adminer/services/list/store',
                     add: 'adminer/services/add/store'
                 }
             },

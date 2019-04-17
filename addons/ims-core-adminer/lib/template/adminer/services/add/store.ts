@@ -1,5 +1,6 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util';
+import { history } from 'ims-adminer'
 export class Add {
 
     @observable
@@ -13,6 +14,11 @@ export class Add {
 
     @observable
     upstream: { ip: string, port: number }[] = [];
+
+    @action
+    setUpstream(upstream: any) {
+        this.upstream = upstream;
+    }
 
     @action
     setIp(ip: string) {
@@ -52,8 +58,13 @@ export class Add {
             path: this.path,
             upstream: this.upstream
         }
-        util.http.post('/adminer/services/addServer',data).then(res => {
-            console.log(res.data)
+        util.http.post('/adminer/services/addServer', data).then(res => {
+            const { data } = res;
+            if (data.code === 0) {
+                history.push('/adminer/services')
+            } else { 
+
+            }
         });
     }
 
@@ -69,11 +80,18 @@ export class Add {
         this.port = undefined;
     }
 
-    @action.bound
+    @action
     removeHost(index: number) {
         const upstream = this.upstream;
         upstream.splice(index, 1);
         this.upstream = upstream;
+    }
+
+    @action
+    clear() {
+        this.setName('')
+        this.setPath('')
+        this.upstream = [];
     }
 }
 

@@ -13,10 +13,10 @@ export default class Index extends React.Component<{ add?: Add }, any> {
             <Card hoverable title="添加服务" className="add-view">
                 <Form>
                     <Form.Item>
-                        <Input onChange={e => add.setName(e.target.value)} placeholder="服务名" />
+                        <Input value={add.name} onChange={e => add.setName(e.target.value)} placeholder="服务名" />
                     </Form.Item>
                     <Form.Item>
-                        <Input onChange={e => add.setPath(e.target.value)} placeholder="挂载路径" />
+                        <Input value={add.path} onChange={e => add.setPath(e.target.value)} placeholder="挂载路径" />
                     </Form.Item>
                     <h4>服务主机(右边添加)</h4>
                     <div className="add_upstream">

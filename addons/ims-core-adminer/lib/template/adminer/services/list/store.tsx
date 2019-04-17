@@ -1,8 +1,8 @@
 import { observable, action } from 'mobx';
 import util from 'ims-util';
 import { history } from 'ims-adminer';
-import { link } from 'fs';
-
+import React = require('react');
+import add from '../add/store'
 interface HomeItem { }
 export class ClusterHome {
     @observable
@@ -14,24 +14,43 @@ export class ClusterHome {
     @observable
     columns: any[] = [{
         key: 'name',
-        title: 'name',
+        title: '名称',
         dataIndex: 'name'
     }, {
         key: 'path',
-        title: 'path',
+        title: '路径',
         dataIndex: 'path'
     }, {
         key: 'upstream',
-        title: 'upstream',
+        title: '主机',
         dataIndex: 'upstream',
         render: (item: any) => {
-            return <ul>
+            return <div>
                 {item.map((li, key) => {
-                    return <li key={key}>{li.ip}:{li.port}</li>
+                    return <div key={key}>{li.ip}:{li.port}</div>
                 })}
-            </ul>
+            </div>
+        }
+    }, {
+        render: (item) => {
+            return <div>
+                <a onClick={() => this.edit(item)}>编辑</a>&nbsp;<a onClick={() => this.remove(item)}>移除</a>
+            </div>
         }
     }];
+
+    @action
+    edit(item) {
+        add.setName(item.name);
+        add.setPath(item.path);
+        add.setUpstream(item.upstream);
+        this.activeTab = 'add';
+    }
+
+    @action
+    remove(item) {
+
+    }
 
     @action
     getList() {
@@ -44,6 +63,17 @@ export class ClusterHome {
     @action
     addCluster() {
         history.push('/adminer/services/add')
+    }
+
+    @observable
+    activeTab: string = 'list';
+
+    @action
+    setActiveTab(e: string) {
+        this.activeTab = e;
+        if (this.activeTab === 'add') {
+            add.clear();
+        }
     }
 
 }
