@@ -47,6 +47,7 @@
     "gulp": "*",
     "chalk": "*",
     "gulp-typescript": "*",
-    "shelljs": "*"
+    "shelljs": "*",
+    "typescript": "*"
   }
 }
