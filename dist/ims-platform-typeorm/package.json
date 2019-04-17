@@ -1,6 +1,6 @@
 {
   "name": "ims-platform-typeorm",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -18,8 +18,8 @@
   },
   "gitHead": "243944f7a958104e77a057a4e53ca53433854438",
   "dependencies": {
-    "ims-common": "^1.0.53",
-    "ims-decorator": "^1.0.53",
+    "ims-common": "^1.0.54",
+    "ims-decorator": "^1.0.54",
     "typeorm": "*"
   }
 }

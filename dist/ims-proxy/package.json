@@ -1,6 +1,6 @@
 {
   "name": "ims-proxy",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -12,7 +12,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "fs-extra": "^7.0.1",
-    "ims-protons": "^1.0.53",
+    "ims-protons": "^1.0.54",
     "node-fetch": "^2.3.0",
     "tslib": "^1.9.3",
     "ws": "^6.2.1",

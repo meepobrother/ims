@@ -1,6 +1,6 @@
 {
   "name": "ims-util",
-  "version": "1.0.53",
+  "version": "1.0.54",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -22,7 +22,7 @@
     "store": "*"
   },
   "dependencies": {
-    "ims-cookie": "^1.0.53",
-    "ims-core": "^1.0.53"
+    "ims-cookie": "^1.0.54",
+    "ims-core": "^1.0.54"
   }
 }
