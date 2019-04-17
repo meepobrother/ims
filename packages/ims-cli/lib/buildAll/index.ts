@@ -30,15 +30,7 @@ export class ImsBuildAll {
             const srcRoot = 'packages';
             await _rimraf(join(root, this.output, str));
             console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`)
-            packProject(str, this.output, srcRoot, !!this.watch);
-        }
-        const addons = fs.readdirSync(join(root, 'addons'));
-        for (let str of addons) {
-            console.log(`packages:${str}`)
-            const srcRoot = 'addons';
-            await _rimraf(join(root, this.output, str));
-            console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`)
-            packProject(str, this.output, srcRoot, !!this.watch);
+            await packProject(str, this.output, srcRoot, !!this.watch);
         }
     }
 
