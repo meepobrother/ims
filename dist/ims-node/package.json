@@ -44,5 +44,6 @@
     "rxjs": "*",
     "shelljs": "*",
     "ws": "*"
-  }
+  },
+  "gitHead": "2e3d03ed91ef08c02bf1782f270377247ff5947d"
 }

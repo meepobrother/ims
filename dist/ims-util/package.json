@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
+  "gitHead": "2e3d03ed91ef08c02bf1782f270377247ff5947d",
   "devDependencies": {
     "axios": "*",
     "store": "*"

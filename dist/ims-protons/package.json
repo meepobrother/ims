@@ -25,5 +25,6 @@
   },
   "dependencies": {
     "protons": "^1.0.1"
-  }
+  },
+  "gitHead": "2e3d03ed91ef08c02bf1782f270377247ff5947d"
 }
