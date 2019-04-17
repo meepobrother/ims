@@ -33,7 +33,6 @@ import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import multiaddr from 'multiaddr'
 import { transform, watchAddon } from 'ims-node'
 const file = multer();
-import proxy = require('http-proxy-middleware');
 
 export async function bootstrap(root: string, dev: boolean) {
     const app = express();
@@ -74,10 +73,6 @@ export async function bootstrap(root: string, dev: boolean) {
         cookie: {
             maxAge: 1000 * 60 * 3
         }
-    }));
-    app.use('/addons', proxy({
-        target: '',
-        changeOrigin: true
     }));
     const addons = [];
     const configPath = join(root, 'config/config.json');
