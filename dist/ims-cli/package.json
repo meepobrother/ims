@@ -44,6 +44,7 @@
     "ims-webpack": "*",
     "ims-webpack-admin": "*",
     "ims-webpack-mobile": "*",
+    "ims-p2p": "*",
     "jsonwebtoken": "*",
     "libp2p": "*",
     "libp2p-bootstrap": "*",
