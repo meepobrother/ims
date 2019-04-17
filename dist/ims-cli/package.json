@@ -1,6 +1,6 @@
 {
   "name": "ims-cli",
-  "version": "1.0.39",
+  "version": "1.0.3",
   "description": "> TODO: description",
   "author": "imeepos <1037483576@qq.com>",
   "homepage": "http://meepo.com.cn",
@@ -19,5 +19,30 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e"
+  "gitHead": "43930ede349458980043b3d73e5e2bb6348dff9e",
+  "dependencies": {
+    "rimraf": "*",
+    "yargs-parser": "*",
+    "ims-common": "*",
+    "ims-core": "*",
+    "ims-decorator": "*",
+    "express": "*",
+    "typeorm": "*",
+    "ims-model": "*",
+    "ims-platform-typeorm": "*",
+    "fs-extra": "*",
+    "ws": "*",
+    "multer": "*",
+    "body-parser": "*",
+    "ims-cookie": "*",
+    "express-session": "*",
+    "reflect-metadata": "*",
+    "ims-node": "*",
+    "ims-core-adminer": "*",
+    "ims-install": "*",
+    "pm2": "*",
+    "webpack": "*",
+    "ims-webpack-admin": "*",
+    "ims-webpack-mobile": "*"
+  }
 }
