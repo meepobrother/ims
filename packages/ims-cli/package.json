@@ -43,6 +43,10 @@
     "pm2": "*",
     "webpack": "*",
     "ims-webpack-admin": "*",
-    "ims-webpack-mobile": "*"
+    "ims-webpack-mobile": "*",
+    "gulp": "*",
+    "chalk": "*",
+    "gulp-typescript": "*",
+    "shelljs": "*"
   }
 }
