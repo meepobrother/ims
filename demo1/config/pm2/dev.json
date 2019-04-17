@@ -1,0 +1,20 @@
+[
+  {
+    "name": "dev",
+    "script": "/usr/local/lib/node_modules/ims-cli/lib/start/bin/dev.js",
+    "output": "/Volumes/work/demo1/data/logs/dev.log",
+    "error": "/Volumes/work/demo1/data/logs/dev-error.log"
+  },
+  {
+    "name": "nginx",
+    "script": "/usr/local/lib/node_modules/ims-cli/lib/start/bin/nginx.js",
+    "output": "/Volumes/work/demo1/data/logs/nginx.log",
+    "error": "/Volumes/work/demo1/data/logs/nginx-error.log"
+  },
+  {
+    "name": "template_dev",
+    "script": "/usr/local/lib/node_modules/ims-cli/lib/start/bin/template_dev.js",
+    "output": "/Volumes/work/demo1/data/logs/template_dev.log",
+    "error": "/Volumes/work/demo1/data/logs/template_dev-error.log"
+  }
+]

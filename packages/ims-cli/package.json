@@ -67,6 +67,11 @@
     "libp2p-mdns": "*",
     "@babel/helper-module-imports": "*",
     "@babel/traverse": "*",
-    "log4js": "*"
+    "log4js": "*",
+    "antd": "*",
+    "ant-design-pro": "*",
+    "ims-adminer": "*",
+    "ims-util": "*",
+    "react": "*"
   }
 }

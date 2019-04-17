@@ -25,5 +25,12 @@
   },
   "bugs": {
     "url": "https://github.com/meepobrother/ims/issues"
+  },
+  "dependencies": {
+    "antd": "*",
+    "ant-design-pro": "*",
+    "ims-adminer": "*",
+    "ims-util": "*",
+    "react": "*"
   }
 }
