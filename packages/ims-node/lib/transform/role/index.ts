@@ -15,7 +15,9 @@ export default function transform(context: TypeContext, options: TransformOption
         } else if (typeof def === 'string') {
             map.get(role.ast.propertyKey).push(verify((user: any) => user.role === def))
         } else if (Array.isArray(def)) {
-            map.get(role.ast.propertyKey).push(verify((user: any) => def.includes(user.role)))
+            map.get(role.ast.propertyKey).push(verify((user: any) => {
+                def.includes(user.role)
+            }))
         }
     })
     context.set('role', map);
