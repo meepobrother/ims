@@ -8,7 +8,7 @@ export function createController(inputFile: string, outputFile: string) {
     const code = fs.readFileSync(inputFile).toString('utf8')
     const sourceFile = ts.createSourceFile('', code, ts.ScriptTarget.ESNext, false, ts.ScriptKind.Unknown)
     const printer = ts.createPrinter();
-    let imports = [];
+    let imports = new Set();
     const visit = (node) => {
         if (ts.isInterfaceDeclaration(node)) {
             // 241;
@@ -20,7 +20,7 @@ export function createController(inputFile: string, outputFile: string) {
                     if (ts.isMethodDeclaration(member)) {
                         const property = methodToProperty(member);
                         if (property) {
-                            imports.push(property.imports);
+                            property.imports.map(imp => imports.add(imp))
                             members.push(property.property);
                         }
                     }
