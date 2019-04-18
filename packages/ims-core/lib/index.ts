@@ -13,3 +13,9 @@ export * from './p2p';
 
 import { QueryRunner } from 'typeorm';
 export interface IQueryRunner extends QueryRunner { }
+export interface IResult<T> {
+    code: 0 | -1;
+    message: string;
+    data?: T;
+}
+export type HttpResult<T = any> = Promise<IResult<T>>;

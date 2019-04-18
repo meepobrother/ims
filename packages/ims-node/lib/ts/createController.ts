@@ -45,7 +45,7 @@ export function createController(inputFile: string, outputFile: string) {
                 ress.push(res);
             }
         }
-        const impNode = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['Controller', ...imports].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-core'))
+        const impNode = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['Controller', 'HttpResult', ...imports].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-core'))
         const parseInc = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['parseInc'].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-adminer'))
         // export default parseInc(name)
         const exp = ts.createCall(ts.createIdentifier('parseInc'), [], [

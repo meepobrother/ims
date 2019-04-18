@@ -1,4 +1,4 @@
-import { Controller, Get, EntityRepository, Role, RoleParameter } from 'ims-core'
+import { Controller, Get, EntityRepository } from 'ims-core'
 import { ImsSetting } from '../typeorm'
 @Controller({
     path: '/setting'
