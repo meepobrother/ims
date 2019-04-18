@@ -138,8 +138,14 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
     let params = new Array(pro.ast.parameterLength);
     const role = context.get<Map<PropertyKey, any>>('role')
     const handler = (method: string) => async (req: Request, res: Response, next: NextFunction) => {
-        pro.parameters.map(param => params[param.ast.parameterIndex] = transformHttpParameter(param, req, res, next, method))
         debugger;
+        if (method === 'post') {
+            params = req.body.args;
+        } else if (method === 'get') {
+            params = req.query.args;
+        } else {
+            pro.parameters.map(param => params[param.ast.parameterIndex] = transformHttpParameter(param, req, res, next, method))
+        }
         try {
             const result = await mth(...params);
             if (typeof result !== 'object') {
