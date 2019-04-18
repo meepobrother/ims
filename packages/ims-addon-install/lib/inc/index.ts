@@ -8,7 +8,7 @@ import { visitor, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
 import { random, cryptoPassword, execSync } from 'ims-node';
 @Controller({
-    path: '/'
+    path: '/install'
 })
 export class ImsIndex {
     lockFile: string = join(root, 'config/config.json')
@@ -108,5 +108,3 @@ export class ImsIndex {
 }
 
 export interface DemoOptions { }
-
-export * from './user';

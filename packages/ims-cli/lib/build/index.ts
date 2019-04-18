@@ -6,7 +6,7 @@ import ts = require('gulp-typescript');
 import { join, dirname } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
-import { createAddon, createController } from 'ims-node'
+import { createAddon } from 'ims-node'
 @Command({
     name: 'build',
     alis: 'b'

@@ -31,12 +31,6 @@ export class ImsStart extends ImsCommand {
             error: join(root, 'data/logs/dev-error.log'),
         });
         devApps.push({
-            name: 'nginx',
-            script: join(__dirname, 'bin', 'nginx.js'),
-            output: join(root, 'data/logs/nginx.log'),
-            error: join(root, 'data/logs/nginx-error.log'),
-        });
-        devApps.push({
             name: 'template_dev',
             script: join(__dirname, 'bin/template_dev.js'),
             output: join(root, 'data/logs/template_dev.log'),

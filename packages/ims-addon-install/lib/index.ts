@@ -1,9 +1,9 @@
 import { Addon } from 'ims-core';
-import { ImsIndex, ImsUser } from './inc';
+import { ImsIndex } from './inc';
 import { ImsInstallTemplate } from './template'
 
 @Addon({
-    incs: [ImsIndex, ImsUser],
+    incs: [ImsIndex],
     template: ImsInstallTemplate,
     sourceRoot: __dirname,
     path: '/'
