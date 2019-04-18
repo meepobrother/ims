@@ -6,12 +6,6 @@
     "error": "/Volumes/work/data/logs/dev-error.log"
   },
   {
-    "name": "nginx",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/nginx.js",
-    "output": "/Volumes/work/data/logs/nginx.log",
-    "error": "/Volumes/work/data/logs/nginx-error.log"
-  },
-  {
     "name": "template_dev",
     "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/template_dev.js",
     "output": "/Volumes/work/data/logs/template_dev.log",

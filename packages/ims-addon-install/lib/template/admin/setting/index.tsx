@@ -2,7 +2,7 @@ import { Form, Input, Button, message } from 'antd';
 import { cx } from './index.scss';
 import util from 'ims-util';
 import React = require('react');
-
+import IndexInc from '../../inc/index'
 import { ValidateStatus } from 'ims-adminer'
 interface IndexProps {
     next?: any;
@@ -163,6 +163,14 @@ export default class Index extends React.Component<IndexProps, IndexState> {
             })
         }
         // 配置并连接数据库
+        IndexInc.setDatabase({
+            host: this.state.host.value,
+            port: this.state.port.value,
+            username: this.state.username.value,
+            password: this.state.password.value
+        }).then(res=>{
+            console.log(res)
+        })
         util.http.post('/install/setDatabase', {
             host: this.state.host.value,
             port: this.state.port.value,

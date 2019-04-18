@@ -34,16 +34,26 @@ export function createController(inputFile: string, outputFile: string) {
         }
     }
     let ress: ts.Node[] = [];
+    let name: string;
     sourceFile.forEachChild(visit, (nodes) => {
         for (let node of nodes) {
             let res = visit(node);
             if (!!res) {
+                if (ts.isClassDeclaration(res)) {
+                    name = res.name.text;
+                }
                 ress.push(res);
             }
         }
         try {
             const impNode = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['Controller', ...imports].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-core'))
-            let impts = [impNode, ...ress];
+            const parseInc = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['parseInc'].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-adminer'))
+            // export default parseInc(name)
+            const exp = ts.createCall(ts.createIdentifier('parseInc'), [], [
+                ts.createIdentifier(name)
+            ]);
+            const exportDefault = ts.createExportDefault(exp)
+            let impts = [impNode, parseInc, ...ress, exportDefault];
             let des = printer.printList(ts.ListFormat.MultiLine, impts as any, sourceFile);
             fs.ensureDirSync(dirname(outputFile))
             fs.writeFileSync(outputFile, des)
@@ -52,11 +62,4 @@ export function createController(inputFile: string, outputFile: string) {
         }
         return null;
     });
-}
-
-function template(content: string) {
-    return `
-    import { Controller, Get, GetProperty, Post, PostProperty, Put, PutProperty, Delete, DeleteProperty } from 'ims-core';
-${content}
-`
 }

@@ -1,5 +1,5 @@
-import { makeDecorator, MethodAst, PropertyAst, PropertyContext } from 'ims-decorator';
-import { HttpMethodContext, IHttpMethod } from './method';
+import { makeDecorator, MethodAst, PropertyAst } from 'ims-decorator';
+import { HttpMethodContext, IHttpMethod, HttpPropertyContext } from './method';
 export const GetMetadataKey = 'GetMetadataKey';
 export interface Get extends IHttpMethod { }
 export const Get = makeDecorator<Get>(GetMetadataKey);
@@ -11,7 +11,7 @@ export class GetMethodAst extends HttpMethodContext<Get> { }
 export function isGetPropertyAst(val: PropertyAst): val is PropertyAst<Get> {
     return val.metadataKey === GetMetadataKey;
 }
-export class GetPropertyAst extends PropertyContext<Get> { }
+export class GetPropertyAst extends HttpPropertyContext<Get> { }
 
 export interface GetProperty<P extends Array<any>, T> {
     (...opts: P): T;

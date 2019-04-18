@@ -101,10 +101,4 @@ export class ImsIndex {
             msg: '重启成功'
         }
     }
-
-
-    @Post()
-    demo(options: DemoOptions) { }
 }
-
-export interface DemoOptions { }

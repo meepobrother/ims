@@ -119,9 +119,8 @@ export interface RouterOptions {
     store?: { [key: string]: string };
 }
 export interface TemplateOptions {
-    mobiles?: IRouter[],
-    admins?: IRouter[],
-    incs?: Type<any>[];
+    mobiles?: IRouter[];
+    admins?: IRouter[];
 }
 export interface TypeormOptions {
     /**

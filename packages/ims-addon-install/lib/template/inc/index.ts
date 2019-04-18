@@ -1,6 +1,7 @@
 import { Controller, Post, PostProperty } from "ims-core";
+import { parseInc } from "ims-adminer";
 @Controller({
-    path: "/"
+    path: "/install"
 })
 export class ImsIndex {
     @Post()
@@ -9,9 +10,5 @@ export class ImsIndex {
     setUser: PostProperty<[any], any>;
     @Post()
     restart: PostProperty<[], any>;
-    @Post()
-    demo: PostProperty<[DemoOptions], any>;
 }
-export interface DemoOptions {
-}
-export * from "./user";
+export default parseInc(ImsIndex);
