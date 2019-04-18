@@ -13,10 +13,18 @@ export default function transform(context: TypeContext, options: TransformOption
         if (typeof def === 'function') {
             map.get(role.ast.propertyKey).push(def)
         } else if (typeof def === 'string') {
-            map.get(role.ast.propertyKey).push(verify((user: any) => user.role === def))
+            map.get(role.ast.propertyKey).push(verify((user: any) => {
+                if (user) {
+                    user.role === def
+                }
+                return false;
+            }))
         } else if (Array.isArray(def)) {
             map.get(role.ast.propertyKey).push(verify((user: any) => {
-                def.includes(user.role)
+                if (user) {
+                    return def.includes(user.role)
+                }
+                return false;
             }))
         }
     })
