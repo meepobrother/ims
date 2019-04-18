@@ -1,4 +1,4 @@
-import { Controller, Role, Post, PostProperty, Get, GetProperty } from "ims-core";
+import { Controller, HttpResult, Role, Post, PostProperty, Get, GetProperty } from "ims-core";
 import { parseInc } from "ims-adminer";
 @Controller({
     path: "/adminer/addon"

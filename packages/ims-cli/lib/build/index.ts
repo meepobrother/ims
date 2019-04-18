@@ -1,12 +1,14 @@
 import { Command, Input } from 'ims-core';
 const root = process.cwd();
 import chalk from 'chalk';
+import chokidar from 'chokidar'
 import gulp from 'gulp';
 import ts = require('gulp-typescript');
 import { join, dirname } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
 import { createAddon } from 'ims-node'
+import fs from 'fs-extra';
 @Command({
     name: 'build',
     alis: 'b'
@@ -105,7 +107,10 @@ function packProject(
     const srcPath = join(root, srcRoot, name);
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
     const libPath = join(srcPath, 'lib');
-    createAddon(libPath);
+    fs.ensureDirSync(libPath)
+    chokidar.watch(join(libPath, 'inc')).on('all', () => {
+        createAddon(libPath);
+    });
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
@@ -129,10 +134,6 @@ function packProject(
     if (watch) {
         return new Promise((resolve) => {
             taskFn(done => {
-                const watcherLib = gulp.watch(`${srcPath}/**/inc/**/*`);
-                watcherLib.on('change', () => {
-                    createAddon(join(srcPath, 'lib'));
-                });
                 const watcher = gulp.watch(`${srcPath}/**/*`);
                 watcher.on('change', (filename: string) => {
                     /** 监控改变 */

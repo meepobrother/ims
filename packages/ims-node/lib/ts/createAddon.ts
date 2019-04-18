@@ -4,13 +4,15 @@ import { createController } from './createController'
 export function createAddon(root: string) {
     try {
         const incPath = join(root, 'inc')
-        const paths = fs.readdirSync(incPath);
-        const output = join(root, 'template/inc')
-        paths.map(file => {
-            createPath(incPath, file, output)
-        });
+        if (fs.existsSync(incPath)) {
+            const paths = fs.readdirSync(incPath);
+            const output = join(root, 'template/inc')
+            paths.map(file => {
+                createPath(incPath, file, output)
+            });
+        }
     } catch (e) {
-        console.log(e.message);
+        throw e;
     }
 }
 

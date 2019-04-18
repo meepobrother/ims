@@ -48,9 +48,7 @@ export class ImsCoreAdminerDashboard {
 
     /** 重新启动 */
     @Post()
-    @Role((user: any) => {
-        return user.role === 'admin'
-    })
+    @Role(['admin'])
     restart() {
         exec(`pm2 retart all`)
     }

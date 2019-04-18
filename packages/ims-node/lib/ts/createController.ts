@@ -35,6 +35,7 @@ export function createController(inputFile: string, outputFile: string) {
     }
     let ress: ts.Node[] = [];
     let name: string;
+    let impts: any[] = [];
     sourceFile.forEachChild(visit, (nodes) => {
         for (let node of nodes) {
             let res = visit(node);
@@ -47,15 +48,16 @@ export function createController(inputFile: string, outputFile: string) {
         }
         const impNode = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['Controller', 'HttpResult', ...imports].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-core'))
         const parseInc = ts.createImportDeclaration(undefined, undefined, ts.createImportClause(undefined, ts.createNamedImports(['parseInc'].map(imp => ts.createImportSpecifier(undefined, ts.createIdentifier(imp))))), ts.createStringLiteral('ims-adminer'))
-        // export default parseInc(name)
-        const exp = ts.createCall(ts.createIdentifier('parseInc'), [], [
-            ts.createIdentifier(name)
-        ]);
-        const exportDefault = ts.createExportDefault(exp)
-        let impts = [impNode, parseInc, ...ress, exportDefault];
-        let des = printer.printList(ts.ListFormat.MultiLine, impts as any, sourceFile);
-        fs.ensureDirSync(dirname(outputFile))
-        fs.writeFileSync(outputFile, des);
+        if (name) {
+            const exp = ts.createCall(ts.createIdentifier('parseInc'), [], [
+                ts.createIdentifier(name)
+            ]);
+            const exportDefault = ts.createExportDefault(exp)
+            impts = [impNode, parseInc, ...ress, exportDefault];
+            let des = printer.printList(ts.ListFormat.MultiLine, impts as any, sourceFile);
+            fs.ensureDirSync(dirname(outputFile))
+            fs.writeFileSync(outputFile, des);
+        }
         return null;
     });
 }
