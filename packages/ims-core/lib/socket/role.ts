@@ -1,11 +1,9 @@
 import { makeDecorator, MethodContext, ParameterAst, ParameterContext, MethodAst, PropertyAst, PropertyContext } from 'ims-decorator';
-import { Request, Response, NextFunction } from 'express'
+import { Handler } from 'express'
 /**
  * 权限
  */
-export interface RoleOptions {
-    (req: Request, res: Response, next: NextFunction): any;
-};
+export type RoleOptions = string | string[] | Handler;
 export const RoleMetadataKey = 'RoleMetadataKey'
 export const Role = makeDecorator<RoleOptions>(RoleMetadataKey);
 

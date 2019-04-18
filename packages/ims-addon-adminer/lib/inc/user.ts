@@ -56,9 +56,7 @@ export class ImsCoreAdminerUser {
 
 
     @Get()
-    @Role(verify((user) => {
-        return true;
-    }))
+    @Role(['admin'])
     async getRole(@Req() req: any) {
         const user = req.user;
         // 返回角色和用户名

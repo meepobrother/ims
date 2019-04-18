@@ -11,7 +11,7 @@ export class ImsCoreAdminerSetting {
     setting: EntityRepository<ImsSetting>;
 
     @Get()
-    getSetting(@Role() role: RoleParameter) {
+    getSetting() {
         this.setting.findOne({
             
         });

@@ -104,13 +104,12 @@ function packProject(
     const destPath = join(root, output, name);
     const srcPath = join(root, srcRoot, name);
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
-
+    const libPath = join(srcPath, 'lib');
+    createAddon(libPath);
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
         // 创建 template inc
-        const libPath = join(srcPath, 'lib');
-        createAddon(libPath);
         // 创建完毕
         task.on('end', () => {
             console.log(chalk.yellow(`${name}:tsc finish ${new Date().getTime()}`))

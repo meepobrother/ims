@@ -10,9 +10,7 @@ import ps = require('current-processes');
 })
 export class ImsCoreAdminerDashboard {
     @Get()
-    @Role(verify((user: any) => {
-        return user.role === 'admin'
-    }))
+    @Role(['admin'])
     async updateAnalysis() {
         return {
             hostname: os.hostname(),

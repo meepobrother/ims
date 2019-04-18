@@ -9,7 +9,7 @@ export function createAddon(root: string) {
         paths.map(file => {
             createPath(incPath, file, output)
         });
-    } catch (e) { 
+    } catch (e) {
         console.log(e.message);
     }
 }
@@ -20,11 +20,7 @@ function createPath(root: string, file: string, output: string) {
     const stat = fs.statSync(p)
     if (stat.isFile()) {
         if (p.endsWith('.ts')) {
-            try {
-                createController(p, o)
-            } catch (e) {
-                console.log(`createPath:`, e.message)
-            }
+            createController(p, o);
         }
     } else if (stat.isDirectory()) {
         const files = fs.readdirSync(p);

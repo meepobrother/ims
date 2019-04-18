@@ -123,10 +123,11 @@ export class ImsIndex {
     }
 
     @Get()
-    async successRestart(): Promise<ISetDatabaseResult> {
+    async successRestart(id: string): Promise<ISetDatabaseResult> {
         return {
             code: 0,
-            message: '启动成功'
+            message: '启动成功',
+            data: id
         }
     }
 }

@@ -88,8 +88,8 @@ export default class Index extends React.Component<any, any> {
         setTimeout(() => request(), 1000)
         const that = this;
         function request() {
-            util.http.get('/').then(res => {
-                if (res.status === 200) {
+            indexInc.successRestart('1').then(res => {
+                if (res.code === 0) {
                     clearInterval(pid);
                     setTimeout(() => {
                         that.setState({

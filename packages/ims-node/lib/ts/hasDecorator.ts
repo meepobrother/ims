@@ -19,8 +19,12 @@ export const hasMethodRoleDecorator = hasMethodDecorator('Role')
 
 export function hasMethodDecorator(name: string) {
     return (node: ts.MethodDeclaration) => {
-        return node.decorators.some(it => {
-            return isDecorator(name)(it)
-        });
+        if (node && node.decorators && node.decorators.length > 0) {
+            return node.decorators.some(it => {
+                return isDecorator(name)(it)
+            });
+        } else {
+            return false;
+        }
     }
 }

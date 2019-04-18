@@ -22,9 +22,7 @@ export class ImsCoreAdminerSetting {
     addon: EntityRepository<ImsAddonEntity>;
 
     @Post()
-    @Role(verify((user: any) => {
-        return user.role === 'admin'
-    }))
+    @Role(['admin'])
     async designAddon(@Body() body: any) {
         const { name, title, version, author } = body;
         const path = join(root, 'addons', name);
