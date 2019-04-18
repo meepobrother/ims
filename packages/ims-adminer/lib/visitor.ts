@@ -8,7 +8,7 @@ export function parseInc<T>(inc: Type<T>): T {
     context.getProperty().map(pro => {
         if (pro instanceof GetPropertyAst) {
             context.instance[pro.ast.propertyKey] = (...args: any[]) => {
-                util.http.get(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}}`, {
+                return util.http.get(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}}`, {
                     params: {
                         args: args
                     }
@@ -17,7 +17,7 @@ export function parseInc<T>(inc: Type<T>): T {
         }
         if (pro instanceof PostPropertyAst) {
             context.instance[pro.ast.propertyKey] = (...args: any[]) => {
-                util.http.post(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}`, {
+                return util.http.post(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}`, {
                     args: args
                 }).then(res => res.data);
             };
