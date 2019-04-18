@@ -499,6 +499,13 @@ class ParserManager {
 }
 exports.ParserManager = ParserManager;
 const parserManager = new ParserManager();
+function makeDecorator2(metadataKey, pro) {
+    return (...params) => {
+        const opt = pro(...params);
+        return makeDecorator(metadataKey)(opt);
+    };
+}
+exports.makeDecorator2 = makeDecorator2;
 function makeDecorator(metadataKey, getDefault = opt => opt.metadataDef || {}) {
     const visitor = parserManager.visitor;
     return (metadataDef) => (target, propertyKey, descriptor) => {

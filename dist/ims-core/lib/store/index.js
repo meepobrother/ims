@@ -4,5 +4,4 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./action"));
-__export(require("./reducer"));
 __export(require("./store"));

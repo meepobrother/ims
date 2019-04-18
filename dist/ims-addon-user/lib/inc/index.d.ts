@@ -1,2 +1,2 @@
-export declare class ImsAddonUser {
+export declare class ImsAddonUserInc {
 }

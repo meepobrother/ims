@@ -6,3 +6,4 @@ export * from './transform';
 export * from './watch';
 export { log4 } from './logger';
 export { nginx } from './nginx';
+export * from './ts';

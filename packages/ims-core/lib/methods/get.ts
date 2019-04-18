@@ -12,3 +12,7 @@ export function isGetPropertyAst(val: PropertyAst): val is PropertyAst<Get> {
     return val.metadataKey === GetMetadataKey;
 }
 export class GetPropertyAst extends PropertyContext<Get> { }
+
+export interface GetProperty<P extends Array<any>, T> {
+    (...opts: P): T;
+}

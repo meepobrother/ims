@@ -521,7 +521,12 @@ export interface DefaultOptions<T> {
     paramTypes?: any[];
     returnType?: any;
 }
-
+export function makeDecorator2<T extends Array<any>, O>(metadataKey: string, pro: (...args: T) => O) {
+    return (...params: T) => {
+        const opt = pro(...params);
+        return makeDecorator<O>(metadataKey)(opt)
+    }
+}
 export function makeDecorator<T>(metadataKey: string, getDefault: (opt: DefaultOptions<T>) => T = opt => opt.metadataDef || {} as T) {
     const visitor = parserManager.visitor;
     return (metadataDef?: T & { sourceRoot?: string, imports?: any[], providers?: Provider[] }) => (target: any, propertyKey?: string | symbol, descriptor?: TypedPropertyDescriptor<any> | number) => {

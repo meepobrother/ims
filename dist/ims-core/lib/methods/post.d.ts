@@ -14,3 +14,6 @@ export declare class PostMethodAst extends HttpMethodContext<Post> {
 export declare function isPostPropertyAst(val: PropertyAst): val is PropertyAst<Post>;
 export declare class PostPropertyAst extends PropertyContext<Post> {
 }
+export interface PostProperty<T extends Array<any>, R> {
+    (...data: T): R;
+}

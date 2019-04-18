@@ -30,11 +30,10 @@ let ImsBuildAll = ImsBuildAll_1 = class ImsBuildAll {
     async run() {
         const packages = fs_extra_1.default.readdirSync(path_1.join(root, 'packages'));
         for (let str of packages) {
-            console.log(`packages:${str}`);
             const srcRoot = 'packages';
             await _rimraf(path_1.join(root, this.output, str));
-            console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`);
-            await packProject(str, this.output, srcRoot, !!this.watch);
+            console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}`);
+            await packProject(str, this.output, srcRoot, false);
         }
     }
     static create() {
@@ -50,12 +49,6 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], ImsBuildAll.prototype, "output", void 0);
-__decorate([
-    ims_core_1.Input({
-        alis: 'w'
-    }),
-    __metadata("design:type", Boolean)
-], ImsBuildAll.prototype, "watch", void 0);
 ImsBuildAll = ImsBuildAll_1 = __decorate([
     ims_core_1.Command({
         name: 'buildAll',

@@ -92,7 +92,7 @@ export class ImsIndex {
             }
         }
     }
-    
+
     @Post()
     async restart() {
         // rmrf(join(root, 'config/config.json'))
@@ -101,4 +101,12 @@ export class ImsIndex {
             msg: '重启成功'
         }
     }
+
+
+    @Post()
+    demo(options: DemoOptions) { }
 }
+
+export interface DemoOptions { }
+
+export * from './user';

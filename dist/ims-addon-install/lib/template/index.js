@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ims_core_1 = require("ims-core");
+const inc_1 = require("./inc");
 let ImsInstallTemplate = class ImsInstallTemplate {
 };
 ImsInstallTemplate = __decorate([
@@ -15,7 +16,8 @@ ImsInstallTemplate = __decorate([
         admins: [{
                 path: '/',
                 component: 'admin/install'
-            }]
+            }],
+        incs: [inc_1.ImsIndex, inc_1.ImsUser]
     })
 ], ImsInstallTemplate);
 exports.ImsInstallTemplate = ImsInstallTemplate;

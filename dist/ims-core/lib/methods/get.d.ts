@@ -14,3 +14,6 @@ export declare class GetMethodAst extends HttpMethodContext<Get> {
 export declare function isGetPropertyAst(val: PropertyAst): val is PropertyAst<Get>;
 export declare class GetPropertyAst extends PropertyContext<Get> {
 }
+export interface GetProperty<P extends Array<any>, T> {
+    (...opts: P): T;
+}

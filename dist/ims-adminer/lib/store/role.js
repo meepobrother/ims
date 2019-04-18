@@ -48,6 +48,8 @@ class ImsRole {
                 const user = res.data;
                 this.setRole(user.role);
                 this.setUsername(user.username);
+            }).catch(res => {
+                this.setRole('default');
             });
         }
     }

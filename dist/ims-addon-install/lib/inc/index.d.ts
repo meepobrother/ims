@@ -27,4 +27,8 @@ export declare class ImsIndex {
     restart(): Promise<{
         msg: string;
     }>;
+    demo(options: DemoOptions): void;
 }
+export interface DemoOptions {
+}
+export * from './user';

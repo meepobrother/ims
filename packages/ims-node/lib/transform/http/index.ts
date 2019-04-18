@@ -265,3 +265,16 @@ function transformHttpParameter(par: ParameterContext<any>, context: TypeContext
         return req.imsCookie;
     }
 }
+
+/**
+ * @Get()
+ * getUserInfo(uid: number){}
+ **/
+/** 从controller创建viewController */
+function createViewController(ast: any) {
+    if (ast instanceof GetMethodAst) {
+        ast.parameters.map(par => { 
+            par.ast.parameterType
+        })
+    }
+}

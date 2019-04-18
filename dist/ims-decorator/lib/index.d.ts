@@ -220,6 +220,7 @@ export interface DefaultOptions<T> {
     paramTypes?: any[];
     returnType?: any;
 }
+export declare function makeDecorator2<T extends Array<any>, O>(metadataKey: string, pro: (...args: T) => O): (...params: T) => (target: any, propertyKey?: string | symbol, descriptor?: number | TypedPropertyDescriptor<any>) => any;
 export declare function makeDecorator<T>(metadataKey: string, getDefault?: (opt: DefaultOptions<T>) => T): (metadataDef?: T & {
     sourceRoot?: string;
     imports?: any[];

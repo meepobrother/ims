@@ -11,6 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 const ims_core_1 = require("ims-core");
 const fs = require("fs-extra");
@@ -111,6 +114,7 @@ let ImsIndex = class ImsIndex {
             msg: '重启成功'
         };
     }
+    demo(options) { }
 };
 __decorate([
     ims_core_1.Post(),
@@ -132,9 +136,16 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ImsIndex.prototype, "restart", null);
+__decorate([
+    ims_core_1.Post(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], ImsIndex.prototype, "demo", null);
 ImsIndex = __decorate([
     ims_core_1.Controller({
         path: '/'
     })
 ], ImsIndex);
 exports.ImsIndex = ImsIndex;
+__export(require("./user"));

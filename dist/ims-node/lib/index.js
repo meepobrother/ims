@@ -13,3 +13,4 @@ var logger_1 = require("./logger");
 exports.log4 = logger_1.log4;
 var nginx_1 = require("./nginx");
 exports.nginx = nginx_1.nginx;
+__export(require("./ts"));

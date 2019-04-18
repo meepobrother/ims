@@ -55,7 +55,7 @@ export interface AddonOptions {
     /**
      * api
      */
-    incs?: any[] | object;
+    incs?: Type<any>[];
     /**
      * 数据库
      */
@@ -123,6 +123,7 @@ export interface RouterOptions {
 export interface TemplateOptions {
     mobiles?: IRouter[];
     admins?: IRouter[];
+    incs?: Type<any>[];
 }
 export interface TypeormOptions {
     /**

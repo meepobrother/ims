@@ -12,3 +12,6 @@ export function isPostPropertyAst(val: PropertyAst): val is PropertyAst<Post> {
     return val.metadataKey === PostMetadataKey;
 }
 export class PostPropertyAst extends PropertyContext<Post> { }
+export interface PostProperty<T extends Array<any>, R> {
+    (...data: T): R
+}

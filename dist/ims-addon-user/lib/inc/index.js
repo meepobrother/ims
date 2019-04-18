@@ -7,11 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ims_core_1 = require("ims-core");
-let ImsAddonUser = class ImsAddonUser {
+let ImsAddonUserInc = class ImsAddonUserInc {
 };
-ImsAddonUser = __decorate([
+ImsAddonUserInc = __decorate([
     ims_core_1.Controller({
         path: '/'
     })
-], ImsAddonUser);
-exports.ImsAddonUser = ImsAddonUser;
+], ImsAddonUserInc);
+exports.ImsAddonUserInc = ImsAddonUserInc;

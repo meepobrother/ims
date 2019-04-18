@@ -12,9 +12,11 @@ const path_1 = require("path");
 const fs = __importStar(require("fs-extra"));
 const lodash_1 = require("lodash");
 const ims_common_1 = require("ims-common");
+const root = process.cwd();
 function createAdmin(addons) {
     let routers = [];
-    const tempDir = path_1.join(__dirname, 'temp');
+    const tempDir = path_1.join(root, 'data/temp');
+    fs.ensureDirSync(tempDir);
     addons.map(addon => {
         const context = ims_common_1.visitor.visitType(addon);
         const addonAst = context.getClass(ims_core_1.AddonMetadataKey);

@@ -213,3 +213,15 @@ function transformHttpParameter(par, context, options, req, res, next) {
         return req.imsCookie;
     }
 }
+/**
+ * @Get()
+ * getUserInfo(uid: number){}
+ **/
+/** 从controller创建viewController */
+function createViewController(ast) {
+    if (ast instanceof ims_core_1.GetMethodAst) {
+        ast.parameters.map(par => {
+            par.ast.parameterType;
+        });
+    }
+}

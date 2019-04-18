@@ -6,18 +6,13 @@ import ts = require('gulp-typescript');
 import { join, dirname } from 'path';
 import rimraf = require('rimraf');
 import { exec } from 'shelljs';
+import { createAddon, createController } from 'ims-node'
 @Command({
     name: 'build',
     alis: 'b'
 })
 export class ImsBuild {
     root: string = root;
-
-    // 系统
-    @Input({
-        alis: 's'
-    })
-    system: boolean;
 
     // 名称
     @Input({
@@ -35,7 +30,7 @@ export class ImsBuild {
     @Input({
         alis: 'o'
     })
-    output: string = 'dist';
+    output: string = 'node_modules';
 
     // 开发
     @Input({
@@ -45,8 +40,8 @@ export class ImsBuild {
 
     async run() {
         if (this.name) {
-            const srcRoot = this.system ? 'packages' : 'addons';
-            if(!this.watch){
+            const srcRoot = 'packages';
+            if (!this.watch) {
                 // 如果非开发模式删除原路径文件
                 await _rimraf(join(root, this.output, this.name));
             }
@@ -113,6 +108,10 @@ function packProject(
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
+        // 创建 template inc
+        const libPath = join(srcPath, 'lib');
+        createAddon(libPath);
+        // 创建完毕
         task.on('end', () => {
             console.log(chalk.yellow(`${name}:tsc finish ${new Date().getTime()}`))
             done()
@@ -125,14 +124,19 @@ function packProject(
         otherTask.on('end', () => {
             console.log(chalk.yellow(`${name}:copy finish ${new Date().getTime()}`))
             done()
-        })
+        });
     }
     const taskFn = gulp.series(taskTsc, taskCopy);
     if (watch) {
         return new Promise((resolve) => {
             taskFn(done => {
-                const watcher = gulp.watch(`${srcPath}/**/*`)
+                const watcherLib = gulp.watch(`${srcPath}/**/inc/**/*`);
+                watcherLib.on('change', () => {
+                    createAddon(join(srcPath, 'lib'));
+                });
+                const watcher = gulp.watch(`${srcPath}/**/*`);
                 watcher.on('change', (filename: string) => {
+                    /** 监控改变 */
                     packFile(filename, filename.replace(srcRoot, output).replace('.ts', '.js').replace('.tsx', '.jsx'))
                 })
                 watcher.on('error', () => resolve())

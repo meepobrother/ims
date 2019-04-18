@@ -8,7 +8,6 @@ import transformRole from './role'
 import transformP2p from './p2p'
 import transformSocket from './socket'
 import transformTemplate from './template';
-
 interface ImsAddonUninstall {
     (options: TransformOptions): any;
 }

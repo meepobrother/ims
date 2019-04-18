@@ -1,11 +1,15 @@
 import { Addon } from "ims-core";
 import { ImsAdminerTemplate } from './template'
 import { ImsCoreAdminerTypeorm } from './typeorm'
-import * as incs from './inc';
+import { ImsCoreAdminerDashboard, ImsCoreAdminerServer, ImsCoreAdminerSetting, ImsCoreAdminerUnion, ImsCoreAdminerUser } from './inc';
 @Addon({
     template: ImsAdminerTemplate,
     typeorm: ImsCoreAdminerTypeorm,
-    incs: incs,
+    incs: [
+        ImsCoreAdminerDashboard, ImsCoreAdminerServer,
+        ImsCoreAdminerSetting, ImsCoreAdminerUnion,
+        ImsCoreAdminerUser
+    ],
     sourceRoot: __dirname,
     path: '/'
 })

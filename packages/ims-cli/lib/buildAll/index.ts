@@ -17,20 +17,14 @@ export class ImsBuildAll {
         alis: 'o'
     })
     output: string = 'node_modules';
-    // 开发
-    @Input({
-        alis: 'w'
-    })
-    watch: boolean;
 
     async run() {
         const packages = fs.readdirSync(join(root, 'packages'));
         for (let str of packages) {
-            console.log(`packages:${str}`)
             const srcRoot = 'packages';
             await _rimraf(join(root, this.output, str));
-            console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}\nwatch:${!!this.watch}`)
-            await packProject(str, this.output, srcRoot, !!this.watch);
+            console.log(`name:${str}\noutput:${this.output}\nsrc: ${srcRoot}`)
+            await packProject(str, this.output, srcRoot, false);
         }
     }
 
