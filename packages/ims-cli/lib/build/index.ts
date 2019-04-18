@@ -108,9 +108,13 @@ function packProject(
     const tsProject = ts.createProject(join(root, 'tsconfig.json'));
     const libPath = join(srcPath, 'lib');
     fs.ensureDirSync(libPath)
-    chokidar.watch(join(libPath, 'inc')).on('all', () => {
+    if (watch) {
+        chokidar.watch(join(libPath, 'inc')).on('all', () => {
+            createAddon(libPath);
+        });
+    } else {
         createAddon(libPath);
-    });
+    }
     const taskTsc = done => {
         const task = gulp.src(`${srcPath}/**/*.{ts,tsx}`)
             .pipe(tsProject()).pipe(gulp.dest(destPath));
