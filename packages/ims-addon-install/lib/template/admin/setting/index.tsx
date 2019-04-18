@@ -171,18 +171,18 @@ export default class Index extends React.Component<IndexProps, IndexState> {
         }).then(res=>{
             console.log(res)
         })
-        util.http.post('/install/setDatabase', {
-            host: this.state.host.value,
-            port: this.state.port.value,
-            username: this.state.username.value,
-            password: this.state.password.value
-        }).then(res => {
-            // 返回结果
-            if (res.data.code === -1) {
-                message.error(res.data.message)
-            } else {
-                this.props.next();
-            }
-        })
+        // util.http.post('/install/setDatabase', {
+        //     host: this.state.host.value,
+        //     port: this.state.port.value,
+        //     username: this.state.username.value,
+        //     password: this.state.password.value
+        // }).then(res => {
+        //     // 返回结果
+        //     if (res.data.code === -1) {
+        //         message.error(res.data.message)
+        //     } else {
+        //         this.props.next();
+        //     }
+        // })
     }
 }

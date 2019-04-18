@@ -7,13 +7,24 @@ import { ImsModel, ImsUserEntity } from 'ims-model'
 import { visitor, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
 import { random, cryptoPassword, execSync } from 'ims-node';
+export interface ISetDatabaseOptions {
+    username: string;
+    host: string;
+    port: number;
+    password: string;
+}
+export interface ISetDatabaseResult<T = any> {
+    code: number;
+    message: string;
+    data?: T;
+}
 @Controller({
     path: '/install'
 })
 export class ImsIndex {
     lockFile: string = join(root, 'config/config.json')
     @Post()
-    async setDatabase(@Body() body: any) {
+    async setDatabase(body: ISetDatabaseOptions): Promise<ISetDatabaseResult> {
         const { username, host, port, password } = body;
         try {
             const connection = await createConnection({
@@ -48,7 +59,8 @@ export class ImsIndex {
                 }
             }, null, 2));
             return {
-                username, host, port, password
+                code: 0,
+                message: '数据库配置成功'
             }
         } catch (e) {
             return {

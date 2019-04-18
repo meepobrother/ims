@@ -1,0 +1,15 @@
+{
+  "system": "ims_system",
+  "addons": "ims_addons",
+  "p2p": "/ip4/0.0.0.0/tcp/4200",
+  "api": "/ip4/0.0.0.0/tcp/4201",
+  "list": [],
+  "admin": [],
+  "memcached": [],
+  "db": {
+    "username": "root",
+    "host": "localhost",
+    "port": "3306",
+    "password": "123456"
+  }
+}

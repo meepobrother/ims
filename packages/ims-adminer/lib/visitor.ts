@@ -12,14 +12,14 @@ export function parseInc<T>(inc: Type<T>): T {
                     params: {
                         args: args
                     }
-                })
+                }).then(res => res.data)
             };
         }
         if (pro instanceof PostPropertyAst) {
             context.instance[pro.ast.propertyKey] = (...args: any[]) => {
                 util.http.post(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}`, {
                     args: args
-                });
+                }).then(res => res.data);
             };
         }
     });
