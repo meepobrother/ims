@@ -11,6 +11,10 @@ export interface ISetDatabaseResult<T = any> {
     message: string;
     data?: T;
 }
+export interface ISetUserOptions {
+    username: string;
+    password: string;
+}
 @Controller({
     path: "/install"
 })
@@ -18,8 +22,8 @@ export class ImsIndex {
     @Post()
     setDatabase: PostProperty<[ISetDatabaseOptions], Promise<ISetDatabaseResult>>;
     @Post()
-    setUser: PostProperty<[any], any>;
+    setUser: PostProperty<[ISetUserOptions], Promise<ISetDatabaseResult>>;
     @Post()
-    restart: PostProperty<[], any>;
+    restart: PostProperty<[], Promise<ISetDatabaseResult>>;
 }
 export default parseInc(ImsIndex);

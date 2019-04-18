@@ -18,6 +18,10 @@ export interface ISetDatabaseResult<T = any> {
     message: string;
     data?: T;
 }
+export interface ISetUserOptions {
+    username: string;
+    password: string;
+}
 @Controller({
     path: '/install'
 })
@@ -51,6 +55,7 @@ export class ImsIndex {
                 list: [],
                 admin: [],
                 memcached: [],
+                installed: false,
                 db: {
                     username,
                     host,
@@ -71,7 +76,7 @@ export class ImsIndex {
     }
 
     @Post()
-    async setUser(@Body() body: any) {
+    async setUser(body: ISetUserOptions): Promise<ISetDatabaseResult> {
         try {
             const manager = getConnectionManager();
             const config: IConfig = require(this.lockFile);
@@ -93,9 +98,11 @@ export class ImsIndex {
                 await userRepository.save(user);
             }
             config.admin = [user.id];
+            config.installed = true;
             fs.writeFileSync(this.lockFile, JSON.stringify(config, null, 2));
             return {
-                uid: user.id
+                code: -1,
+                message: '设置用户成功'
             }
         } catch (e) {
             return {
@@ -106,11 +113,12 @@ export class ImsIndex {
     }
 
     @Post()
-    async restart() {
+    async restart(): Promise<ISetDatabaseResult> {
         // rmrf(join(root, 'config/config.json'))
         execSync(`pm2 restart all`);
         return {
-            msg: '重启成功'
+            code: 0,
+            message: '重启成功'
         }
     }
 }

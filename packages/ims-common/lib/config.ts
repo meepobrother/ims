@@ -5,6 +5,7 @@ export interface IConfig {
     api?: string;
     list?: string[];
     admin?: number[];
+    installed?: boolean;
     memcached?: string[];
     db?: {
         host: string,

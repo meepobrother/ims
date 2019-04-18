@@ -39,7 +39,7 @@ export async function bootstrap(root: string, dev: boolean) {
     app.use(file.any());
     app.use(express.static(join(root, 'template')))
     app.use(express.static(join(root, 'attachment')))
-    app.use('/favicon.ico', (req, res, next) => { 
+    app.use('/favicon.ico', (req, res, next) => {
         res.end('')
     });
     const jsonParser: any = bodyparser.json();
@@ -89,24 +89,28 @@ export async function bootstrap(root: string, dev: boolean) {
         setConfig(config);
         const addr = multiaddr(config.api)
         addressOptions = addr.toOptions();
-        try {
-            await parseSystem(model, config);
-            const manager = getConnectionManager();
-            const connection = manager.get(config.system)
-            const addonRepository = connection.getRepository(ImsAddonEntity);
-            const allAddon = await addonRepository.find({
-                enable: true
-            });
-            allAddon.map(addon => {
-                const targt = require(addon.entry).default;
-                addons.push(targt);
-            });
-            addons.push(ImsCoreAdminer);
-            // 服务启动
-            await parseAddons(addons, config);
-        } catch (e) {
-            console.log(e.message)
-            console.log(e.stack)
+        if (config.installed) {
+            try {
+                await parseSystem(model, config);
+                const manager = getConnectionManager();
+                const connection = manager.get(config.system)
+                const addonRepository = connection.getRepository(ImsAddonEntity);
+                const allAddon = await addonRepository.find({
+                    enable: true
+                });
+                allAddon.map(addon => {
+                    const targt = require(addon.entry).default;
+                    addons.push(targt);
+                });
+                addons.push(ImsCoreAdminer);
+                // 服务启动
+                await parseAddons(addons, config);
+            } catch (e) {
+                console.log(e.message)
+                console.log(e.stack)
+            }
+        } else {
+            addons.push(ImsInstall);
         }
     } else {
         addons.push(ImsInstall);

@@ -3,6 +3,8 @@ import React = require('react');
 import { Button, Input, Form, message } from 'antd';
 import { cx } from './index.scss'
 import util from 'ims-util'
+import indexInc from '../../inc/index';
+
 interface IndexProps {
     next?: any;
     prev?: any;
@@ -78,16 +80,16 @@ export default class Index extends React.Component<IndexProps, IndexState> {
         if (this.state.username.length > 0) {
             if (this.state.password.length > 0) {
                 if (this.state.password === this.state.password) {
-                    util.http.post('/ims-install/setUser', {
+                    indexInc.setUser({
                         username: this.state.username,
                         password: this.state.password
                     }).then(res => {
-                        if (res.data.code === -1) {
+                        if (res.code === -1) {
                             message.error(`${res.data.message}`)
                         } else {
                             this.props.next();
                         }
-                    })
+                    });
                 }
             } else {
                 this.setState({
