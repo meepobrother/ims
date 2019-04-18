@@ -76,14 +76,14 @@ function _rimraf(dir: string) {
 
 function packFile(src: string, output: string) {
     output = dirname(output)
-    const taskTsc = done => {
+    let taskTsc = done => {
         const tsProject = ts.createProject(join(root, 'tsconfig.json'));
         const task = gulp.src(src).pipe(tsProject()).pipe(gulp.dest(output))
         task.on('end', () => {
             console.log(chalk.yellow(`${src}:tsc finish ${new Date().getTime()}`))
         });
     }
-    const taskCopy = done => {
+    let taskCopy = done => {
         const otherTask = gulp.src(src).pipe(gulp.dest(output))
         otherTask.on('end', () => {
             console.log(chalk.yellow(`${src}:copy finish ${new Date().getTime()}`))
@@ -91,9 +91,13 @@ function packFile(src: string, output: string) {
         })
     }
     if (src.endsWith('.ts') || src.endsWith('.tsx')) {
-        taskTsc(done => { })
+        taskTsc(done => {
+            taskTsc = null;
+        });
     } else {
-        taskCopy(done => { })
+        taskCopy(done => {
+            taskCopy = null;
+        });
     }
 }
 
