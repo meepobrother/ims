@@ -21,33 +21,27 @@ export function sign(payload: string | Buffer | object): string {
         expiresIn: '30m'
     });
 }
-export function verify(fn: <T>(user: T) => boolean) {
-    return (req: Request, res: Response, next: NextFunction) => {
+export function jwtMiddle(req: Request, res: Response, next: NextFunction) {
+    try {
         const token = req.headers.authorization;
         const key = getKey();
         jsonwebtoken.verify(token, key.privKey, (err: Error, decoded: any) => {
-            if (err) {
-                res.json({
-                    data: {},
-                    code: codes.TokenDecodeError,
-                    message: err.message
-                })
-            } else {
-                if (fn(decoded)) {
-                    req.user = {
-                        id: decoded.id,
-                        username: decoded.username,
-                        role: decoded.role
-                    };
-                    next();
-                } else {
-                    res.json({
-                        data: {},
-                        code: codes.PermissionDenied,
-                        message: '对不起,权限不足'
-                    })
-                }
-            }
-        })
+            req.user = decoded;
+            next();
+        });
+    } catch (e) {
+        next();
+    }
+}
+export function verify(fn: <T>(user: T) => boolean) {
+    return (req: Request, res: Response, next: NextFunction) => {
+        if (fn(req.user)) {
+            next();
+        } else {
+            res.json({
+                code: codes.PermissionDenied,
+                message: '对不起,权限不足'
+            });
+        }
     }
 }

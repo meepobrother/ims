@@ -31,7 +31,7 @@ import ImsCoreAdminer from 'ims-addon-adminer';
 
 import { bootstrap as p2pBotstrap } from 'ims-p2p'
 import multiaddr from 'multiaddr'
-import { transform, watchAddon } from 'ims-node'
+import { transform, watchAddon, jwtMiddle } from 'ims-node'
 const file = multer();
 
 export async function bootstrap(root: string, dev: boolean) {
@@ -77,6 +77,7 @@ export async function bootstrap(root: string, dev: boolean) {
             maxAge: 1000 * 60 * 3
         }
     }));
+    app.use(jwtMiddle);
     const addons = [];
     const configPath = join(root, 'config/config.json');
     const addr = multiaddr('/ip4/0.0.0.0/tcp/4201')
