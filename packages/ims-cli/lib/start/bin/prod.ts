@@ -3,4 +3,4 @@
 // import 'tsconfig-paths/register';
 import "reflect-metadata";
 import { bootstrap } from './api';
-bootstrap(process.cwd(), false)
+bootstrap(process.cwd(), false);

@@ -163,7 +163,7 @@ export default class Index extends React.Component<IndexProps, IndexState> {
             })
         }
         // 配置并连接数据库
-        util.http.post('ims-install/setDatabase', {
+        util.http.post('/setDatabase', {
             host: this.state.host.value,
             port: this.state.port.value,
             username: this.state.username.value,

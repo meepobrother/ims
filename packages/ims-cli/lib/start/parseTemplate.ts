@@ -1,14 +1,16 @@
 import { visitor, } from 'ims-common';
-import { Type, TypeContext } from 'ims-decorator'
-import { AddonMetadataKey, AddonAst, IRouter } from 'ims-core'
-import { Express } from 'express'
-import { join } from 'path'
+import { Type, TypeContext } from 'ims-decorator';
+import { AddonMetadataKey, AddonAst, IRouter } from 'ims-core';
+import { Express } from 'express';
+import { join } from 'path';
+
 export function parseTemplate(addons: Type<any>[], app: Express, root: string) {
     addons.map(addon => {
         const context = visitor.visitType(addon);
         handlerAddon(context, app);
     })
 }
+
 function handlerAddon(addon: TypeContext, router: Express) {
     try {
         const addonAst = addon.getClass(AddonMetadataKey) as AddonAst;

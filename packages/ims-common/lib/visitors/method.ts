@@ -10,8 +10,6 @@ import {
     PutMethodAst,
     HeadMethodAst,
     PatchMethodAst,
-    isAllMethodAst,
-    AllMethodAst,
     isGetPropertyAst,
     GetPropertyAst,
     isPostPropertyAst,
@@ -24,8 +22,6 @@ import {
     PutPropertyAst,
     isHeadPropertyAst,
     HeadPropertyAst,
-    isAllPropertyAst,
-    AllPropertyAst
 } from 'ims-core';
 
 export class MethodVisitor extends NullAstVisitor {
@@ -49,9 +45,6 @@ export class MethodVisitor extends NullAstVisitor {
         if (isHeadPropertyAst(ast)) {
             return new HeadPropertyAst(ast, context)
         }
-        if (isAllPropertyAst(ast)) {
-            return new AllPropertyAst(ast, context)
-        }
     }
     visitMethod(ast: MethodAst, context: ParserAstContext) {
         if (isGetMethodAst(ast)) {
@@ -72,9 +65,6 @@ export class MethodVisitor extends NullAstVisitor {
         }
         if (isPatchMethodAst(ast)) {
             return new PatchMethodAst(ast, context);
-        }
-        if (isAllMethodAst(ast)) {
-            return new AllMethodAst(ast, context);
         }
     }
 }

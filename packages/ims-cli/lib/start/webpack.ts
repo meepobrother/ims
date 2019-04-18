@@ -6,7 +6,6 @@ import { ImsWebpackAdmin } from 'ims-webpack-admin';
 
 export class ImsWebpacks {
     isRunning: boolean;
-
     admin: ImsWebpackAdmin;
 
     get pkgs() {

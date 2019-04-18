@@ -23,7 +23,7 @@ export function createAdmin(addons: Type<any>[]) {
 }
 const template = (routes: IRouter[], tempDir: string) =>
     `const adminer = require('ims-adminer')
-require("./app.css");
+require("normalize.css");
 require("antd/dist/antd.css");
 const React = require('react');
 let routes = [${routes.map(route => createRouter(route, tempDir)).join(',')}];

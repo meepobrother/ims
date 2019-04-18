@@ -9,7 +9,14 @@ export default function transform(context: TypeContext, options: TransformOption
         if (!map.has(role.ast.propertyKey)) {
             map.set(role.ast.propertyKey, [])
         }
-        map.get(role.ast.propertyKey).push(role.ast.metadataDef)
+        const def = role.ast.metadataDef;
+        if (typeof def === 'function') {
+            map.get(role.ast.propertyKey).push(def)
+        } else if (typeof def === 'string') {
+            map.get(role.ast.propertyKey).push((user: any) => user.role === def)
+        } else if (Array.isArray(def)) {
+            map.get(role.ast.propertyKey).push((user: any) => def.includes(user.role))
+        }
     })
     context.set('role', map);
 }
