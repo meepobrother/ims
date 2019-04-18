@@ -3,6 +3,7 @@ import React = require('react');
 import { cx } from './index.scss';
 import util from 'ims-util'
 import Result from 'ant-design-pro/lib/Result'
+import indexInc from '../../inc/index'
 export default class Index extends React.Component<any, any> {
     state = {
         installing: true,
@@ -73,7 +74,7 @@ export default class Index extends React.Component<any, any> {
     }
 
     install() {
-        util.http.post('/ims-install/restart');
+        indexInc.restart();
         this.setState({
             loading: true,
             total: 0,

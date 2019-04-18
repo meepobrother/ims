@@ -20,7 +20,7 @@ export function createController(inputFile: string, outputFile: string) {
                     if (ts.isMethodDeclaration(member)) {
                         const property = methodToProperty(member);
                         if (property) {
-                            imports = property.imports;
+                            imports.push(property.imports);
                             members.push(property.property);
                         }
                     }

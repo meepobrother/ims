@@ -1,4 +1,4 @@
-import { Controller, Post, PostProperty } from "ims-core";
+import { Controller, Get, GetProperty } from "ims-core";
 import { parseInc } from "ims-adminer";
 export interface ISetDatabaseOptions {
     username: string;
@@ -25,5 +25,7 @@ export class ImsIndex {
     setUser: PostProperty<[ISetUserOptions], Promise<ISetDatabaseResult>>;
     @Post()
     restart: PostProperty<[], Promise<ISetDatabaseResult>>;
+    @Get()
+    successRestart: GetProperty<[], Promise<ISetDatabaseResult>>;
 }
 export default parseInc(ImsIndex);

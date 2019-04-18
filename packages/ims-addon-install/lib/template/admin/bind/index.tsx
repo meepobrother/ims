@@ -85,7 +85,7 @@ export default class Index extends React.Component<IndexProps, IndexState> {
                         password: this.state.password
                     }).then(res => {
                         if (res.code === -1) {
-                            message.error(`${res.data.message}`)
+                            message.error(`${res.message}`)
                         } else {
                             this.props.next();
                         }

@@ -4,8 +4,11 @@
   "p2p": "/ip4/0.0.0.0/tcp/4200",
   "api": "/ip4/0.0.0.0/tcp/4201",
   "list": [],
-  "admin": [],
+  "admin": [
+    1
+  ],
   "memcached": [],
+  "installed": true,
   "db": {
     "username": "root",
     "host": "localhost",

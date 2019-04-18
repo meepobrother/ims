@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from 'ims-core';
+import { Controller, Post, Get } from 'ims-core';
 import fs = require('fs-extra')
 import { join } from 'path';
 import { createConnection, getConnection, getConnectionManager } from 'typeorm';
@@ -101,7 +101,7 @@ export class ImsIndex {
             config.installed = true;
             fs.writeFileSync(this.lockFile, JSON.stringify(config, null, 2));
             return {
-                code: -1,
+                code: 0,
                 message: '设置用户成功'
             }
         } catch (e) {
@@ -119,6 +119,14 @@ export class ImsIndex {
         return {
             code: 0,
             message: '重启成功'
+        }
+    }
+
+    @Get()
+    async successRestart(): Promise<ISetDatabaseResult> {
+        return {
+            code: 0,
+            message: '启动成功'
         }
     }
 }
