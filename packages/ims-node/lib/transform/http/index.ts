@@ -138,13 +138,21 @@ function transformHttpMethod(pro: MethodContext<any>, context: TypeContext, opti
     let params = new Array(pro.ast.parameterLength);
     const role = context.get<Map<PropertyKey, any>>('role')
     const handler = (method: string) => async (req: Request, res: Response, next: NextFunction) => {
-        debugger;
+        pro.parameters.map(param => params[param.ast.parameterIndex] = transformHttpParameter(param, req, res, next, method))
         if (method === 'post') {
-            params = req.body.args;
+            const { __args } = req.body;
+            if (__args) {
+                __args.map((arg, index) => {
+                    params[index] = req.query.__args[index];
+                });
+            }
         } else if (method === 'get') {
-            params = req.query.args;
-        } else {
-            pro.parameters.map(param => params[param.ast.parameterIndex] = transformHttpParameter(param, req, res, next, method))
+            const { __args } = req.query;
+            if (__args) {
+                __args.map((arg, index) => {
+                    params[index] = req.query.__args[index];
+                });
+            }
         }
         try {
             const result = await mth(...params);
@@ -257,18 +265,5 @@ function transformHttpParameter(par: ParameterContext<any>, req: Request, res: R
     }
     else if (par instanceof CookieParameterAst) {
         return req.imsCookie;
-    }
-}
-
-/**
- * @Get()
- * getUserInfo(uid: number){}
- **/
-/** 从controller创建viewController */
-function createViewController(ast: any) {
-    if (ast instanceof GetMethodAst) {
-        ast.parameters.map(par => {
-            par.ast.parameterType
-        })
     }
 }
