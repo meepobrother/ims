@@ -24,10 +24,9 @@ export function transformHttp(context: TypeContext, server: Server) {
         console.log(`methods`, methods.length)
         methods.map((par: HttpMethodContext<any>) => {
             const params = new Array(par.ast.parameterLength);
-
             let _routePath = incPath;
             if (par.path !== '/') {
-                _routePath += par.path;
+                _routePath += par.path || `/${par.ast.propertyKey as string}`;
             }
             console.log(_routePath)
             if (par instanceof GetMethodAst) {
