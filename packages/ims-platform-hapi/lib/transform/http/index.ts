@@ -20,7 +20,9 @@ export function transformHttp(context: TypeContext, server: Server) {
         if (incAst.path !== '/') {
             incPath += incAst.path;
         }
-        inc.getMethod().map((par: HttpMethodContext<any>) => {
+        const methods = inc.getMethod();
+        console.log(`methods`, methods.length)
+        methods.map((par: HttpMethodContext<any>) => {
             const params = new Array(par.ast.parameterLength);
             let _routePath = incPath;
             if (par.path !== '/') {
