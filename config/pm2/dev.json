@@ -1,9 +1,9 @@
 [
   {
-    "name": "dev",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/dev.js",
-    "output": "/Volumes/work/data/logs/dev.log",
-    "error": "/Volumes/work/data/logs/dev-error.log"
+    "name": "api",
+    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/api.js",
+    "output": "/Volumes/work/data/logs/api.log",
+    "error": "/Volumes/work/data/logs/api-error.log"
   },
   {
     "name": "template_dev",

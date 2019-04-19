@@ -1,10 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "ims-core";
+import core = require("ims-core");
 
-@Entity()
+@core.Entity()
 export class ImsSetting {
-    @PrimaryGeneratedColumn()
+    @core.PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @core.Column()
     uid: string;
 }

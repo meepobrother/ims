@@ -1,9 +1,9 @@
 [
   {
-    "name": "prod",
-    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/prod.js",
-    "output": "/Volumes/work/data/logs/prod.log",
-    "error": "/Volumes/work/data/logs/prod-error.log",
+    "name": "api",
+    "script": "/Volumes/work/node_modules/ims-cli/lib/start/bin/api.js",
+    "output": "/Volumes/work/data/logs/api.log",
+    "error": "/Volumes/work/data/logs/api-error.log",
     "instances": 8,
     "exec_mode": "‘cluster’"
   }

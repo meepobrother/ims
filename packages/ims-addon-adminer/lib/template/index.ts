@@ -1,6 +1,5 @@
-import { Template } from 'ims-core'
-
-@Template({
+import core = require('ims-core')
+@core.Template({
     admins: [
         // 权限不足
         {
@@ -27,7 +26,7 @@ import { Template } from 'ims-core'
         // 首页
         {
             path: '/',
-            redirect: '/home/index'
+            redirect: '/home/news'
         },
         // 官网
         {

@@ -23,7 +23,7 @@ module.exports = {
     },
     output: {
         filename: '[name].dll.js',
-        path: path.resolve(root, 'template/library'),
+        path: path.resolve(root, 'attachment/template/library'),
         library: '_dll_[name]',  //dll的全局变量名
     },
     module: {

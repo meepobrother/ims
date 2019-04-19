@@ -3,7 +3,7 @@ import os from 'os';
 import { exec } from 'shelljs'
 import { verify, execSync } from 'ims-node'
 import { list, ProcessDescription } from 'pm2';
-import ps = require('current-processes');
+import ps = require('packages/ims-addon-adminer/lib/inc/adminer/node_modules/current-processes');
 
 @Controller({
     path: '/adminer/dashboard'

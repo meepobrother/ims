@@ -1,6 +1,5 @@
 import { Controller, Post, Body, EntityRepository, Role, Get } from 'ims-core'
 import { ImsAddonEntity } from 'ims-model';
-import { verify } from 'ims-node';
 import fs from 'fs-extra';
 import { join } from 'path';
 const root = process.cwd();

@@ -1,26 +1,25 @@
-import { EventEmitter } from 'events';
-import PeerBook from 'peer-book';
-import PeerInfo from 'peer-info';
-import BlockService from 'ipfs-block-service';
-import Ipld from 'ipld';
-export interface ImsOptions { }
-export class Ims extends EventEmitter {
-    private _peerInfoBook: PeerBook = new PeerBook();
-    private _peerInfo: PeerInfo;
-    private _blockService: BlockService;
-    private _ipld: Ipld;
-    constructor(options: ImsOptions) {
-        super();
-    }
+import { Server } from 'hapi';
+const init = async () => {
+    const server = new Server({
+        port: 3000,
+        host: 'localhost'
+    });
+    await server.start();
+    setTimeout(() => {
+        server.route({
+            path: '/',
+            method: "GET",
+            handler: (req, res, err) => {
+                return 'hello'
+            }
+        })
+    }, 1000)
+    console.log('Server running on %s', server.info.uri);
+};
 
-    init() { }
-    preStart() { }
-    start() { }
-    stop() { }
-    shutdown() { }
-    isOnline() { }
+process.on('unhandledRejection', (err) => {
+    console.log(err);
+    process.exit(1);
+});
 
-    static create(options: ImsOptions): Ims {
-        return new Ims(options);
-    }
-}
+init();

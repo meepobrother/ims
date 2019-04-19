@@ -1,5 +1,5 @@
-import { Typeorm } from 'ims-core'
-@Typeorm({
+import core = require('ims-core')
+@core.Typeorm({
     entities: [],
     migrations: [],
     subscribers: []

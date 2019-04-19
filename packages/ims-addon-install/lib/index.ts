@@ -6,6 +6,7 @@ import { ImsInstallTemplate } from './template'
     incs: [ImsIndex],
     template: ImsInstallTemplate,
     sourceRoot: __dirname,
-    path: '/'
+    path: '/',
+    dev: true
 })
 export default class ImsAddonInstall { }

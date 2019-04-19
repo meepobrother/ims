@@ -14,6 +14,7 @@ import {
         ImsCoreAdminerUser, ImsAddonAdminerInstall
     ],
     sourceRoot: __dirname,
-    path: '/'
+    path: '/',
+    dev: true
 })
 export default class ImsAddonAdminer { }

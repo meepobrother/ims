@@ -3,15 +3,8 @@ import { join } from 'path';
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import AntdPlugin from './plugins/antd'
 import autoprefixer = require('autoprefixer');
-const root = process.cwd();
 import webpack = require('webpack');
 import merge = require('webpack-merge');
-import { DllReferencePlugin } from 'webpack';
-const libraryPath = join(root, 'template/library')
-const coreManifest = require(join(libraryPath, 'core.manifest.json'));
-const polyfillManifest = require(join(libraryPath, 'polyfill.manifest.json'));
-const reactManifest = require(join(libraryPath, 'react.manifest.json'));
-
 export abstract class ImsWebpack {
     config: Config = new Config();
     options: webpack.Configuration = {};
@@ -38,15 +31,6 @@ export abstract class ImsWebpack {
             },
             chunks: ['manifest', 'vendors', 'app', 'polyfill']
         }]);
-        this.config.plugin('reactDll').use(DllReferencePlugin, [{
-            manifest: reactManifest
-        }]);
-        this.config.plugin('polyfillDll').use(DllReferencePlugin, [{
-            manifest: polyfillManifest
-        }]);
-        this.config.plugin('coreDll').use(DllReferencePlugin, [{
-            manifest: coreManifest
-        }]);
         this.entity = this.config.entry('app');
         this.initStyle();
     }
@@ -62,8 +46,8 @@ export abstract class ImsWebpack {
             devtool: this.dev ? 'source-map' : false,
             plugins: [],
             output: {
-                path: join(this.root, 'template', this.dist),
-                publicPath: `/${this.dist}/`,
+                path: join(this.root, 'attachment/template', this.dist),
+                publicPath: `/attachment/template/${this.dist}/`,
                 filename: '[name]_[hash].bound.js',
                 chunkFilename: '[name]_[hash].chunk.js'
             },

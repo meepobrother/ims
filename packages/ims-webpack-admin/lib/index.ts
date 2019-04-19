@@ -50,17 +50,26 @@ export class ImsWebpackAdmin extends ImsWebpack {
             this.config.devtool('source-map');
             this.config.mode('development')
         }
+        this.config.plugin('reactDll').use(DllReferencePlugin, [{
+            manifest: require(join(root, 'attachment/template/library/react.manifest.json'))
+        }]);
+        this.config.plugin('polyfillDll').use(DllReferencePlugin, [{
+            manifest: require(join(root, 'attachment/template/library/polyfill.manifest.json'))
+        }]);
+        this.config.plugin('coreDll').use(DllReferencePlugin, [{
+            manifest: require(join(root, 'attachment/template/library/core.manifest.json'))
+        }]);
         this.config.plugin('momentDll').use(DllReferencePlugin, [{
-            manifest: require(join(root, 'template/library/moment.manifest.json'))
+            manifest: require(join(root, 'attachment/template/library/moment.manifest.json'))
         }]);
         this.config.plugin('antdDll').use(DllReferencePlugin, [{
-            manifest: require(join(root, 'template/library/antd.manifest.json'))
+            manifest: require(join(root, 'attachment/template/library/antd.manifest.json'))
         }]);
         this.config.plugin('bizchartsDll').use(DllReferencePlugin, [{
-            manifest: require(join(root, 'template/library/bizcharts.manifest.json'))
+            manifest: require(join(root, 'attachment/template/library/bizcharts.manifest.json'))
         }]);
         this.config.plugin('dataSetDll').use(DllReferencePlugin, [{
-            manifest: require(join(root, 'template/library/dataSet.manifest.json'))
+            manifest: require(join(root, 'attachment/template/library/dataSet.manifest.json'))
         }]);
         this.entity.add(createAdmin(this.addons));
     }

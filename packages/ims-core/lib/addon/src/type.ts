@@ -50,6 +50,8 @@ export interface AddonOptions {
     detail?: string;
     /** 根路由 */
     path?: string;
+    /** 开发者模式 */
+    dev?: boolean;
     /**
      * api
      */
