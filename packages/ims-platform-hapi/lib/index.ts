@@ -11,7 +11,7 @@ import { ConnectionManager, getConnectionManager } from 'typeorm';
 import { transformHttp } from './transform/http'
 import { transformTemplate } from './transform/template'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
-
+import { ImsModel, ImsAddonEntity } from 'ims-model';
 export interface ImsPlatformHapiOptions {
     port?: number;
     host?: string;
@@ -23,6 +23,7 @@ import { transformWs, handlerMap } from './transform/socket';
 import Libp2p from 'libp2p';
 import { TypeContext } from 'ims-decorator';
 import fs from 'fs-extra';
+import { parseSystem, parseAddons } from "ims-platform-typeorm";
 let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
 
@@ -34,15 +35,33 @@ export class ImsPlatformHapi {
     installed: boolean = false;
     config: IConfig;
     constructor(public options: ImsPlatformHapiOptions) {
+
+    }
+
+    async init() {
+        this.connectionManager = getConnectionManager();
         if (fs.existsSync(configPath)) {
             this.config = require(join(root, 'config/config.json'));
             if (this.config.installed) {
                 this.installed = true;
+                const model = visitor.visitType(ImsModel);
+                await parseSystem(model, this.config);
+                this.options.addons.push(require.resolve('ims-addon-admin'));
+                const connection = this.connectionManager.get(this.config.system);
+                const addonRepository = connection.getRepository(ImsAddonEntity);
+                const allAddon = await addonRepository.find({
+                    enable: true
+                });
+                allAddon.map(addon => {
+                    this.options.addons.push(addon.entry);
+                });
+                await parseAddons(this.options.addons, this.config);
+            } else {
+                this.options.addons.push(require.resolve('ims-addon-install'))
             }
+        } else {
+            this.options.addons.push(require.resolve('ims-addon-install'))
         }
-    }
-
-    async init() {
         // hapi server
         this.server = createHapi({
             port: this.options.port,
@@ -60,10 +79,11 @@ export class ImsPlatformHapi {
             server: this.server.listener
         });
         // typeorm connection manager
-        this.connectionManager = getConnectionManager();
         if (this.installed) {
             // libp2p
             this.libp2p = await bootstrap();
+        } else {
+
         }
         // 异常监控
         process.on('unhandledRejection', (err) => {
@@ -188,13 +208,3 @@ export class ImsPlatformHapi {
         });
     }
 }
-// const hapi = new ImsPlatformHapi({
-//     dev: true,
-//     port: 3000,
-//     host: 'localhost',
-//     addons: [
-//         // require.resolve('ims-addon-install'),
-//         join(root, 'packages/ims-addon-adminer/lib/index.ts')
-//     ]
-// });
-// hapi.init();
