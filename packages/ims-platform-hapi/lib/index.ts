@@ -30,7 +30,7 @@ import fs from 'fs-extra';
 import { parseSystem, parseAddons } from "ims-platform-typeorm";
 let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
-
+import { Subject } from 'rxjs';
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -139,30 +139,35 @@ export class ImsPlatformHapi {
         const sourceRoot = context.get('sourceRoot');
         if (!!addonAst.ast.metadataDef.dev) {
             // 模板变化
-            chokidar.watch(
-                [
-                    join(addonAst.sourceRoot, 'template/**/*.ts'),
-                    join(addonAst.sourceRoot, 'template/**/*.js')
-                ], { ignored: [/.*\.d\.ts/] }
-            ).on('all', (op, file) => {
-                delete require.cache[file];
+            const templateSubject = new Subject()
+            const incSubject = new Subject()
+            templateSubject.subscribe((src: string) => {
                 delete require.cache[sourceRoot];
-                const addon = require(sourceRoot).default;
+                const addon = require(src).default;
                 const context = visitor.visitType(addon);
-                console.log(`change file ${file}`)
                 transformTemplate(context, this.server);
+            });
+            incSubject.subscribe((src: string) => {
+                delete require.cache[sourceRoot];
+                const addon = require(src).default;
+                const context = visitor.visitType(addon);
+                transformHttp(context, this.server);
+            })
+            chokidar.watch([
+                join(addonAst.sourceRoot, 'template/**/*.ts'),
+                join(addonAst.sourceRoot, 'template/**/*.js')
+            ], { ignored: [/.*\.d\.ts/] }).on('all', (op, file) => {
+                delete require.cache[file];
+                templateSubject.next(sourceRoot);
+                console.log(`change file ${file}`)
             });
             chokidar.watch([
                 join(addonAst.sourceRoot, 'inc/**/*.ts'),
                 join(addonAst.sourceRoot, 'inc/**/*.js')
-            ], { ignored: [/.*\.d\.ts/] }
-            ).on('all', (op, file) => {
+            ], { ignored: [/.*\.d\.ts/] }).on('all', (op, file) => {
                 delete require.cache[file];
-                delete require.cache[sourceRoot];
-                const addon = require(sourceRoot).default;
-                const context = visitor.visitType(addon);
+                incSubject.next(sourceRoot);
                 console.log(`change file ${file}`)
-                transformHttp(context, this.server);
             });
         }
     }
