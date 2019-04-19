@@ -1,7 +1,6 @@
 import rimraf = require('rimraf');
 import webpack = require('webpack')
 import { formatWebpackMessages } from 'ims-webpack';
-import { Type } from 'ims-decorator';
 import { ImsWebpackAdmin } from 'ims-webpack-admin';
 
 export class ImsWebpacks {
@@ -12,7 +11,7 @@ export class ImsWebpacks {
         return [this.admin]
     }
     dev: boolean = false;
-    constructor(public addons: Type<any>[], dev: boolean) {
+    constructor(public addons: string[], dev: boolean) {
         this.dev = dev;
         this.admin = new ImsWebpackAdmin(addons, this.dev);
     }

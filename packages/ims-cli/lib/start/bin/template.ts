@@ -10,7 +10,7 @@ import ImsInstall from 'ims-addon-install';
 const root = process.cwd();
 export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {
-    const addons = [];
+    const addons: string[] = [];
     const configPath = join(root, 'config/config.json');
     if (fs.existsSync(configPath)) {
         const model = visitor.visitType(ImsModel);
@@ -29,15 +29,15 @@ export async function bootstrap(dev: boolean) {
                 allAddon.map(addon => {
                     addons.push(require(addon.entry).default)
                 });
-                addons.push(ImsCoreAdminer)
+                addons.push(require.resolve('ims-addon-adminer'))
             } else {
-                addons.push(ImsInstall)
+                addons.push(require.resolve('ims-addon-install'))
             }
         } catch (e) {
             console.log(`error`, e.message)
         }
     } else {
-        addons.push(ImsInstall)
+        addons.push(require.resolve('ims-addon-install'))
     }
     const pack = new ImsWebpacks(addons, dev);
     pack.run();
