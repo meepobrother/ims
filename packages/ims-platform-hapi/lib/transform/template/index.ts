@@ -16,7 +16,7 @@ export function transformTemplate(context: TypeContext, server: Server) {
     });
 }
 function registerStaticPath(route: IRouter, file: string, server: Server) {
-    // console.log(`static ${new Date().getTime()} ${route.path}`)
+    console.log(`static ${route.path}`)
     if (!!route.redirect) {
         server.route({
             method: "GET",

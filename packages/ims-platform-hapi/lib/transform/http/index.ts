@@ -5,7 +5,7 @@ import {
     PostMethodAst, PutMethodAst, DeleteMethodAst,
     PatchMethodAst, HeadMethodAst, ReqAst, BodyAst, QueryAst, UploadAst, ParamsAst
 } from "ims-core";
-import { Server, RequestQuery, Request, Lifecycle, HandlerDecorations, ResponseToolkit } from 'hapi'
+import { Server, RequestQuery, Request, ResponseToolkit } from 'hapi'
 export interface IRequestQuery extends RequestQuery {
     __args?: any[];
 }
@@ -21,14 +21,13 @@ export function transformHttp(context: TypeContext, server: Server) {
             incPath += incAst.path;
         }
         const methods = inc.getMethod();
-        console.log(`methods`, methods.length)
         methods.map((par: HttpMethodContext<any>) => {
             const params = new Array(par.ast.parameterLength);
             let _routePath = incPath;
             if (par.path !== '/') {
                 _routePath += par.path || `/${par.ast.propertyKey as string}`;
             }
-            console.log(_routePath)
+            console.log(`${par.ast.metadataKey} ${_routePath}`)
             if (par instanceof GetMethodAst) {
                 server.route({
                     path: _routePath,
