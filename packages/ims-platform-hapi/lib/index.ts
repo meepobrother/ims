@@ -143,7 +143,7 @@ export class ImsPlatformHapi {
                 [
                     join(addonAst.sourceRoot, 'template/**/*.ts'),
                     join(addonAst.sourceRoot, 'template/**/*.js')
-                ]
+                ], { ignored: [/.*\.d\.ts/] }
             ).on('all', (op, file) => {
                 delete require.cache[file];
                 delete require.cache[sourceRoot];
@@ -155,7 +155,8 @@ export class ImsPlatformHapi {
             chokidar.watch([
                 join(addonAst.sourceRoot, 'inc/**/*.ts'),
                 join(addonAst.sourceRoot, 'inc/**/*.js')
-            ]).on('all', (op, file) => {
+            ], { ignored: [/.*\.d\.ts/] }
+            ).on('all', (op, file) => {
                 delete require.cache[file];
                 delete require.cache[sourceRoot];
                 const addon = require(sourceRoot).default;
