@@ -2,6 +2,7 @@ import { TypeContext } from "ims-decorator";
 import { ConnectionManager, Connection } from 'typeorm'
 import { EntityRepositoryAst, EntityRepositoryMetadataKey } from "ims-core";
 import { getConfig } from "ims-common";
+import { parseTypeorm } from "ims-platform-typeorm";
 export function transformTypeorm(
     context: TypeContext,
     options: ConnectionManager
@@ -16,6 +17,7 @@ export function transformTypeorm(
         } else if (def.db === 'system') {
             connection = options.get(config.system)
         }
+        parseTypeorm(context);
         context.instance[pro.ast.propertyKey] = connection.getRepository(def.target)
     })
 }

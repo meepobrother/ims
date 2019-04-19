@@ -17,5 +17,6 @@ export interface IResult<T> {
     code: 0 | -1;
     message: string;
     data?: T;
+    stack?: string;
 }
 export type HttpResult<T = any> = Promise<IResult<T>>;

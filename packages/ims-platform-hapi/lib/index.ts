@@ -96,8 +96,6 @@ export class ImsPlatformHapi {
         if (this.installed) {
             // libp2p
             this.libp2p = await bootstrap();
-        } else {
-
         }
         // 异常监控
         process.on('unhandledRejection', (err) => {
