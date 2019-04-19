@@ -123,15 +123,18 @@ export class ImsPlatformHapi {
                 delete require.cache[sourceRoot];
                 const addon = require(sourceRoot).default;
                 const context = visitor.visitType(addon);
+                console.log(`change file ${file}`)
                 transformTemplate(context, this.server);
             });
-            chokidar.watch(
-                join(addonAst.sourceRoot, 'inc/**/*.ts')
-            ).on('all', (op, file) => {
+            chokidar.watch([
+                join(addonAst.sourceRoot, 'inc/**/*.ts'),
+                join(addonAst.sourceRoot, 'inc/**/*.js')
+            ]).on('all', (op, file) => {
                 delete require.cache[file];
                 delete require.cache[sourceRoot];
                 const addon = require(sourceRoot).default;
                 const context = visitor.visitType(addon);
+                console.log(`change file ${file}`)
                 transformHttp(context, this.server);
             });
         }
