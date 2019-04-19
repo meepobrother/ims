@@ -32,10 +32,11 @@ export class ImsPlatformHapi {
     libp2p: Libp2p;
     connectionManager: ConnectionManager;
     installed: boolean = false;
+    config: IConfig;
     constructor(public options: ImsPlatformHapiOptions) {
         if (fs.existsSync(configPath)) {
-            const config: IConfig = require(join(root, 'config/config.json'));
-            if (config.installed) {
+            this.config = require(join(root, 'config/config.json'));
+            if (this.config.installed) {
                 this.installed = true;
             }
         }
