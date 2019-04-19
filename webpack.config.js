@@ -49,7 +49,7 @@ module.exports = {
     plugins: [
         new DllPlugin({
             name: '_dll_[name]',  //dll的全局变量名
-            path: path.join(root, 'template/library', '[name].manifest.json'),//描述生成的manifest文件
+            path: path.join(root, 'attachment/template/library', '[name].manifest.json'),//描述生成的manifest文件
         })
     ]
 }

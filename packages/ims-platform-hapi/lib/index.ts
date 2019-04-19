@@ -1,12 +1,11 @@
 import "reflect-metadata";
 import { join } from 'path';
 const root = process.cwd();
-// const config = require(join(root, 'tsconfig.json'))
 import { Server, Request, ResponseToolkit } from 'hapi';
 import createHapi from 'ims-hapi'
 import * as Boom from 'boom';
 import inert from 'inert';
-import { visitor } from 'ims-common';
+import { visitor, IConfig } from 'ims-common';
 import chokidar from 'chokidar';
 import { ConnectionManager, getConnectionManager } from 'typeorm';
 import { transformHttp } from './transform/http'
@@ -23,14 +22,24 @@ import { bootstrap, transform as transformP2p } from 'ims-p2p'
 import { transformWs, handlerMap } from './transform/socket';
 import Libp2p from 'libp2p';
 import { TypeContext } from 'ims-decorator';
-
+import fs from 'fs-extra';
 let socketSet = new Set();
+const configPath = join(root, 'config/config.json');
+
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
     libp2p: Libp2p;
     connectionManager: ConnectionManager;
-    constructor(public options: ImsPlatformHapiOptions) { }
+    installed: boolean = false;
+    constructor(public options: ImsPlatformHapiOptions) {
+        if (fs.existsSync(configPath)) {
+            const config: IConfig = require(join(root, 'config/config.json'));
+            if (config.installed) {
+                this.installed = true;
+            }
+        }
+    }
 
     async init() {
         // hapi server
@@ -49,10 +58,12 @@ export class ImsPlatformHapi {
         this.ws = new WebSocket.Server({
             server: this.server.listener
         });
-        // typeorm connection manager
-        this.connectionManager = getConnectionManager();
-        // libp2p
-        this.libp2p = await bootstrap();
+        if (this.installed) {
+            // typeorm connection manager
+            this.connectionManager = getConnectionManager();
+            // libp2p
+            this.libp2p = await bootstrap();
+        }
         // 异常监控
         process.on('unhandledRejection', (err) => {
             console.log(err);
