@@ -48,7 +48,7 @@ export class ImsPlatformHapi {
                 this.installed = true;
                 const model = visitor.visitType(ImsModel);
                 await parseSystem(model, this.config);
-                this.options.addons.push(require.resolve('ims-addon-admin'));
+                this.options.addons.push(require.resolve('ims-addon-adminer'));
                 const connection = this.connectionManager.get(this.config.system);
                 const addonRepository = connection.getRepository(ImsAddonEntity);
                 const allAddon = await addonRepository.find({
