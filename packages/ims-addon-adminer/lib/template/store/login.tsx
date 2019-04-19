@@ -2,6 +2,7 @@ import { observable, action } from 'mobx';
 import React = require('react');
 import util from 'ims-util';
 import { history, role } from 'ims-adminer'
+import ImsUser from '../inc/user'
 export class Login {
     // 记住
     @observable
@@ -62,12 +63,11 @@ export class Login {
                     ...values,
                     autoLogin: this.autoLogin
                 }).then(res => {
-                    const { data } = res;
-                    if (data.code + '' !== '0') {
-                        this.setNotice(data.message)
+                    if (res.code !== 0) {
+                        this.setNotice(res.message)
                     } else {
                         // 跳转
-                        const user = data.data;
+                        const user = res.data;
                         role.setRole(user.role);
                         role.username = user.username;
                         util.cookie.set('token', user.token, {
@@ -112,8 +112,8 @@ export class Login {
     /**
      * 登录
      */
-    login(data: any) {
-        return util.http.post('/user/login', data)
+    login(data: { username: string, password: string }) {
+        return ImsUser.login(data)
     }
     /**
      * 退出登录

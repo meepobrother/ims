@@ -266,5 +266,6 @@ export class RenderAst extends ParameterContext<T.RenderOptions> { }
 export class ReqAst extends ParameterContext<T.ReqOptions>{ }
 export class ResAst extends ParameterContext<T.ResOptions>{ }
 export class SessionAst extends ParameterContext<T.SessionOptions> { }
+export class ParamsAst extends ParameterContext<T.ParamsOptions> { }
 export class UploadAst extends ParameterContext<T.UploadOptions>{ }
 export class UploadsAst extends ParameterContext<T.UploadsOptions>{ }

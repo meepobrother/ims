@@ -5,9 +5,12 @@ export const hasAddonDecorator = hasClassDecorator('Addon');
 
 export function hasClassDecorator(name: string) {
     return (node: ts.ClassDeclaration) => {
-        return node.decorators.some(it => {
-            return isDecorator(name)(it)
-        });
+        if (node.decorators) {
+            return node.decorators.some(it => {
+                return isDecorator(name)(it)
+            });
+        }
+        return false;
     }
 }
 

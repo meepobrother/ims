@@ -7,6 +7,7 @@ export const CommandMetadataKey = 'CommandMetadataKey'
 export const VersionMetadataKey = 'VersionMetadataKey'
 
 export const BodyMetadataKey = 'BodyMetadataKey';
+export const ParamsMetadatadataKey = 'ParamsMetadatadataKey';
 export const NextMetadataKey = 'NextMetadataKey';
 export const QueryMetadataKey = 'QueryMetadataKey';
 export const RedirectMetadataKey = 'RedirectMetadataKey';

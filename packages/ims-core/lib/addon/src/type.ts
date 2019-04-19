@@ -175,6 +175,7 @@ export interface RenderOptions { }
 export interface ReqOptions { }
 export interface ResOptions { }
 export interface SessionOptions { }
+export type ParamsOptions = 'string';
 export interface RedirectOptions { }
-export interface UploadOptions { }
+export type UploadOptions = string;
 export interface UploadsOptions { }

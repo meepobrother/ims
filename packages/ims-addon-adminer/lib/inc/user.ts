@@ -1,8 +1,16 @@
-import { Controller, Post, Body, EntityRepository, Get, Role, Req } from "ims-core";
+import { Controller, Post, Body, EntityRepository, Get, Role, Req, HttpResult } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
 import { isEqualPassword, sign, verify } from 'ims-node';
 import { getConfig } from "ims-common";
-
+export interface LoginOptions {
+    username: string;
+    password: string
+}
+export interface LoginOutput {
+    username: string;
+    role: string;
+    token: string;
+}
 @Controller({
     path: '/user'
 })
@@ -14,9 +22,10 @@ export class ImsCoreAdminerUser {
     user: EntityRepository<ImsUserEntity>;
 
     @Post()
-    async login(@Body() msg: { username: string, password: string }) {
+    async login(msg: LoginOptions): HttpResult<LoginOutput> {
+        const { username, password } = msg;
         const user = await this.user.findOne({
-            username: msg.username
+            username: username
         });
         if (!user) {
             return {
@@ -24,7 +33,7 @@ export class ImsCoreAdminerUser {
                 message: '用户不存在或已注销'
             }
         } else {
-            if (isEqualPassword(msg.password, user.token, user.password)) {
+            if (isEqualPassword(password, user.token, user.password)) {
                 const config = getConfig();
                 let role = 'default';
                 if (config.admin.includes(user.id)) {
