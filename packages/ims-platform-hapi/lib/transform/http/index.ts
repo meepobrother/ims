@@ -27,8 +27,8 @@ export function transformHttp(context: TypeContext, server: Server) {
             if (par.path !== '/') {
                 _routePath += par.path || `/${par.ast.propertyKey as string}`;
             }
-            console.log(`${par.ast.metadataKey} ${_routePath}`)
             if (par instanceof GetMethodAst) {
+                console.log(`get ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'GET',
@@ -43,6 +43,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                 })
             }
             if (par instanceof PostMethodAst) {
+                console.log(`post ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'POST',
@@ -57,6 +58,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                 })
             }
             if (par instanceof PatchMethodAst) {
+                console.log(`patch ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'Patch',
@@ -71,6 +73,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                 })
             }
             if (par instanceof PutMethodAst) {
+                console.log(`put ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'PUT',
@@ -85,6 +88,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                 })
             }
             if (par instanceof DeleteMethodAst) {
+                console.log(`delete ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'Delete',
@@ -99,6 +103,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                 })
             }
             if (par instanceof HeadMethodAst) {
+                console.log(`head ${_routePath}`)
                 server.route({
                     path: _routePath,
                     method: 'HEAD',

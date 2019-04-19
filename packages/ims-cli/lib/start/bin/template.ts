@@ -5,8 +5,6 @@ import { ImsAddonEntity, ImsModel } from 'ims-model'
 import { visitor, setConfig, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
 import { getConnection } from 'typeorm'
-import ImsCoreAdminer from 'ims-addon-adminer';
-import ImsInstall from 'ims-addon-install';
 const root = process.cwd();
 export class ImsStartApp { }
 export async function bootstrap(dev: boolean) {
