@@ -59,9 +59,9 @@ export class ImsPlatformHapi {
         this.ws = new WebSocket.Server({
             server: this.server.listener
         });
+        // typeorm connection manager
+        this.connectionManager = getConnectionManager();
         if (this.installed) {
-            // typeorm connection manager
-            this.connectionManager = getConnectionManager();
             // libp2p
             this.libp2p = await bootstrap();
         }
