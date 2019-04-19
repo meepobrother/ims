@@ -1,16 +1,16 @@
 import { IRouter, } from 'ims-core';
-import { Type } from 'ims-decorator'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { join, relative } from 'path';
 import * as fs from 'fs-extra';
 import { camelCase, kebabCase } from 'lodash';
 import { visitor } from 'ims-common';
 const root = process.cwd();
-export function createAdmin(addons: Type<any>[]) {
+export function createAdmin(addons: string[]) {
     let routers: any[] = [];
     const tempDir = join(root, 'data/temp');
     fs.ensureDirSync(tempDir);
-    addons.map(addon => {
+    addons.map(src => {
+        const addon = require(src).default
         const context = visitor.visitType(addon)
         const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
         const template = addonAst.getTemplate();

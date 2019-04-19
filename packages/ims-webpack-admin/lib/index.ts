@@ -2,7 +2,6 @@ import { ImsWebpack } from 'ims-webpack';
 import {
     AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst
 } from 'ims-core';
-import { Type } from 'ims-decorator'
 import { createAdmin } from './util';
 const sources = new Set();
 import { BehaviorSubject } from 'rxjs';
@@ -21,7 +20,7 @@ export class ImsWebpackAdmin extends ImsWebpack {
     dev: boolean;
     $change: BehaviorSubject<any> = new BehaviorSubject(0);
     isRunning: boolean;
-    constructor(public addons: Type<any>[], dev: boolean = true) {
+    constructor(public addons: string[], dev: boolean = true) {
         super('admin', dev);
         this.dev = !!dev;
         this.options.plugins.push(
@@ -35,7 +34,8 @@ export class ImsWebpackAdmin extends ImsWebpack {
     }
 
     onInit() {
-        this.addons.map(addon => {
+        this.addons.map(src => {
+            const addon = require(src).default;
             const context = visitor.visitType(addon)
             const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
             if (addonAst.ast.sourceRoot) {

@@ -13,6 +13,7 @@ import { transformHttp } from './transform/http'
 import { transformTemplate } from './transform/template'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { ImsModel, ImsAddonEntity } from 'ims-model';
+import { createAdmin } from 'ims-webpack-admin'
 export interface ImsPlatformHapiOptions {
     // 默认端口
     port?: number;
@@ -120,10 +121,11 @@ export class ImsPlatformHapi {
             transformP2p(context, this.libp2p);
             transformWs(context, this.ws);
             transformHttp(context, this.server);
-            transformTemplate(context, this.server)
+            transformTemplate(context, this.server);
             this.registerSocket();
             this.watch(context);
         });
+        createAdmin(this.options.addons);
     }
     /** 静态资源 模板 */
     registerStatic() {
@@ -152,6 +154,7 @@ export class ImsPlatformHapi {
                 const addon = require(src).default;
                 const context = visitor.visitType(addon);
                 transformTemplate(context, this.server);
+                createAdmin(this.options.addons);
             });
             incSubject.pipe(debounceTime(500), skip(1)).subscribe((src: string) => {
                 delete require.cache[sourceRoot];
