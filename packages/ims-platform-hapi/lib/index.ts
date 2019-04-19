@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { join } from 'path';
+import multiaddr from 'multiaddr'
 const root = process.cwd();
 import { Server, Request, ResponseToolkit } from 'hapi';
 import createHapi from 'ims-hapi'
@@ -13,8 +14,11 @@ import { transformTemplate } from './transform/template'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { ImsModel, ImsAddonEntity } from 'ims-model';
 export interface ImsPlatformHapiOptions {
+    // 默认端口
     port?: number;
+    // 默认主机
     host?: string;
+    // 系统模块
     addons?: string[];
 }
 import WebSocket from 'ws';
@@ -34,9 +38,7 @@ export class ImsPlatformHapi {
     connectionManager: ConnectionManager;
     installed: boolean = false;
     config: IConfig;
-    constructor(public options: ImsPlatformHapiOptions) {
-
-    }
+    constructor(public options: ImsPlatformHapiOptions) { }
 
     async init() {
         this.connectionManager = getConnectionManager();
@@ -55,12 +57,16 @@ export class ImsPlatformHapi {
                 allAddon.map(addon => {
                     this.options.addons.push(addon.entry);
                 });
+                const addr = multiaddr(this.config.api)
+                let addressOptions = addr.toOptions();
+                this.options.port = addressOptions.port;
+                this.options.host = addressOptions.host;
                 await parseAddons(this.options.addons, this.config);
             } else {
-                this.options.addons.push(require.resolve('ims-addon-install'))
+                this.options.addons = [require.resolve('ims-addon-install')];
             }
         } else {
-            this.options.addons.push(require.resolve('ims-addon-install'))
+            this.options.addons = [require.resolve('ims-addon-install')];
         }
         // hapi server
         this.server = createHapi({
