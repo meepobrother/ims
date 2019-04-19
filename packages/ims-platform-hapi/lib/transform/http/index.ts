@@ -26,6 +26,7 @@ export function transformHttp(context: TypeContext, server: Server) {
             if (par.path !== '/') {
                 _routePath += par.path;
             }
+            console.log(_routePath)
             if (par instanceof GetMethodAst) {
                 server.route({
                     path: _routePath,
