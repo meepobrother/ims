@@ -34,7 +34,7 @@ export class ImsWebpackAdmin extends ImsWebpack {
     }
 
     onInit() {
-        this.addons.map(src => {
+        this.addons.map((src: string) => {
             const addon = require(src).default;
             const context = visitor.visitType(addon)
             const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
