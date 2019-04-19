@@ -40,7 +40,11 @@ export class ImsPlatformHapi {
     connectionManager: ConnectionManager;
     installed: boolean = false;
     config: IConfig;
-    constructor(public options: ImsPlatformHapiOptions) { }
+    constructor(public options: ImsPlatformHapiOptions = {
+        port: 4201,
+        host: '0.0.0.0',
+        addons: []
+    }) { }
 
     async init() {
         this.connectionManager = getConnectionManager();
