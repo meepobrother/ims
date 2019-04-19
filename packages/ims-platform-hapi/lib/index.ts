@@ -31,6 +31,8 @@ import { parseSystem, parseAddons } from "ims-platform-typeorm";
 let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
 import { Subject } from 'rxjs';
+import { throttleTime } from 'rxjs/operators';
+
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -141,13 +143,13 @@ export class ImsPlatformHapi {
             // 模板变化
             const templateSubject = new Subject()
             const incSubject = new Subject()
-            templateSubject.subscribe((src: string) => {
+            templateSubject.pipe(throttleTime(500)).subscribe((src: string) => {
                 delete require.cache[sourceRoot];
                 const addon = require(src).default;
                 const context = visitor.visitType(addon);
                 transformTemplate(context, this.server);
             });
-            incSubject.subscribe((src: string) => {
+            incSubject.pipe(throttleTime(500)).subscribe((src: string) => {
                 delete require.cache[sourceRoot];
                 const addon = require(src).default;
                 const context = visitor.visitType(addon);
