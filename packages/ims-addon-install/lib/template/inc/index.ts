@@ -1,4 +1,4 @@
-import { Controller, Post, PostProperty, Get, GetProperty } from "ims-core";
+import { Controller, HttpResult, Post, PostProperty, Get, GetProperty } from "ims-core";
 import { parseInc } from "ims-adminer";
 export interface ISetDatabaseOptions {
     username: string;
