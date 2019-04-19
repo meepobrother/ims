@@ -10,7 +10,7 @@ export function parseInc<T>(inc: Type<T>): T {
             context.instance[pro.ast.propertyKey] = (...args: any[]) => {
                 return util.http.get(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}`, {
                     params: {
-                        args: args
+                        __args: args
                     }
                 }).then(res => res.data)
             };
@@ -18,7 +18,7 @@ export function parseInc<T>(inc: Type<T>): T {
         if (pro instanceof PostPropertyAst) {
             context.instance[pro.ast.propertyKey] = (...args: any[]) => {
                 return util.http.post(`${incAst.path}${pro.path || `/${pro.ast.propertyKey as string}`}`, {
-                    args: args
+                    __args: args
                 }).then(res => res.data);
             };
         }

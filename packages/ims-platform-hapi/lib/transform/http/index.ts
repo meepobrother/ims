@@ -35,7 +35,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'GET',
                     handler: async (req, h, err) => {
                         const { __args } = req.query as IRequestQuery;
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
@@ -48,7 +48,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'POST',
                     handler: async (req, h, err) => {
                         const { __args } = req.payload as { __args: any[] };
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
@@ -61,7 +61,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'Patch',
                     handler: async (req, h, err) => {
                         const { __args } = req.payload as { __args: any[] };
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
@@ -74,7 +74,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'PUT',
                     handler: async (req, h, err) => {
                         const { __args } = req.payload as { __args: any[] };
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
@@ -87,7 +87,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'Delete',
                     handler: async (req, h, err) => {
                         const { __args } = req.query as IRequestQuery;
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
@@ -100,7 +100,7 @@ export function transformHttp(context: TypeContext, server: Server) {
                     method: 'HEAD',
                     handler: async (req, h, err) => {
                         const { __args } = req.query as IRequestQuery;
-                        __args.map((arg, key) => {
+                        __args && __args.map((arg, key) => {
                             params[key] = arg;
                         });
                         return await inc.instance[par.ast.propertyKey](...params)
