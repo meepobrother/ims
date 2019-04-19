@@ -87,7 +87,7 @@ export class ImsPlatformHapi {
             context.set('sourceRoot', src)
             transformP2p(context, this.libp2p);
             transformWs(context, this.ws);
-            transformHttp(context, this.server)
+            transformHttp(context, this.server);
             transformTemplate(context, this.server)
             this.registerSocket();
             this.watch(context);
