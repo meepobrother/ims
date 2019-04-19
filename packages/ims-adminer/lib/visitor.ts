@@ -1,7 +1,8 @@
 import { visitor } from 'ims-common';
-import { Type } from 'ims-decorator'
+import { Type } from 'ims-decorator';
 import { GetPropertyAst, ControllerAst, ControllerMetadataKey, PostPropertyAst } from 'ims-core';
 import util from 'ims-util';
+
 export function parseInc<T>(inc: Type<T>): T {
     const context = visitor.visitType(inc);
     const incAst = context.getClass(ControllerMetadataKey) as ControllerAst;

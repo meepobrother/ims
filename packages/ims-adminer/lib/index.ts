@@ -5,4 +5,4 @@ export * from './history';
 export * from './loading';
 export * from './bootstrap';
 export * from './store';
-export * from './visitor'
+export * from './visitor';

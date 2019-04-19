@@ -4,7 +4,8 @@ import { methodToProperty } from './methodToProperty'
 import ts from 'typescript';
 import fs from 'fs-extra'
 import { dirname } from 'path';
-export function createController(inputFile: string, outputFile: string) {
+import { isControllerDecorator } from './isDecorator';
+export function createController(inputFile: string, outputFile: string, basePath: string) {
     const code = fs.readFileSync(inputFile).toString('utf8')
     const sourceFile = ts.createSourceFile('', code, ts.ScriptTarget.ESNext, false, ts.ScriptKind.Unknown)
     const printer = ts.createPrinter();
@@ -13,7 +14,8 @@ export function createController(inputFile: string, outputFile: string) {
         if (ts.isInterfaceDeclaration(node)) {
             // 241;
             return node;
-        } else if (ts.isClassDeclaration(node)) {
+        }
+        if (ts.isClassDeclaration(node)) {
             if (hasControllerDecorator(node)) {
                 const members = [];
                 node.members.map(member => {
@@ -25,12 +27,44 @@ export function createController(inputFile: string, outputFile: string) {
                         }
                     }
                 });
-                return ts.updateClassDeclaration(node, node.decorators, node.modifiers, node.name, node.typeParameters, node.heritageClauses, members)
+                const decorators = node.decorators.map(it => {
+                    if (isControllerDecorator(it) && basePath !== '/') {
+                        const { expression } = it;
+                        if (ts.isCallExpression(expression)) {
+                            const _arguments = expression.arguments.map(arg => {
+                                if (ts.isObjectLiteralExpression(arg)) {
+                                    const properties = arg.properties.map(pro => {
+                                        if (ts.isPropertyAssignment(pro)) {
+                                            const name = pro.name;
+                                            if (ts.isIdentifier(name)) {
+                                                if (name.text === 'path') {
+                                                    if (ts.isStringLiteral(pro.initializer)) {
+                                                        const oldPath = pro.initializer.text;
+                                                        const newPath = `${basePath}${oldPath}`;
+                                                        const stringLiteral = ts.createStringLiteral(newPath);
+                                                        return ts.updatePropertyAssignment(pro, pro.name, stringLiteral)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        return pro;
+                                    });
+                                    const propertys = ts.createNodeArray(properties, arg.properties.hasTrailingComma);
+                                    return ts.updateObjectLiteral(arg, propertys)
+                                }
+                                return arg;
+                            });
+                            const call = ts.updateCall(expression, expression.expression, expression.typeArguments, _arguments)
+                            return ts.updateDecorator(it, call)
+                        }
+                    }
+                    return it;
+                })
+                return ts.updateClassDeclaration(node, decorators, node.modifiers, node.name, node.typeParameters, node.heritageClauses, members)
             }
-        } else if (ts.isExportDeclaration(node)) {
+        }
+        if (ts.isExportDeclaration(node)) {
             return node;
-        } else {
-            // debugger;
         }
     }
     let ress: ts.Node[] = [];
