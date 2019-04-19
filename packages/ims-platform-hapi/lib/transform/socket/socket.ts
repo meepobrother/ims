@@ -13,7 +13,6 @@ export function transformSocket(
 ) {
     const propertys = context.getProperty(SocketMetadataKey) as SocketPropertyAst[];
     propertys.map(pro => transformProperty(pro, context, options))
-
     const methods = context.getMethod(SocketMetadataKey) as SocketMethodAst[];
     methods.map(pro => transformMethod(pro, context))
 }

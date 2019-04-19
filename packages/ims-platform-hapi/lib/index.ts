@@ -6,7 +6,7 @@ import { Server, Request, ResponseToolkit } from 'hapi';
 import createHapi from 'ims-hapi'
 import * as Boom from 'boom';
 import inert from 'inert';
-import { visitor, IConfig } from 'ims-common';
+import { visitor, IConfig, setConfig } from 'ims-common';
 import chokidar from 'chokidar';
 import { ConnectionManager, getConnectionManager } from 'typeorm';
 import { transformHttp } from './transform/http'
@@ -33,7 +33,7 @@ let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
 import { Subject } from 'rxjs';
 import { debounceTime, skip } from 'rxjs/operators';
-
+import { transformTypeorm } from './transform/typeorm'
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -51,6 +51,7 @@ export class ImsPlatformHapi {
         this.connectionManager = getConnectionManager();
         if (fs.existsSync(configPath)) {
             this.config = require(join(root, 'config/config.json'));
+            setConfig(this.config)
             if (this.config.installed) {
                 this.installed = true;
                 const model = visitor.visitType(ImsModel);
@@ -120,6 +121,7 @@ export class ImsPlatformHapi {
             context.set('sourceRoot', src)
             transformP2p(context, this.libp2p);
             transformWs(context, this.ws);
+            transformTypeorm(context, this.connectionManager)
             transformHttp(context, this.server);
             transformTemplate(context, this.server);
             this.registerSocket();
@@ -160,6 +162,7 @@ export class ImsPlatformHapi {
                 delete require.cache[sourceRoot];
                 const addon = require(src).default;
                 const context = visitor.visitType(addon);
+                transformTypeorm(context, this.connectionManager)
                 transformHttp(context, this.server);
             })
             chokidar.watch([
