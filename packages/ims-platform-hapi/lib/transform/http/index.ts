@@ -6,12 +6,14 @@ import {
     PatchMethodAst, HeadMethodAst, ReqAst, BodyAst, QueryAst, UploadAst, ParamsAst
 } from "ims-core";
 import { Server, RequestQuery, Request, ResponseToolkit } from 'hapi'
+import { transformTypeorm } from '../typeorm'
 export interface IRequestQuery extends RequestQuery {
     __args?: any[];
 }
 export function transformHttp(context: TypeContext, server: Server) {
     const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
     addonAst.incs.map(inc => {
+        transformTypeorm(inc);
         const incAst = inc.getClass(ControllerMetadataKey) as ControllerAst;
         let incPath = '';
         if (addonAst.path !== '/') {

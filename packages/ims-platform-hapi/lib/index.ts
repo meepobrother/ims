@@ -119,7 +119,6 @@ export class ImsPlatformHapi {
             context.set('sourceRoot', src)
             transformP2p(context, this.libp2p);
             transformWs(context, this.ws);
-            transformTypeorm(context, this.connectionManager)
             transformHttp(context, this.server);
             transformTemplate(context, this.server);
             this.registerSocket();
@@ -160,7 +159,6 @@ export class ImsPlatformHapi {
                 delete require.cache[sourceRoot];
                 const addon = require(src).default;
                 const context = visitor.visitType(addon);
-                transformTypeorm(context, this.connectionManager)
                 transformHttp(context, this.server);
             })
             chokidar.watch([

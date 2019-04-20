@@ -1,13 +1,13 @@
 import { TypeContext } from "ims-decorator";
-import { ConnectionManager, Connection } from 'typeorm'
+import { ConnectionManager, Connection, getConnectionManager } from 'typeorm'
 import { EntityRepositoryAst, EntityRepositoryMetadataKey } from "ims-core";
 import { getConfig } from "ims-common";
 import { parseTypeorm } from "ims-platform-typeorm";
 export function transformTypeorm(
-    context: TypeContext,
-    options: ConnectionManager
+    context: TypeContext
 ) {
     const config = getConfig();
+    const options = getConnectionManager();
     const propertys = context.getProperty(EntityRepositoryMetadataKey) as EntityRepositoryAst[];
     propertys.map(pro => {
         const def = pro.ast.metadataDef;
