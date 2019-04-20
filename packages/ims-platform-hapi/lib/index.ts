@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { join } from 'path';
 import multiaddr from 'multiaddr'
 const root = process.cwd();
-import { Server, Request, ResponseToolkit } from 'hapi';
+import { Server, Request, ResponseToolkit, ServerAuthSchemeOptions } from 'hapi';
 import createHapi from 'ims-hapi'
 import * as Boom from 'boom';
 import inert from 'inert';
@@ -33,7 +33,6 @@ let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
 import { Subject } from 'rxjs';
 import { debounceTime, skip } from 'rxjs/operators';
-import { transformTypeorm } from './transform/typeorm'
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -47,7 +46,7 @@ export class ImsPlatformHapi {
         addons: []
     }) { }
 
-    async init() {
+    async init(test: boolean = false) {
         this.connectionManager = getConnectionManager();
         if (fs.existsSync(configPath)) {
             this.config = require(join(root, 'config/config.json'));
@@ -87,13 +86,35 @@ export class ImsPlatformHapi {
             }
         });
         // 静态服务器
-        await this.server.register(inert)
+        await this.server.register(inert);
+        // 登录
+        await this.server.register({
+            plugin: {
+                pkg: require('../package.json'),
+                once: true,
+                requirements: {
+                    hapi: '>=17.7.0'
+                },
+                register(server, options) {
+                    server.auth.scheme('custom', (server: Server, options: ServerAuthSchemeOptions) => {
+                        return {
+                            authenticate(request, h) {
+                                console.log({ request, h });
+                                debugger;
+                                return h.authenticated({ credentials: { user: 'john' } });
+                            }
+                        }
+                    });
+                    server.auth.strategy('default', 'custom');
+                }
+            }
+        })
         // websocket server
         this.ws = new WebSocket.Server({
             server: this.server.listener
         });
         // typeorm connection manager
-        if (this.installed) {
+        if (this.installed && !test) {
             // libp2p
             this.libp2p = await bootstrap();
         }
