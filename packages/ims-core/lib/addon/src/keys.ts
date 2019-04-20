@@ -2,8 +2,6 @@ export const AddonMetadataKey = 'AddonMetadataKey'
 export const ControllerMetadataKey = 'ControllerMetadataKey'
 export const TemplateMetadataKey = 'TemplateMetadataKey';
 export const TypeormMetadataKey = 'TypeormMetadataKey';
-export const CliMetadataKey = 'CliMetadataKey'
-export const CommandMetadataKey = 'CommandMetadataKey'
 export const VersionMetadataKey = 'VersionMetadataKey'
 
 export const BodyMetadataKey = 'BodyMetadataKey';

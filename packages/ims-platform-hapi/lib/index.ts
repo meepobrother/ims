@@ -13,7 +13,9 @@ import { transformHttp } from './transform/http'
 import { transformTemplate } from './transform/template'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { ImsModel, ImsAddonEntity } from 'ims-model';
-import { createAdmin } from 'ims-webpack-admin'
+import { createAdmin } from 'ims-webpack-admin';
+import hapiAuthJwt from 'hapi-auth-jwt';
+
 export interface ImsPlatformHapiOptions {
     // 默认端口
     port?: number;
@@ -33,6 +35,7 @@ let socketSet = new Set();
 const configPath = join(root, 'config/config.json');
 import { Subject } from 'rxjs';
 import { debounceTime, skip } from 'rxjs/operators';
+import { transformRole } from "./transform/role";
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -88,27 +91,21 @@ export class ImsPlatformHapi {
         // 静态服务器
         await this.server.register(inert);
         // 登录
-        await this.server.register({
-            plugin: {
-                pkg: require('../package.json'),
-                once: true,
-                requirements: {
-                    hapi: '>=17.7.0'
-                },
-                register(server, options) {
-                    server.auth.scheme('custom', (server: Server, options: ServerAuthSchemeOptions) => {
-                        return {
-                            authenticate(request, h) {
-                                console.log({ request, h });
-                                debugger;
-                                return h.authenticated({ credentials: { user: 'john' } });
-                            }
-                        }
-                    });
-                    server.auth.strategy('default', 'custom');
-                }
+        await this.server.register(require('hapi-auth-jwt2'));
+        const validate = async function (decoded, request) {
+            console.log({
+                decoded, request
+            });
+            request.user = decoded;
+        };
+        await this.server.auth.strategy('jwt', 'jwt', {
+            key: this.config.key,
+            validate: validate,
+            verifyOptions: {
+                algorithms: ['HS256']
             }
-        })
+        });
+        this.server.auth.default('jwt');
         // websocket server
         this.ws = new WebSocket.Server({
             server: this.server.listener
@@ -137,7 +134,8 @@ export class ImsPlatformHapi {
         this.options.addons.map(src => {
             const addon = require(src).default;
             const context = visitor.visitType(addon);
-            context.set('sourceRoot', src)
+            context.set('sourceRoot', src);
+            transformRole(context);
             transformP2p(context, this.libp2p);
             transformWs(context, this.ws);
             transformHttp(context, this.server);
@@ -152,6 +150,7 @@ export class ImsPlatformHapi {
         this.server.route({
             method: 'GET',
             path: '/attachment/{param*}',
+            options: { auth: false },
             handler: {
                 directory: {
                     path: '.',

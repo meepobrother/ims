@@ -1,16 +1,19 @@
 # 命令行工具
 
-### 构建
+### 创建应用
 ```ts
-ims build
+ims create name
 ```
 
-### 初始化
+### 开发应用
 ```ts
-ims init
+ims build name
 ```
 
-### 开始
+### 项目运营
 ```ts
-ims start
+ims start port
 ```
+
+
+

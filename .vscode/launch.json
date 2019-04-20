@@ -13,7 +13,7 @@
                 "-r",
                 "tsconfig-paths/register",
                 "${relativeFile}",
-                "start"
+                "--help"
             ],
             "cwd": "${workspaceRoot}"
         }

@@ -21,6 +21,7 @@ function registerStaticPath(route: IRouter, file: string, server: Server) {
         server.route({
             method: "GET",
             path: route.path,
+            options: { auth: false },
             handler: (req, h) => {
                 return h.redirect(route.redirect)
             }
@@ -29,6 +30,7 @@ function registerStaticPath(route: IRouter, file: string, server: Server) {
         const opt: any = {
             method: "GET",
             path: route.path,
+            options: { auth: false },
             handler: {
                 file: file
             }

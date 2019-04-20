@@ -1,5 +1,5 @@
 import { TypeContext } from "ims-decorator";
-import { ConnectionManager, Connection, getConnectionManager } from 'typeorm'
+import { Connection, getConnectionManager } from 'typeorm'
 import { EntityRepositoryAst, EntityRepositoryMetadataKey } from "ims-core";
 import { getConfig } from "ims-common";
 import { parseTypeorm } from "ims-platform-typeorm";

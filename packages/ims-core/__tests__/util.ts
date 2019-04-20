@@ -11,10 +11,8 @@ export function transformCli(context: TypeContext) {
         .usage(`欢迎使用${cliDef.name || 'IMS'} ${cliDef.version || '1.0.0'}`)
         .help('h')
         .alias('h', 'help')
-        .describe('help', '查看帮助信息')
         .version('v')
         .alias('v', 'version')
-        .describe('version', '查看版本号信息')
         .epilog(`${chalk.green("power by ims")}`)
 
     _yargs.example(`ims -h`, `查看所有命令及使用详情`);

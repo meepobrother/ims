@@ -6,7 +6,8 @@ import {
     PatchMethodAst, HeadMethodAst, ReqAst, BodyAst, QueryAst, UploadAst, ParamsAst
 } from "ims-core";
 import { Server, RequestQuery, Request, ResponseToolkit } from 'hapi'
-import { transformTypeorm } from '../typeorm'
+import { transformTypeorm } from '../typeorm';
+import { transformCommand } from '../cli'
 export interface IRequestQuery extends RequestQuery {
     __args?: any[];
 }
@@ -14,112 +15,134 @@ export function transformHttp(context: TypeContext, server: Server) {
     const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
     addonAst.incs.map(inc => {
         transformTypeorm(inc);
+        transformCommand(inc);
         const incAst = inc.getClass(ControllerMetadataKey) as ControllerAst;
-        let incPath = '';
-        if (addonAst.path !== '/') {
-            incPath = addonAst.path;
+        if (!!incAst) {
+            let incPath = '';
+            if (addonAst.path !== '/') {
+                incPath = addonAst.path;
+            }
+            if (incAst.path !== '/') {
+                incPath += incAst.path;
+            }
+            const methods = inc.getMethod();
+            methods.map((par: HttpMethodContext<any>) => {
+                const params = new Array(par.ast.parameterLength);
+                let _routePath = incPath;
+                if (par.path !== '/') {
+                    _routePath += par.path || `/${par.ast.propertyKey as string}`;
+                }
+                const role = inc.get(par.ast.propertyKey);
+                if (par instanceof GetMethodAst) {
+                    console.log(`get ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'GET',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.query as IRequestQuery;
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+                if (par instanceof PostMethodAst) {
+                    console.log(`post ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'POST',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.payload as { __args: any[] };
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+                if (par instanceof PatchMethodAst) {
+                    console.log(`patch ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'Patch',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.payload as { __args: any[] };
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+                if (par instanceof PutMethodAst) {
+                    console.log(`put ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'PUT',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.payload as { __args: any[] };
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+                if (par instanceof DeleteMethodAst) {
+                    console.log(`delete ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'Delete',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.query as IRequestQuery;
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+                if (par instanceof HeadMethodAst) {
+                    console.log(`head ${_routePath}`)
+                    server.route({
+                        path: _routePath,
+                        method: 'HEAD',
+                        options: {
+                            auth: !!role ? 'jwt' : false
+                        },
+                        handler: async (req, h, err) => {
+                            const { __args } = req.query as IRequestQuery;
+                            __args && __args.map((arg, key) => {
+                                params[key] = arg;
+                            });
+                            par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
+                            return await inc.instance[par.ast.propertyKey](...params)
+                        }
+                    })
+                }
+            });
         }
-        if (incAst.path !== '/') {
-            incPath += incAst.path;
-        }
-        const methods = inc.getMethod();
-        methods.map((par: HttpMethodContext<any>) => {
-            const params = new Array(par.ast.parameterLength);
-            let _routePath = incPath;
-            if (par.path !== '/') {
-                _routePath += par.path || `/${par.ast.propertyKey as string}`;
-            }
-            if (par instanceof GetMethodAst) {
-                console.log(`get ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'GET',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.query as IRequestQuery;
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-            if (par instanceof PostMethodAst) {
-                console.log(`post ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'POST',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.payload as { __args: any[] };
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-            if (par instanceof PatchMethodAst) {
-                console.log(`patch ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'Patch',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.payload as { __args: any[] };
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-            if (par instanceof PutMethodAst) {
-                console.log(`put ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'PUT',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.payload as { __args: any[] };
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-            if (par instanceof DeleteMethodAst) {
-                console.log(`delete ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'Delete',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.query as IRequestQuery;
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-            if (par instanceof HeadMethodAst) {
-                console.log(`head ${_routePath}`)
-                server.route({
-                    path: _routePath,
-                    method: 'HEAD',
-                    handler: async (req, h, err) => {
-                        const { __args } = req.query as IRequestQuery;
-                        __args && __args.map((arg, key) => {
-                            params[key] = arg;
-                        });
-                        par.parameters.map(par => params[par.ast.parameterIndex] = getParameter(par, req, h));
-                        return await inc.instance[par.ast.propertyKey](...params)
-                    }
-                })
-            }
-        });
     });
 }
 

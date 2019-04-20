@@ -62,7 +62,7 @@ export class ClassContext<T> {
             return this.parent.getClass(metadataKey)
         }
     }
-    constructor(ast: any, public context: ParserAstContext) {
+    constructor(ast: ClassAst, public context: ParserAstContext) {
         this.ast = ast;
         const def = this.ast.metadataDef || {} as any;
         def.imports && def.imports.map(im => {
@@ -282,7 +282,7 @@ export class TypeContext {
             if (item) return item;
             return this.parent && this.parent.getClass<T>(metadataKey)
         } catch (e) {
-            console.log(`getClass:${metadataKey}`, e);
+            console.log(`pless ims-common to handler :${metadataKey}`);
         }
     }
 
@@ -300,8 +300,11 @@ export class TypeContext {
         return this.methods;
     }
 
-    getController(metadataKey: string): ConstructorContext<any>[] {
-        return this.constructors.filter(cls => cls.ast.metadataKey === metadataKey)
+    getController(metadataKey?: string): ConstructorContext<any>[] {
+        if (metadataKey) {
+            return this.constructors.filter(cls => cls.ast.metadataKey === metadataKey)
+        }
+        return this.constructors;
     }
 }
 

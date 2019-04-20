@@ -11,6 +11,11 @@ export * from './store/index';
 export * from './cookie';
 export * from './p2p';
 
+export * from './cli/command';
+export * from './cli/option';
+export * from './cli/cli';
+
+
 import { QueryRunner } from 'typeorm';
 export interface IQueryRunner extends QueryRunner { }
 export interface IResult<T> {

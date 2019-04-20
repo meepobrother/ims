@@ -2,7 +2,8 @@ import { observable, action } from 'mobx';
 import React = require('react');
 import util from 'ims-util';
 import { history, role } from 'ims-adminer'
-import ImsUser from '../inc/user'
+import ImsUser from '../inc/user';
+
 export class Login {
     // 记住
     @observable

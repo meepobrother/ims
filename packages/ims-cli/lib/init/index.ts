@@ -1,17 +1,24 @@
-import { Command, Input } from 'ims-core';
+import { Command, Option } from 'ims-core';
 import fs from 'fs-extra'
 import { ImsCommand } from '../command';
 import { join } from 'path';
 @Command({
-    name: 'init',
-    alis: 'i'
+    name: 'init <project>',
+    description: '初始化项目',
+    example: {
+        command: `ims init ims-demo`,
+        description: `初始化一个ims-demo项目`
+    }
 })
 export class ImsInit extends ImsCommand {
-    /** 目录 */
-    @Input({
-        alis: 'p'
+
+    @Option({
+        alias: 't',
+        description: '类型'
     })
-    path: string = 'ims';
+    type: string;
+
+    path: string;
 
     run() {
         fs.ensureDirSync(join(this.root, this.path));

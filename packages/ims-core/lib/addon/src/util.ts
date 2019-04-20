@@ -14,12 +14,7 @@ export function isTemplateClassAst(val: ClassAst): val is ClassAst<T.TemplateOpt
 export function isTypeormClassAst(val: ClassAst): val is ClassAst<T.TypeormOptions> {
     return val.metadataKey === K.TypeormMetadataKey;
 }
-export function isCliClassAst(val: ClassAst): val is ClassAst<T.CliOptions> {
-    return val.metadataKey === K.CliMetadataKey;
-}
-export function isCommandClassAst(val: ClassAst): val is ClassAst<T.CommandOptions> {
-    return val.metadataKey === K.CommandMetadataKey;
-}
+
 export function isVersionPropertyAst(val: ClassAst): val is PropertyAst<T.VersionOptions> {
     return val.metadataKey === K.VersionMetadataKey;
 }

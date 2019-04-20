@@ -1,4 +1,4 @@
-import { Command, Input } from 'ims-core';
+import { Command, Option } from 'ims-core';
 import { ImsCommand } from '../command';
 import { join } from 'path';
 import { StartOptions } from 'pm2'
@@ -7,11 +7,17 @@ import { rmrf, execSync } from 'ims-node';
 import { cpus } from 'os';
 // 生成watch文件
 @Command({
-    name: 'start'
+    name: 'start [projects...]',
+    description: '启动服务或启动某个模块',
+    example: {
+        command: `ims start ims-demo`,
+        description: `开发调试Ims-demo`
+    }
 })
 export class ImsStart extends ImsCommand {
-    @Input({
-        alis: 'd'
+    @Option({
+        alias: 'd',
+        description: '开发模式'
     })
     dev: boolean = false;
 

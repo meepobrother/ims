@@ -1,4 +1,4 @@
-import { Command, Input } from 'ims-core';
+import { Command, Option } from 'ims-core';
 const root = process.cwd();
 import chalk from 'chalk';
 import chokidar from 'chokidar'
@@ -11,32 +11,40 @@ import { createAddon } from 'ims-node'
 import fs from 'fs-extra';
 @Command({
     name: 'build',
-    alis: 'b'
+    description: '构建一个或多个',
+    example: {
+        command: `ims build ims-demo -o node_modules`,
+        description: '构建ims-demo并输出到node_modules'
+    }
 })
 export class ImsBuild {
     root: string = root;
 
     // 名称
-    @Input({
-        alis: 'n'
+    @Option({
+        alias: 'n',
+        description: '项目名称'
     })
     name: string;
 
     // tag
-    @Input({
-        alis: 't'
+    @Option({
+        alias: 't',
+        description: 'tag标签'
     })
     tag: string = 'build';
 
     // 输出
-    @Input({
-        alis: 'o'
+    @Option({
+        alias: 'o',
+        description: '输出路径'
     })
     output: string = 'node_modules';
 
     // 开发
-    @Input({
-        alis: 'w'
+    @Option({
+        alias: 'w',
+        description: '是否监听文件改变'
     })
     watch: boolean;
 

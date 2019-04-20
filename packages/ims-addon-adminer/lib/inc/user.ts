@@ -1,6 +1,6 @@
 import { Controller, Post, EntityRepository, Get, Req, HttpResult } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
-import { isEqualPassword, sign } from 'ims-node';
+import { isEqualPassword, sign, verify } from 'ims-node';
 import { getConfig } from "ims-common";
 export interface LoginOptions {
     username: string;
@@ -73,12 +73,17 @@ export class ImsCoreAdminerUser {
     }
 
     @Get()
-    async getRole(@Req() req?: any) {
-        const user = req.user || {};
+    async getRole(@Req() req?: Req) {
+        verify((user) => {
+            console.log(user)
+            return true;
+        });
+        const user: any = req.user || {};
         // 返回角色和用户名
         return {
             role: user.role,
-            username: user.username
+            username: user.username,
+            headers: req.headers
         }
     }
 }

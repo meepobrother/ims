@@ -1,12 +1,12 @@
 import { NullAstVisitor, ClassAst, ParserAstContext, PropertyAst } from 'ims-decorator';
-import { isCliClassAst, CliAst, isCommandClassAst, CommandAst, isInputPropertyAst, InputAst, isVersionPropertyAst, VersionAst } from 'ims-core';
+import { isCliClassAst, CliClassAst, isCommandClassAst, CommandClassAst, isInputPropertyAst, InputAst, isVersionPropertyAst, VersionAst, isOptionPropertyAst, OptionPropertyAst } from 'ims-core';
 export class CliVisitor extends NullAstVisitor {
     visitClass(ast: ClassAst, context: ParserAstContext) {
         if (isCliClassAst(ast)) {
-            return new CliAst(ast, context)
+            return new CliClassAst(ast, context)
         }
         if (isCommandClassAst(ast)) {
-            return new CommandAst(ast, context)
+            return new CommandClassAst(ast, context)
         }
     }
     visitProperty(ast: PropertyAst, context: ParserAstContext) {
@@ -15,6 +15,9 @@ export class CliVisitor extends NullAstVisitor {
         }
         if (isVersionPropertyAst(ast)) {
             return new VersionAst(ast, context)
+        }
+        if (isOptionPropertyAst(ast)) {
+            return new OptionPropertyAst(ast, context)
         }
     }
 }

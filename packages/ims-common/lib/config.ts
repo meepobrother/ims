@@ -7,6 +7,7 @@ export interface IConfig {
     admin?: number[];
     installed?: boolean;
     memcached?: string[];
+    key?: string;
     db?: {
         host: string,
         port: number,

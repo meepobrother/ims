@@ -143,30 +143,6 @@ export interface TypeormOptions {
     prev?: string;
 }
 
-export interface CliOptions {
-    /**
-     * 名称
-     */
-    name?: string;
-    /**
-     * 版本号
-     */
-    version?: string;
-    /**
-     * 简介
-     */
-    desc?: string;
-    /**
-     * 命令
-     */
-    commands: any[];
-}
-
-export interface CommandOptions {
-    name?: string;
-    alis?: string;
-}
-
 export interface VersionOptions { }
 export type BodyOptions = string;
 export interface NextOptions { }

@@ -226,31 +226,7 @@ export class TypeormAst extends ClassContext<T.TypeormOptions> {
     }
 }
 
-export class CliAst extends ClassContext<T.CliOptions> {
-    name: string;
-    version: string;
-    desc: string;
-    commands: TypeContext[] = [];
-    constructor(ast: ClassAst<T.CliOptions>, context: ParserAstContext) {
-        super(ast, context);
-        this.commands = ast.metadataDef.commands.map(command => context.visitor.visitType(command));
-        const def = ast.metadataDef;
-        this.name = def.name;
-        this.version = def.version;
-        this.desc = def.desc;
-    }
-}
 
-export class CommandAst extends ClassContext<T.CommandOptions>{
-    name: string;
-    alis: string;
-    constructor(ast: ClassAst<T.CommandOptions>, context: ParserAstContext) {
-        super(ast, context);
-        const def = ast.metadataDef;
-        this.name = def.name;
-        this.alis = def.alis
-    }
-}
 export class VersionAst extends PropertyContext<T.VersionOptions>{ }
 export class BodyAst extends ParameterContext<T.BodyOptions> { }
 export class NextAst extends ParameterContext<T.NextOptions> { }

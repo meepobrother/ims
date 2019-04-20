@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { bootstrap } from './core/bootstrap';
+import { transformCli } from './core/bootstrap';
 import { visitor } from 'ims-common';
-import { App } from 'ims-core';
+import { Cli } from 'ims-core';
 import { ImsBuild } from './index'
 import { ImsInit } from './init'
 import { ImsStart } from './start'
 import { ImsBuildAll } from './buildAll'
 
-@App({
+@Cli({
     name: 'ims',
     version: '1.0.0',
     commands: [
@@ -16,4 +16,4 @@ import { ImsBuildAll } from './buildAll'
     ]
 })
 export class ImsCli { }
-bootstrap(visitor.visitType(ImsCli))
+transformCli(visitor.visitType(ImsCli))

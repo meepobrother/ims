@@ -1,7 +1,7 @@
 import { makeDecorator } from 'ims-decorator';
 import * as k from './keys';
 import * as t from './type';
-import { Response, Request, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 export type Next = NextFunction;
 export interface Upload {
     /** Field name specified in the form */
@@ -53,8 +53,11 @@ export interface Session extends SessionData {
     touch(callback: (err: any) => void): void;
     cookie: SessionCookie;
 }
+import { Request } from 'hapi'
 export type Res = Response;
-export type Req = Request;
+export interface Req extends Request {
+    user: any;
+}
 export interface Redirect {
     (url: string): void;
     (status: number, url: string): void;
@@ -70,8 +73,6 @@ export const Addon = makeDecorator<t.AddonOptions>(k.AddonMetadataKey);
 export const Controller = makeDecorator<t.ControllerOptions>(k.ControllerMetadataKey);
 export const Template = makeDecorator<t.TemplateOptions>(k.TemplateMetadataKey);
 export const Typeorm = makeDecorator<t.TypeormOptions>(k.TypeormMetadataKey);
-export const Cli = makeDecorator<t.CliOptions>(k.CliMetadataKey);
-export const Command = makeDecorator<t.CommandOptions>(k.CommandMetadataKey);
 export const Version = makeDecorator<t.VersionOptions>(k.VersionMetadataKey);
 
 export const Body = makeDecorator<t.BodyOptions>(k.BodyMetadataKey);

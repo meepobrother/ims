@@ -8,7 +8,11 @@ import rimraf = require('rimraf');
 import fs from 'fs-extra'
 @Command({
     name: 'buildAll',
-    alis: 'ba'
+    description: '构建所有',
+    example: {
+        command: 'ims buildAll -o node_modules',
+        description: '构建所有并输出到node_modules目录'
+    }
 })
 export class ImsBuildAll {
     root: string = root;
