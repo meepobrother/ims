@@ -1,30 +1,6 @@
 import { Server, ServerOptions } from 'hapi';
 const Segment = require('@hapi/call/lib/segment');
 const Hoek = require('@hapi/hoek');
-function mixed(a, b) {
-    const aFirst = -1;
-    const bFirst = 1;
-    const as = a.segment;
-    const bs = b.segment;
-    if (as.length !== bs.length) {
-        return (as.length > bs.length ? aFirst : bFirst);
-    }
-    if (as.first !== bs.first) {
-        return (as.first ? bFirst : aFirst);
-    }
-    for (let i = 0; i < as.segments.length; ++i) {
-        const am = as.segments[i];
-        const bm = bs.segments[i];
-        if (am === bm) {
-            continue;
-        }
-        if (am.length === bm.length) {
-            return (am > bm ? bFirst : aFirst);
-        }
-        return (am.length < bm.length ? bFirst : aFirst);
-    }
-    return 0;
-};
 export class ImsSegment extends Segment {
     add(segments, record) {
         const current = segments[0];
