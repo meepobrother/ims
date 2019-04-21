@@ -363,7 +363,9 @@ export class Visitors extends NullAstVisitor {
 /** 获取ParserAstContext */
 export const imsContext = Symbol.for('imsContext');
 export function getContext(target: any): ParserAstContext {
-    return Reflect.get(target, imsContext);
+    if (target) {
+        return Reflect.get(target, imsContext);
+    }
 }
 
 export class ParserAstContext {

@@ -7,6 +7,7 @@ import { ImsModel, ImsUserEntity } from 'ims-model'
 import { visitor, IConfig } from 'ims-common';
 import { parseSystem } from 'ims-platform-typeorm'
 import { random, cryptoPassword, execSync } from 'ims-node';
+import { randomBytes } from 'crypto'
 export interface ISetDatabaseOptions {
     username: string;
     host: string;
@@ -99,6 +100,7 @@ export class ImsIndex {
             }
             config.admin = [user.id];
             config.installed = true;
+            config.key = randomBytes(256).toString('base64');
             fs.writeFileSync(this.lockFile, JSON.stringify(config, null, 2));
             return {
                 code: 0,

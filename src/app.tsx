@@ -3,7 +3,7 @@ import { View } from '@tarojs/components'
 import './app.scss';
 class App extends Taro.Component {
     config = {
-        pages: ["ims-demo/mobile/pages/index"]
+        pages: []
     }
     render() {
         return <View>View</View>
