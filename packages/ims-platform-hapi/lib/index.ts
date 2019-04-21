@@ -49,6 +49,11 @@ export class ImsPlatformHapi {
         addons: []
     }) { }
 
+    // 临时添加模块
+    addAddon(name: string) {
+        this.options.addons.push(name)
+    }
+
     async init(test: boolean = false) {
         this.connectionManager = getConnectionManager();
         if (fs.existsSync(configPath)) {
@@ -111,6 +116,7 @@ export class ImsPlatformHapi {
             server: this.server.listener
         });
         // typeorm connection manager
+        // 如果test=false并且this.isntalled =true则启动p2p服务
         if (this.installed && !test) {
             // libp2p
             this.libp2p = await bootstrap();

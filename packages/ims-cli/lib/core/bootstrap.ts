@@ -32,19 +32,26 @@ export function transformCli(context: TypeContext) {
                         args.option(option.ast.propertyKey as string, {
                             ...def,
                             default: context.instance[option.ast.propertyKey]
-                        })
+                        });
                     });
                     return args
                 }, async (argv: Arguments<any>) => {
+                    const { _, $0, ...props } = argv;
                     options.map(opt => {
+                        const def = opt.ast.metadataDef;
                         const key = opt.ast.propertyKey;
                         let val: any;
-                        if (argv[key]) {
-                            val = argv[key]
+                        if (props[key]) {
+                            val = props[key];
+                            delete props[key];
+                            if (typeof def.alias === 'string') {
+                                delete props[def.alias];
+                            }
                         }
                         context.instance[opt.ast.propertyKey] = val;
-                    })
-                    await context.instance.run();
+                    });
+                    Object.keys(props).map(key => context.instance[key] = props[key])
+                    await context.instance.run(argv);
                 });
         }
     })
