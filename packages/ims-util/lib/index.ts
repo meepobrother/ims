@@ -9,7 +9,7 @@ import store from 'store';
 Axios.interceptors.request.use((config) => {
     const token = ImsUtil.cookie.get('token');
     if (token) {
-        config.headers.Authorization = token;
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });

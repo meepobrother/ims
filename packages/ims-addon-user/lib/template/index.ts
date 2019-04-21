@@ -1,4 +1,7 @@
 import { Template } from 'ims-core'
 
-@Template()
+@Template({
+    mobiles: [],
+    admins: []
+})
 export class ImsAddonUserTemplate { }

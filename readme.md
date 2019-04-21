@@ -47,11 +47,16 @@
 * `addons` 应用目录
 * `attachment` 附近目录
 * `config` 配置目录
+    * config.json 基础配置
+    * dev.js 开发配置
+    * index.js 配置
+    * prod.js 生产配置
+    * server.json p2p配置
 * `data` 数据目录
 * `template` 模板目录
-    * default
-        admin
-        mobile
+    * admin 管理端
+    * mobile 手机端
+    * pc 电脑端
 
 ### 应用目录结构
 * `inc` api接口

@@ -90,7 +90,6 @@ export class ImsPlatformHapi {
                 this.options.port = addressOptions.port;
                 this.options.host = addressOptions.host;
                 await parseAddons(this.options.addons, this.config);
-
                 // 授权及登录
                 await this.server.register(require('hapi-auth-jwt2'));
                 const validate = async function (decoded, request) {
