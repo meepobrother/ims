@@ -43,6 +43,15 @@ export class ImsStart extends ImsCommand {
                     this.addon
                 ]
             }, {
+                name: `${this.addon}_watch`,
+                script: join(__dirname, 'bin', 'watch.js'),
+                output: join(root, `data/${this.addon}/logs/watch.log`),
+                error: join(root, `data/${this.addon}/logs/watch-error.log`),
+                args: [
+                    "start",
+                    this.addon
+                ]
+            }, {
                 name: `template_dev`,
                 script: join(__dirname, 'bin/template_dev.js'),
                 output: join(root, `data/${this.addon}/logs/template_dev.log`),

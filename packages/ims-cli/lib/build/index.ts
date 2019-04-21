@@ -109,7 +109,7 @@ function packFile(src: string, output: string) {
     }
 }
 
-function packProject(
+export function packProject(
     name: string,
     output: string = 'dist',
     srcRoot: string = 'packages',
