@@ -27,7 +27,7 @@ export class ImsStart extends ImsCommand {
     async run() {
         console.log(this.addon)
         const root = process.cwd();
-        // await execSync(`pm2 kill`)
+        await execSync(`pm2 kill`)
         const devApps: StartOptions[] = [];
         if (this.addon) {
             await rmrf(join(root, `config/${this.addon}/pm2`));

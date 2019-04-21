@@ -5,6 +5,7 @@ yargs.command(`start [project]`, false, (args) => {
 }, (argv) => {
     const hapi = new ImsPlatformHapi()
     const project: any = argv.project;
+    console.log(project);
     if (project) {
         hapi.addAddon(require.resolve(project))
     }
