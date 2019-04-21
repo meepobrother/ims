@@ -2,6 +2,7 @@
 
 import { packProject } from '../../build';
 import yargs from 'yargs';
+
 yargs.command(`start [project]`, false, (args) => {
     return args;
 }, (argv) => {
