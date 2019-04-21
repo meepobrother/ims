@@ -67,7 +67,6 @@ export function printNode<T extends ts.Node>(node: T): string {
     return printList(ts.createNodeArray([node]))
 }
 
-
 export function createNodeArray(nodes: ts.Node[]) {
     const members = [];
     nodes.map(node => {

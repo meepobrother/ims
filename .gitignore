@@ -15,6 +15,7 @@ lerna-debug.log
 .fseventsd/
 /back
 /attachment
-
 demo1/
 /config/
+/dist/
+/src/

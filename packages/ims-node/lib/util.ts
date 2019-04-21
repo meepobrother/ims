@@ -43,6 +43,16 @@ export function rmrf(dir: string) {
         rimraf(dir, () => resolve())
     })
 }
+import gulp from 'gulp';
+
+export function copyDir(from: string, to: string) {
+    return new Promise((resolve) => {
+        const task = gulp.src(from).pipe(gulp.dest(to));
+        task.on('end', () => {
+            resolve();
+        })
+    })
+}
 /**
  * 执行命令
  * @param command 命令内容

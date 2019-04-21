@@ -3,6 +3,7 @@ import { join } from 'path';
 import multiaddr from 'multiaddr'
 const root = process.cwd();
 import { Server, Request, ResponseToolkit, ServerAuthSchemeOptions } from 'hapi';
+import { buildTaro, buildAppPages } from 'ims-builder-taro'
 import createHapi from 'ims-hapi'
 import * as Boom from 'boom';
 import inert from 'inert';
@@ -146,10 +147,18 @@ export class ImsPlatformHapi {
             transformWs(context, this.ws);
             transformHttp(context, this.server);
             transformTemplate(context, this.server);
+            // 穿件移动模板
+            this.buildMobile(context);
             this.registerSocket();
             this.watch(context);
         });
         createAdmin(this.options.addons);
+    }
+    buildMobile(context: TypeContext) {
+        buildAppPages(context).then(res => {
+            console.log(res)
+        });
+        buildTaro('weapp', false);
     }
     /** 静态资源 模板 */
     registerStatic() {
@@ -180,6 +189,7 @@ export class ImsPlatformHapi {
                 const context = visitor.visitType(addon);
                 transformTemplate(context, this.server);
                 createAdmin(this.options.addons);
+                this.buildMobile(context);
             });
             incSubject.pipe(debounceTime(500), skip(1)).subscribe((src: string) => {
                 delete require.cache[sourceRoot];

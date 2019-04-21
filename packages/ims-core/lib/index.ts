@@ -1,5 +1,4 @@
 export * from './socket';
-export * from './app';
 export * from './inject';
 export * from './injectable';
 export * from './input';
@@ -14,10 +13,6 @@ export * from './p2p';
 export * from './cli/command';
 export * from './cli/option';
 export * from './cli/cli';
-
-export * from './page/page';
-
-
 
 import { QueryRunner } from 'typeorm';
 export interface IQueryRunner extends QueryRunner { }

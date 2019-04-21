@@ -27,6 +27,7 @@ export default class LoginPage extends React.Component<{ login: LoginStore }> {
         const { account, mobile, submit, autoLogin, forget, register } = login.setting;
         const { username, password } = account;
         const { mobile: InputMobile, captcha } = mobile;
+        const tab: any = {};
         return (
             <div className="login-page">
                 <div className="login-banner"></div>
@@ -36,12 +37,12 @@ export default class LoginPage extends React.Component<{ login: LoginStore }> {
                             defaultActiveKey={login.tab}
                             onTabChange={(key: any) => login.setTab(key)}
                             onSubmit={submit.onSubmit}>
-                            <Tab key={account.key} tab={account.tab}>
+                            <Tab {...tab} key={account.key} tab={account.tab}>
                                 {this.renderNotice()}
                                 <UserName {...username} />
                                 <Password {...password} />
                             </Tab>
-                            <Tab key={mobile.key} tab={mobile.tab}>
+                            <Tab {...tab} key={mobile.key} tab={mobile.tab}>
                                 <Mobile {...InputMobile} />
                                 <Captcha {...captcha} />
                             </Tab>

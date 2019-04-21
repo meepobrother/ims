@@ -1,8 +1,8 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "Ims",
-  "description": "ims 链享",
-  "appid": "wxf46556fcde5de1fb",
+  "miniprogramRoot": "./",
+  "projectname": "appDemo",
+  "description": "",
+  "appid": "touristappid",
   "setting": {
     "urlCheck": true,
     "es6": false,

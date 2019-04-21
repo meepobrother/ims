@@ -45,11 +45,38 @@
       "ims-addon-adminer": [
         "packages/ims-addon-adminer/lib/index.ts"
       ],
+      "ims-builder-taro": [
+        "packages/ims-builder-taro/lib/index.ts"
+      ],
       "ims-addon-install": [
         "packages/ims-addon-install/lib/index.ts"
       ],
       "ims-addon-account": [
         "packages/ims-addon-account/lib/index.ts"
+      ],
+      "ims-runtime": [
+        "packages/ims-runtime/lib/index.ts"
+      ],
+      "ims-runtime-weapp": [
+        "packages/ims-runtime-weapp/lib/index.ts"
+      ],
+      "ims-runtime-wechat": [
+        "packages/ims-runtime-wechat/lib/index.ts"
+      ],
+      "ims-runtime-h5": [
+        "packages/ims-runtime-h5/lib/index.ts"
+      ],
+      "ims-runtime-rn": [
+        "packages/ims-runtime-rn/lib/index.ts"
+      ],
+      "ims-runtime-swan": [
+        "packages/ims-runtime-swan/lib/index.ts"
+      ],
+      "ims-runtime-tt": [
+        "packages/ims-runtime-tt/lib/index.ts"
+      ],
+      "ims-builder": [
+        "packages/ims-builder/lib/index.ts"
       ],
       "ims-platform-hapi": [
         "packages/ims-platform-hapi/lib/index.ts"

@@ -59,7 +59,7 @@ export interface AddonOptions {
     /**
      * 数据库
      */
-    typeorm: object;
+    typeorm?: object;
     /**
      * 模板
      */
@@ -129,6 +129,7 @@ export interface TemplateOptions {
     admins?: IRouter[];
     /** pc端 */
     pc?: IRouter[];
+    app?: any;
 }
 export interface TypeormOptions {
     /**
