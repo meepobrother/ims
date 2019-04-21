@@ -1,4 +1,4 @@
-import { Command, Input } from 'ims-core';
+import { Command, Option } from 'ims-core';
 const root = process.cwd();
 import chalk from 'chalk';
 import gulp from 'gulp';
@@ -17,8 +17,8 @@ import fs from 'fs-extra'
 export class ImsBuildAll {
     root: string = root;
     // 输出
-    @Input({
-        alis: 'o'
+    @Option({
+        alias: 'o'
     })
     output: string = 'node_modules';
 

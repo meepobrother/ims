@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AddonMetadataKey = 'AddonMetadataKey';
+exports.ControllerMetadataKey = 'ControllerMetadataKey';
+exports.TemplateMetadataKey = 'TemplateMetadataKey';
+exports.TypeormMetadataKey = 'TypeormMetadataKey';
+exports.VersionMetadataKey = 'VersionMetadataKey';
+exports.BodyMetadataKey = 'BodyMetadataKey';
+exports.ParamsMetadatadataKey = 'ParamsMetadatadataKey';
+exports.NextMetadataKey = 'NextMetadataKey';
+exports.QueryMetadataKey = 'QueryMetadataKey';
+exports.RedirectMetadataKey = 'RedirectMetadataKey';
+exports.ReqMetadataKey = 'ReqMetadataKey';
+exports.ResMetadataKey = 'ResMetadataKey';
+exports.SessionMetadataKey = 'SessionMetadataKey';
+exports.UploadMetadataKey = 'UploadMetadataKey';
+exports.UploadsMetadataKey = 'UploadsMetadataKey';
+exports.RenderMetadataKey = 'RenderMetadataKey';

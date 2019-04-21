@@ -1,0 +1,63 @@
+.ims-install {
+  background-color: #f1f1f1;
+  .content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    .container {
+      margin: 0 auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+      .login {
+        margin-top: 60px;
+        .login-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 10px;
+          margin-bottom: 20px;
+          img {
+            height: 45px;
+          }
+          h2 {
+            font-size: 40px;
+            margin-bottom: 0px;
+            text-align: center;
+          }
+          p {
+            font-size: 20px;
+            color: gray;
+            text-align: center;
+          }
+        }
+        .main-form {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          min-width: 450px;
+          margin-top: 30px;
+        }
+        .login-form {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          min-width: 450px;
+          .title {
+            margin: 10px 0px;
+            text-align: center;
+            font-size: 14px;
+          }
+          p {
+            text-align: center;
+            color: #4d4d4d;
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}

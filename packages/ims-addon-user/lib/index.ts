@@ -8,6 +8,7 @@ import { ImsAddonUserInc } from './inc'
 @Addon({
     incs: [ImsAddonUserInc],
     typeorm: ImsAddonUserTypeorm,
-    template: ImsAddonUserTemplate
+    template: ImsAddonUserTemplate,
+    sourceRoot: __dirname,
 })
 export class ImsAddonUser { }

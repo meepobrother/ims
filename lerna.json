@@ -1,6 +1,6 @@
 {
   "packages": [
-    "dist/*"
+    "publish/*"
   ],
   "version": "1.0.67"
 }
