@@ -37,6 +37,7 @@ const configPath = join(root, 'config/config.json');
 import { Subject } from 'rxjs';
 import { debounceTime, skip } from 'rxjs/operators';
 import { transformRole } from "./transform/role";
+import { getKey, jwtMiddle } from "ims-node";
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -92,14 +93,12 @@ export class ImsPlatformHapi {
                 await parseAddons(this.options.addons, this.config);
                 // 授权及登录
                 await this.server.register(require('hapi-auth-jwt2'));
-                const validate = async function (decoded, request) {
-                    console.log({
-                        decoded, request
-                    });
-                    request.user = decoded;
+                const validate = async function (decoded, request, callback) {
+                    jwtMiddle(request)
                 };
+                const key = getKey();
                 await this.server.auth.strategy('jwt', 'jwt', {
-                    key: this.config.key,
+                    key: key,
                     validate: validate,
                     verifyOptions: {
                         algorithms: ['HS256']
@@ -157,9 +156,8 @@ export class ImsPlatformHapi {
     }
     buildMobile(context: TypeContext) {
         buildAppPages(context).then(res => {
-            console.log(res)
+            buildTaro('weapp', false);
         });
-        buildTaro('weapp', false);
     }
     /** 静态资源 模板 */
     registerStatic() {

@@ -1,7 +1,7 @@
 import { makeDecorator } from 'ims-decorator';
 import * as k from './keys';
 import * as t from './type';
-import { Response, NextFunction } from 'express';
+import { NextFunction } from 'express';
 export type Next = NextFunction;
 export interface Upload {
     /** Field name specified in the form */
@@ -53,8 +53,8 @@ export interface Session extends SessionData {
     touch(callback: (err: any) => void): void;
     cookie: SessionCookie;
 }
-import { Request } from 'hapi'
-export type Res = Response;
+import { Request, ResponseToolkit } from 'hapi'
+export type Res = ResponseToolkit;
 export interface Req extends Request {
     user: any;
 }

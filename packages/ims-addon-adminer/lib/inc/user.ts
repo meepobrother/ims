@@ -1,4 +1,4 @@
-import { Controller, Post, EntityRepository, Get, Req, HttpResult } from "ims-core";
+import { Controller, Post, EntityRepository, Get, Req, HttpResult, Res } from "ims-core";
 import { ImsUserEntity } from 'ims-model';
 import { isEqualPassword, sign, verify } from 'ims-node';
 import { getConfig } from "ims-common";
@@ -21,8 +21,18 @@ export class ImsCoreAdminerUser {
     })
     user: EntityRepository<ImsUserEntity>;
 
+    options: any = {
+        ttl: 365 * 24 * 60 * 60 * 1000,
+        encoding: 'none',
+        isSecure: false,
+        isHttpOnly: true,
+        clearInvalid: false,
+        strictHeader: true,
+        path: '/'
+    }
+
     @Post()
-    async login(msg: LoginOptions): HttpResult<LoginOutput> {
+    async login(msg: LoginOptions, @Req() req: Req, @Res() res: Res): HttpResult<LoginOutput> {
         const { username, password } = msg;
         try {
             const user = await this.user.findOne({
@@ -42,19 +52,22 @@ export class ImsCoreAdminerUser {
                     } else {
                         role = 'manager';
                     }
-                    return {
+                    const token = sign({
+                        id: user.id,
+                        username: user.username,
+                        role
+                    });
+                    const response = res.response({
                         code: 0,
                         message: '登录成功',
                         data: {
                             username: user.username,
                             role,
-                            token: sign({
-                                id: user.id,
-                                username: user.username,
-                                role
-                            })
+                            token: token
                         }
-                    };
+                    });
+                    response.header('Authorization', token).state('token', token, this.options)
+                    return response as any;
                 } else {
                     return {
                         code: -1,
@@ -81,8 +94,8 @@ export class ImsCoreAdminerUser {
         const user: any = req.user || {};
         // 返回角色和用户名
         return {
-            role: user.role,
-            username: user.username,
+            role: user.role || '',
+            username: user.username || '',
             headers: req.headers
         }
     }

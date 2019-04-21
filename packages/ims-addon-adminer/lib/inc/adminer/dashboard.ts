@@ -36,7 +36,6 @@ export class ImsCoreAdminerDashboard {
             }
         }
     }
-
     getProcesses() {
         return new Promise((resolve, reject) => {
             ps.get((err, processes) => {

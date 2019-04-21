@@ -1,5 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken'
-import { Request, Response, NextFunction } from 'express'
+import { Request, ResponseToolkit } from 'hapi'
 import { getKey } from './key';
 import * as codes from './codes';
 declare global {
@@ -21,27 +21,22 @@ export function sign(payload: string | Buffer | object): string {
         expiresIn: '30m'
     });
 }
-export function jwtMiddle(req: Request, res: Response, next: NextFunction) {
+export function jwtMiddle(req: Request) {
     try {
         const token = req.headers.authorization;
         const key = getKey();
         jsonwebtoken.verify(token, key.privKey, (err: Error, decoded: any) => {
-            req.user = decoded;
-            next();
+            req.auth.artifacts = decoded;
         });
     } catch (e) {
-        next();
+        console.log(e.message)
     }
 }
 export function verify(fn: <T>(user: T) => boolean) {
-    return (req: Request, res: Response, next: NextFunction) => {
-        if (fn(req.user)) {
-            next();
-        } else {
-            res.json({
-                code: codes.PermissionDenied,
-                message: '对不起,权限不足'
-            });
+    return (req: Request, res: ResponseToolkit) => {
+        const user = req.auth.credentials;
+        if (fn(user)) {
+
         }
     }
 }

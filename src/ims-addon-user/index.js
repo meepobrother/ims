@@ -10,6 +10,9 @@ const ims_core_1 = require("ims-core");
 let ImsAddonUserTemplate = class ImsAddonUserTemplate {
 };
 ImsAddonUserTemplate = __decorate([
-    ims_core_1.Template()
+    ims_core_1.Template({
+        mobiles: [],
+        admins: []
+    })
 ], ImsAddonUserTemplate);
 exports.ImsAddonUserTemplate = ImsAddonUserTemplate;

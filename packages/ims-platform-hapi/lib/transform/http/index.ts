@@ -3,7 +3,7 @@ import {
     AddonMetadataKey, AddonAst, ControllerMetadataKey,
     ControllerAst, HttpMethodContext, GetMethodAst,
     PostMethodAst, PutMethodAst, DeleteMethodAst,
-    PatchMethodAst, HeadMethodAst, ReqAst, BodyAst, QueryAst, UploadAst, ParamsAst
+    PatchMethodAst, HeadMethodAst, ReqAst, BodyAst, QueryAst, UploadAst, ParamsAst, ResAst
 } from "ims-core";
 import { Server, RequestQuery, Request, ResponseToolkit } from 'hapi'
 import { transformTypeorm } from '../typeorm';
@@ -169,5 +169,8 @@ function getParameter(ast: ParameterContext<any>, req: Request, h: ResponseToolk
         const def = ast.ast.metadataDef;
         if (def) return req.params[def];
         return req.payload;
+    }
+    if (ast instanceof ResAst) { 
+        return h;
     }
 }
