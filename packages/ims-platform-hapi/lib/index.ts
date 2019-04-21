@@ -56,6 +56,16 @@ export class ImsPlatformHapi {
     }
 
     async init(test: boolean = false) {
+        // hapi server
+        this.server = createHapi({
+            port: this.options.port,
+            host: this.options.host,
+            routes: {
+                files: {
+                    relativeTo: join(root, 'attachment')
+                }
+            }
+        });
         this.connectionManager = getConnectionManager();
         // 静态服务器
         await this.server.register(inert);
@@ -103,16 +113,7 @@ export class ImsPlatformHapi {
         } else {
             this.options.addons = [require.resolve('ims-addon-install')];
         }
-        // hapi server
-        this.server = createHapi({
-            port: this.options.port,
-            host: this.options.host,
-            routes: {
-                files: {
-                    relativeTo: join(root, 'attachment')
-                }
-            }
-        });
+
         // websocket server
         this.ws = new WebSocket.Server({
             server: this.server.listener
