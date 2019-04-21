@@ -10,7 +10,7 @@ import { exec } from 'shelljs';
 import { createAddon } from 'ims-node'
 import fs from 'fs-extra';
 @Command({
-    name: 'build',
+    name: 'build <name>',
     description: '构建一个或多个',
     example: {
         command: `ims build ims-demo -o node_modules`,
@@ -19,12 +19,6 @@ import fs from 'fs-extra';
 })
 export class ImsBuild {
     root: string = root;
-
-    // 名称
-    @Option({
-        alias: 'n',
-        description: '项目名称'
-    })
     name: string;
 
     // tag
