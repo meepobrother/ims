@@ -15,6 +15,9 @@ export * from './cli/command';
 export * from './cli/option';
 export * from './cli/cli';
 
+export * from './page/page';
+
+
 
 import { QueryRunner } from 'typeorm';
 export interface IQueryRunner extends QueryRunner { }

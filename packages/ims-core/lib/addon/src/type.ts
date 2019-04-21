@@ -59,7 +59,7 @@ export interface AddonOptions {
     /**
      * 数据库
      */
-    typeorm?: object;
+    typeorm: object;
     /**
      * 模板
      */
@@ -71,7 +71,9 @@ export interface AddonOptions {
 }
 
 export interface ControllerOptions {
-    path: string
+    path: string;
+    childern?: Type<any>[];
+    role?: string | string[];
 };
 
 export interface RouterOptions {
@@ -121,8 +123,12 @@ export interface RouterOptions {
     store?: { [key: string]: string };
 }
 export interface TemplateOptions {
+    /** 移动端 */
     mobiles?: IRouter[];
+    /** 管理端 */
     admins?: IRouter[];
+    /** pc端 */
+    pc?: IRouter[];
 }
 export interface TypeormOptions {
     /**
