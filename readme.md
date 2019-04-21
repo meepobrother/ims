@@ -49,6 +49,9 @@
 * `config` 配置目录
 * `data` 数据目录
 * `template` 模板目录
+    * default
+        admin
+        mobile
 
 ### 应用目录结构
 * `inc` api接口
