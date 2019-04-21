@@ -1,2 +1,2 @@
-export declare class ImsInstallTemplate {
+export declare class ImsAdminerTemplate {
 }

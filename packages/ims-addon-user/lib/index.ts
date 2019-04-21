@@ -11,4 +11,4 @@ import { ImsAddonUserInc } from './inc'
     template: ImsAddonUserTemplate,
     sourceRoot: __dirname,
 })
-export class ImsAddonUser { }
+export default class ImsAddonUser { }
