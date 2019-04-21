@@ -57,6 +57,8 @@ export class ImsPlatformHapi {
 
     async init(test: boolean = false) {
         this.connectionManager = getConnectionManager();
+        // 静态服务器
+        await this.server.register(inert);
         if (fs.existsSync(configPath)) {
             this.config = require(join(root, 'config/config.json'));
             setConfig(this.config)
@@ -78,6 +80,23 @@ export class ImsPlatformHapi {
                 this.options.port = addressOptions.port;
                 this.options.host = addressOptions.host;
                 await parseAddons(this.options.addons, this.config);
+
+                // 授权及登录
+                await this.server.register(require('hapi-auth-jwt2'));
+                const validate = async function (decoded, request) {
+                    console.log({
+                        decoded, request
+                    });
+                    request.user = decoded;
+                };
+                await this.server.auth.strategy('jwt', 'jwt', {
+                    key: this.config.key,
+                    validate: validate,
+                    verifyOptions: {
+                        algorithms: ['HS256']
+                    }
+                });
+                this.server.auth.default('jwt');
             } else {
                 this.options.addons = [require.resolve('ims-addon-install')];
             }
@@ -94,24 +113,6 @@ export class ImsPlatformHapi {
                 }
             }
         });
-        // 静态服务器
-        await this.server.register(inert);
-        // 登录
-        await this.server.register(require('hapi-auth-jwt2'));
-        const validate = async function (decoded, request) {
-            console.log({
-                decoded, request
-            });
-            request.user = decoded;
-        };
-        await this.server.auth.strategy('jwt', 'jwt', {
-            key: this.config.key,
-            validate: validate,
-            verifyOptions: {
-                algorithms: ['HS256']
-            }
-        });
-        this.server.auth.default('jwt');
         // websocket server
         this.ws = new WebSocket.Server({
             server: this.server.listener

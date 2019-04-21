@@ -9,7 +9,6 @@ yargs.command(`start [project]`, false, (args) => {
 }, async (argv) => {
     const hapi = new ImsPlatformHapi()
     const project: any = argv.project;
-    console.log(project);
     if (project) {
         await packProject(project, 'node_modules', 'packages', false)
         hapi.addAddon(require.resolve(project))
