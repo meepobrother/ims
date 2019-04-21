@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { packProject } from '../../build';
 import yargs from 'yargs';
 yargs.command(`start [project]`, false, (args) => {

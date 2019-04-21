@@ -48,6 +48,9 @@
       "ims-addon-install": [
         "packages/ims-addon-install/lib/index.ts"
       ],
+      "ims-addon-account": [
+        "packages/ims-addon-account/lib/index.ts"
+      ],
       "ims-platform-hapi": [
         "packages/ims-platform-hapi/lib/index.ts"
       ],

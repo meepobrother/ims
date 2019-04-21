@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { ImsPlatformHapi } from 'ims-platform-hapi';
 import yargs from 'yargs';
 yargs.command(`start [project]`, false, (args) => {
