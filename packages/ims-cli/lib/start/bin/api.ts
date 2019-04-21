@@ -10,4 +10,4 @@ yargs.command(`start [project]`, false, (args) => {
         hapi.addAddon(require.resolve(project))
     }
     hapi.init();
-});
+}).argv;

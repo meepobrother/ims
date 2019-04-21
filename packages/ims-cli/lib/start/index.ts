@@ -28,13 +28,12 @@ export class ImsStart extends ImsCommand {
         console.log(this.addon)
         const root = process.cwd();
         await execSync(`pm2 kill`)
-        const devApps: StartOptions[] = [];
         if (this.addon) {
             await rmrf(join(root, `config/${this.addon}/pm2`));
             await rmrf(join(root, `data/${this.addon}/logs`));
             fs.ensureDirSync(join(root, `config/${this.addon}/pm2`));
             fs.ensureDirSync(join(root, `data/${this.addon}/logs`));
-            devApps.push({
+            const devApp = [{
                 name: this.addon,
                 script: join(__dirname, 'bin', 'api.js'),
                 output: join(root, `data/${this.addon}/logs/api.log`),
@@ -43,16 +42,15 @@ export class ImsStart extends ImsCommand {
                     "start",
                     this.addon
                 ]
-            });
-            devApps.push({
-                name: `${this.addon}_template`,
+            }, {
+                name: `template_dev`,
                 script: join(__dirname, 'bin/template_dev.js'),
                 output: join(root, `data/${this.addon}/logs/template_dev.log`),
                 error: join(root, `data/${this.addon}/logs/template_dev-error.log`)
-            });
-            fs.writeFileSync(join(root, `config/${this.addon}/pm2/dev.json`), JSON.stringify(devApps, null, 2));
+            }];
+            fs.writeFileSync(join(root, `config/${this.addon}/pm2/dev.json`), JSON.stringify(devApp, null, 2));
             await execSync(`pm2 start ${join(root, `config/${this.addon}/pm2/dev.json`)}`)
-        }
+        };
         // await rmrf(join(root, 'config/pm2'))
         // await rmrf(join(root, 'data/logs'))
         // fs.ensureDirSync(join(root, 'config/pm2'))
