@@ -1,4 +1,4 @@
-import { Controller, HttpResult, Post, PostProperty, Get, GetProperty } from "ims-core";
+import { Controller, HttpResult, Post, PostProperty, Get, GetProperty, Req, Res } from "ims-core";
 import { parseInc } from "ims-adminer";
 export interface LoginOptions {
     username: string;
@@ -14,8 +14,8 @@ export interface LoginOutput {
 })
 export class ImsCoreAdminerUser {
     @Post()
-    login: PostProperty<[LoginOptions], HttpResult<LoginOutput>>;
+    login: PostProperty<[LoginOptions, Req?, Res?], HttpResult<LoginOutput>>;
     @Get()
-    getRole: GetProperty<[any], any>;
+    getRole: GetProperty<[Req], any>;
 }
 export default parseInc(ImsCoreAdminerUser);

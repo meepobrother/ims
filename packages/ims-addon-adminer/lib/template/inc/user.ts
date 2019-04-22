@@ -14,8 +14,8 @@ export interface LoginOutput {
 })
 export class ImsCoreAdminerUser {
     @Post()
-    login: PostProperty<[LoginOptions], HttpResult<LoginOutput>>;
+    login: PostProperty<[LoginOptions, Req, Res], HttpResult<LoginOutput>>;
     @Get()
-    getRole: GetProperty<[any], any>;
+    getRole: GetProperty<[Req], any>;
 }
 export default parseInc(ImsCoreAdminerUser);

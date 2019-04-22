@@ -1,5 +1,4 @@
 import { observable, action } from 'mobx'
-import util from 'ims-util';
 import { CpuInfo } from 'os';
 export interface AnalysisInfo {
     uptime: number;
@@ -25,6 +24,7 @@ export interface AnalysisInfo {
         cwd: string;
     }
 }
+import dashboard from '../../../inc/adminer/dashboard'
 export class Analysis {
     @observable
     info: AnalysisInfo;
@@ -35,9 +35,9 @@ export class Analysis {
     @action
     analysis() {
         this.loading = true;
-        return util.http.get('/adminer/dashboard/updateAnalysis').then(res => {
-            this.info = res.data;
+        dashboard.updateAnalysis().then(res => {
             this.loading = false;
+            this.info = res;
         });
     }
 }

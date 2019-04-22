@@ -3,7 +3,6 @@ import {
     AddonMetadataKey, AddonAst, TemplateMetadataKey, TemplateAst
 } from 'ims-core';
 import { createAdmin } from './util';
-const sources = new Set();
 import { BehaviorSubject } from 'rxjs';
 import { join } from 'path';
 export { createAdmin };
@@ -34,18 +33,6 @@ export class ImsWebpackAdmin extends ImsWebpack {
     }
 
     onInit() {
-        this.addons.map((src: string) => {
-            const addon = require(src).default;
-            const context = visitor.visitType(addon)
-            const addonAst = context.getClass(AddonMetadataKey) as AddonAst;
-            if (addonAst.ast.sourceRoot) {
-                const template = addonAst.template;
-                if (template) {
-                    const tmpAst = template.getClass(TemplateMetadataKey) as TemplateAst;
-                    if (tmpAst.sourceRoot) sources.add(tmpAst.sourceRoot);
-                }
-            }
-        });
         if (this.dev) {
             this.config.devtool('source-map');
             this.config.mode('development')

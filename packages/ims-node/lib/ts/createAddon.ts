@@ -24,7 +24,7 @@ function createPath(root: string, file: string, output: string, basePath: string
     const stat = fs.statSync(p)
     if (stat.isFile()) {
         if (p.endsWith('.ts')) {
-            createController(p, o, basePath);
+            // createController(p, o, basePath);
         }
     } else if (stat.isDirectory()) {
         const files = fs.readdirSync(p);

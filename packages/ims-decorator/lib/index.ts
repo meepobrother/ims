@@ -5,11 +5,6 @@ export interface Type<T> extends Function {
 export function isType<T>(val: any): val is Type<T> {
     return typeof val === 'function'
 }
-export function inject(type: any) {
-    if (typeof type['create'] === 'function') return type.create();
-    if (isType(type)) return new type();
-    return type;
-}
 export const getDesignType = (target: any, propertyKey: PropertyKey) => Reflect.getMetadata('design:type', target, propertyKey as any);
 export const getDesignParamTypes = (target: any, propertyKey: PropertyKey) => Reflect.getMetadata('design:paramtypes', target, propertyKey as any);
 export const getDesignReturnType = (target: any, propertyKey: PropertyKey) => Reflect.getMetadata('design:returntype', target, propertyKey as any);
@@ -45,8 +40,6 @@ export class ClassAst<T = any> extends Ast<T> {
     }
 }
 export class ClassContext<T> {
-    imports: ClassContext<any>[] = [];
-    providers: Provider[] = [];
     ast: ClassAst<T & { sourceRoot?: string, imports?: any[], providers?: Provider[] }>;
     get parent(): TypeContext {
         return this.context.typeContext.parent
@@ -64,50 +57,10 @@ export class ClassContext<T> {
     }
     constructor(ast: ClassAst, public context: ParserAstContext) {
         this.ast = ast;
-        const def = this.ast.metadataDef || {} as any;
-        def.imports && def.imports.map(im => {
-            const ctx = context.visitType(im);
-            return ctx.classes.map(cls => this.imports.push(cls));
-        });
-        def.imports && def.providers.map(pro => {
-            this.providers.push(pro);
-        });
     }
     forEachObjectToTypeContent<T extends TypeContext = TypeContext>(obj: any[] | object, defs: any[] = []): T[] {
         if (obj) return Object.keys(obj).map(key => this.context.visitType<T>(obj[key]));
         return defs;
-    }
-    inject<T>(key: any): T {
-        const provider = this.providers.find(pro => {
-            if (isClassProvider(pro)) {
-                return pro.provide === key;
-            }
-            else if (isFactoryProvider(pro)) {
-                return pro.provide === key;
-            }
-            else if (isValueProvider(pro)) {
-                return pro.provide === key;
-            }
-            else {
-                return pro === key;
-            }
-        });
-        if (provider) {
-            if (isClassProvider(provider)) {
-                return this.inject(provider.useClass)
-            }
-            else if (isFactoryProvider(provider)) {
-                const deps = provider.deps.map(dep => this.inject(dep))
-                return provider.useFactory(...deps) as T;
-            }
-            else if (isValueProvider(provider)) {
-                return provider.useValue as T;
-            }
-            for (let im of this.imports) {
-                let item = im.inject(key);
-                if (item) return item as T;
-            }
-        }
     }
 }
 export function isClassAst<T>(val: Ast): val is ClassAst<T> {
@@ -200,7 +153,7 @@ export class ConstructorAst<T = any> extends Ast<T> {
     }
 }
 export class ConstructorContext<T> {
-    constructor(public ast: ConstructorAst<T & { sourceRoot: string }>, context: ParserAstContext) { }
+    constructor(public ast: ConstructorAst<T & { sourceRoot?: string }>, context: ParserAstContext) { }
 }
 export function isConstructorAst<T>(val: Ast): val is ConstructorAst<T> {
     return val.type === AstTypes.constructor;
@@ -225,10 +178,11 @@ export class TypeContext {
     constructors: ConstructorContext<any>[] = [];
     target: any;
     providers: Provider[] = [];
-
     get instance() {
         const ins = this.get(this.target);
         if (ins) return ins;
+        this.instance = new this.target();
+        return this.instance;
     }
     set instance(instance: any) {
         this.set(this.target, instance)
@@ -242,12 +196,6 @@ export class TypeContext {
     }
 
     get<T = any>(key: any): T {
-        for (let cls of this.classes) {
-            if (cls) {
-                let item = cls.inject(key);
-                if (item) return item as T;
-            }
-        }
         if (this.global.has(key)) return this.global.get(key);
         if (this.parent) return this.parent.get(key)
     }
@@ -266,7 +214,6 @@ export class TypeContext {
             this.propertys = context.visitProperty();
             this.methods = context.visitMethod();
             this.constructors = context.visitController();
-            this.instance = inject(type);
         } else {
             throw new Error(`${type.name} get context error`)
         }

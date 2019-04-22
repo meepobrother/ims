@@ -14,9 +14,8 @@ import { transformHttp } from './transform/http'
 import { transformTemplate } from './transform/template'
 import { AddonMetadataKey, AddonAst } from 'ims-core';
 import { ImsModel, ImsAddonEntity } from 'ims-model';
-import { createAdmin } from 'ims-webpack-admin';
-import hapiAuthJwt from 'hapi-auth-jwt';
-
+import { createAdmin, ImsWebpackAdmin } from 'ims-webpack-admin';
+import WebpackPlugin from 'hapi-webpack-plugin';
 export interface ImsPlatformHapiOptions {
     // 默认端口
     port?: number;
@@ -38,6 +37,8 @@ import { Subject } from 'rxjs';
 import { debounceTime, skip } from 'rxjs/operators';
 import { transformRole } from "./transform/role";
 import { getKey, jwtMiddle } from "ims-node";
+import webpack = require('webpack')
+import { formatWebpackMessages } from "ims-webpack";
 export class ImsPlatformHapi {
     server: Server;
     ws: WebSocket.Server;
@@ -45,6 +46,7 @@ export class ImsPlatformHapi {
     connectionManager: ConnectionManager;
     installed: boolean = false;
     config: IConfig;
+    webpack: ImsWebpackAdmin;
     constructor(public options: ImsPlatformHapiOptions = {
         port: 4201,
         host: '0.0.0.0',
@@ -70,6 +72,7 @@ export class ImsPlatformHapi {
         this.connectionManager = getConnectionManager();
         // 静态服务器
         await this.server.register(inert);
+
         if (fs.existsSync(configPath)) {
             this.config = require(join(root, 'config/config.json'));
             setConfig(this.config)
@@ -152,7 +155,21 @@ export class ImsPlatformHapi {
             this.registerSocket();
             this.watch(context);
         });
+        // 模板
         createAdmin(this.options.addons);
+        this.webpack = new ImsWebpackAdmin(this.options.addons);
+        const cfg = this.webpack.toConfig()
+        const compiler = webpack(cfg)
+        await this.server.register({
+            plugin: WebpackPlugin,
+            options: {
+                compiler,
+                assets: {
+                    publicPath: cfg.output.publicPath
+                },
+                hot: {}
+            }
+        })
     }
     buildMobile(context: TypeContext) {
         buildAppPages(context).then(res => {

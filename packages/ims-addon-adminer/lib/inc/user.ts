@@ -32,7 +32,7 @@ export class ImsCoreAdminerUser {
     }
 
     @Post()
-    async login(msg: LoginOptions, @Req() req: Req, @Res() res: Res): HttpResult<LoginOutput> {
+    async login(msg: LoginOptions, @Req() req?: Req, @Res() res?: Res): HttpResult<LoginOutput> {
         const { username, password } = msg;
         try {
             const user = await this.user.findOne({
