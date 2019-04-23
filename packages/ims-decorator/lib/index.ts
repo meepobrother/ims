@@ -205,6 +205,7 @@ export class TypeContext {
             this.propertys = context.visitProperty();
             this.methods = context.visitMethod();
             this.constructors = context.visitController();
+            this.instance = new type();
         } else {
             throw new Error(`${type.name} get context error`)
         }
@@ -255,7 +256,7 @@ export class NullAstVisitor implements AstVisitor {
         if (context) {
             return new TypeContext(type, this);
         } else {
-            throw new Error(`visitType:${type.name} get context error`)
+            // throw new Error(`visitType:${type.name} get context error`)
         }
     }
     visitClass(ast: ClassAst, context?: ParserAstContext): any { }

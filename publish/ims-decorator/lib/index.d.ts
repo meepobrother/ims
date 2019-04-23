@@ -1,9 +1,7 @@
-import "reflect-metadata";
 export interface Type<T> extends Function {
     new (...args: any[]): T;
 }
 export declare function isType<T>(val: any): val is Type<T>;
-export declare function inject(type: any): any;
 export declare const getDesignType: (target: any, propertyKey: string | number | symbol) => any;
 export declare const getDesignParamTypes: (target: any, propertyKey: string | number | symbol) => any;
 export declare const getDesignReturnType: (target: any, propertyKey: string | number | symbol) => any;
@@ -29,20 +27,13 @@ export declare class ClassAst<T = any> extends Ast<T> {
 }
 export declare class ClassContext<T> {
     context: ParserAstContext;
-    imports: ClassContext<any>[];
-    providers: Provider[];
-    ast: ClassAst<T & {
-        sourceRoot?: string;
-        imports?: any[];
-        providers?: Provider[];
-    }>;
+    ast: ClassAst<T>;
     readonly parent: TypeContext;
     readonly sourceRoot: string;
     readonly target: any;
-    getParent(metadataKey: string): ClassContext<any> | boolean;
+    getParent(metadataKey: string): ClassContext<any>;
     constructor(ast: ClassAst, context: ParserAstContext);
     forEachObjectToTypeContent<T extends TypeContext = TypeContext>(obj: any[] | object, defs?: any[]): T[];
-    inject<T>(key: any): T;
 }
 export declare function isClassAst<T>(val: Ast): val is ClassAst<T>;
 export declare class PropertyAst<T = any> extends Ast<T> {
@@ -52,13 +43,9 @@ export declare class PropertyAst<T = any> extends Ast<T> {
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class PropertyContext<T> {
-    ast: PropertyAst<T & {
-        sourceRoot?: string;
-    }>;
+    ast: PropertyAst<T>;
     context: ParserAstContext;
-    constructor(ast: PropertyAst<T & {
-        sourceRoot?: string;
-    }>, context: ParserAstContext);
+    constructor(ast: PropertyAst<T>, context: ParserAstContext);
 }
 export declare function isPropertyAst<T>(val: Ast): val is PropertyAst<T>;
 export declare class MethodAst<T = any> extends Ast<T> {
@@ -72,14 +59,10 @@ export declare class MethodAst<T = any> extends Ast<T> {
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class MethodContext<T> {
-    ast: MethodAst<T & {
-        sourceRoot?: string;
-    }>;
+    ast: MethodAst<T>;
     context: ParserAstContext;
     parameters: ParameterContext<any>[];
-    constructor(ast: MethodAst<T & {
-        sourceRoot?: string;
-    }>, context: ParserAstContext);
+    constructor(ast: MethodAst<T>, context: ParserAstContext);
 }
 export declare function isMethodAst<T>(val: Ast): val is MethodAst<T>;
 export declare class ParameterAst<T = any> extends Ast<T> {
@@ -90,13 +73,9 @@ export declare class ParameterAst<T = any> extends Ast<T> {
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class ParameterContext<T> {
-    ast: ParameterAst<T & {
-        sourceRoot?: string;
-    }>;
+    ast: ParameterAst<T>;
     context: ParserAstContext;
-    constructor(ast: ParameterAst<T & {
-        sourceRoot?: string;
-    }>, context: ParserAstContext);
+    constructor(ast: ParameterAst<T>, context: ParserAstContext);
 }
 export declare function isParameterAst<T>(val: Ast): val is ParameterAst<T>;
 export declare class ConstructorAst<T = any> extends Ast<T> {
@@ -106,12 +85,9 @@ export declare class ConstructorAst<T = any> extends Ast<T> {
     visit(visitor: AstVisitor, context?: any): any;
 }
 export declare class ConstructorContext<T> {
-    ast: ConstructorAst<T & {
-        sourceRoot: string;
-    }>;
-    constructor(ast: ConstructorAst<T & {
-        sourceRoot: string;
-    }>, context: ParserAstContext);
+    ast: ConstructorAst<T>;
+    context: ParserAstContext;
+    constructor(ast: ConstructorAst<T>, context: ParserAstContext);
 }
 export declare function isConstructorAst<T>(val: Ast): val is ConstructorAst<T>;
 export interface AstVisitor {
@@ -132,8 +108,9 @@ export declare class TypeContext {
     propertys: PropertyContext<any>[];
     methods: MethodContext<any>[];
     constructors: ConstructorContext<any>[];
+    /** 目标 */
     target: any;
-    providers: Provider[];
+    /** 实例 */
     instance: any;
     global: Map<string, any>;
     setParent(parent: TypeContext): void;

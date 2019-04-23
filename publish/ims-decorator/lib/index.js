@@ -1,18 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-require("reflect-metadata");
 function isType(val) {
     return typeof val === 'function';
 }
 exports.isType = isType;
-function inject(type) {
-    if (typeof type['create'] === 'function')
-        return type.create();
-    if (isType(type))
-        return new type();
-    return type;
-}
-exports.inject = inject;
 exports.getDesignType = (target, propertyKey) => Reflect.getMetadata('design:type', target, propertyKey);
 exports.getDesignParamTypes = (target, propertyKey) => Reflect.getMetadata('design:paramtypes', target, propertyKey);
 exports.getDesignReturnType = (target, propertyKey) => Reflect.getMetadata('design:returntype', target, propertyKey);
@@ -46,17 +37,7 @@ exports.ClassAst = ClassAst;
 class ClassContext {
     constructor(ast, context) {
         this.context = context;
-        this.imports = [];
-        this.providers = [];
         this.ast = ast;
-        const def = this.ast.metadataDef || {};
-        def.imports && def.imports.map(im => {
-            const ctx = context.visitType(im);
-            return ctx.classes.map(cls => this.imports.push(cls));
-        });
-        def.imports && def.providers.map(pro => {
-            this.providers.push(pro);
-        });
     }
     get parent() {
         return this.context.typeContext.parent;
@@ -76,39 +57,6 @@ class ClassContext {
         if (obj)
             return Object.keys(obj).map(key => this.context.visitType(obj[key]));
         return defs;
-    }
-    inject(key) {
-        const provider = this.providers.find(pro => {
-            if (isClassProvider(pro)) {
-                return pro.provide === key;
-            }
-            else if (isFactoryProvider(pro)) {
-                return pro.provide === key;
-            }
-            else if (isValueProvider(pro)) {
-                return pro.provide === key;
-            }
-            else {
-                return pro === key;
-            }
-        });
-        if (provider) {
-            if (isClassProvider(provider)) {
-                return this.inject(provider.useClass);
-            }
-            else if (isFactoryProvider(provider)) {
-                const deps = provider.deps.map(dep => this.inject(dep));
-                return provider.useFactory(...deps);
-            }
-            else if (isValueProvider(provider)) {
-                return provider.useValue;
-            }
-            for (let im of this.imports) {
-                let item = im.inject(key);
-                if (item)
-                    return item;
-            }
-        }
     }
 }
 exports.ClassContext = ClassContext;
@@ -204,6 +152,7 @@ exports.ConstructorAst = ConstructorAst;
 class ConstructorContext {
     constructor(ast, context) {
         this.ast = ast;
+        this.context = context;
     }
 }
 exports.ConstructorContext = ConstructorContext;
@@ -220,7 +169,6 @@ class TypeContext {
         this.propertys = [];
         this.methods = [];
         this.constructors = [];
-        this.providers = [];
         this.global = new Map();
         const context = getContext(type);
         if (context) {
@@ -231,32 +179,17 @@ class TypeContext {
             this.propertys = context.visitProperty();
             this.methods = context.visitMethod();
             this.constructors = context.visitController();
-            this.instance = inject(type);
+            this.instance = new type();
         }
         else {
             throw new Error(`${type.name} get context error`);
         }
-    }
-    get instance() {
-        const ins = this.get(this.target);
-        if (ins)
-            return ins;
-    }
-    set instance(instance) {
-        this.set(this.target, instance);
     }
     setParent(parent) {
         this.parent = parent;
         parent.children.push(this);
     }
     get(key) {
-        for (let cls of this.classes) {
-            if (cls) {
-                let item = cls.inject(key);
-                if (item)
-                    return item;
-            }
-        }
         if (this.global.has(key))
             return this.global.get(key);
         if (this.parent)
@@ -276,7 +209,7 @@ class TypeContext {
             return this.parent && this.parent.getClass(metadataKey);
         }
         catch (e) {
-            console.log(`pless ims-common to handler :${metadataKey}`);
+            // console.log(`pless ims-common to handler :${metadataKey}`);
         }
     }
     getProperty(metadataKey) {
@@ -309,7 +242,7 @@ class NullAstVisitor {
             return new TypeContext(type, this);
         }
         else {
-            throw new Error(`visitType:${type.name} get context error`);
+            // throw new Error(`visitType:${type.name} get context error`)
         }
     }
     visitClass(ast, context) { }
@@ -363,7 +296,9 @@ exports.Visitors = Visitors;
 /** 获取ParserAstContext */
 exports.imsContext = Symbol.for('imsContext');
 function getContext(target) {
-    return Reflect.get(target, exports.imsContext);
+    if (target) {
+        return Reflect.get(target, exports.imsContext);
+    }
 }
 exports.getContext = getContext;
 class ParserAstContext {
