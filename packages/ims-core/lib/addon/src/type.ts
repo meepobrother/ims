@@ -144,10 +144,6 @@ export interface TypeormOptions {
      * 事件
      */
     subscribers?: any[] | object;
-    /**
-     * 数据库前缀
-     */
-    prev?: string;
 }
 
 export interface VersionOptions { }

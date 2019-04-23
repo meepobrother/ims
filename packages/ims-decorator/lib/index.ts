@@ -1,4 +1,3 @@
-import "reflect-metadata";
 export interface Type<T> extends Function {
     new(...args: any[]): T;
 }
@@ -40,7 +39,7 @@ export class ClassAst<T = any> extends Ast<T> {
     }
 }
 export class ClassContext<T> {
-    ast: ClassAst<T & { sourceRoot?: string, imports?: any[], providers?: Provider[] }>;
+    ast: ClassAst<T>;
     get parent(): TypeContext {
         return this.context.typeContext.parent
     }
@@ -50,7 +49,7 @@ export class ClassContext<T> {
     get target() {
         return this.ast.target;
     }
-    getParent(metadataKey: string): ClassContext<any> | boolean {
+    getParent(metadataKey: string): ClassContext<any> {
         if (this.parent) {
             return this.parent.getClass(metadataKey)
         }
@@ -82,7 +81,7 @@ export class PropertyAst<T = any> extends Ast<T> {
     }
 }
 export class PropertyContext<T>{
-    constructor(public ast: PropertyAst<T & { sourceRoot?: string }>, public context: ParserAstContext) { }
+    constructor(public ast: PropertyAst<T>, public context: ParserAstContext) { }
 }
 export function isPropertyAst<T>(val: Ast): val is PropertyAst<T> {
     return val.type === AstTypes.property;
@@ -108,7 +107,7 @@ export class MethodAst<T = any> extends Ast<T> {
 }
 export class MethodContext<T> {
     parameters: ParameterContext<any>[] = [];
-    constructor(public ast: MethodAst<T & { sourceRoot?: string }>, public context: ParserAstContext) {
+    constructor(public ast: MethodAst<T>, public context: ParserAstContext) {
         if (ast.parameters) this.parameters = ast.parameters.map(par => context.visit(par))
     }
 }
@@ -132,7 +131,7 @@ export class ParameterAst<T = any> extends Ast<T> {
     }
 }
 export class ParameterContext<T> {
-    constructor(public ast: ParameterAst<T & { sourceRoot?: string }>, public context: ParserAstContext) { }
+    constructor(public ast: ParameterAst<T>, public context: ParserAstContext) { }
 }
 export function isParameterAst<T>(val: Ast): val is ParameterAst<T> {
     return val.type === AstTypes.parameter;
@@ -153,7 +152,7 @@ export class ConstructorAst<T = any> extends Ast<T> {
     }
 }
 export class ConstructorContext<T> {
-    constructor(public ast: ConstructorAst<T & { sourceRoot?: string }>, context: ParserAstContext) { }
+    constructor(public ast: ConstructorAst<T>, public context: ParserAstContext) { }
 }
 export function isConstructorAst<T>(val: Ast): val is ConstructorAst<T> {
     return val.type === AstTypes.constructor;
@@ -170,24 +169,16 @@ export interface AstVisitor {
 
 export class TypeContext {
     parent: TypeContext;
-
     children: TypeContext[] = [];
+
     classes: ClassContext<any>[] = [];
     propertys: PropertyContext<any>[] = [];
     methods: MethodContext<any>[] = [];
     constructors: ConstructorContext<any>[] = [];
+    /** 目标 */
     target: any;
-    providers: Provider[] = [];
-    get instance() {
-        const ins = this.get(this.target);
-        if (ins) return ins;
-        this.instance = new this.target();
-        return this.instance;
-    }
-    set instance(instance: any) {
-        this.set(this.target, instance)
-    }
-
+    /** 实例 */
+    instance: any;
     global: Map<string, any> = new Map();
 
     setParent(parent: TypeContext) {
@@ -229,7 +220,7 @@ export class TypeContext {
             if (item) return item;
             return this.parent && this.parent.getClass<T>(metadataKey)
         } catch (e) {
-            console.log(`pless ims-common to handler :${metadataKey}`);
+            // console.log(`pless ims-common to handler :${metadataKey}`);
         }
     }
 
