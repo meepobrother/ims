@@ -124,7 +124,7 @@
     "current-processes": "^0.2.1",
     "dts-css-modules-loader": "^1.0.1",
     "dva": "^2.4.1",
-    "electron": "^4.0.8",
+    "electron": "^9.1.0",
     "eslint": "^4.19.1",
     "eslint-config-taro": "1.2.21",
     "eslint-plugin-import": "^2.12.0",
